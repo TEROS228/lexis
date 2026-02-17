@@ -1,4 +1,4 @@
-const GRADIENTS = [
+const GRADIENTS: [string, string][] = [
     ['#667eea', '#764ba2'],
     ['#f093fb', '#f5576c'],
     ['#4facfe', '#00f2fe'],

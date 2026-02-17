@@ -15,7 +15,7 @@ import { initUserProfile, saveUserRoleAndLanguage } from './db';
 import { setAvatar } from './utils/avatar';
 
 // Current user
-let currentUser = null;
+let currentUser: any = null;
 
 // Internationalization
 function updateContent(lang) {
@@ -572,10 +572,10 @@ onAuthStateChanged(auth, async (user) => {
     if (user) {
         // User is signed in - cache and update UI
         cacheAuthState(user);
-        showAuthModalBtn.style.display = 'none';
-        userProfile.style.display = 'flex';
-        setAvatar(userAvatar as HTMLImageElement, user.photoURL, user.displayName || user.email, 36);
-        userName.textContent = user.displayName || user.email;
+        if (showAuthModalBtn) showAuthModalBtn.style.display = 'none';
+        if (userProfile) userProfile.style.display = 'flex';
+        setAvatar(userAvatar as HTMLImageElement, user.photoURL, user.displayName || user.email || '', 36);
+        if (userName) userName.textContent = user.displayName || user.email;
 
         // Check if teacher and show dashboard link
         try {
@@ -594,8 +594,8 @@ onAuthStateChanged(auth, async (user) => {
     } else {
         // User is signed out - clear cache and show sign-in
         cacheAuthState(null);
-        showAuthModalBtn.style.display = 'block';
-        userProfile.style.display = 'none';
+        if (showAuthModalBtn) showAuthModalBtn.style.display = 'block';
+        if (userProfile) userProfile.style.display = 'none';
     }
 });
 
@@ -606,7 +606,7 @@ startBtns.forEach(btn => {
         if (!currentUser) {
             e.preventDefault();
             alert('Пожалуйста, войдите в систему для начала обучения');
-            authModal.style.display = 'flex';
+            if (authModal) authModal.style.display = 'flex';
         }
     });
 });
