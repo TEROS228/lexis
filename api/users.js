@@ -30,6 +30,7 @@ export default async function handler(req, res) {
     );
     res.json({ isNewUser: true, user: result.rows[0] });
   } catch (error) {
-    res.status(500).json({ error: error.message });
+    console.error('DB Error:', error);
+    res.status(500).json({ error: error.message, stack: error.stack });
   }
 }
