@@ -1,0 +1,26 @@
+{
+  "buildCommand": "npm run build",
+  "outputDirectory": "dist",
+  "framework": "vite",
+  "functions": {
+    "api/**/*.js": {
+      "runtime": "nodejs20.x"
+    }
+  },
+  "rewrites": [
+    { "source": "/api/users", "destination": "/api/users" },
+    { "source": "/api/users/:uid", "destination": "/api/users/[uid]" },
+    { "source": "/api/progress/:p1/:p2", "destination": "/api/progress/[...params]" },
+    { "source": "/api/progress/:p1/:p2/:p3", "destination": "/api/progress/[...params]" },
+    { "source": "/api/classes", "destination": "/api/classes/[...params]" },
+    { "source": "/api/classes/:p1", "destination": "/api/classes/[...params]" },
+    { "source": "/api/classes/:p1/:p2", "destination": "/api/classes/[...params]" },
+    { "source": "/api/classes/:p1/:p2/:p3", "destination": "/api/classes/[...params]" },
+    { "source": "/api/sessions", "destination": "/api/sessions/[...params]" },
+    { "source": "/api/sessions/:p1", "destination": "/api/sessions/[...params]" },
+    { "source": "/api/sessions/:p1/:p2", "destination": "/api/sessions/[...params]" },
+    { "source": "/api/assignments", "destination": "/api/assignments/[...params]" },
+    { "source": "/api/assignments/:p1", "destination": "/api/assignments/[...params]" },
+    { "source": "/api/assignments/:p1/:p2", "destination": "/api/assignments/[...params]" }
+  ]
+}
