@@ -1,0 +1,175 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Lexis - Изучение слов</title>
+    <link rel="preconnect" href="https://www.gstatic.com">
+    <link rel="dns-prefetch" href="https://www.gstatic.com">
+    <link rel="stylesheet" href="styles.css?v=13">
+    <link rel="stylesheet" href="learn.css">
+    <style>
+        body { min-height: 100vh; visibility: visible !important; }
+    </style>
+    <script type="importmap">
+    {
+      "imports": {
+        "firebase/app": "https://www.gstatic.com/firebasejs/10.7.1/firebase-app.js",
+        "firebase/auth": "https://www.gstatic.com/firebasejs/10.7.1/firebase-auth.js",
+        "firebase/firestore": "https://www.gstatic.com/firebasejs/10.7.1/firebase-firestore.js"
+      }
+    }
+    </script>
+</head>
+<body style="visibility: visible !important;">
+    <header>
+        <nav class="container">
+            <a href="index.html" class="logo" onclick="window.location.href='index.html?t='+Date.now(); return false;">
+                <img src="public/logo.png" alt="Lexis" class="logo-img">
+            </a>
+            <div class="nav-links">
+                <a href="tiers.html" data-i18n="learn.backToTiers">← Назад к выбору уровня</a>
+                <div class="language-selector">
+                    <button class="language-btn" id="languageBtn">
+                        <span class="flag">🇷🇺</span>
+                        <span class="lang-text">RU</span>
+                        <span class="arrow">▼</span>
+                    </button>
+                    <div class="language-dropdown" id="languageDropdown">
+                        <div class="language-option" data-lang="ru">
+                            <span class="flag">🇷🇺</span>
+                            <span>Русский</span>
+                        </div>
+                        <div class="language-option" data-lang="en">
+                            <span class="flag">🇬🇧</span>
+                            <span>English</span>
+                        </div>
+                        <div class="language-option" data-lang="zh">
+                            <span class="flag">🇨🇳</span>
+                            <span>中文</span>
+                        </div>
+                    </div>
+                </div>
+                <div id="userSection" class="user-section">
+                    <div id="userProfile" class="user-profile" style="display: none;">
+                        <div class="user-info-trigger" id="userInfoTrigger">
+                            <img id="userAvatar" class="user-avatar" src="" alt="User">
+                            <span id="userName" class="user-name"></span>
+                            <span class="dropdown-arrow">▼</span>
+                        </div>
+                        <div class="user-dropdown" id="userDropdown">
+                            <a href="profile.html" class="dropdown-item">
+                                <svg width="18" height="18" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                    <path d="M12 12C14.7614 12 17 9.76142 17 7C17 4.23858 14.7614 2 12 2C9.23858 2 7 4.23858 7 7C7 9.76142 9.23858 12 12 12Z" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                                    <path d="M20.5899 22C20.5899 18.13 16.7399 15 11.9999 15C7.25991 15 3.40991 18.13 3.40991 22" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                                </svg>
+                                <span data-i18n="dropdown.profile">Профиль</span>
+                            </a>
+                            <div class="dropdown-divider"></div>
+                            <button id="signOutBtn" class="dropdown-item dropdown-signout">
+                                <svg width="18" height="18" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                    <path d="M9 21H5C4.46957 21 3.96086 20.7893 3.58579 20.4142C3.21071 20.0391 3 19.5304 3 19V5C3 4.46957 3.21071 3.96086 3.58579 3.58579C3.96086 3.21071 4.46957 3 5 3H9" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                                    <path d="M16 17L21 12L16 7" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                                    <path d="M21 12H9" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                                </svg>
+                                <span data-i18n="auth.signOut">Выйти</span>
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </nav>
+    </header>
+
+    <div class="learn-container">
+        <div class="progress-bar">
+            <div class="progress-fill" id="progressFill"></div>
+        </div>
+
+        <div class="stats-row">
+            <div class="stat-box">
+                <div class="stat-number" id="currentWordNum">1</div>
+                <div class="stat-label"><span data-i18n="learn.of">из</span> <span id="totalWords">311</span></div>
+            </div>
+            <div class="stat-box timer-box">
+                <div class="stat-number timer" id="timerDisplay">00:00</div>
+                <div class="stat-label" data-i18n="learn.studyTime">Время</div>
+            </div>
+            <div class="stat-box">
+                <div class="stat-number known" id="knownCount">0</div>
+                <div class="stat-label" data-i18n="learn.know">Знаю</div>
+            </div>
+            <div class="stat-box">
+                <div class="stat-number unsure" id="unsureCount">0</div>
+                <div class="stat-label" data-i18n="learn.unsure">Не уверен</div>
+            </div>
+            <div class="stat-box">
+                <div class="stat-number unknown" id="unknownCount">0</div>
+                <div class="stat-label" data-i18n="learn.unknown">Не знаю</div>
+            </div>
+        </div>
+
+        <div class="word-container">
+            <div class="word-card-large">
+                <div class="word-header">
+                    <h1 class="word-main" id="wordMain">Loading...</h1>
+                    <button class="btn-eye" id="showMeaning" title="Показать перевод" data-i18n-title="learn.showMeaning">
+                        👁️
+                    </button>
+                </div>
+                <div class="word-meaning" id="wordMeaning" style="display: none;">
+                    <p id="meaningText"></p>
+                </div>
+
+                <div class="word-actions">
+                    <button class="btn-action btn-know" id="btnKnow">
+                        <span class="icon">✓</span>
+                        <span class="text" data-i18n="learn.btnKnow">Знаю</span>
+                    </button>
+                    <button class="btn-action btn-unsure" id="btnUnsure">
+                        <span class="icon">?</span>
+                        <span class="text" data-i18n="learn.btnUnsure">Не уверен</span>
+                    </button>
+                    <button class="btn-action btn-unknown" id="btnUnknown">
+                        <span class="icon">✗</span>
+                        <span class="text" data-i18n="learn.btnUnknown">Не знаю</span>
+                    </button>
+                </div>
+            </div>
+        </div>
+
+        <div class="control-buttons">
+            <button class="btn-secondary" id="btnPrev" disabled data-i18n="learn.btnPrev">← Назад</button>
+            <button class="btn-secondary" id="btnSaveExit" data-i18n="learn.btnSaveExit">Сохранить и выйти</button>
+            <button class="btn-secondary" id="btnNext" disabled data-i18n="learn.btnNext">Вперед →</button>
+        </div>
+
+        <div class="completion-screen" id="completionScreen" style="display: none;">
+            <div class="completion-card">
+                <h2 data-i18n="learn.completionTitle">🎉 Отличная работа!</h2>
+                <p data-i18n="learn.completionDesc">Вы прошли все слова Tier 2</p>
+                <div class="completion-stats">
+                    <div class="completion-stat">
+                        <div class="completion-number known" id="finalKnown">0</div>
+                        <div class="completion-label" data-i18n="learn.finalKnow">Знаю</div>
+                    </div>
+                    <div class="completion-stat">
+                        <div class="completion-number unsure" id="finalUnsure">0</div>
+                        <div class="completion-label" data-i18n="learn.finalUnsure">Не уверен</div>
+                    </div>
+                    <div class="completion-stat">
+                        <div class="completion-number unknown" id="finalUnknown">0</div>
+                        <div class="completion-label" data-i18n="learn.finalUnknown">Не знаю</div>
+                    </div>
+                </div>
+                <div class="completion-actions">
+                    <button class="btn-primary" id="btnViewUnknown" data-i18n="learn.viewUnknown">Посмотреть незнакомые слова</button>
+                    <a href="index.html" class="btn-secondary" data-i18n="learn.backToHome">Вернуться на главную</a>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script type="module" src="/src/pages/learn.ts"></script>
+</body>
+</html>

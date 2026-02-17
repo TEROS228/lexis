@@ -1,0 +1,36 @@
+{
+  "name": "lexis",
+  "version": "1.0.0",
+  "description": "Lexis - English vocabulary learning platform",
+  "type": "module",
+  "main": "index.html",
+  "scripts": {
+    "dev": "vite",
+    "build": "tsc && vite build",
+    "preview": "vite preview",
+    "server": "node server.js",
+    "dev:full": "npm run server & npm run dev"
+  },
+  "keywords": [
+    "english",
+    "vocabulary",
+    "learning"
+  ],
+  "author": "",
+  "license": "MIT",
+  "dependencies": {
+    "cors": "^2.8.6",
+    "dotenv": "^17.2.4",
+    "express": "^5.2.1",
+    "firebase": "^12.9.0",
+    "pg": "^8.18.0"
+  },
+  "devDependencies": {
+    "@types/express": "^5.0.6",
+    "@types/node": "^25.2.3",
+    "@types/pg": "^8.16.0",
+    "ts-node": "^10.9.2",
+    "typescript": "^5.9.3",
+    "vite": "^7.3.1"
+  }
+}

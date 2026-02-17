@@ -1,0 +1,343 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Lexis - Изучай английские слова эффективно</title>
+    <link rel="preconnect" href="https://www.gstatic.com">
+    <link rel="dns-prefetch" href="https://www.gstatic.com">
+    <style>
+        /* Critical CSS - загружается мгновенно */
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', sans-serif;
+            min-height: 100vh;
+            background: #ffffff;
+            color: #1f2937;
+            line-height: 1.6;
+        }
+        .container { max-width: 1200px; margin: 0 auto; padding: 0 20px; }
+        header { background: white; padding: 1rem 0; box-shadow: 0 1px 3px rgba(0,0,0,0.1); }
+        nav { display: flex; justify-content: space-between; align-items: center; }
+    </style>
+    <link rel="stylesheet" href="styles.css?v=16">
+    <script type="importmap">
+    {
+      "imports": {
+        "firebase/app": "https://www.gstatic.com/firebasejs/10.7.1/firebase-app.js",
+        "firebase/auth": "https://www.gstatic.com/firebasejs/10.7.1/firebase-auth.js",
+        "firebase/firestore": "https://www.gstatic.com/firebasejs/10.7.1/firebase-firestore.js"
+      }
+    }
+    </script>
+</head>
+<body style="visibility: visible !important; opacity: 1 !important; background: white !important;">
+    <header>
+        <nav class="container">
+            <a href="/" class="logo" onclick="window.location.href = '/'; return false;">
+                <img src="public/logo.png" alt="Lexis" class="logo-img">
+            </a>
+            <div class="nav-links">
+                <a href="#features" data-i18n="nav.features">Возможности</a>
+                <a href="#how-it-works" data-i18n="nav.howItWorks">Как это работает</a>
+                <div class="language-selector">
+                    <button class="language-btn" id="languageBtn">
+                        <span class="flag">🇷🇺</span>
+                        <span class="lang-text">RU</span>
+                        <span class="arrow">▼</span>
+                    </button>
+                    <div class="language-dropdown" id="languageDropdown">
+                        <div class="language-option" data-lang="ru">
+                            <span class="flag">🇷🇺</span>
+                            <span>Русский</span>
+                        </div>
+                        <div class="language-option" data-lang="en">
+                            <span class="flag">🇬🇧</span>
+                            <span>English</span>
+                        </div>
+                        <div class="language-option" data-lang="zh">
+                            <span class="flag">🇨🇳</span>
+                            <span>中文</span>
+                        </div>
+                    </div>
+                </div>
+                <div id="userSection" class="user-section">
+                    <button id="showAuthModalBtn" class="btn-primary">
+                        <span data-i18n="auth.signIn">Войти</span>
+                    </button>
+                    <div id="userProfile" class="user-profile" style="display: none;">
+                        <div class="user-info-trigger" id="userInfoTrigger">
+                            <img id="userAvatar" class="user-avatar" src="" alt="User">
+                            <span id="userName" class="user-name"></span>
+                            <span class="dropdown-arrow">▼</span>
+                        </div>
+                        <div class="user-dropdown" id="userDropdown">
+                            <a href="teacher-dashboard.html" class="dropdown-item" id="dashboardLink" style="display: none;">
+                                <svg width="18" height="18" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                    <path d="M3 9L12 2L21 9V20C21 20.5304 20.7893 21.0391 20.4142 21.4142C20.0391 21.7893 19.5304 22 19 22H5C4.46957 22 3.96086 21.7893 3.58579 21.4142C3.21071 21.0391 3 20.5304 3 20V9Z" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                                    <path d="M9 22V12H15V22" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                                </svg>
+                                <span data-i18n="dropdown.dashboard">Dashboard</span>
+                            </a>
+                            <a href="profile.html" class="dropdown-item">
+                                <svg width="18" height="18" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                    <path d="M12 12C14.7614 12 17 9.76142 17 7C17 4.23858 14.7614 2 12 2C9.23858 2 7 4.23858 7 7C7 9.76142 9.23858 12 12 12Z" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                                    <path d="M20.5899 22C20.5899 18.13 16.7399 15 11.9999 15C7.25991 15 3.40991 18.13 3.40991 22" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                                </svg>
+                                <span data-i18n="dropdown.profile">Профиль</span>
+                            </a>
+                            <div class="dropdown-divider"></div>
+                            <button id="signOutBtn" class="dropdown-item dropdown-signout">
+                                <svg width="18" height="18" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                    <path d="M9 21H5C4.46957 21 3.96086 20.7893 3.58579 20.4142C3.21071 20.0391 3 19.5304 3 19V5C3 4.46957 3.21071 3.96086 3.58579 3.58579C3.96086 3.21071 4.46957 3 5 3H9" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                                    <path d="M16 17L21 12L16 7" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                                    <path d="M21 12H9" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                                </svg>
+                                <span data-i18n="auth.signOut">Выйти</span>
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </nav>
+    </header>
+
+    <section class="hero">
+        <div class="container">
+            <div class="hero-content">
+                <h1 data-i18n="hero.title">Учи английские слова <span class="highlight">легко и эффективно</span></h1>
+                <p class="hero-description" data-i18n="hero.description">
+                    Lexis помогает расширить словарный запас через простую систему:
+                    видишь слово и его значение - отмечаешь, знаешь ли ты его.
+                    Фокусируйся только на том, что нужно выучить.
+                </p>
+                <a href="tiers.html" class="btn-cta" data-i18n="hero.cta" id="startLearningBtn">Начать изучение</a>
+                <div class="hero-stats">
+                    <div class="stat">
+                        <div class="stat-number">1000+</div>
+                        <div class="stat-label" data-i18n="hero.stat1">слов в базе</div>
+                    </div>
+                    <div class="stat">
+                        <div class="stat-number" data-i18n="hero.stat2Number">5 мин</div>
+                        <div class="stat-label" data-i18n="hero.stat2">в день</div>
+                    </div>
+                    <div class="stat">
+                        <div class="stat-number">100%</div>
+                        <div class="stat-label" data-i18n="hero.stat3">бесплатно</div>
+                    </div>
+                </div>
+            </div>
+            <div class="hero-illustration">
+                <div class="card-preview">
+                    <div class="word-card">
+                        <div class="word">Serendipity</div>
+                        <div class="meaning" data-i18n="card.meaning">The occurrence of events by chance in a happy way</div>
+                        <div class="actions">
+                            <button class="know" data-i18n="card.know">✓ Знаю</button>
+                            <button class="unsure" data-i18n="card.unsure">? Не уверен</button>
+                            <button class="dont-know" data-i18n="card.dontKnow">✗ Не знаю</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section id="features" class="features">
+        <div class="container">
+            <h2 data-i18n="features.title">Почему Lexis?</h2>
+            <div class="features-grid">
+                <div class="feature">
+                    <div class="feature-icon">📚</div>
+                    <h3 data-i18n="features.feature1.title">Простая система</h3>
+                    <p data-i18n="features.feature1.desc">Читаешь слово и значение, отмечаешь свой уровень знания. Никаких сложных упражнений.</p>
+                </div>
+                <div class="feature">
+                    <div class="feature-icon">🎯</div>
+                    <h3 data-i18n="features.feature2.title">Фокус на незнакомом</h3>
+                    <p data-i18n="features.feature2.desc">Система показывает только те слова, которые ты отметил как незнакомые или сомнительные.</p>
+                </div>
+                <div class="feature">
+                    <div class="feature-icon">⚡</div>
+                    <h3 data-i18n="features.feature3.title">Быстрое обучение</h3>
+                    <p data-i18n="features.feature3.desc">Занимайся 5-10 минут в день и расширяй словарный запас естественно.</p>
+                </div>
+                <div class="feature">
+                    <div class="feature-icon">📊</div>
+                    <h3 data-i18n="features.feature4.title">Отслеживай прогресс</h3>
+                    <p data-i18n="features.feature4.desc">Видь, сколько слов ты уже выучил и какие еще предстоит освоить.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section id="how-it-works" class="how-it-works">
+        <div class="container">
+            <h2 data-i18n="howItWorks.title">Как это работает</h2>
+            <div class="steps">
+                <div class="step">
+                    <div class="step-number">1</div>
+                    <div class="step-content">
+                        <h3 data-i18n="howItWorks.step1.title">Смотришь слово</h3>
+                        <p data-i18n="howItWorks.step1.desc">Тебе показывается английское слово и его значение на русском</p>
+                    </div>
+                </div>
+                <div class="step">
+                    <div class="step-number">2</div>
+                    <div class="step-content">
+                        <h3 data-i18n="howItWorks.step2.title">Оцениваешь знание</h3>
+                        <p data-i18n="howItWorks.step2.desc">Отмечаешь: "Знаю", "Не уверен" или "Не знаю"</p>
+                    </div>
+                </div>
+                <div class="step">
+                    <div class="step-number">3</div>
+                    <div class="step-content">
+                        <h3 data-i18n="howItWorks.step3.title">Повторяешь незнакомое</h3>
+                        <p data-i18n="howItWorks.step3.desc">Система показывает список слов для изучения - те, что ты отметил как незнакомые</p>
+                    </div>
+                </div>
+                <div class="step">
+                    <div class="step-number">4</div>
+                    <div class="step-content">
+                        <h3 data-i18n="howItWorks.step4.title">Учишь эффективно</h3>
+                        <p data-i18n="howItWorks.step4.desc">Фокусируешься только на том, что действительно нужно выучить</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section id="start" class="cta-section">
+        <div class="container">
+            <div class="cta-content">
+                <h2 data-i18n="cta.title">Готов расширить свой словарный запас?</h2>
+                <p data-i18n="cta.desc">Начни изучать английские слова эффективно уже сегодня</p>
+                <a href="tiers.html" class="btn-cta-large" data-i18n="cta.button" id="startLearningBtn2">Начать бесплатно</a>
+            </div>
+        </div>
+    </section>
+
+    <footer>
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-logo">
+                    <img src="public/logo.png" alt="Lexis" class="footer-logo-img">
+                </div>
+                <p data-i18n="footer.text">© 2024 Lexis. Изучай английский легко.</p>
+            </div>
+        </div>
+    </footer>
+
+    <!-- Auth Modal -->
+    <div class="modal-overlay" id="authModal" style="display: none;">
+        <div class="modal-content auth-modal-glass">
+            <button class="modal-close-glass" id="closeAuthModal">×</button>
+
+            <h2 class="auth-title" id="authModalTitle" data-i18n="auth.modal.signInTitle">Войти в аккаунт</h2>
+
+            <form id="emailAuthForm" class="auth-form-glass">
+                <div class="input-group-glass" id="displayNameGroup" style="display: none;">
+                    <input type="text" id="authDisplayName" placeholder=" " />
+                    <label data-i18n="auth.displayName">Имя (опционально)</label>
+                </div>
+
+                <div class="input-group-glass">
+                    <input type="email" id="authEmail" placeholder=" " required />
+                    <label data-i18n="auth.email">Email</label>
+                </div>
+
+                <div class="input-group-glass">
+                    <input type="password" id="authPassword" placeholder=" " required />
+                    <label data-i18n="auth.password">Пароль</label>
+                </div>
+
+                <button type="submit" class="main-btn-glass" id="emailAuthSubmit">
+                    <span data-i18n="auth.modal.signInButton">Войти</span>
+                </button>
+
+                <div class="auth-link-glass">
+                    <a href="#" id="forgotPasswordLink" data-i18n="auth.forgotPassword">Забыли пароль?</a>
+                </div>
+
+                <div class="divider-glass">
+                    <span data-i18n="auth.or">или</span>
+                </div>
+
+                <button type="button" class="google-btn-glass" id="googleSignInBtn">
+                    <img src="https://www.svgrepo.com/show/475656/google-color.svg" alt="Google">
+                    <span data-i18n="auth.signInWithGoogle">Войти через Google</span>
+                </button>
+            </form>
+
+            <div class="switch-glass">
+                <span id="authToggleText" data-i18n="auth.noAccount">Нет аккаунта?</span>
+                <span id="authToggleLink" data-i18n="auth.signUpLink">Зарегистрироваться</span>
+            </div>
+        </div>
+    </div>
+
+    <!-- Role Selection Modal -->
+    <div class="modal-overlay" id="roleModal" style="display: none;">
+        <div class="modal-content role-modal-slider">
+            <div class="role-modal-wrapper">
+                <!-- Step 1: Role Selection -->
+                <div class="role-step active" id="roleStep">
+                    <h2 class="modal-title">Welcome! Please select your role</h2>
+                    <div class="role-selection">
+                        <button class="role-card" id="selectTeacher">
+                            <div class="role-icon">👨‍🏫</div>
+                            <div class="role-name">Teacher</div>
+                            <div class="role-description">I teach English</div>
+                        </button>
+                        <button class="role-card" id="selectStudent">
+                            <div class="role-icon">👨‍🎓</div>
+                            <div class="role-name">Student</div>
+                            <div class="role-description">I'm learning English</div>
+                        </button>
+                    </div>
+                </div>
+
+                <!-- Step 2: Teacher Name Input -->
+                <div class="role-step" id="teacherNameStep">
+                    <h2 class="modal-title" data-i18n="roleModal.enterYourName">Enter your name</h2>
+                    <p class="modal-subtitle" data-i18n="roleModal.nameWillBeShown">Your name will be shown to students when they join your class</p>
+                    <div class="name-input-container">
+                        <input type="text" id="teacherNameInput" placeholder="John Smith" data-i18n-placeholder="roleModal.namePlaceholder" maxlength="50">
+                        <button class="btn-continue" id="confirmTeacherName" data-i18n="roleModal.continue">Continue</button>
+                    </div>
+                </div>
+
+                <!-- Step 3: Language Selection (for students) -->
+                <div class="role-step" id="languageStep">
+                    <h2 class="modal-title">Select your native language</h2>
+                    <div class="language-options language-options-three">
+                        <button class="language-card" data-native-lang="ru">
+                            <span class="flag-large">🇷🇺</span>
+                            <span class="lang-name">Russian</span>
+                        </button>
+                        <button class="language-card" data-native-lang="zh">
+                            <span class="flag-large">🇨🇳</span>
+                            <span class="lang-name">Chinese</span>
+                        </button>
+                        <button class="language-card" data-native-lang="en">
+                            <span class="flag-large">🇬🇧</span>
+                            <span class="lang-name">English</span>
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Success Toast -->
+    <div class="toast-notification" id="successToast">
+        <div class="toast-icon">✓</div>
+        <div class="toast-content">
+            <div class="toast-title" id="toastTitle">Account created successfully!</div>
+            <div class="toast-message" id="toastMessage">Welcome to Lexis</div>
+        </div>
+    </div>
+
+    <script type="module" src="/src/script.ts"></script>
+</body>
+</html>

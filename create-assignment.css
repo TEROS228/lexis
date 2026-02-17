@@ -1,0 +1,413 @@
+* { box-sizing: border-box; margin: 0; padding: 0; }
+
+body {
+    font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+    background: #0f0e1a;
+    color: #fff;
+    height: 100vh;
+    overflow: hidden;
+}
+
+/* Progress bar */
+.ca-progress-bar {
+    position: fixed;
+    top: 0; left: 0; right: 0;
+    height: 3px;
+    background: rgba(255,255,255,0.1);
+    z-index: 100;
+}
+.ca-progress-fill {
+    height: 100%;
+    background: linear-gradient(90deg, #6c63ff, #a78bfa);
+    transition: width 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+    width: 20%;
+}
+
+/* Back button */
+.ca-back-btn {
+    position: fixed;
+    top: 20px; left: 24px;
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    background: rgba(255,255,255,0.08);
+    border: 1px solid rgba(255,255,255,0.12);
+    color: rgba(255,255,255,0.7);
+    font-size: 14px;
+    font-weight: 500;
+    padding: 8px 14px;
+    border-radius: 20px;
+    cursor: pointer;
+    z-index: 100;
+    transition: all 0.2s;
+}
+.ca-back-btn:hover {
+    background: rgba(255,255,255,0.14);
+    color: #fff;
+}
+
+/* Steps container */
+.ca-steps {
+    width: 100%;
+    height: 100vh;
+    position: relative;
+}
+
+/* Individual step */
+.ca-step {
+    position: absolute;
+    inset: 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 80px 24px 40px;
+    opacity: 0;
+    pointer-events: none;
+    transform: translateX(60px);
+    transition: opacity 0.35s ease, transform 0.35s cubic-bezier(0.4, 0, 0.2, 1);
+}
+.ca-step.active {
+    opacity: 1;
+    pointer-events: all;
+    transform: translateX(0);
+}
+.ca-step.exit {
+    opacity: 0;
+    transform: translateX(-60px);
+}
+
+.ca-step-inner {
+    width: 100%;
+    max-width: 560px;
+    display: flex;
+    flex-direction: column;
+    gap: 24px;
+}
+
+.ca-step-num {
+    font-size: 13px;
+    font-weight: 600;
+    color: #6c63ff;
+    letter-spacing: 0.5px;
+    text-transform: uppercase;
+}
+
+.ca-step-title {
+    font-size: clamp(24px, 4vw, 36px);
+    font-weight: 800;
+    line-height: 1.2;
+    color: #fff;
+}
+
+.ca-step-sub {
+    font-size: 15px;
+    color: rgba(255,255,255,0.5);
+    margin-top: -12px;
+}
+
+/* Big choice cards */
+.ca-big-cards {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 12px;
+}
+
+.ca-big-card {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 8px;
+    padding: 20px;
+    background: rgba(255,255,255,0.05);
+    border: 1.5px solid rgba(255,255,255,0.1);
+    border-radius: 16px;
+    cursor: pointer;
+    transition: all 0.2s;
+    text-align: left;
+    color: rgba(255,255,255,0.7);
+}
+.ca-big-card:hover {
+    background: rgba(108,99,255,0.15);
+    border-color: rgba(108,99,255,0.5);
+    color: #fff;
+}
+.ca-big-card.active {
+    background: rgba(108,99,255,0.2);
+    border-color: #6c63ff;
+    color: #fff;
+    box-shadow: 0 0 0 1px #6c63ff, 0 8px 24px rgba(108,99,255,0.25);
+}
+.ca-big-icon { font-size: 28px; }
+.ca-big-label { font-size: 15px; font-weight: 700; }
+.ca-big-desc { font-size: 13px; color: rgba(255,255,255,0.45); line-height: 1.4; }
+.ca-big-card.active .ca-big-desc { color: rgba(255,255,255,0.6); }
+
+/* Select group on step 2 */
+.ca-select-group {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+}
+.ca-select-label {
+    font-size: 13px;
+    font-weight: 600;
+    color: rgba(255,255,255,0.5);
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+}
+.ca-select-input {
+    width: 100%;
+    padding: 14px 16px;
+    background: rgba(255,255,255,0.07);
+    border: 1.5px solid rgba(255,255,255,0.12);
+    border-radius: 12px;
+    color: #fff;
+    font-size: 15px;
+    font-family: inherit;
+    outline: none;
+    cursor: pointer;
+    appearance: none;
+    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='12' viewBox='0 0 24 24' fill='none' stroke='rgba(255,255,255,0.4)' stroke-width='2.5'%3E%3Cpath d='M6 9l6 6 6-6'/%3E%3C/svg%3E");
+    background-repeat: no-repeat;
+    background-position: right 16px center;
+    padding-right: 40px;
+    transition: border-color 0.2s;
+}
+.ca-select-input:focus {
+    border-color: #6c63ff;
+}
+.ca-select-input option {
+    background: #1a1a2e;
+    color: #fff;
+}
+
+/* Big number input (step 3) */
+.ca-big-input-wrap {
+    position: relative;
+    display: flex;
+    align-items: center;
+}
+.ca-big-input {
+    width: 100%;
+    padding: 20px 80px 20px 24px;
+    background: rgba(255,255,255,0.07);
+    border: 1.5px solid rgba(255,255,255,0.12);
+    border-radius: 16px;
+    color: #fff;
+    font-size: 32px;
+    font-weight: 700;
+    font-family: inherit;
+    outline: none;
+    transition: border-color 0.2s;
+}
+.ca-big-input:focus {
+    border-color: #6c63ff;
+}
+.ca-big-input::placeholder { color: rgba(255,255,255,0.2); }
+.ca-big-input-unit {
+    position: absolute;
+    right: 20px;
+    font-size: 14px;
+    font-weight: 600;
+    color: rgba(255,255,255,0.4);
+}
+/* hide spinners */
+.ca-big-input::-webkit-outer-spin-button,
+.ca-big-input::-webkit-inner-spin-button { -webkit-appearance: none; }
+.ca-big-input[type=number] { -moz-appearance: textfield; }
+
+.ca-quick-picks {
+    display: flex;
+    gap: 10px;
+    flex-wrap: wrap;
+}
+.ca-quick-pick {
+    padding: 8px 20px;
+    background: rgba(255,255,255,0.07);
+    border: 1.5px solid rgba(255,255,255,0.1);
+    border-radius: 20px;
+    color: rgba(255,255,255,0.7);
+    font-size: 14px;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 0.2s;
+    font-family: inherit;
+}
+.ca-quick-pick:hover {
+    background: rgba(108,99,255,0.2);
+    border-color: #6c63ff;
+    color: #fff;
+}
+
+/* Date input (step 4) */
+.ca-date-input {
+    width: 100%;
+    padding: 18px 20px;
+    background: rgba(255,255,255,0.07);
+    border: 1.5px solid rgba(255,255,255,0.12);
+    border-radius: 16px;
+    color: #fff;
+    font-size: 20px;
+    font-weight: 600;
+    font-family: inherit;
+    outline: none;
+    transition: border-color 0.2s;
+    colorscheme: dark;
+}
+.ca-date-input:focus { border-color: #6c63ff; }
+
+.ca-date-presets {
+    display: flex;
+    gap: 10px;
+    flex-wrap: wrap;
+}
+.ca-preset {
+    padding: 8px 18px;
+    background: rgba(255,255,255,0.07);
+    border: 1.5px solid rgba(255,255,255,0.1);
+    border-radius: 20px;
+    color: rgba(255,255,255,0.7);
+    font-size: 13px;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 0.2s;
+    font-family: inherit;
+}
+.ca-preset:hover {
+    background: rgba(108,99,255,0.2);
+    border-color: #6c63ff;
+    color: #fff;
+}
+
+/* Final step fields */
+.ca-final-fields {
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+}
+.ca-text-input {
+    width: 100%;
+    padding: 16px 20px;
+    background: rgba(255,255,255,0.07);
+    border: 1.5px solid rgba(255,255,255,0.12);
+    border-radius: 14px;
+    color: #fff;
+    font-size: 18px;
+    font-weight: 600;
+    font-family: inherit;
+    outline: none;
+    transition: border-color 0.2s;
+}
+.ca-text-input:focus { border-color: #6c63ff; }
+.ca-text-input::placeholder { color: rgba(255,255,255,0.2); font-weight: 400; }
+
+.ca-textarea {
+    width: 100%;
+    padding: 14px 20px;
+    background: rgba(255,255,255,0.07);
+    border: 1.5px solid rgba(255,255,255,0.12);
+    border-radius: 14px;
+    color: #fff;
+    font-size: 15px;
+    font-family: inherit;
+    outline: none;
+    resize: none;
+    height: 90px;
+    line-height: 1.5;
+    transition: border-color 0.2s;
+}
+.ca-textarea:focus { border-color: #6c63ff; }
+.ca-textarea::placeholder { color: rgba(255,255,255,0.2); }
+
+/* Next button */
+.ca-next-btn {
+    align-self: flex-start;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    padding: 14px 28px;
+    background: #6c63ff;
+    color: #fff;
+    border: none;
+    border-radius: 14px;
+    font-size: 15px;
+    font-weight: 700;
+    cursor: pointer;
+    transition: all 0.2s;
+    font-family: inherit;
+}
+.ca-next-btn:hover {
+    background: #7c74ff;
+    transform: translateX(3px);
+}
+
+/* Submit button */
+.ca-submit-btn {
+    align-self: flex-start;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    padding: 16px 32px;
+    background: linear-gradient(135deg, #6c63ff, #a78bfa);
+    color: #fff;
+    border: none;
+    border-radius: 14px;
+    font-size: 16px;
+    font-weight: 700;
+    cursor: pointer;
+    transition: all 0.2s;
+    font-family: inherit;
+    box-shadow: 0 4px 20px rgba(108,99,255,0.4);
+}
+.ca-submit-btn:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 8px 28px rgba(108,99,255,0.5);
+}
+.ca-submit-btn:disabled {
+    opacity: 0.6;
+    cursor: not-allowed;
+    transform: none;
+}
+
+/* Toast (reuse from styles.css but dark themed here) */
+.toast-notification {
+    position: fixed;
+    bottom: 30px;
+    right: 30px;
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    padding: 14px 20px;
+    background: #1e1e30;
+    border: 1px solid rgba(255,255,255,0.1);
+    border-radius: 14px;
+    box-shadow: 0 8px 32px rgba(0,0,0,0.4);
+    transform: translateY(20px);
+    opacity: 0;
+    transition: all 0.3s ease;
+    z-index: 9999;
+    max-width: 320px;
+}
+.toast-notification.show {
+    transform: translateY(0);
+    opacity: 1;
+}
+.toast-notification.toast-success { border-color: rgba(108,99,255,0.4); }
+.toast-notification.toast-error { border-color: rgba(255,80,80,0.4); }
+.toast-icon {
+    width: 28px; height: 28px;
+    border-radius: 50%;
+    display: flex; align-items: center; justify-content: center;
+    font-size: 13px; font-weight: 700;
+    flex-shrink: 0;
+}
+.toast-success .toast-icon { background: rgba(108,99,255,0.2); color: #a78bfa; }
+.toast-error .toast-icon { background: rgba(255,80,80,0.2); color: #ff6b6b; }
+.toast-title { font-size: 14px; font-weight: 700; color: #fff; }
+.toast-message { font-size: 13px; color: rgba(255,255,255,0.5); margin-top: 2px; }
+
+@media (max-width: 500px) {
+    .ca-big-cards { grid-template-columns: 1fr; }
+    .ca-step-title { font-size: 22px; }
+    .ca-big-input { font-size: 24px; }
+}

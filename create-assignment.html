@@ -1,0 +1,152 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>New Assignment - Lexis</title>
+    <link rel="stylesheet" href="create-assignment.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+</head>
+<body>
+
+    <!-- Progress bar -->
+    <div class="ca-progress-bar">
+        <div class="ca-progress-fill" id="progressFill"></div>
+    </div>
+
+    <!-- Back button -->
+    <button class="ca-back-btn" id="backBtn">
+        <svg width="20" height="20" viewBox="0 0 24 24" fill="none">
+            <path d="M15 18L9 12L15 6" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+        </svg>
+        Back
+    </button>
+
+    <!-- Steps -->
+    <div class="ca-steps" id="caSteps">
+
+        <!-- Step 1: Type -->
+        <div class="ca-step active" data-step="1">
+            <div class="ca-step-inner">
+                <div class="ca-step-num">1 / 5</div>
+                <h2 class="ca-step-title">What type of assignment?</h2>
+                <div class="ca-big-cards">
+                    <button class="ca-big-card active" data-type="words">
+                        <span class="ca-big-icon">📚</span>
+                        <span class="ca-big-label">Words to learn</span>
+                        <span class="ca-big-desc">Students must learn a set number of words</span>
+                    </button>
+                    <button class="ca-big-card" data-type="time">
+                        <span class="ca-big-icon">⏱</span>
+                        <span class="ca-big-label">Minutes to study</span>
+                        <span class="ca-big-desc">Students must spend time studying</span>
+                    </button>
+                </div>
+                <button class="ca-next-btn" id="nextStep1">Continue <i class="fas fa-arrow-right"></i></button>
+            </div>
+        </div>
+
+        <!-- Step 2: Assign to -->
+        <div class="ca-step" data-step="2">
+            <div class="ca-step-inner">
+                <div class="ca-step-num">2 / 5</div>
+                <h2 class="ca-step-title">Who is this for?</h2>
+                <div class="ca-big-cards">
+                    <button class="ca-big-card active" data-assign="class">
+                        <span class="ca-big-icon">🏫</span>
+                        <span class="ca-big-label">Whole class</span>
+                        <span class="ca-big-desc">Assign to every student in a class</span>
+                    </button>
+                    <button class="ca-big-card" data-assign="student">
+                        <span class="ca-big-icon">👤</span>
+                        <span class="ca-big-label">Specific student</span>
+                        <span class="ca-big-desc">Assign to one student only</span>
+                    </button>
+                </div>
+
+                <!-- Class select (shown by default) -->
+                <div id="classSelectGroup" class="ca-select-group">
+                    <label class="ca-select-label">Select class</label>
+                    <select id="assignmentClass" class="ca-select-input">
+                        <option value="">Loading...</option>
+                    </select>
+                </div>
+
+                <!-- Student select -->
+                <div id="studentSelectGroup" class="ca-select-group" style="display:none;">
+                    <label class="ca-select-label">Select student</label>
+                    <select id="assignmentStudent" class="ca-select-input">
+                        <option value="">Loading...</option>
+                    </select>
+                </div>
+
+                <button class="ca-next-btn" id="nextStep2">Continue <i class="fas fa-arrow-right"></i></button>
+            </div>
+        </div>
+
+        <!-- Step 3: Target -->
+        <div class="ca-step" data-step="3">
+            <div class="ca-step-inner">
+                <div class="ca-step-num">3 / 5</div>
+                <h2 class="ca-step-title" id="targetStepTitle">How many words?</h2>
+                <p class="ca-step-sub" id="targetStepSub">Enter the number of words students must learn</p>
+                <div class="ca-big-input-wrap">
+                    <input type="number" id="assignmentTarget" class="ca-big-input" placeholder="20" min="1">
+                    <span class="ca-big-input-unit" id="targetUnit">words</span>
+                </div>
+                <div class="ca-quick-picks" id="quickPicks">
+                    <button class="ca-quick-pick" data-val="10">10</button>
+                    <button class="ca-quick-pick" data-val="20">20</button>
+                    <button class="ca-quick-pick" data-val="30">30</button>
+                    <button class="ca-quick-pick" data-val="50">50</button>
+                </div>
+                <button class="ca-next-btn" id="nextStep3">Continue <i class="fas fa-arrow-right"></i></button>
+            </div>
+        </div>
+
+        <!-- Step 4: Due date -->
+        <div class="ca-step" data-step="4">
+            <div class="ca-step-inner">
+                <div class="ca-step-num">4 / 5</div>
+                <h2 class="ca-step-title">When is it due?</h2>
+                <p class="ca-step-sub">Pick a deadline for this assignment</p>
+                <input type="date" id="assignmentDueDate" class="ca-date-input">
+                <div class="ca-date-presets">
+                    <button class="ca-preset" data-days="3">3 days</button>
+                    <button class="ca-preset" data-days="7">1 week</button>
+                    <button class="ca-preset" data-days="14">2 weeks</button>
+                    <button class="ca-preset" data-days="30">1 month</button>
+                </div>
+                <button class="ca-next-btn" id="nextStep4">Continue <i class="fas fa-arrow-right"></i></button>
+            </div>
+        </div>
+
+        <!-- Step 5: Title + description -->
+        <div class="ca-step" data-step="5">
+            <div class="ca-step-inner">
+                <div class="ca-step-num">5 / 5</div>
+                <h2 class="ca-step-title">Give it a name</h2>
+                <div class="ca-final-fields">
+                    <input type="text" id="assignmentTitle" class="ca-text-input" placeholder="e.g. Learn 20 words this week">
+                    <textarea id="assignmentDescription" class="ca-textarea" placeholder="Additional instructions (optional)..."></textarea>
+                </div>
+                <button class="ca-submit-btn" id="submitBtn">
+                    <i class="fas fa-paper-plane"></i> Create Assignment
+                </button>
+            </div>
+        </div>
+
+    </div>
+
+    <!-- Toast -->
+    <div class="toast-notification" id="toast">
+        <div class="toast-icon" id="toastIcon">✓</div>
+        <div class="toast-content">
+            <div class="toast-title" id="toastTitle">Success</div>
+            <div class="toast-message" id="toastMessage">Action completed</div>
+        </div>
+    </div>
+
+    <script type="module" src="/src/pages/create-assignment.ts"></script>
+</body>
+</html>

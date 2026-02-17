@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Word Details - English Study</title>
+    <link rel="stylesheet" href="word-details.css">
+    <script type="importmap">
+    {
+      "imports": {
+        "firebase/app": "https://www.gstatic.com/firebasejs/10.7.1/firebase-app.js",
+        "firebase/auth": "https://www.gstatic.com/firebasejs/10.7.1/firebase-auth.js",
+        "firebase/firestore": "https://www.gstatic.com/firebasejs/10.7.1/firebase-firestore.js"
+      }
+    }
+    </script>
+</head>
+<body>
+    <div id="loadingOverlay" class="loading-overlay">
+        <div class="spinner"></div>
+    </div>
+
+    <div class="container">
+        <header class="page-header">
+            <button id="backBtn" class="back-btn">
+                <span>←</span>
+                <span data-i18n="wordDetails.back">Назад</span>
+            </button>
+            <h1 id="wordTitle" class="word-title">Word</h1>
+        </header>
+
+        <div class="word-details-card">
+            <div class="word-header">
+                <div class="word-en" id="wordEn">Word</div>
+                <div class="word-translation" id="wordTranslation">перевод</div>
+            </div>
+
+            <div class="details-section">
+                <h2 class="section-title" data-i18n="wordDetails.meaning">Значение</h2>
+                <p class="section-content" id="meaningContent">...</p>
+            </div>
+
+            <div class="details-section">
+                <h2 class="section-title" data-i18n="wordDetails.context">Контекст</h2>
+                <p class="section-content" id="contextContent">...</p>
+            </div>
+
+            <div class="details-section">
+                <h2 class="section-title" data-i18n="wordDetails.example">Пример</h2>
+                <div class="example-box" id="exampleContent">
+                    <p class="example-text">...</p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script type="module" src="/src/pages/word-details.ts"></script>
+</body>
+</html>

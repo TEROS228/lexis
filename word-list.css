@@ -1,0 +1,266 @@
+.word-list-container {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 60px 24px;
+}
+
+.word-list-header {
+    margin-bottom: 40px;
+}
+
+.header-top {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 30px;
+}
+
+.word-list-header h1 {
+    font-size: 42px;
+    margin: 0;
+    color: var(--text);
+}
+
+.btn-quiz {
+    padding: 14px 28px;
+    background: linear-gradient(135deg, #f59e0b, #d97706);
+    color: white;
+    border: none;
+    border-radius: 12px;
+    font-weight: 600;
+    font-size: 16px;
+    cursor: pointer;
+    transition: all 0.3s;
+    box-shadow: 0 4px 12px rgba(245, 158, 11, 0.3);
+}
+
+.btn-quiz:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 6px 20px rgba(245, 158, 11, 0.4);
+}
+
+.filter-tabs {
+    display: flex;
+    gap: 16px;
+    flex-wrap: wrap;
+}
+
+.filter-tab {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    padding: 16px 24px;
+    background: white;
+    border: 2px solid var(--border);
+    border-radius: 12px;
+    cursor: pointer;
+    transition: all 0.3s;
+    font-weight: 600;
+}
+
+.filter-tab:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+}
+
+.filter-tab.active {
+    border-color: var(--primary);
+    background: rgba(99, 102, 241, 0.05);
+}
+
+.filter-tab[data-status="known"].active {
+    border-color: var(--success);
+    background: rgba(16, 185, 129, 0.05);
+}
+
+.filter-tab[data-status="unsure"].active {
+    border-color: var(--warning);
+    background: rgba(245, 158, 11, 0.05);
+}
+
+.filter-tab[data-status="unknown"].active {
+    border-color: var(--danger);
+    background: rgba(239, 68, 68, 0.05);
+}
+
+.filter-tab[data-status="learned"].active {
+    border-color: var(--primary);
+    background: rgba(99, 102, 241, 0.05);
+}
+
+.tab-icon {
+    font-size: 24px;
+}
+
+.tab-label {
+    font-size: 16px;
+    color: var(--text);
+}
+
+.tab-count {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    min-width: 32px;
+    height: 32px;
+    padding: 0 10px;
+    background: var(--bg-light);
+    border-radius: 16px;
+    font-size: 14px;
+    font-weight: 700;
+    color: var(--text);
+}
+
+.filter-tab.active .tab-count {
+    background: var(--primary);
+    color: white;
+}
+
+.filter-tab[data-status="known"].active .tab-count {
+    background: var(--success);
+}
+
+.filter-tab[data-status="unsure"].active .tab-count {
+    background: var(--warning);
+}
+
+.filter-tab[data-status="unknown"].active .tab-count {
+    background: var(--danger);
+}
+
+.filter-tab[data-status="learned"].active .tab-count {
+    background: var(--primary);
+}
+
+/* Words Grid */
+.words-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+    gap: 20px;
+}
+
+.word-item {
+    background: white;
+    border: 1px solid var(--border);
+    border-radius: 12px;
+    padding: 24px;
+    transition: all 0.3s;
+    position: relative;
+    display: flex;
+    flex-direction: column;
+}
+
+.word-item:hover {
+    transform: translateY(-4px);
+    box-shadow: 0 6px 20px rgba(0, 0, 0, 0.1);
+}
+
+.word-item-content {
+    flex: 1;
+}
+
+.word-item-en {
+    font-size: 24px;
+    font-weight: 700;
+    color: var(--text);
+    margin-bottom: 12px;
+}
+
+.word-item-translation {
+    font-size: 16px;
+    color: var(--text-light);
+    line-height: 1.6;
+    margin-bottom: 16px;
+}
+
+.word-item-actions {
+    display: flex;
+    gap: 8px;
+    margin-top: 12px;
+}
+
+.btn-mark-known {
+    flex: 1;
+    padding: 10px 16px;
+    background: var(--success);
+    color: white;
+    border: none;
+    border-radius: 8px;
+    font-weight: 600;
+    font-size: 14px;
+    cursor: pointer;
+    transition: all 0.3s;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 6px;
+}
+
+.btn-mark-known:hover {
+    background: #059669;
+    transform: scale(1.02);
+}
+
+.btn-mark-known:active {
+    transform: scale(0.98);
+}
+
+.word-item.known {
+    border-left: 4px solid var(--success);
+}
+
+.word-item.unsure {
+    border-left: 4px solid var(--warning);
+}
+
+.word-item.unknown {
+    border-left: 4px solid var(--danger);
+}
+
+.word-item.learned {
+    border-left: 4px solid var(--primary);
+    background: linear-gradient(135deg, rgba(99, 102, 241, 0.03), rgba(139, 92, 246, 0.03));
+}
+
+/* Empty State */
+.empty-state {
+    text-align: center;
+    padding: 80px 20px;
+}
+
+.empty-icon {
+    font-size: 80px;
+    margin-bottom: 24px;
+}
+
+.empty-state h2 {
+    font-size: 28px;
+    color: var(--text);
+    margin-bottom: 12px;
+}
+
+.empty-state p {
+    font-size: 18px;
+    color: var(--text-light);
+    margin-bottom: 32px;
+}
+
+/* Responsive */
+@media (max-width: 768px) {
+    .word-list-header h1 {
+        font-size: 32px;
+    }
+
+    .filter-tabs {
+        flex-direction: column;
+    }
+
+    .filter-tab {
+        width: 100%;
+        justify-content: space-between;
+    }
+
+    .words-grid {
+        grid-template-columns: 1fr;
+    }
+}
