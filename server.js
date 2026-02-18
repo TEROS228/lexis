@@ -633,7 +633,7 @@ app.get('/api/assignments/:id/progress', async (req, res) => {
     // Get students: either class members or single student
     if (assignment.class_id) {
       const classStudents = await pool.query(
-        `SELECT u.uid, u.display_name, u.email, u.photo_url FROM class_members cm JOIN users u ON cm.student_uid = u.uid WHERE cm.class_id = $1`,
+        `SELECT u.uid, u.display_name, u.email, u.photo_url FROM class_enrollments cm JOIN users u ON cm.student_uid = u.uid WHERE cm.class_id = $1`,
         [assignment.class_id]
       );
       students = classStudents.rows;
