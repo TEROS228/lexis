@@ -2010,6 +2010,16 @@ footer {
     background: linear-gradient(135deg, #ef4444, #dc2626);
 }
 
+.toast-type-success {
+    background: linear-gradient(135deg, #10b981, #059669);
+    box-shadow: 0 10px 40px rgba(16, 185, 129, 0.4);
+}
+
+.toast-type-info {
+    background: linear-gradient(135deg, #6366f1, #4f46e5);
+    box-shadow: 0 10px 40px rgba(99, 102, 241, 0.4);
+}
+
 /* Student Classes Section */
 .my-classes-section {
     margin-bottom: 48px;

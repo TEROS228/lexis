@@ -216,11 +216,19 @@ let isSignUpMode = false;
 const successToast = document.getElementById('successToast');
 const toastTitle = document.getElementById('toastTitle');
 const toastMessage = document.getElementById('toastMessage');
+const toastIcon = document.getElementById('toastIcon');
 
-function showToast(title: string, message: string, duration: number = 4000) {
+const toastIcons = {
+    success: '✓',
+    info: '→',
+};
+
+function showToast(title: string, message: string, duration: number = 4000, type: 'success' | 'info' = 'success') {
     toastTitle.textContent = title;
     toastMessage.textContent = message;
-    successToast.classList.add('show');
+    toastIcon.textContent = toastIcons[type];
+    successToast.classList.remove('toast-type-info', 'toast-type-success');
+    successToast.classList.add(`toast-type-${type}`, 'show');
 
     setTimeout(() => {
         successToast.classList.remove('show');
@@ -442,9 +450,10 @@ googleSignInBtn.addEventListener('click', async () => {
         document.body.style.overflow = '';
         resetAuthForm();
 
-        // Show success toast for new users
         if (result.isNewUser) {
-            showToast('Аккаунт успешно создан!', `Добро пожаловать, ${user.displayName || user.email}! 🎉`);
+            showToast('Account created!', `Welcome, ${user.displayName || user.email}! 🎉`);
+        } else {
+            showToast('Signed in!', `Welcome back, ${user.displayName || user.email}!`);
         }
 
         // Show role modal for new users
@@ -488,9 +497,10 @@ emailAuthForm.addEventListener('submit', async (e) => {
         document.body.style.overflow = '';
         resetAuthForm();
 
-        // Show success toast for new sign ups
         if (wasSignUp) {
-            showToast('Аккаунт успешно создан!', `Добро пожаловать, ${displayName || user.email}! 🎉`);
+            showToast('Account created!', `Welcome, ${displayName || user.email}! 🎉`);
+        } else {
+            showToast('Signed in!', `Welcome back, ${displayName || user.displayName || user.email}!`);
         }
 
         // Show role modal for new users
@@ -544,6 +554,7 @@ document.addEventListener('click', (e) => {
 signOutBtn.addEventListener('click', async () => {
     try {
         await logOut();
+        showToast('Signed out', 'See you next time!', 4000, 'info');
         console.log('Signed out');
     } catch (error) {
         console.error('Sign out error:', error);
