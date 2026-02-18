@@ -649,7 +649,10 @@ async function loadAssignments() {
                     <div class="asgn-due ${overdue ? 'asgn-overdue' : ''}">
                         ${overdue ? '⚠ Overdue' : '📅 Due'} ${dueStr}
                     </div>
-                    <button class="asgn-progress-btn" onclick="window.viewAssignmentProgress(${a.id})">👥 Прогресс</button>
+                    <button class="asgn-progress-btn" onclick="window.viewAssignmentProgress(${a.id})">
+                        <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/></svg>
+                        Прогресс
+                    </button>
                     <button class="asgn-delete" onclick="window.deleteAssignment(${a.id})">✕</button>
                 </div>
             </div>`;
@@ -679,7 +682,7 @@ async function viewAssignmentProgress(id: number) {
     const body = document.getElementById('apModalBody');
 
     title.textContent = 'Загрузка...';
-    body.innerHTML = '<div style="text-align:center;padding:40px">⏳</div>';
+    body.innerHTML = '<div class="ap-loading"><div class="ap-spinner"></div><span>Загрузка данных...</span></div>';
     modal.style.display = 'flex';
     document.body.style.overflow = 'hidden';
 
@@ -692,37 +695,57 @@ async function viewAssignmentProgress(id: number) {
         title.textContent = a.title;
 
         if (students.length === 0) {
-            body.innerHTML = '<div style="text-align:center;padding:40px;color:#888">Нет студентов</div>';
+            body.innerHTML = '<div class="ap-empty"><svg width="48" height="48" viewBox="0 0 24 24" fill="none" stroke="#d1d5db" stroke-width="1.5"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/></svg><p>Нет студентов в этом задании</p></div>';
             return;
         }
 
         const done = students.filter(s => s.done);
         const notDone = students.filter(s => !s.done);
+        const completionRate = Math.round((done.length / students.length) * 100);
 
         body.innerHTML = `
-            <div class="ap-summary">
-                <span class="ap-done-badge">✅ Выполнили: ${done.length}</span>
-                <span class="ap-notdone-badge">⏳ Не выполнили: ${notDone.length}</span>
+            <div class="ap-stats-grid">
+                <div class="ap-stat-card ap-stat-total">
+                    <div class="ap-stat-number">${students.length}</div>
+                    <div class="ap-stat-label">Всего</div>
+                </div>
+                <div class="ap-stat-card ap-stat-done">
+                    <div class="ap-stat-number">${done.length}</div>
+                    <div class="ap-stat-label">Выполнили</div>
+                </div>
+                <div class="ap-stat-card ap-stat-pending">
+                    <div class="ap-stat-number">${notDone.length}</div>
+                    <div class="ap-stat-label">В процессе</div>
+                </div>
+                <div class="ap-stat-card ap-stat-rate">
+                    <div class="ap-stat-number">${completionRate}%</div>
+                    <div class="ap-stat-label">Завершено</div>
+                </div>
+            </div>
+            <div class="ap-overall-bar">
+                <div class="ap-overall-fill" style="width:${completionRate}%"></div>
             </div>
             <div class="ap-students">
                 ${students.sort((a, b) => b.percent - a.percent).map(s => `
-                    <div class="ap-student-row">
-                        <img src="${s.photo_url || generateAvatarUrl(s.display_name || s.email, 36)}" class="ap-avatar">
+                    <div class="ap-student-row ${s.done ? 'ap-row-done' : ''}">
+                        <img src="${s.photo_url || generateAvatarUrl(s.display_name || s.email, 40)}" class="ap-avatar">
                         <div class="ap-student-info">
                             <div class="ap-student-name">${s.display_name || s.email}</div>
                             <div class="ap-progress-bar-wrap">
                                 <div class="ap-progress-bar">
                                     <div class="ap-progress-fill ${s.done ? 'ap-fill-done' : ''}" style="width:${s.percent}%"></div>
                                 </div>
-                                <span class="ap-progress-label">${s.current} / ${s.target} ${unit} (${s.percent}%)</span>
+                                <span class="ap-progress-label">${s.current} / ${s.target} ${unit}</span>
                             </div>
                         </div>
-                        <div class="ap-status">${s.done ? '✅' : '⏳'}</div>
+                        <div class="ap-status-badge ${s.done ? 'ap-badge-done' : 'ap-badge-pending'}">
+                            ${s.done ? 'Готово' : s.percent + '%'}
+                        </div>
                     </div>
                 `).join('')}
             </div>`;
     } catch (error) {
-        body.innerHTML = '<div style="text-align:center;padding:40px;color:red">Ошибка загрузки</div>';
+        body.innerHTML = '<div class="ap-error"><svg width="40" height="40" viewBox="0 0 24 24" fill="none" stroke="#ef4444" stroke-width="1.5"><circle cx="12" cy="12" r="10"/><line x1="12" y1="8" x2="12" y2="12"/><line x1="12" y1="16" x2="12.01" y2="16"/></svg><p>Ошибка загрузки данных</p></div>';
     }
 }
 
