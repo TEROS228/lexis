@@ -1,12 +1,32 @@
 import { auth, onAuthStateChanged, logOut, getCachedAuthState, cacheAuthState } from '../services/firebase';
 import { getUserNativeLanguage, getProgress, saveProgressBatch, initUserProfile, saveSession } from '../db';
 import tier2Words from '../data/words-tier2-full';
+import wordDetails from '../data/word-details-data';
+import { quizData } from '../data/quiz-data';
 import { setAvatar } from '../utils/avatar';
 import { initI18n, setLanguage, getCurrentLanguage, updatePageTranslations } from '../i18n';
 let currentUser = null;
 let currentWordIndex = 0;
 let userProgress = {};
 let currentLang = getCurrentLanguage();
+
+// Track which words have been explained (shown explanation card + quiz)
+// Key: `explained_${uid}`, Value: Set of word IDs
+let explainedWords: Set<string> = new Set();
+
+function loadExplainedWords(uid: string) {
+    try {
+        const stored = localStorage.getItem(`explained_${uid}`);
+        explainedWords = stored ? new Set(JSON.parse(stored)) : new Set();
+    } catch { explainedWords = new Set(); }
+}
+
+function markWordExplained(uid: string, wordId: string) {
+    explainedWords.add(wordId);
+    try {
+        localStorage.setItem(`explained_${uid}`, JSON.stringify([...explainedWords]));
+    } catch {}
+}
 
 // Timer
 let studyStartTime = null;
@@ -145,6 +165,108 @@ const unsureCountEl = document.getElementById('unsureCount');
 const unknownCountEl = document.getElementById('unknownCount');
 const completionScreen = document.getElementById('completionScreen');
 
+// Explanation + quiz elements
+const wordExplanation = document.getElementById('wordExplanation');
+const wordQuiz = document.getElementById('wordQuiz');
+const wordActions = document.getElementById('wordActions');
+const explMeaning = document.getElementById('explMeaning');
+const explContext = document.getElementById('explContext');
+const explExample = document.getElementById('explExample');
+const quizQuestion = document.getElementById('quizQuestion');
+const quizOptions = document.getElementById('quizOptions');
+const quizFeedback = document.getElementById('quizFeedback');
+
+// Explanation + quiz mode state
+let quizMode = false; // true = showing quiz instead of know/unsure/unknown
+let quizAnswered = false;
+let quizCorrect = false;
+
+function showExplanationAndQuiz(word: any) {
+    const details = wordDetails[word.id];
+    const langDetails = details && (details[currentLang] || details['ru'] || details['en'] || Object.values(details)[0]) as any;
+    const quiz = quizData[word.id];
+
+    // Show explanation if details exist
+    if (langDetails) {
+        explMeaning.textContent = langDetails.meaning || '';
+        explContext.textContent = langDetails.context || '';
+        explExample.textContent = langDetails.example || '';
+        wordExplanation.style.display = 'block';
+    } else {
+        wordExplanation.style.display = 'none';
+    }
+
+    // Show quiz if quiz data exists
+    if (quiz) {
+        quizMode = true;
+        quizAnswered = false;
+        quizCorrect = false;
+        quizFeedback.style.display = 'none';
+        quizFeedback.className = 'quiz-feedback';
+        quizQuestion.textContent = quiz.question;
+
+        quizOptions.innerHTML = quiz.options.map((opt: string, i: number) => `
+            <button class="quiz-option" data-index="${i}">${opt}</button>
+        `).join('');
+
+        quizOptions.querySelectorAll('.quiz-option').forEach((btn: Element) => {
+            btn.addEventListener('click', (e) => {
+                if (quizAnswered) return;
+                quizAnswered = true;
+                const idx = parseInt((btn as HTMLElement).dataset.index);
+                quizCorrect = idx === quiz.correct;
+
+                // Highlight correct/wrong
+                quizOptions.querySelectorAll('.quiz-option').forEach((b: Element, i: number) => {
+                    if (i === quiz.correct) b.classList.add('correct');
+                    else if (i === idx && !quizCorrect) b.classList.add('wrong');
+                    (b as HTMLButtonElement).disabled = true;
+                });
+
+                if (quizCorrect) {
+                    quizFeedback.textContent = '✓ Correct! Moving on...';
+                    quizFeedback.className = 'quiz-feedback feedback-correct';
+                    quizFeedback.style.display = 'block';
+                    // Mark as explained and known, advance
+                    markWordExplained(currentUser.uid, word.id);
+                    setTimeout(() => {
+                        markWord('known');
+                    }, 900);
+                } else {
+                    quizFeedback.textContent = '✗ Not quite — review the explanation above and try again next time.';
+                    quizFeedback.className = 'quiz-feedback feedback-wrong';
+                    quizFeedback.style.display = 'block';
+                    // Mark as explained (even wrong — explanation was shown)
+                    // but mark word as unknown so it comes back
+                    markWordExplained(currentUser.uid, word.id);
+                    setTimeout(() => {
+                        markWord('unknown');
+                    }, 1800);
+                }
+            });
+        });
+
+        wordQuiz.style.display = 'block';
+        wordActions.style.display = 'none'; // hide know/unsure/unknown
+    } else {
+        // No quiz data — just show explanation, then normal buttons
+        quizMode = false;
+        wordQuiz.style.display = 'none';
+        wordActions.style.display = 'flex';
+        if (langDetails) {
+            // Mark as explained after showing explanation
+            markWordExplained(currentUser.uid, word.id);
+        }
+    }
+}
+
+function showNormalMode() {
+    quizMode = false;
+    wordExplanation.style.display = 'none';
+    wordQuiz.style.display = 'none';
+    wordActions.style.display = 'flex';
+}
+
 // Timer functions
 function startTimer() {
     if (timerInterval) return; // Already running
@@ -227,6 +349,9 @@ onAuthStateChanged(auth, async (user) => {
             });
         }
 
+        // Load explained words from localStorage
+        loadExplainedWords(user.uid);
+
         // Load progress from Firestore
         await loadProgress();
         displayCurrentWord();
@@ -297,15 +422,24 @@ function displayCurrentWord() {
     totalWords.textContent = tier2Words.length;
     progressFill.style.width = `${((currentWordIndex + 1) / tier2Words.length) * 100}%`;
 
-    // Show previous selection
-    const status = userProgress[word.id];
-    btnKnow.classList.toggle('selected', status === 'known');
-    btnUnsure.classList.toggle('selected', status === 'unsure');
-    btnUnknown.classList.toggle('selected', status === 'unknown');
-
     // Update navigation buttons
     btnPrev.disabled = currentWordIndex === 0;
     btnNext.disabled = false;
+
+    // Decide: explanation+quiz mode OR normal mode
+    const isNew = !explainedWords.has(word.id);
+    const hasQuizOrDetails = quizData[word.id] || wordDetails[word.id];
+
+    if (isNew && hasQuizOrDetails) {
+        showExplanationAndQuiz(word);
+    } else {
+        showNormalMode();
+        // Show previous selection
+        const status = userProgress[word.id];
+        btnKnow.classList.toggle('selected', status === 'known');
+        btnUnsure.classList.toggle('selected', status === 'unsure');
+        btnUnknown.classList.toggle('selected', status === 'unknown');
+    }
 }
 
 // Update stats

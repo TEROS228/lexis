@@ -121,7 +121,30 @@
                     <p id="meaningText"></p>
                 </div>
 
-                <div class="word-actions">
+                <!-- Explanation card (shown for new words) -->
+                <div class="word-explanation" id="wordExplanation" style="display: none;">
+                    <div class="explanation-section">
+                        <div class="explanation-label">Meaning</div>
+                        <div class="explanation-text" id="explMeaning"></div>
+                    </div>
+                    <div class="explanation-section">
+                        <div class="explanation-label">Context</div>
+                        <div class="explanation-text" id="explContext"></div>
+                    </div>
+                    <div class="explanation-section explanation-example">
+                        <div class="explanation-label">Example</div>
+                        <div class="explanation-text" id="explExample"></div>
+                    </div>
+                </div>
+
+                <!-- Quiz panel (shown for new words instead of know/unsure/unknown) -->
+                <div class="word-quiz" id="wordQuiz" style="display: none;">
+                    <div class="quiz-question" id="quizQuestion"></div>
+                    <div class="quiz-options" id="quizOptions"></div>
+                    <div class="quiz-feedback" id="quizFeedback" style="display: none;"></div>
+                </div>
+
+                <div class="word-actions" id="wordActions">
                     <button class="btn-action btn-know" id="btnKnow">
                         <span class="icon">✓</span>
                         <span class="text" data-i18n="learn.btnKnow">Знаю</span>
