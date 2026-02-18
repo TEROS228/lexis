@@ -79,9 +79,9 @@ function displayWordDetails() {
     if (wordEn) wordEn.textContent = word.en;
     if (wordTranslation) wordTranslation.textContent = word[currentLang] || word.ru;
 
-    // If word details exist, show them
-    if (details && details[currentLang]) {
-        const langDetails = details[currentLang];
+    // If word details exist, show them (with fallback: currentLang -> ru -> en -> first available)
+    const langDetails = details && (details[currentLang] || details['ru'] || details['en'] || Object.values(details)[0]);
+    if (langDetails) {
         if (meaningContent) meaningContent.textContent = langDetails.meaning;
         if (contextContent) contextContent.textContent = langDetails.context;
         if (exampleContent) {
@@ -89,8 +89,8 @@ function displayWordDetails() {
             if (exampleText) exampleText.textContent = langDetails.example;
         }
     } else {
-        // Fallback if details don't exist yet
-        if (meaningContent) meaningContent.textContent = 'Детали для этого слова скоро будут добавлены.';
+        // No details at all
+        if (meaningContent) meaningContent.textContent = 'Details for this word will be added soon.';
         if (contextContent) contextContent.textContent = '-';
         if (exampleContent) {
             const exampleText = exampleContent.querySelector('.example-text');
