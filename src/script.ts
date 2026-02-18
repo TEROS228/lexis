@@ -114,7 +114,7 @@ const languages = {
     zh: { flag: '🇨🇳', code: 'ZH' }
 };
 
-let currentLang = 'ru';
+let currentLang = 'en';
 
 // Toggle dropdown
 languageBtn.addEventListener('click', (e) => {
@@ -178,12 +178,17 @@ if (savedLang && languages[savedLang]) {
     // Apply saved language
     updateContent(savedLang);
 } else {
-    // Set Russian as default
+    // Set English as default
+    const flagSpan = languageBtn.querySelector('.flag');
+    const langText = languageBtn.querySelector('.lang-text');
+    flagSpan.textContent = languages['en'].flag;
+    langText.textContent = languages['en'].code;
     languageOptions.forEach(opt => {
-        if (opt.dataset.lang === 'ru') {
+        if (opt.dataset.lang === 'en') {
             opt.classList.add('selected');
         }
     });
+    updateContent('en');
 }
 
 // Authentication
