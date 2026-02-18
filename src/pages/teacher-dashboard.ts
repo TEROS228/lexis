@@ -651,7 +651,7 @@ async function loadAssignments() {
                     </div>
                     <button class="asgn-progress-btn" onclick="window.viewAssignmentProgress(${a.id})">
                         <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/></svg>
-                        Прогресс
+                        Progress
                     </button>
                     <button class="asgn-delete" onclick="window.deleteAssignment(${a.id})">✕</button>
                 </div>
@@ -681,8 +681,8 @@ async function viewAssignmentProgress(id: number) {
     const title = document.getElementById('apModalTitle');
     const body = document.getElementById('apModalBody');
 
-    title.textContent = 'Загрузка...';
-    body.innerHTML = '<div class="ap-loading"><div class="ap-spinner"></div><span>Загрузка данных...</span></div>';
+    title.textContent = 'Loading...';
+    body.innerHTML = '<div class="ap-loading"><div class="ap-spinner"></div><span>Loading data...</span></div>';
     modal.style.display = 'flex';
     document.body.style.overflow = 'hidden';
 
@@ -691,11 +691,11 @@ async function viewAssignmentProgress(id: number) {
         const a = data.assignment;
         const students = data.students;
 
-        const unit = a.type === 'words' ? 'слов' : 'мин';
+        const unit = a.type === 'words' ? 'words' : 'min';
         title.textContent = a.title;
 
         if (students.length === 0) {
-            body.innerHTML = '<div class="ap-empty"><svg width="48" height="48" viewBox="0 0 24 24" fill="none" stroke="#d1d5db" stroke-width="1.5"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/></svg><p>Нет студентов в этом задании</p></div>';
+            body.innerHTML = '<div class="ap-empty"><svg width="48" height="48" viewBox="0 0 24 24" fill="none" stroke="#d1d5db" stroke-width="1.5"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/></svg><p>No students in this assignment</p></div>';
             return;
         }
 
@@ -707,19 +707,19 @@ async function viewAssignmentProgress(id: number) {
             <div class="ap-stats-grid">
                 <div class="ap-stat-card ap-stat-total">
                     <div class="ap-stat-number">${students.length}</div>
-                    <div class="ap-stat-label">Всего</div>
+                    <div class="ap-stat-label">Total</div>
                 </div>
                 <div class="ap-stat-card ap-stat-done">
                     <div class="ap-stat-number">${done.length}</div>
-                    <div class="ap-stat-label">Выполнили</div>
+                    <div class="ap-stat-label">Completed</div>
                 </div>
                 <div class="ap-stat-card ap-stat-pending">
                     <div class="ap-stat-number">${notDone.length}</div>
-                    <div class="ap-stat-label">В процессе</div>
+                    <div class="ap-stat-label">In Progress</div>
                 </div>
                 <div class="ap-stat-card ap-stat-rate">
                     <div class="ap-stat-number">${completionRate}%</div>
-                    <div class="ap-stat-label">Завершено</div>
+                    <div class="ap-stat-label">Done</div>
                 </div>
             </div>
             <div class="ap-overall-bar">
@@ -739,13 +739,13 @@ async function viewAssignmentProgress(id: number) {
                             </div>
                         </div>
                         <div class="ap-status-badge ${s.done ? 'ap-badge-done' : 'ap-badge-pending'}">
-                            ${s.done ? 'Готово' : s.percent + '%'}
+                            ${s.done ? 'Done' : s.percent + '%'}
                         </div>
                     </div>
                 `).join('')}
             </div>`;
     } catch (error) {
-        body.innerHTML = '<div class="ap-error"><svg width="40" height="40" viewBox="0 0 24 24" fill="none" stroke="#ef4444" stroke-width="1.5"><circle cx="12" cy="12" r="10"/><line x1="12" y1="8" x2="12" y2="12"/><line x1="12" y1="16" x2="12.01" y2="16"/></svg><p>Ошибка загрузки данных</p></div>';
+        body.innerHTML = '<div class="ap-error"><svg width="40" height="40" viewBox="0 0 24 24" fill="none" stroke="#ef4444" stroke-width="1.5"><circle cx="12" cy="12" r="10"/><line x1="12" y1="8" x2="12" y2="12"/><line x1="12" y1="16" x2="12.01" y2="16"/></svg><p>Failed to load data</p></div>';
     }
 }
 
