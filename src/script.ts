@@ -330,6 +330,10 @@ confirmTeacherNameBtn.addEventListener('click', async () => {
             await saveUserRoleAndLanguage(pendingUser.uid, 'teacher', 'en');
             console.log('Teacher role saved with English as default');
 
+            // Show dashboard link immediately
+            const dashboardLink = document.getElementById('dashboardLink');
+            if (dashboardLink) dashboardLink.style.display = 'flex';
+
             // Set English as UI language for teachers
             localStorage.setItem('preferred-language', 'en');
             const flagSpan = languageBtn.querySelector('.flag');
