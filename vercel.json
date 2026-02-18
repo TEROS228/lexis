@@ -24,6 +24,7 @@
     { "source": "/api/sessions/:p1/:p2", "destination": "/api/sessions/[...params]" },
     { "source": "/api/assignments", "destination": "/api/assignments/[...params]" },
     { "source": "/api/assignments/:p1", "destination": "/api/assignments/[...params]" },
-    { "source": "/api/assignments/:p1/:p2", "destination": "/api/assignments/[...params]" }
+    { "source": "/api/assignments/:p1/:p2", "destination": "/api/assignments/[...params]" },
+    { "source": "/api/assignments/:p1/:p2/:p3", "destination": "/api/assignments/[...params]" }
   ]
 }

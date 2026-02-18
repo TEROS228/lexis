@@ -649,6 +649,7 @@ async function loadAssignments() {
                     <div class="asgn-due ${overdue ? 'asgn-overdue' : ''}">
                         ${overdue ? '⚠ Overdue' : '📅 Due'} ${dueStr}
                     </div>
+                    <button class="asgn-progress-btn" onclick="window.viewAssignmentProgress(${a.id})">👥 Прогресс</button>
                     <button class="asgn-delete" onclick="window.deleteAssignment(${a.id})">✕</button>
                 </div>
             </div>`;
@@ -671,9 +672,77 @@ async function deleteAssignment(id: number) {
 
 (window as any).deleteAssignment = deleteAssignment;
 
+// View assignment progress modal
+async function viewAssignmentProgress(id: number) {
+    const modal = document.getElementById('assignmentProgressModal');
+    const title = document.getElementById('apModalTitle');
+    const body = document.getElementById('apModalBody');
+
+    title.textContent = 'Загрузка...';
+    body.innerHTML = '<div style="text-align:center;padding:40px">⏳</div>';
+    modal.style.display = 'flex';
+    document.body.style.overflow = 'hidden';
+
+    try {
+        const data = await fetch(`${API_URL}/assignments/${id}/progress`).then(r => r.json());
+        const a = data.assignment;
+        const students = data.students;
+
+        const unit = a.type === 'words' ? 'слов' : 'мин';
+        title.textContent = a.title;
+
+        if (students.length === 0) {
+            body.innerHTML = '<div style="text-align:center;padding:40px;color:#888">Нет студентов</div>';
+            return;
+        }
+
+        const done = students.filter(s => s.done);
+        const notDone = students.filter(s => !s.done);
+
+        body.innerHTML = `
+            <div class="ap-summary">
+                <span class="ap-done-badge">✅ Выполнили: ${done.length}</span>
+                <span class="ap-notdone-badge">⏳ Не выполнили: ${notDone.length}</span>
+            </div>
+            <div class="ap-students">
+                ${students.sort((a, b) => b.percent - a.percent).map(s => `
+                    <div class="ap-student-row">
+                        <img src="${s.photo_url || generateAvatarUrl(s.display_name || s.email, 36)}" class="ap-avatar">
+                        <div class="ap-student-info">
+                            <div class="ap-student-name">${s.display_name || s.email}</div>
+                            <div class="ap-progress-bar-wrap">
+                                <div class="ap-progress-bar">
+                                    <div class="ap-progress-fill ${s.done ? 'ap-fill-done' : ''}" style="width:${s.percent}%"></div>
+                                </div>
+                                <span class="ap-progress-label">${s.current} / ${s.target} ${unit} (${s.percent}%)</span>
+                            </div>
+                        </div>
+                        <div class="ap-status">${s.done ? '✅' : '⏳'}</div>
+                    </div>
+                `).join('')}
+            </div>`;
+    } catch (error) {
+        body.innerHTML = '<div style="text-align:center;padding:40px;color:red">Ошибка загрузки</div>';
+    }
+}
+
+(window as any).viewAssignmentProgress = viewAssignmentProgress;
+
 // Global functions for onclick handlers
 (window as any).viewClass = viewClass;
 (window as any).viewStudentProgress = viewStudentProgress;
+
+// Close assignment progress modal
+document.getElementById('closeApModal')?.addEventListener('click', () => {
+    document.getElementById('assignmentProgressModal').style.display = 'none';
+    document.body.style.overflow = '';
+});
+document.getElementById('assignmentProgressModal')?.addEventListener('click', (e) => {
+    if (e.target === document.getElementById('assignmentProgressModal')) {
+        document.getElementById('assignmentProgressModal').style.display = 'none';
+        document.body.style.overflow = '';
+    }
+});
 
 // Auth state
 showLoading();

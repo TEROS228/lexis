@@ -336,6 +336,44 @@
         </div>
     </div>
 
+    <!-- Assignment Progress Modal -->
+    <div class="modal-overlay" id="assignmentProgressModal" style="display:none">
+        <div class="modal-content" style="max-width:560px;width:100%">
+            <div class="modal-header">
+                <h2 id="apModalTitle">Прогресс задания</h2>
+                <button class="modal-close" id="closeApModal">✕</button>
+            </div>
+            <div class="modal-body" id="apModalBody" style="padding:20px;max-height:70vh;overflow-y:auto"></div>
+        </div>
+    </div>
+
+    <style>
+        .asgn-progress-btn {
+            background: #6c63ff;
+            color: white;
+            border: none;
+            border-radius: 8px;
+            padding: 6px 12px;
+            font-size: 13px;
+            cursor: pointer;
+            margin-right: 6px;
+        }
+        .asgn-progress-btn:hover { background: #5a52d5; }
+        .ap-summary { display: flex; gap: 12px; margin-bottom: 16px; flex-wrap: wrap; }
+        .ap-done-badge { background: #d4edda; color: #155724; padding: 6px 12px; border-radius: 20px; font-size: 14px; }
+        .ap-notdone-badge { background: #fff3cd; color: #856404; padding: 6px 12px; border-radius: 20px; font-size: 14px; }
+        .ap-student-row { display: flex; align-items: center; gap: 12px; padding: 12px 0; border-bottom: 1px solid #f0f0f0; }
+        .ap-avatar { width: 36px; height: 36px; border-radius: 50%; object-fit: cover; }
+        .ap-student-info { flex: 1; min-width: 0; }
+        .ap-student-name { font-weight: 500; font-size: 14px; margin-bottom: 4px; }
+        .ap-progress-bar-wrap { display: flex; align-items: center; gap: 8px; }
+        .ap-progress-bar { flex: 1; height: 8px; background: #e9ecef; border-radius: 4px; overflow: hidden; }
+        .ap-progress-fill { height: 100%; background: #6c63ff; border-radius: 4px; transition: width 0.3s; }
+        .ap-fill-done { background: #28a745; }
+        .ap-progress-label { font-size: 12px; color: #666; white-space: nowrap; }
+        .ap-status { font-size: 20px; }
+    </style>
+
     <script type="module" src="/src/pages/teacher-dashboard.ts"></script>
 </body>
 </html>

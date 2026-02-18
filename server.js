@@ -618,6 +618,66 @@ app.get('/api/assignments/teacher/:uid', async (req, res) => {
   }
 });
 
+// Get assignment progress (who completed, who didn't)
+app.get('/api/assignments/:id/progress', async (req, res) => {
+  try {
+    const assignmentResult = await pool.query(
+      `SELECT a.*, c.class_name FROM assignments a LEFT JOIN classes c ON a.class_id = c.id WHERE a.id = $1`,
+      [req.params.id]
+    );
+    if (assignmentResult.rows.length === 0) return res.status(404).json({ error: 'Assignment not found' });
+    const assignment = assignmentResult.rows[0];
+
+    let students = [];
+
+    // Get students: either class members or single student
+    if (assignment.class_id) {
+      const classStudents = await pool.query(
+        `SELECT u.uid, u.display_name, u.email, u.photo_url FROM class_members cm JOIN users u ON cm.student_uid = u.uid WHERE cm.class_id = $1`,
+        [assignment.class_id]
+      );
+      students = classStudents.rows;
+    } else if (assignment.student_uid) {
+      const studentResult = await pool.query(
+        `SELECT uid, display_name, email, photo_url FROM users WHERE uid = $1`,
+        [assignment.student_uid]
+      );
+      students = studentResult.rows;
+    }
+
+    // For each student calculate progress
+    const studentsWithProgress = await Promise.all(students.map(async (student) => {
+      let current = 0;
+
+      if (assignment.type === 'words') {
+        const progressResult = await pool.query(
+          `SELECT COUNT(*) FROM user_progress WHERE user_uid = $1 AND tier = 'tier2' AND status = 'known'`,
+          [student.uid]
+        );
+        current = parseInt(progressResult.rows[0].count);
+      } else {
+        // type = 'time' — sum of session durations
+        const sessionResult = await pool.query(
+          `SELECT COALESCE(SUM(duration_seconds), 0) as total FROM study_sessions WHERE user_uid = $1`,
+          [student.uid]
+        );
+        current = Math.floor(parseInt(sessionResult.rows[0].total) / 60); // convert to minutes
+      }
+
+      const target = assignment.target;
+      const percent = Math.min(100, Math.round((current / target) * 100));
+      const done = current >= target;
+
+      return { ...student, current, target, percent, done };
+    }));
+
+    res.json({ assignment, students: studentsWithProgress });
+  } catch (error) {
+    console.error('Error getting assignment progress:', error);
+    res.status(500).json({ error: error.message });
+  }
+});
+
 // Delete assignment
 app.delete('/api/assignments/:id', async (req, res) => {
   try {
