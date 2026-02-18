@@ -353,7 +353,7 @@ async function markWord(status) {
     else if (status === 'unsure') btnUnsure.classList.add('selected');
     else if (status === 'unknown') btnUnknown.classList.add('selected');
 
-    await saveProgress();
+    saveProgress(); // save in background, don't await
 
     // Auto-advance after 500ms
     setTimeout(() => {
