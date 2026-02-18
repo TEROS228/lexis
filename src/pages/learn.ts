@@ -422,9 +422,9 @@ btnUnknown.addEventListener('click', () => markWord('unknown'));
 btnNext.addEventListener('click', nextWord);
 btnPrev.addEventListener('click', prevWord);
 
-btnSaveExit.addEventListener('click', async () => {
-    await saveProgress();
-    await finishSession(false);
+btnSaveExit.addEventListener('click', () => {
+    saveProgress();
+    finishSession(false);
     window.location.href = '/';
 });
 
