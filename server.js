@@ -41,6 +41,9 @@ pool.query('SELECT NOW()', (err, res) => {
   }
 });
 
+// Keep-alive ping
+app.get('/ping', (req, res) => res.json({ ok: true }));
+
 // ============ USERS API ============
 
 // Get or create user
