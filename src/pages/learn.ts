@@ -467,6 +467,7 @@ function renderExplanationStage(word: any, item: PoolItem) {
     const details = wordDetails[word.id];
     const langDetails = details && (details[currentLang] || details['ru'] || details['en'] || Object.values(details)[0]) as any;
 
+    // Show explanation card
     if (langDetails) {
         explMeaning.textContent = langDetails.meaning || '';
         explContext.textContent = langDetails.context || '';
@@ -474,53 +475,25 @@ function renderExplanationStage(word: any, item: PoolItem) {
         wordExplanation.style.display = 'block';
     }
 
-    // Show action buttons (know / unsure / unknown) so user can self-assess
-    // After choosing, we advance the stage
-    wordActions.style.display = 'flex';
+    // Hide action buttons — go straight to multiChoice quiz
+    wordActions.style.display = 'none';
+    btnKnow.onclick = null;
+    btnUnsure.onclick = null;
+    btnUnknown.onclick = null;
 
-    // Override button behavior for pool system
-    btnKnow.onclick = () => {
-        btnKnow.classList.add('selected');
-        btnUnsure.classList.remove('selected');
-        btnUnknown.classList.remove('selected');
-        // If they say they know it, skip straight to final check
-        item.stage = 'scenario';
-        item.attempts = 0;
-        applyStatus(item.wordId, 'known');
-        savePoolState(currentUser?.uid);
-        setTimeout(advanceToNextPoolItem, 400);
-    };
-    btnUnsure.onclick = () => {
-        btnUnsure.classList.add('selected');
-        btnKnow.classList.remove('selected');
-        btnUnknown.classList.remove('selected');
-        advanceStage(item);
-        savePoolState(currentUser?.uid);
-        setTimeout(displayCurrentWord, 400);
-    };
-    btnUnknown.onclick = () => {
-        btnUnknown.classList.add('selected');
-        btnKnow.classList.remove('selected');
-        btnUnsure.classList.remove('selected');
-        // Mark unknown but still do quiz stages
-        applyStatus(item.wordId, 'unknown');
-        advanceStage(item);
-        // Override: if they said unknown, keep in multiChoice (don't skip)
-        if (item.stage !== 'multiChoice') item.stage = 'multiChoice';
-        savePoolState(currentUser?.uid);
-        setTimeout(displayCurrentWord, 400);
-    };
+    // Advance to multiChoice and render it immediately
+    advanceStage(item);
+    savePoolState(currentUser?.uid);
 
-    // Clear previous selection
-    btnKnow.classList.remove('selected');
-    btnUnsure.classList.remove('selected');
-    btnUnknown.classList.remove('selected');
-
-    // Show previous status if any
-    const status = userProgress[item.wordId];
-    if (status === 'known') btnKnow.classList.add('selected');
-    else if (status === 'unsure') btnUnsure.classList.add('selected');
-    else if (status === 'unknown') btnUnknown.classList.add('selected');
+    if (item.stage === 'mastered') {
+        finishMastered(item);
+    } else {
+        const quiz = (quizData as any)[item.wordId];
+        const stageQuiz = item.stage === 'fillBlank' ? quiz?.fillBlank
+                        : item.stage === 'scenario'  ? quiz?.scenario
+                        : quiz;
+        renderQuizStage(word, item, stageQuiz, item.stage);
+    }
 }
 
 function renderQuizStage(word: any, item: PoolItem, quiz: any, stageType: string) {
