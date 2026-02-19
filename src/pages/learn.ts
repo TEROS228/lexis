@@ -9,64 +9,89 @@ import { initI18n, setLanguage, getCurrentLanguage, updatePageTranslations } fro
 let currentUser = null;
 let currentLang = getCurrentLanguage();
 
-// ─── 10-Word Active Pool ───────────────────────────────────────────────
+// ─── Pool System ───────────────────────────────────────────────────────
+//
+// Phase A — INTRO: show 10 new words one by one (explanation only, no quiz)
+// Phase B — QUIZ:  shuffle quiz tasks for all pool words and present them
+//                  When a word reaches mastered → remove, add 1 new word
+//                  (that word goes through intro first, then joins quiz pool)
+//
+// Quiz stages per word (in order): multiChoice → fillBlank → scenario
+// Wrong answer on any stage → stage resets to multiChoice for that word
+// All 3 stages passed → mastered
+
 const POOL_SIZE = 10;
 
-type WordStage = 'explanation' | 'multiChoice' | 'fillBlank' | 'scenario' | 'mastered';
+type QuizStage = 'multiChoice' | 'fillBlank' | 'scenario';
 
 interface PoolItem {
     wordId: string;
-    stage: WordStage;
-    attempts: number; // attempts on current stage
+    // 'intro'  = not yet shown as explanation
+    // 'quiz'   = in quiz rotation
+    // 'mastered' = done
+    phase: 'intro' | 'quiz' | 'mastered';
+    quizStage: QuizStage;  // current quiz stage (only relevant in 'quiz' phase)
+    attempts: number;
 }
 
-// Ordered list of all word IDs not yet introduced to the pool
+// Words not yet added to pool
 let pendingWordIds: string[] = [];
 
-// Active pool (up to POOL_SIZE items, each at some stage)
+// Active pool
 let activePool: PoolItem[] = [];
 
-// Index into activePool of the currently displayed item
-let poolCursor = 0;
+// Quiz task queue: array of { wordId, stage } to present next
+// Rebuilt whenever pool changes or quiz phase starts
+let quizQueue: { wordId: string; stage: QuizStage }[] = [];
 
-// Words that have been mastered (saved to DB as 'known')
+// Words mastered this session
 let masteredIds: Set<string> = new Set();
+
+// Whether we're still in intro phase (showing new words)
+// true  = still introducing words (all 10 not yet shown)
+// false = quiz phase
+let introPhase = true;
+
+// Index for intro phase
+let introCursor = 0;
 
 function loadPoolState(uid: string) {
     try {
-        const stored = localStorage.getItem(`pool_${uid}`);
+        const stored = localStorage.getItem(`poolv2_${uid}`);
         if (stored) {
             const s = JSON.parse(stored);
             activePool = s.pool || [];
             pendingWordIds = s.pending || [];
             masteredIds = new Set(s.mastered || []);
-            poolCursor = 0;
+            quizQueue = s.quizQueue || [];
+            introPhase = s.introPhase !== undefined ? s.introPhase : true;
+            introCursor = s.introCursor || 0;
         }
     } catch { /* ignore */ }
 }
 
 function savePoolState(uid: string) {
     try {
-        localStorage.setItem(`pool_${uid}`, JSON.stringify({
+        localStorage.setItem(`poolv2_${uid}`, JSON.stringify({
             pool: activePool,
             pending: pendingWordIds,
-            mastered: [...masteredIds]
+            mastered: [...masteredIds],
+            quizQueue,
+            introPhase,
+            introCursor
         }));
     } catch { /* ignore */ }
 }
 
 function initPoolFromProgress(uid: string, progress: Record<string, string>) {
-    // Load stored state first
     loadPoolState(uid);
 
-    // If we already have a valid pool, keep it
+    // If valid saved state exists, use it
     if (activePool.length > 0 || pendingWordIds.length > 0) {
-        // Re-fill pool if needed
-        fillPool(uid);
         return;
     }
 
-    // Build pending list: all unseen or non-mastered words in shuffled order
+    // Fresh start
     const shuffled = loadShuffledOrder(uid);
     masteredIds = new Set(
         Object.entries(progress)
@@ -74,27 +99,37 @@ function initPoolFromProgress(uid: string, progress: Record<string, string>) {
             .map(([id]) => id)
     );
 
-    pendingWordIds = shuffled
-        .map(w => w.id)
-        .filter(id => !masteredIds.has(id));
+    pendingWordIds = shuffled.map(w => w.id).filter(id => !masteredIds.has(id));
 
     activePool = [];
-    fillPool(uid);
-}
-
-function fillPool(uid: string) {
-    // Remove mastered items from pool
-    activePool = activePool.filter(item => item.stage !== 'mastered');
-
-    while (activePool.length < POOL_SIZE && pendingWordIds.length > 0) {
+    // Fill pool with first POOL_SIZE words in intro phase
+    for (let i = 0; i < POOL_SIZE && pendingWordIds.length > 0; i++) {
         const wordId = pendingWordIds.shift()!;
-        activePool.push({ wordId, stage: 'explanation', attempts: 0 });
+        activePool.push({ wordId, phase: 'intro', quizStage: 'multiChoice', attempts: 0 });
     }
 
-    // Clamp cursor
-    if (poolCursor >= activePool.length) poolCursor = 0;
-
+    introPhase = true;
+    introCursor = 0;
+    quizQueue = [];
     savePoolState(uid);
+}
+
+// Build/rebuild quiz queue from pool items that are in 'quiz' phase
+// Each word contributes its current stage as one task
+// Shuffle so they're mixed
+function buildQuizQueue() {
+    const tasks: { wordId: string; stage: QuizStage }[] = [];
+    for (const item of activePool) {
+        if (item.phase === 'quiz') {
+            tasks.push({ wordId: item.wordId, stage: item.quizStage });
+        }
+    }
+    // Fisher-Yates shuffle
+    for (let i = tasks.length - 1; i > 0; i--) {
+        const j = Math.floor(Math.random() * (i + 1));
+        [tasks[i], tasks[j]] = [tasks[j], tasks[i]];
+    }
+    quizQueue = tasks;
 }
 
 // ─── Shuffled Word Order ──────────────────────────────────────────────
@@ -244,7 +279,7 @@ const quizOptions = document.getElementById('quizOptions');
 const quizFeedback = document.getElementById('quizFeedback');
 const quizAttempts = document.getElementById('quizAttempts');
 
-// ─── User/session state ───────────────────────────────────────────────
+// ─── Session/Progress state ───────────────────────────────────────────
 let userProgress: Record<string, string> = {};
 let knownCount = 0;
 let unsureCount = 0;
@@ -274,7 +309,7 @@ signOutBtn.addEventListener('click', async () => {
     catch (error) { console.error('Sign out error:', error); }
 });
 
-// ─── Show cached user immediately ─────────────────────────────────────
+// ─── Cached user ──────────────────────────────────────────────────────
 const cachedAuth = getCachedAuthState();
 if (cachedAuth) {
     userProfile.style.display = 'flex';
@@ -318,7 +353,7 @@ onAuthStateChanged(auth, async (user) => {
     }
 });
 
-// ─── Load / Save Progress ──────────────────────────────────────────────
+// ─── Load / Save Progress ─────────────────────────────────────────────
 async function loadProgress() {
     try {
         const data = await getProgress(currentUser.uid, 'tier2');
@@ -336,26 +371,10 @@ async function loadProgress() {
 
 async function saveProgress() {
     if (!currentUser) return;
-    try {
-        await saveProgressBatch(currentUser.uid, 'tier2', userProgress);
-    } catch (error) {
-        console.error('Error saving progress:', error);
-    }
+    try { await saveProgressBatch(currentUser.uid, 'tier2', userProgress); }
+    catch (error) { console.error('Error saving progress:', error); }
 }
 
-// ─── Stats ─────────────────────────────────────────────────────────────
-function updateStats() {
-    knownCountEl.textContent = String(knownCount);
-    unsureCountEl.textContent = String(unsureCount);
-    unknownCountEl.textContent = String(unknownCount);
-
-    const totalAll = tier2Words.length;
-    currentWordNum.textContent = String(masteredIds.size + 1);
-    totalWords.textContent = String(totalAll);
-    progressFill.style.width = `${(masteredIds.size / totalAll) * 100}%`;
-}
-
-// ─── Mark word status helper ───────────────────────────────────────────
 function applyStatus(wordId: string, status: string) {
     const prev = userProgress[wordId];
     if (prev === 'known') knownCount--;
@@ -366,7 +385,6 @@ function applyStatus(wordId: string, status: string) {
     else if (status === 'unsure') unsureCount++;
     else if (status === 'unknown') unknownCount++;
 
-    // Session tracking
     const prevSess = sessionProgress[wordId];
     if (prevSess === 'known') sessionKnown--;
     else if (prevSess === 'unsure') sessionUnsure--;
@@ -383,91 +401,71 @@ function applyStatus(wordId: string, status: string) {
     saveProgress();
 }
 
-// ─── Stage progression ─────────────────────────────────────────────────
-const STAGE_ORDER: WordStage[] = ['explanation', 'multiChoice', 'fillBlank', 'scenario', 'mastered'];
-
-function advanceStage(item: PoolItem) {
-    const next = nextStageFor(item);
-    item.stage = next;
-    item.attempts = 0;
-    if (item.stage === 'mastered') {
-        masteredIds.add(item.wordId);
-        applyStatus(item.wordId, 'known');
-    } else if (item.stage === 'multiChoice') {
-        applyStatus(item.wordId, 'unsure');
-    }
+// ─── Stats ─────────────────────────────────────────────────────────────
+function updateStats() {
+    knownCountEl.textContent = String(knownCount);
+    unsureCountEl.textContent = String(unsureCount);
+    unknownCountEl.textContent = String(unknownCount);
+    currentWordNum.textContent = String(masteredIds.size + 1);
+    totalWords.textContent = String(tier2Words.length);
+    progressFill.style.width = `${(masteredIds.size / tier2Words.length) * 100}%`;
 }
 
-function nextStageFor(item: PoolItem): WordStage {
-    const quiz = (quizData as any)[item.wordId];
-    const idx = STAGE_ORDER.indexOf(item.stage);
-    for (let i = idx + 1; i < STAGE_ORDER.length; i++) {
-        const s = STAGE_ORDER[i];
-        if (s === 'mastered') return 'mastered';
-        if (s === 'multiChoice' && quiz) return 'multiChoice';
-        if (s === 'fillBlank' && quiz?.fillBlank) return 'fillBlank';
-        if (s === 'scenario' && quiz?.scenario) return 'scenario';
-    }
-    return 'mastered';
-}
-
-function resetToExplanation(item: PoolItem) {
-    item.stage = 'explanation';
-    item.attempts = 0;
-    applyStatus(item.wordId, 'unknown');
-}
-
-// ─── Display ───────────────────────────────────────────────────────────
+// ─── Main display function ────────────────────────────────────────────
 function displayCurrentWord() {
     if (activePool.length === 0 && pendingWordIds.length === 0) {
         showCompletionScreen();
         return;
     }
 
-    if (activePool.length === 0) {
-        fillPool(currentUser?.uid);
-    }
-
-    if (poolCursor >= activePool.length) poolCursor = 0;
-
-    const item = activePool[poolCursor];
-    const word = tier2Words.find(w => w.id === item.wordId);
-    if (!word) { advanceToNextPoolItem(); return; }
-
-    wordMain.textContent = word.en;
-    meaningText.textContent = word[currentLang] || word.ru;
-    wordMeaning.style.display = 'none';
-
-    btnPrev.disabled = poolCursor === 0 && masteredIds.size === 0;
-    btnNext.disabled = false;
-
+    // Hide everything first
     wordExplanation.style.display = 'none';
     wordQuiz.style.display = 'none';
     wordActions.style.display = 'none';
     quizFeedback.style.display = 'none';
     quizAttempts.innerHTML = '';
+    btnKnow.onclick = null;
+    btnUnsure.onclick = null;
+    btnUnknown.onclick = null;
 
-    switch (item.stage) {
-        case 'explanation':
-            renderExplanationStage(word, item);
-            break;
-        case 'multiChoice':
-            renderQuizStage(word, item, quizData[item.wordId], 'multiChoice');
-            break;
-        case 'fillBlank':
-            renderQuizStage(word, item, quizData[item.wordId]?.fillBlank, 'fillBlank');
-            break;
-        case 'scenario':
-            renderQuizStage(word, item, quizData[item.wordId]?.scenario, 'scenario');
-            break;
+    if (introPhase) {
+        showIntroWord();
+    } else {
+        showNextQuiz();
     }
 }
 
-function renderExplanationStage(word: any, item: PoolItem) {
-    const details = wordDetails[word.id];
-    const langDetails = details && (details[currentLang] || details['ru'] || details['en'] || Object.values(details)[0]) as any;
+// ─── INTRO PHASE: show words one by one ──────────────────────────────
+function showIntroWord() {
+    // Find next word still in 'intro' phase
+    const introItems = activePool.filter(item => item.phase === 'intro');
+
+    if (introItems.length === 0) {
+        // All words introduced — switch to quiz phase
+        introPhase = false;
+        activePool.forEach(item => {
+            if (item.phase !== 'mastered') item.phase = 'quiz';
+        });
+        buildQuizQueue();
+        savePoolState(currentUser?.uid);
+        showNextQuiz();
+        return;
+    }
+
+    // Show words in order
+    const item = introItems[introCursor % introItems.length];
+    const word = tier2Words.find(w => w.id === item.wordId);
+    if (!word) { introCursor++; showIntroWord(); return; }
+
+    wordMain.textContent = word.en;
+    meaningText.textContent = word[currentLang] || word.ru;
+    wordMeaning.style.display = 'none';
+    btnPrev.disabled = introCursor === 0;
+    btnNext.disabled = false;
 
     // Show explanation card
+    const details = wordDetails[word.id];
+    const langDetails = details && (details[currentLang] || details['ru'] || details['en'] || Object.values(details)[0]) as any;
     if (langDetails) {
         explMeaning.textContent = langDetails.meaning || '';
         explContext.textContent = langDetails.context || '';
@@ -475,59 +473,84 @@ function renderExplanationStage(word: any, item: PoolItem) {
         wordExplanation.style.display = 'block';
     }
 
-    // Hide action buttons — go straight to multiChoice quiz
-    wordActions.style.display = 'none';
-    btnKnow.onclick = null;
-    btnUnsure.onclick = null;
-    btnUnknown.onclick = null;
+    // Progress badge: "Word 3 of 10"
+    quizAttempts.innerHTML = `<span class="check-badge">📖 Word ${introCursor + 1} of ${introItems.length + activePool.filter(i => i.phase === 'quiz').length}</span>`;
 
-    // Advance to multiChoice and render it immediately
-    advanceStage(item);
-    savePoolState(currentUser?.uid);
-
-    if (item.stage === 'mastered') {
-        finishMastered(item);
-    } else {
-        const quiz = (quizData as any)[item.wordId];
-        const stageQuiz = item.stage === 'fillBlank' ? quiz?.fillBlank
-                        : item.stage === 'scenario'  ? quiz?.scenario
-                        : quiz;
-        renderQuizStage(word, item, stageQuiz, item.stage);
-    }
+    // "Next word" button — clicking Next in intro advances
+    btnNext.onclick = () => {
+        introCursor++;
+        savePoolState(currentUser?.uid);
+        displayCurrentWord();
+    };
+    btnNext.disabled = false;
 }
 
-function renderQuizStage(word: any, item: PoolItem, quiz: any, stageType: string) {
-    if (!quiz) {
-        // No quiz for this stage — skip
-        advanceStage(item);
+// ─── QUIZ PHASE: show next quiz task from queue ───────────────────────
+function showNextQuiz() {
+    // Rebuild queue if empty
+    if (quizQueue.length === 0) {
+        buildQuizQueue();
         savePoolState(currentUser?.uid);
-        if (item.stage === 'mastered') {
-            finishMastered(item);
-        } else {
-            displayCurrentWord();
+    }
+
+    if (quizQueue.length === 0) {
+        // No quiz items — check if all mastered
+        if (activePool.every(i => i.phase === 'mastered') && pendingWordIds.length === 0) {
+            showCompletionScreen();
         }
         return;
     }
 
-    // Stage badge
+    const task = quizQueue.shift()!;
+    savePoolState(currentUser?.uid);
+
+    // Make sure this word/stage is still valid in pool
+    const item = activePool.find(i => i.wordId === task.wordId && i.phase === 'quiz');
+    if (!item || item.quizStage !== task.stage) {
+        // Stale task — skip
+        showNextQuiz();
+        return;
+    }
+
+    const word = tier2Words.find(w => w.id === task.wordId);
+    if (!word) { showNextQuiz(); return; }
+
+    wordMain.textContent = word.en;
+    meaningText.textContent = word[currentLang] || word.ru;
+    wordMeaning.style.display = 'none';
+    btnPrev.disabled = true;
+    btnNext.disabled = true;
+    btnNext.onclick = null;
+
+    const quiz = (quizData as any)[word.id];
+    const stageQuiz = task.stage === 'fillBlank' ? quiz?.fillBlank
+                    : task.stage === 'scenario'  ? quiz?.scenario
+                    : quiz;
+
+    renderQuizTask(word, item, stageQuiz, task.stage);
+}
+
+function renderQuizTask(word: any, item: PoolItem, quiz: any, stageType: QuizStage) {
+    if (!quiz) {
+        // No quiz for this stage — advance stage
+        advanceQuizStage(item, true);
+        showNextQuiz();
+        return;
+    }
+
     const stageBadge = {
         multiChoice: '📝 Multiple choice',
         fillBlank: '✏️ Fill in the blank',
         scenario: '🎭 Scenario'
-    }[stageType] || '📝 Quiz';
+    }[stageType];
 
     quizAttempts.innerHTML = `<span class="check-badge">${stageBadge}</span>`;
     quizQuestion.textContent = quiz.question;
     wordQuiz.style.display = 'block';
-    wordActions.style.display = 'none';
 
     const MAX_ATTEMPTS = stageType === 'multiChoice' ? 3 : 2;
-    item.attempts = item.attempts || 0;
-    let attemptsLeft = MAX_ATTEMPTS - item.attempts;
 
-    if (stageType === 'multiChoice') {
-        renderAttemptsUI(attemptsLeft, MAX_ATTEMPTS);
-    }
+    renderAttemptsUI(MAX_ATTEMPTS - item.attempts, MAX_ATTEMPTS, stageType);
 
     renderQuizOptions(quiz, (correct) => {
         if (correct) {
@@ -535,39 +558,89 @@ function renderQuizStage(word: any, item: PoolItem, quiz: any, stageType: string
             quizFeedback.className = 'quiz-feedback feedback-correct';
             quizFeedback.style.display = 'block';
             item.attempts = 0;
-            advanceStage(item);
+            advanceQuizStage(item, true);
             savePoolState(currentUser?.uid);
-            if (item.stage === 'mastered') {
-                setTimeout(() => finishMastered(item), 800);
+
+            if (item.phase === 'mastered') {
+                setTimeout(() => handleMastered(item), 800);
             } else {
-                setTimeout(displayCurrentWord, 800);
+                setTimeout(showNextQuiz, 800);
             }
         } else {
             item.attempts++;
-            attemptsLeft = MAX_ATTEMPTS - item.attempts;
+            const attemptsLeft = MAX_ATTEMPTS - item.attempts;
 
             if (attemptsLeft <= 0) {
-                quizFeedback.textContent = '✗ The correct answer is highlighted. Let\'s review this word again.';
+                quizFeedback.textContent = '✗ The correct answer is highlighted. This word will come back for review.';
                 quizFeedback.className = 'quiz-feedback feedback-wrong';
                 quizFeedback.style.display = 'block';
-                resetToExplanation(item);
+                // Reset to multiChoice
+                item.quizStage = 'multiChoice';
+                item.attempts = 0;
+                applyStatus(item.wordId, 'unknown');
+                // Re-add this word's tasks to queue
+                buildQuizQueue();
                 savePoolState(currentUser?.uid);
-                setTimeout(advanceToNextPoolItem, 1800);
+                setTimeout(showNextQuiz, 1800);
             } else {
                 quizFeedback.textContent = `✗ Not quite — try again! (${attemptsLeft} attempt${attemptsLeft > 1 ? 's' : ''} left)`;
                 quizFeedback.className = 'quiz-feedback feedback-wrong';
                 quizFeedback.style.display = 'block';
-                if (stageType === 'multiChoice') renderAttemptsUI(attemptsLeft, MAX_ATTEMPTS);
+                renderAttemptsUI(attemptsLeft, MAX_ATTEMPTS, stageType);
+                savePoolState(currentUser?.uid);
                 setTimeout(() => {
                     quizFeedback.style.display = 'none';
-                    renderQuizStage(word, item, quiz, stageType);
+                    renderQuizTask(word, item, quiz, stageType);
                 }, 1200);
             }
         }
     });
 }
 
-function renderAttemptsUI(attemptsLeft: number, max: number) {
+function advanceQuizStage(item: PoolItem, correct: boolean) {
+    if (!correct) return;
+    const order: QuizStage[] = ['multiChoice', 'fillBlank', 'scenario'];
+    const quiz = (quizData as any)[item.wordId];
+    const idx = order.indexOf(item.quizStage);
+
+    // Find next available stage
+    for (let i = idx + 1; i < order.length; i++) {
+        const s = order[i];
+        if (s === 'fillBlank' && quiz?.fillBlank) { item.quizStage = s; applyStatus(item.wordId, 'unsure'); return; }
+        if (s === 'scenario'  && quiz?.scenario)  { item.quizStage = s; applyStatus(item.wordId, 'unsure'); return; }
+    }
+
+    // All stages done — mastered
+    item.phase = 'mastered';
+    masteredIds.add(item.wordId);
+    applyStatus(item.wordId, 'known');
+}
+
+function handleMastered(item: PoolItem) {
+    // Remove mastered item from pool
+    activePool = activePool.filter(i => i !== item);
+
+    // Add 1 new word in intro phase
+    if (pendingWordIds.length > 0) {
+        const wordId = pendingWordIds.shift()!;
+        activePool.push({ wordId, phase: 'intro', quizStage: 'multiChoice', attempts: 0 });
+        introPhase = true;
+        introCursor = 0;
+    }
+
+    updateStats();
+    savePoolState(currentUser?.uid);
+
+    if (activePool.length === 0 && pendingWordIds.length === 0) {
+        showCompletionScreen();
+        return;
+    }
+
+    displayCurrentWord();
+}
+
+function renderAttemptsUI(attemptsLeft: number, max: number, stageType: string) {
+    if (stageType !== 'multiChoice') return;
     const dots = Array.from({ length: max }, (_, i) =>
         `<span class="attempt-dot ${i < attemptsLeft ? 'dot-active' : 'dot-used'}"></span>`
     ).join('');
@@ -576,8 +649,6 @@ function renderAttemptsUI(attemptsLeft: number, max: number) {
 
 function renderQuizOptions(quiz: any, onAnswer: (correct: boolean) => void) {
     quizFeedback.style.display = 'none';
-    quizFeedback.className = 'quiz-feedback';
-
     quizOptions.innerHTML = quiz.options.map((opt: string, i: number) =>
         `<button class="quiz-option" data-index="${i}">${opt}</button>`
     ).join('');
@@ -586,51 +657,33 @@ function renderQuizOptions(quiz: any, onAnswer: (correct: boolean) => void) {
         btn.addEventListener('click', () => {
             const idx = parseInt((btn as HTMLElement).dataset.index);
             const correct = idx === quiz.correct;
-
             quizOptions.querySelectorAll('.quiz-option').forEach((b: Element, i: number) => {
                 if (i === quiz.correct) b.classList.add('correct');
                 else if (i === idx && !correct) b.classList.add('wrong');
                 (b as HTMLButtonElement).disabled = true;
             });
-
             onAnswer(correct);
         }, { once: true });
     });
 }
 
-function finishMastered(item: PoolItem) {
-    // Remove from pool and fill with new word
-    activePool = activePool.filter(i => i !== item);
-    fillPool(currentUser?.uid);
-    updateStats();
-    if (activePool.length === 0 && pendingWordIds.length === 0) {
-        showCompletionScreen();
-    } else {
-        displayCurrentWord();
-    }
-}
-
-function advanceToNextPoolItem() {
-    if (activePool.length === 0) {
-        displayCurrentWord();
-        return;
-    }
-    poolCursor = (poolCursor + 1) % activePool.length;
-    displayCurrentWord();
-}
-
 // ─── Navigation ───────────────────────────────────────────────────────
 function nextWord() {
-    advanceToNextPoolItem();
+    if (introPhase) {
+        introCursor++;
+        savePoolState(currentUser?.uid);
+        displayCurrentWord();
+    } else {
+        showNextQuiz();
+    }
 }
 
 function prevWord() {
-    if (poolCursor > 0) {
-        poolCursor--;
-    } else {
-        poolCursor = activePool.length - 1;
+    if (introPhase && introCursor > 0) {
+        introCursor--;
+        savePoolState(currentUser?.uid);
+        displayCurrentWord();
     }
-    displayCurrentWord();
 }
 
 // ─── Session finish ───────────────────────────────────────────────────
@@ -638,19 +691,9 @@ async function finishSession(completed: boolean) {
     stopTimer();
     if (currentUser && totalStudySeconds > 0 && sessionWordsReviewed > 0) {
         try {
-            await saveSession(
-                currentUser.uid,
-                'tier2',
-                totalStudySeconds,
-                sessionWordsReviewed,
-                sessionKnown,
-                sessionUnsure,
-                sessionUnknown,
-                completed
-            );
-        } catch (error) {
-            console.error('Error saving session:', error);
-        }
+            await saveSession(currentUser.uid, 'tier2', totalStudySeconds,
+                sessionWordsReviewed, sessionKnown, sessionUnsure, sessionUnknown, completed);
+        } catch (error) { console.error('Error saving session:', error); }
     }
 }
 
@@ -680,5 +723,4 @@ document.getElementById('btnViewUnknown')?.addEventListener('click', () => {
     alert('Функция в разработке');
 });
 
-// Auto-save every 30 seconds
 setInterval(saveProgress, 30000);
