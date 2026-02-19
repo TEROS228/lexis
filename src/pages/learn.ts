@@ -514,8 +514,8 @@ function showIntroWord() {
         quizQuestion.textContent = quiz.question;
         quizFeedback.style.display = 'none';
 
-        const tryQuiz = () => {
-            quizFeedback.style.display = 'none';
+        const tryQuiz = (keepFeedback = false) => {
+            if (!keepFeedback) quizFeedback.style.display = 'none';
             renderQuizOptions(quiz, (correct) => {
                 if (correct) {
                     introQuizAnswered = true;
@@ -528,9 +528,9 @@ function showIntroWord() {
                     quizFeedback.textContent = '✗ Not quite — try again!';
                     quizFeedback.className = 'quiz-feedback feedback-wrong';
                     quizFeedback.style.display = 'block';
-                    setTimeout(tryQuiz, 1000);
+                    tryQuiz(true);
                 }
-            });
+            }, false);
         };
         tryQuiz();
     }
@@ -603,6 +603,7 @@ function renderQuizTask(word: any, item: PoolItem, quiz: any, stageType: QuizSta
     const MAX_ATTEMPTS = stageType === 'multiChoice' ? 3 : 2;
 
     renderAttemptsUI(MAX_ATTEMPTS - item.attempts, MAX_ATTEMPTS, stageType);
+    quizFeedback.style.display = 'none';
 
     renderQuizOptions(quiz, (correct) => {
         if (correct) {
@@ -700,8 +701,7 @@ function renderAttemptsUI(attemptsLeft: number, max: number, stageType: string) 
     quizAttempts.innerHTML = `<span class="attempts-label">Attempts:</span>${dots}`;
 }
 
-function renderQuizOptions(quiz: any, onAnswer: (correct: boolean) => void) {
-    quizFeedback.style.display = 'none';
+function renderQuizOptions(quiz: any, onAnswer: (correct: boolean) => void, showCorrectOnWrong = true) {
     quizOptions.innerHTML = quiz.options.map((opt: string, i: number) =>
         `<button class="quiz-option" data-index="${i}">${opt}</button>`
     ).join('');
@@ -711,7 +711,8 @@ function renderQuizOptions(quiz: any, onAnswer: (correct: boolean) => void) {
             const idx = parseInt((btn as HTMLElement).dataset.index);
             const correct = idx === quiz.correct;
             quizOptions.querySelectorAll('.quiz-option').forEach((b: Element, i: number) => {
-                if (i === quiz.correct) b.classList.add('correct');
+                if (correct && i === quiz.correct) b.classList.add('correct');
+                else if (!correct && showCorrectOnWrong && i === quiz.correct) b.classList.add('correct');
                 else if (i === idx && !correct) b.classList.add('wrong');
                 (b as HTMLButtonElement).disabled = true;
             });
