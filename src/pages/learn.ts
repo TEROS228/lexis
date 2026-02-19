@@ -514,9 +514,10 @@ function showIntroWord() {
         quizQuestion.textContent = quiz.question;
         quizFeedback.style.display = 'none';
 
+        const disabledIndices = new Set<number>();
         const tryQuiz = (keepFeedback = false) => {
             if (!keepFeedback) quizFeedback.style.display = 'none';
-            renderQuizOptions(quiz, (correct) => {
+            renderQuizOptions(quiz, (correct, chosenIdx) => {
                 if (correct) {
                     introQuizAnswered = true;
                     savePoolState(currentUser?.uid);
@@ -525,12 +526,13 @@ function showIntroWord() {
                     quizFeedback.style.display = 'block';
                     btnNext.disabled = false;
                 } else {
+                    disabledIndices.add(chosenIdx);
                     quizFeedback.textContent = '✗ Not quite — try again!';
                     quizFeedback.className = 'quiz-feedback feedback-wrong';
                     quizFeedback.style.display = 'block';
                     tryQuiz(true);
                 }
-            }, false);
+            }, false, disabledIndices);
         };
         tryQuiz();
     }
@@ -701,23 +703,28 @@ function renderAttemptsUI(attemptsLeft: number, max: number, stageType: string) 
     quizAttempts.innerHTML = `<span class="attempts-label">Attempts:</span>${dots}`;
 }
 
-function renderQuizOptions(quiz: any, onAnswer: (correct: boolean) => void, showCorrectOnWrong = true) {
+function renderQuizOptions(quiz: any, onAnswer: (correct: boolean, chosenIdx: number) => void, showCorrectOnWrong = true, disabledIndices: Set<number> = new Set()) {
     quizOptions.innerHTML = quiz.options.map((opt: string, i: number) =>
         `<button class="quiz-option" data-index="${i}">${opt}</button>`
     ).join('');
 
     quizOptions.querySelectorAll('.quiz-option').forEach((btn: Element) => {
-        btn.addEventListener('click', () => {
-            const idx = parseInt((btn as HTMLElement).dataset.index);
-            const correct = idx === quiz.correct;
-            quizOptions.querySelectorAll('.quiz-option').forEach((b: Element, i: number) => {
-                if (correct && i === quiz.correct) b.classList.add('correct');
-                else if (!correct && showCorrectOnWrong && i === quiz.correct) b.classList.add('correct');
-                else if (i === idx && !correct) b.classList.add('wrong');
-                (b as HTMLButtonElement).disabled = true;
-            });
-            onAnswer(correct);
-        }, { once: true });
+        const idx = parseInt((btn as HTMLElement).dataset.index);
+        if (disabledIndices.has(idx)) {
+            (btn as HTMLButtonElement).disabled = true;
+            btn.classList.add('wrong');
+        } else {
+            btn.addEventListener('click', () => {
+                const correct = idx === quiz.correct;
+                quizOptions.querySelectorAll('.quiz-option').forEach((b: Element, i: number) => {
+                    if (correct && i === quiz.correct) b.classList.add('correct');
+                    else if (!correct && showCorrectOnWrong && i === quiz.correct) b.classList.add('correct');
+                    else if (i === idx && !correct) b.classList.add('wrong');
+                    (b as HTMLButtonElement).disabled = true;
+                });
+                onAnswer(correct, idx);
+            }, { once: true });
+        }
     });
 }
 
