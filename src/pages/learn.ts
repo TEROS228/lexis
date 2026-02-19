@@ -93,11 +93,14 @@ function enqueueForCheck(uid: string, wordId: string) {
     saveCheckQueue(uid);
 }
 
-// Returns the next word due for a check, or null
+// Returns the next word due for a check, or null (random among all due)
 function dequeueDueCheck(): CheckItem | null {
-    const idx = checkQueue.findIndex(item => wordsSeenCount >= item.dueAfter);
-    if (idx === -1) return null;
-    const item = checkQueue.splice(idx, 1)[0];
+    const dueIndices = checkQueue
+        .map((item, i) => ({ item, i }))
+        .filter(({ item }) => wordsSeenCount >= item.dueAfter);
+    if (dueIndices.length === 0) return null;
+    const { i } = dueIndices[Math.floor(Math.random() * dueIndices.length)];
+    const item = checkQueue.splice(i, 1)[0];
     saveCheckQueue(currentUser?.uid);
     return item;
 }
