@@ -49,15 +49,18 @@ let masteredIds: Set<string> = new Set();
 
 // Whether we're still in intro phase (showing new words)
 // true  = still introducing words (all 10 not yet shown)
-// false = quiz phase
+// false = quiz phase (fillBlank + scenario mixed)
 let introPhase = true;
 
-// Index for intro phase
+// Index for intro phase (which word we're on)
 let introCursor = 0;
+
+// Sub-phase within intro: 'explanation' = show card + Next, 'quiz' = show multiChoice quiz
+let introSubPhase: 'explanation' | 'quiz' = 'explanation';
 
 function loadPoolState(uid: string) {
     try {
-        const stored = localStorage.getItem(`poolv3_${uid}`);
+        const stored = localStorage.getItem(`poolv4_${uid}`);
         if (stored) {
             const s = JSON.parse(stored);
             activePool = s.pool || [];
@@ -66,21 +69,24 @@ function loadPoolState(uid: string) {
             quizQueue = s.quizQueue || [];
             introPhase = s.introPhase !== undefined ? s.introPhase : true;
             introCursor = s.introCursor || 0;
+            introSubPhase = s.introSubPhase || 'explanation';
         }
         // Clear old broken state
         localStorage.removeItem(`poolv2_${uid}`);
+        localStorage.removeItem(`poolv3_${uid}`);
     } catch { /* ignore */ }
 }
 
 function savePoolState(uid: string) {
     try {
-        localStorage.setItem(`poolv3_${uid}`, JSON.stringify({
+        localStorage.setItem(`poolv4_${uid}`, JSON.stringify({
             pool: activePool,
             pending: pendingWordIds,
             mastered: [...masteredIds],
             quizQueue,
             introPhase,
-            introCursor
+            introCursor,
+            introSubPhase
         }));
     } catch { /* ignore */ }
 }
@@ -112,6 +118,7 @@ function initPoolFromProgress(uid: string, progress: Record<string, string>) {
 
     introPhase = true;
     introCursor = 0;
+    introSubPhase = 'explanation';
     quizQueue = [];
     savePoolState(uid);
 }
@@ -437,17 +444,21 @@ function displayCurrentWord() {
     }
 }
 
-// ─── INTRO PHASE: show words one by one ──────────────────────────────
+// ─── INTRO PHASE: show words one by one (explanation → multiChoice quiz) ─────
 function showIntroWord() {
-    // Find next word still in 'intro' phase
+    // Find words still in 'intro' phase
     const introItems = activePool.filter(item => item.phase === 'intro');
 
     if (introItems.length === 0 || introCursor >= introItems.length) {
-        // All words introduced — switch to quiz phase
+        // All words introduced — switch to fillBlank+scenario quiz phase
         introPhase = false;
         introCursor = 0;
+        introSubPhase = 'explanation';
         activePool.forEach(item => {
-            if (item.phase !== 'mastered') item.phase = 'quiz';
+            if (item.phase !== 'mastered') {
+                item.phase = 'quiz';
+                item.quizStage = 'fillBlank';
+            }
         });
         buildQuizQueue();
         savePoolState(currentUser?.uid);
@@ -455,7 +466,6 @@ function showIntroWord() {
         return;
     }
 
-    // Show words in order
     const item = introItems[introCursor];
     const word = tier2Words.find(w => w.id === item.wordId);
     if (!word) { introCursor++; showIntroWord(); return; }
@@ -463,23 +473,77 @@ function showIntroWord() {
     wordMain.textContent = word.en;
     meaningText.textContent = word[currentLang] || word.ru;
     wordMeaning.style.display = 'none';
-    btnPrev.disabled = introCursor === 0;
-    btnNext.disabled = false;
+    btnPrev.disabled = introCursor === 0 && introSubPhase === 'explanation';
 
-    // Show explanation card
-    const details = wordDetails[word.id];
-    const langDetails = details && (details[currentLang] || details['ru'] || details['en'] || Object.values(details)[0]) as any;
-    if (langDetails) {
-        explMeaning.textContent = langDetails.meaning || '';
-        explContext.textContent = langDetails.context || '';
-        explExample.textContent = langDetails.example || '';
-        wordExplanation.style.display = 'block';
+    const totalInPool = introItems.length + activePool.filter(i => i.phase === 'quiz').length;
+
+    if (introSubPhase === 'explanation') {
+        // Show explanation card + Next button
+        const details = wordDetails[word.id];
+        const langDetails = details && (details[currentLang] || details['ru'] || details['en'] || Object.values(details)[0]) as any;
+        if (langDetails) {
+            explMeaning.textContent = langDetails.meaning || '';
+            explContext.textContent = langDetails.context || '';
+            explExample.textContent = langDetails.example || '';
+            wordExplanation.style.display = 'block';
+        }
+        wordQuiz.style.display = 'none';
+        wordActions.style.display = 'none';
+
+        quizAttempts.innerHTML = `<span class="check-badge">📖 Word ${introCursor + 1} of ${totalInPool}</span>`;
+        btnNext.disabled = false;
+        // Next → show quiz for this same word
+        btnNext.onclick = () => {
+            introSubPhase = 'quiz';
+            savePoolState(currentUser?.uid);
+            displayCurrentWord();
+        };
+    } else {
+        // Show multiChoice quiz for this word
+        wordExplanation.style.display = 'none';
+        wordActions.style.display = 'none';
+
+        const quiz = (quizData as any)[word.id];
+        if (!quiz) {
+            // No quiz data — just advance to next word
+            introCursor++;
+            introSubPhase = 'explanation';
+            savePoolState(currentUser?.uid);
+            displayCurrentWord();
+            return;
+        }
+
+        quizAttempts.innerHTML = `<span class="check-badge">📝 Word ${introCursor + 1} of ${totalInPool}</span>`;
+        quizQuestion.textContent = quiz.question;
+        wordQuiz.style.display = 'block';
+        btnNext.disabled = true;
+        btnNext.onclick = null;
+
+        renderQuizOptions(quiz, (correct) => {
+            if (correct) {
+                quizFeedback.textContent = '✓ Correct!';
+                quizFeedback.className = 'quiz-feedback feedback-correct';
+                quizFeedback.style.display = 'block';
+                setTimeout(() => {
+                    introCursor++;
+                    introSubPhase = 'explanation';
+                    savePoolState(currentUser?.uid);
+                    displayCurrentWord();
+                }, 700);
+            } else {
+                quizFeedback.textContent = '✗ Not quite — the correct answer is highlighted. Keep going!';
+                quizFeedback.className = 'quiz-feedback feedback-wrong';
+                quizFeedback.style.display = 'block';
+                // Still advance — this is intro, not a hard gate
+                setTimeout(() => {
+                    introCursor++;
+                    introSubPhase = 'explanation';
+                    savePoolState(currentUser?.uid);
+                    displayCurrentWord();
+                }, 1500);
+            }
+        });
     }
-
-    // Progress badge: "Word 3 of 10"
-    quizAttempts.innerHTML = `<span class="check-badge">📖 Word ${introCursor + 1} of ${introItems.length + activePool.filter(i => i.phase === 'quiz').length}</span>`;
-
-    btnNext.disabled = false;
 }
 
 // ─── QUIZ PHASE: show next quiz task from queue ───────────────────────
@@ -623,6 +687,7 @@ function handleMastered(item: PoolItem) {
         activePool.push({ wordId, phase: 'intro', quizStage: 'multiChoice', attempts: 0 });
         introPhase = true;
         introCursor = 0;
+        introSubPhase = 'explanation';
     }
 
     updateStats();
@@ -676,8 +741,13 @@ function nextWord() {
 }
 
 function prevWord() {
-    if (introPhase && introCursor > 0) {
-        introCursor--;
+    if (introPhase) {
+        if (introSubPhase === 'quiz') {
+            introSubPhase = 'explanation';
+        } else if (introCursor > 0) {
+            introCursor--;
+            introSubPhase = 'explanation';
+        }
         savePoolState(currentUser?.uid);
         displayCurrentWord();
     }
