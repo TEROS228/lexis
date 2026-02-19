@@ -26,12 +26,13 @@ type QuizStage = 'multiChoice' | 'fillBlank' | 'scenario';
 
 interface PoolItem {
     wordId: string;
-    // 'intro'  = not yet shown as explanation
-    // 'quiz'   = in quiz rotation
+    // 'intro'    = showing explanation + multiChoice
+    // 'quiz'     = in fillBlank/scenario rotation
     // 'mastered' = done
     phase: 'intro' | 'quiz' | 'mastered';
-    quizStage: QuizStage;  // current quiz stage (only relevant in 'quiz' phase)
+    quizStage: QuizStage;  // kept for localStorage compat, not used in quiz phase
     attempts: number;
+    completedStages: QuizStage[];  // which quiz stages have been passed
 }
 
 // Words not yet added to pool
@@ -60,10 +61,10 @@ let introQuizAnswered = false;
 
 function loadPoolState(uid: string) {
     try {
-        const stored = localStorage.getItem(`poolv5_${uid}`);
+        const stored = localStorage.getItem(`poolv6_${uid}`);
         if (stored) {
             const s = JSON.parse(stored);
-            activePool = s.pool || [];
+            activePool = (s.pool || []).map((item: any) => ({ ...item, completedStages: item.completedStages || [] }));
             pendingWordIds = s.pending || [];
             masteredIds = new Set(s.mastered || []);
             quizQueue = s.quizQueue || [];
@@ -75,12 +76,13 @@ function loadPoolState(uid: string) {
         localStorage.removeItem(`poolv2_${uid}`);
         localStorage.removeItem(`poolv3_${uid}`);
         localStorage.removeItem(`poolv4_${uid}`);
+        localStorage.removeItem(`poolv5_${uid}`);
     } catch { /* ignore */ }
 }
 
 function savePoolState(uid: string) {
     try {
-        localStorage.setItem(`poolv5_${uid}`, JSON.stringify({
+        localStorage.setItem(`poolv6_${uid}`, JSON.stringify({
             pool: activePool,
             pending: pendingWordIds,
             mastered: [...masteredIds],
@@ -114,7 +116,7 @@ function initPoolFromProgress(uid: string, progress: Record<string, string>) {
     // Fill pool with first POOL_SIZE words in intro phase
     for (let i = 0; i < POOL_SIZE && pendingWordIds.length > 0; i++) {
         const wordId = pendingWordIds.shift()!;
-        activePool.push({ wordId, phase: 'intro', quizStage: 'multiChoice', attempts: 0 });
+        activePool.push({ wordId, phase: 'intro', quizStage: 'multiChoice', attempts: 0, completedStages: [] });
     }
 
     introPhase = true;
@@ -124,14 +126,17 @@ function initPoolFromProgress(uid: string, progress: Record<string, string>) {
     savePoolState(uid);
 }
 
-// Build/rebuild quiz queue from pool items that are in 'quiz' phase
-// Each word contributes its current stage as one task
-// Shuffle so they're mixed
+// Build/rebuild quiz queue: all pending fillBlank+scenario tasks for quiz-phase words, shuffled
 function buildQuizQueue() {
     const tasks: { wordId: string; stage: QuizStage }[] = [];
     for (const item of activePool) {
-        if (item.phase === 'quiz') {
-            tasks.push({ wordId: item.wordId, stage: item.quizStage });
+        if (item.phase !== 'quiz') continue;
+        const quiz = (quizData as any)[item.wordId];
+        for (const stage of ['fillBlank', 'scenario'] as QuizStage[]) {
+            if (item.completedStages.includes(stage)) continue;
+            if (stage === 'fillBlank' && !quiz?.fillBlank) continue;
+            if (stage === 'scenario' && !quiz?.scenario) continue;
+            tasks.push({ wordId: item.wordId, stage });
         }
     }
     // Fisher-Yates shuffle
@@ -457,7 +462,6 @@ function showIntroWord() {
         activePool.forEach(item => {
             if (item.phase !== 'mastered') {
                 item.phase = 'quiz';
-                item.quizStage = 'fillBlank';
             }
         });
         buildQuizQueue();
@@ -548,19 +552,20 @@ function showNextQuiz() {
     }
 
     if (quizQueue.length === 0) {
-        // No quiz items — check if all mastered
-        if (activePool.every(i => i.phase === 'mastered') && pendingWordIds.length === 0) {
+        // No quiz items left — check if truly done
+        if (activePool.length === 0 && pendingWordIds.length === 0) {
             showCompletionScreen();
         }
+        // Otherwise some words are in intro phase — displayCurrentWord handles it
         return;
     }
 
     const task = quizQueue.shift()!;
     savePoolState(currentUser?.uid);
 
-    // Make sure this word/stage is still valid in pool
+    // Make sure this word/stage is still valid (not already completed or word moved back to intro)
     const item = activePool.find(i => i.wordId === task.wordId && i.phase === 'quiz');
-    if (!item || item.quizStage !== task.stage) {
+    if (!item || item.completedStages.includes(task.stage)) {
         // Stale task — skip
         showNextQuiz();
         return;
@@ -613,7 +618,7 @@ function renderQuizTask(word: any, item: PoolItem, quiz: any, stageType: QuizSta
             quizFeedback.className = 'quiz-feedback feedback-correct';
             quizFeedback.style.display = 'block';
             item.attempts = 0;
-            advanceQuizStage(item, true);
+            markStageCompleted(item, stageType);
             savePoolState(currentUser?.uid);
 
             if (item.phase === 'mastered') {
@@ -629,14 +634,17 @@ function renderQuizTask(word: any, item: PoolItem, quiz: any, stageType: QuizSta
                 quizFeedback.textContent = '✗ The correct answer is highlighted. This word will come back for review.';
                 quizFeedback.className = 'quiz-feedback feedback-wrong';
                 quizFeedback.style.display = 'block';
-                // Reset to multiChoice
-                item.quizStage = 'multiChoice';
+                // Send word back to intro phase — reset completedStages, show explanation again
+                item.phase = 'intro';
+                item.completedStages = [];
                 item.attempts = 0;
                 applyStatus(item.wordId, 'unknown');
-                // Re-add this word's tasks to queue
-                buildQuizQueue();
+                // Move to front of intro cursor
+                introPhase = true;
+                introCursor = activePool.filter(i => i.phase === 'intro').length - 1;
+                introQuizAnswered = false;
                 savePoolState(currentUser?.uid);
-                setTimeout(showNextQuiz, 1800);
+                setTimeout(displayCurrentWord, 1800);
             } else {
                 quizFeedback.textContent = `✗ Not quite — try again! (${attemptsLeft} attempt${attemptsLeft > 1 ? 's' : ''} left)`;
                 quizFeedback.className = 'quiz-feedback feedback-wrong';
@@ -652,23 +660,23 @@ function renderQuizTask(word: any, item: PoolItem, quiz: any, stageType: QuizSta
     });
 }
 
-function advanceQuizStage(item: PoolItem, correct: boolean) {
-    if (!correct) return;
-    const order: QuizStage[] = ['multiChoice', 'fillBlank', 'scenario'];
-    const quiz = (quizData as any)[item.wordId];
-    const idx = order.indexOf(item.quizStage);
-
-    // Find next available stage
-    for (let i = idx + 1; i < order.length; i++) {
-        const s = order[i];
-        if (s === 'fillBlank' && quiz?.fillBlank) { item.quizStage = s; applyStatus(item.wordId, 'unsure'); return; }
-        if (s === 'scenario'  && quiz?.scenario)  { item.quizStage = s; applyStatus(item.wordId, 'unsure'); return; }
+function markStageCompleted(item: PoolItem, stage: QuizStage) {
+    if (!item.completedStages.includes(stage)) {
+        item.completedStages.push(stage);
     }
+    const quiz = (quizData as any)[item.wordId];
+    const needsFill = !!quiz?.fillBlank;
+    const needsScen = !!quiz?.scenario;
+    const fillDone = !needsFill || item.completedStages.includes('fillBlank');
+    const scenDone = !needsScen || item.completedStages.includes('scenario');
 
-    // All stages done — mastered
-    item.phase = 'mastered';
-    masteredIds.add(item.wordId);
-    applyStatus(item.wordId, 'known');
+    if (fillDone && scenDone) {
+        item.phase = 'mastered';
+        masteredIds.add(item.wordId);
+        applyStatus(item.wordId, 'known');
+    } else {
+        applyStatus(item.wordId, 'unsure');
+    }
 }
 
 function handleMastered(item: PoolItem) {
@@ -678,7 +686,7 @@ function handleMastered(item: PoolItem) {
     // Add 1 new word in intro phase
     if (pendingWordIds.length > 0) {
         const wordId = pendingWordIds.shift()!;
-        activePool.push({ wordId, phase: 'intro', quizStage: 'multiChoice', attempts: 0 });
+        activePool.push({ wordId, phase: 'intro', quizStage: 'multiChoice', attempts: 0, completedStages: [] });
         introPhase = true;
         introCursor = 0;
         introQuizAnswered = false;
