@@ -175,18 +175,53 @@ const explExample = document.getElementById('explExample');
 const quizQuestion = document.getElementById('quizQuestion');
 const quizOptions = document.getElementById('quizOptions');
 const quizFeedback = document.getElementById('quizFeedback');
+const quizAttempts = document.getElementById('quizAttempts');
 
-// Explanation + quiz mode state
-let quizMode = false; // true = showing quiz instead of know/unsure/unknown
-let quizAnswered = false;
-let quizCorrect = false;
+const MAX_ATTEMPTS = 3;
+
+// Stage 1: explanation + quiz (must answer correctly, up to 3 attempts)
+// Stage 2: check quiz without explanation (1 attempt, wrong = unknown)
+function renderQuizOptions(quiz: any, onAnswer: (correct: boolean, attemptsLeft: number) => void, attemptsLeft: number) {
+    quizFeedback.style.display = 'none';
+    quizFeedback.className = 'quiz-feedback';
+
+    quizOptions.innerHTML = quiz.options.map((opt: string, i: number) =>
+        `<button class="quiz-option" data-index="${i}">${opt}</button>`
+    ).join('');
+
+    quizOptions.querySelectorAll('.quiz-option').forEach((btn: Element) => {
+        btn.addEventListener('click', () => {
+            const idx = parseInt((btn as HTMLElement).dataset.index);
+            const correct = idx === quiz.correct;
+
+            quizOptions.querySelectorAll('.quiz-option').forEach((b: Element, i: number) => {
+                if (i === quiz.correct) b.classList.add('correct');
+                else if (i === idx && !correct) b.classList.add('wrong');
+                (b as HTMLButtonElement).disabled = true;
+            });
+
+            onAnswer(correct, attemptsLeft - 1);
+        }, { once: true });
+    });
+}
+
+function updateAttemptsUI(attemptsLeft: number, stage: 1 | 2) {
+    if (stage === 2 || attemptsLeft >= MAX_ATTEMPTS) {
+        quizAttempts.textContent = '';
+        return;
+    }
+    const dots = Array.from({ length: MAX_ATTEMPTS }, (_, i) =>
+        `<span class="attempt-dot ${i < attemptsLeft ? 'dot-active' : 'dot-used'}"></span>`
+    ).join('');
+    quizAttempts.innerHTML = `<span class="attempts-label">Attempts left:</span>${dots}`;
+}
 
 function showExplanationAndQuiz(word: any) {
     const details = wordDetails[word.id];
     const langDetails = details && (details[currentLang] || details['ru'] || details['en'] || Object.values(details)[0]) as any;
     const quiz = quizData[word.id];
 
-    // Show explanation if details exist
+    // Show explanation
     if (langDetails) {
         explMeaning.textContent = langDetails.meaning || '';
         explContext.textContent = langDetails.context || '';
@@ -196,72 +231,97 @@ function showExplanationAndQuiz(word: any) {
         wordExplanation.style.display = 'none';
     }
 
-    // Show quiz if quiz data exists
-    if (quiz) {
-        quizMode = true;
-        quizAnswered = false;
-        quizCorrect = false;
-        quizFeedback.style.display = 'none';
-        quizFeedback.className = 'quiz-feedback';
-        quizQuestion.textContent = quiz.question;
-
-        quizOptions.innerHTML = quiz.options.map((opt: string, i: number) => `
-            <button class="quiz-option" data-index="${i}">${opt}</button>
-        `).join('');
-
-        quizOptions.querySelectorAll('.quiz-option').forEach((btn: Element) => {
-            btn.addEventListener('click', (e) => {
-                if (quizAnswered) return;
-                quizAnswered = true;
-                const idx = parseInt((btn as HTMLElement).dataset.index);
-                quizCorrect = idx === quiz.correct;
-
-                // Highlight correct/wrong
-                quizOptions.querySelectorAll('.quiz-option').forEach((b: Element, i: number) => {
-                    if (i === quiz.correct) b.classList.add('correct');
-                    else if (i === idx && !quizCorrect) b.classList.add('wrong');
-                    (b as HTMLButtonElement).disabled = true;
-                });
-
-                if (quizCorrect) {
-                    quizFeedback.textContent = '✓ Correct! Moving on...';
-                    quizFeedback.className = 'quiz-feedback feedback-correct';
-                    quizFeedback.style.display = 'block';
-                    // Mark as explained and known, advance
-                    markWordExplained(currentUser.uid, word.id);
-                    setTimeout(() => {
-                        markWord('known');
-                    }, 900);
-                } else {
-                    quizFeedback.textContent = '✗ Not quite — review the explanation above and try again next time.';
-                    quizFeedback.className = 'quiz-feedback feedback-wrong';
-                    quizFeedback.style.display = 'block';
-                    // Mark as explained (even wrong — explanation was shown)
-                    // but mark word as unknown so it comes back
-                    markWordExplained(currentUser.uid, word.id);
-                    setTimeout(() => {
-                        markWord('unknown');
-                    }, 1800);
-                }
-            });
-        });
-
-        wordQuiz.style.display = 'block';
-        wordActions.style.display = 'none'; // hide know/unsure/unknown
-    } else {
-        // No quiz data — just show explanation, then normal buttons
-        quizMode = false;
+    if (!quiz) {
+        // No quiz — show explanation + normal buttons, mark as explained
         wordQuiz.style.display = 'none';
         wordActions.style.display = 'flex';
-        if (langDetails) {
-            // Mark as explained after showing explanation
-            markWordExplained(currentUser.uid, word.id);
-        }
+        if (langDetails) markWordExplained(currentUser.uid, word.id);
+        return;
     }
+
+    // Stage 1: quiz with explanation visible, up to 3 attempts
+    wordQuiz.style.display = 'block';
+    wordActions.style.display = 'none';
+    quizQuestion.textContent = quiz.question;
+
+    let attemptsLeft = MAX_ATTEMPTS;
+    updateAttemptsUI(attemptsLeft, 1);
+
+    function stage1Attempt() {
+        renderQuizOptions(quiz, (correct, remaining) => {
+            if (correct) {
+                quizFeedback.textContent = '✓ Correct! Now let\'s check without hints...';
+                quizFeedback.className = 'quiz-feedback feedback-correct';
+                quizFeedback.style.display = 'block';
+                quizAttempts.textContent = '';
+                // Move to stage 2 after short pause
+                setTimeout(() => showCheckQuiz(word), 1200);
+            } else {
+                attemptsLeft = remaining;
+                if (attemptsLeft <= 0) {
+                    // Used all attempts — reveal answer and move to stage 2
+                    quizFeedback.textContent = '✗ The correct answer is highlighted. Let\'s continue.';
+                    quizFeedback.className = 'quiz-feedback feedback-wrong';
+                    quizFeedback.style.display = 'block';
+                    quizAttempts.textContent = '';
+                    markWordExplained(currentUser.uid, word.id);
+                    setTimeout(() => showCheckQuiz(word), 1800);
+                } else {
+                    updateAttemptsUI(attemptsLeft, 1);
+                    quizFeedback.textContent = `✗ Not quite — try again! Read the explanation above.`;
+                    quizFeedback.className = 'quiz-feedback feedback-wrong';
+                    quizFeedback.style.display = 'block';
+                    // Re-enable after short pause for retry
+                    setTimeout(() => {
+                        quizFeedback.style.display = 'none';
+                        stage1Attempt();
+                    }, 1200);
+                }
+            }
+        }, attemptsLeft);
+    }
+
+    stage1Attempt();
+}
+
+// Stage 2: check quiz WITHOUT explanation
+function showCheckQuiz(word: any) {
+    const quiz = quizData[word.id];
+    if (!quiz) {
+        // No quiz data — just mark explained and go to normal mode
+        markWordExplained(currentUser.uid, word.id);
+        showNormalMode();
+        markWord('known');
+        return;
+    }
+
+    // Hide explanation, show quiz only
+    wordExplanation.style.display = 'none';
+    wordQuiz.style.display = 'block';
+    wordActions.style.display = 'none';
+    quizFeedback.style.display = 'none';
+    quizAttempts.textContent = '';
+
+    quizQuestion.textContent = '🧠 ' + quiz.question;
+
+    renderQuizOptions(quiz, (correct, _) => {
+        markWordExplained(currentUser.uid, word.id);
+        if (correct) {
+            quizFeedback.textContent = '✓ Great job! Word learned.';
+            quizFeedback.className = 'quiz-feedback feedback-correct';
+            quizFeedback.style.display = 'block';
+            setTimeout(() => markWord('known'), 900);
+        } else {
+            // Highlight correct
+            quizFeedback.textContent = '✗ Not quite — this word will come back for review.';
+            quizFeedback.className = 'quiz-feedback feedback-wrong';
+            quizFeedback.style.display = 'block';
+            setTimeout(() => markWord('unknown'), 1800);
+        }
+    }, 1);
 }
 
 function showNormalMode() {
-    quizMode = false;
     wordExplanation.style.display = 'none';
     wordQuiz.style.display = 'none';
     wordActions.style.display = 'flex';
