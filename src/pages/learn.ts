@@ -10,6 +10,42 @@ let currentWordIndex = 0;
 let userProgress = {};
 let currentLang = getCurrentLanguage();
 
+// Shuffled word order — generated once per user and persisted
+let shuffledWords: typeof tier2Words = [];
+
+function shuffle<T>(arr: T[]): T[] {
+    const a = [...arr];
+    for (let i = a.length - 1; i > 0; i--) {
+        const j = Math.floor(Math.random() * (i + 1));
+        [a[i], a[j]] = [a[j], a[i]];
+    }
+    return a;
+}
+
+function loadShuffledOrder(uid: string) {
+    try {
+        const stored = localStorage.getItem(`wordOrder_${uid}`);
+        if (stored) {
+            const ids: string[] = JSON.parse(stored);
+            // Rebuild array preserving saved order; append any new words at random positions
+            const idMap = new Map(tier2Words.map(w => [w.id, w]));
+            const ordered = ids.map(id => idMap.get(id)).filter(Boolean) as typeof tier2Words;
+            const newWords = tier2Words.filter(w => !ids.includes(w.id));
+            // Insert new words at random positions among unseen words
+            newWords.forEach(w => {
+                const pos = Math.floor(Math.random() * (ordered.length + 1));
+                ordered.splice(pos, 0, w);
+            });
+            shuffledWords = ordered;
+        } else {
+            shuffledWords = shuffle(tier2Words);
+            localStorage.setItem(`wordOrder_${uid}`, JSON.stringify(shuffledWords.map(w => w.id)));
+        }
+    } catch {
+        shuffledWords = shuffle(tier2Words);
+    }
+}
+
 // Track which words have been explained (shown explanation card + quiz)
 // Key: `explained_${uid}`, Value: Set of word IDs
 let explainedWords: Set<string> = new Set();
@@ -468,7 +504,8 @@ onAuthStateChanged(auth, async (user) => {
             });
         }
 
-        // Load explained words and check queue from localStorage
+        // Load shuffled word order, explained words and check queue from localStorage
+        loadShuffledOrder(user.uid);
         loadExplainedWords(user.uid);
         loadCheckQueue(user.uid);
 
@@ -490,11 +527,11 @@ async function loadProgress() {
     try {
         const data = await getProgress(currentUser.uid, 'tier2');
         userProgress = data.words || {};
-        currentWordIndex = 0; // Will find first unreviewed word
+        currentWordIndex = 0;
 
-        // Find last reviewed word index
-        for (let i = 0; i < tier2Words.length; i++) {
-            if (!userProgress[tier2Words[i].id]) {
+        // Find first word in shuffled order that hasn't been seen yet
+        for (let i = 0; i < shuffledWords.length; i++) {
+            if (!userProgress[shuffledWords[i].id]) {
                 currentWordIndex = i;
                 break;
             }
@@ -527,20 +564,20 @@ async function saveProgress() {
 
 // Display current word
 function displayCurrentWord() {
-    if (currentWordIndex >= tier2Words.length) {
+    if (currentWordIndex >= shuffledWords.length) {
         showCompletionScreen();
         return;
     }
 
-    const word = tier2Words[currentWordIndex];
+    const word = shuffledWords[currentWordIndex];
     wordMain.textContent = word.en;
     meaningText.textContent = word[currentLang] || word.ru;
     wordMeaning.style.display = 'none';
 
     // Update UI
     currentWordNum.textContent = currentWordIndex + 1;
-    totalWords.textContent = tier2Words.length;
-    progressFill.style.width = `${((currentWordIndex + 1) / tier2Words.length) * 100}%`;
+    totalWords.textContent = shuffledWords.length;
+    progressFill.style.width = `${((currentWordIndex + 1) / shuffledWords.length) * 100}%`;
 
     // Update navigation buttons
     btnPrev.disabled = currentWordIndex === 0;
@@ -577,7 +614,7 @@ function updateStats() {
 
 // Mark word status
 async function markWord(status) {
-    const word = tier2Words[currentWordIndex];
+    const word = shuffledWords[currentWordIndex];
     const previousStatus = userProgress[word.id];
 
     // Update total counts
@@ -617,7 +654,7 @@ async function markWord(status) {
 
     // Auto-advance after 500ms
     setTimeout(() => {
-        if (currentWordIndex < tier2Words.length - 1) {
+        if (currentWordIndex < shuffledWords.length - 1) {
             nextWord();
         } else {
             showCompletionScreen();
@@ -642,7 +679,7 @@ function nextWord() {
     }
 
     // Normal advance
-    if (currentWordIndex < tier2Words.length - 1) {
+    if (currentWordIndex < shuffledWords.length - 1) {
         currentWordIndex++;
         displayCurrentWord();
     }
