@@ -57,7 +57,7 @@ let introCursor = 0;
 
 function loadPoolState(uid: string) {
     try {
-        const stored = localStorage.getItem(`poolv2_${uid}`);
+        const stored = localStorage.getItem(`poolv3_${uid}`);
         if (stored) {
             const s = JSON.parse(stored);
             activePool = s.pool || [];
@@ -67,12 +67,14 @@ function loadPoolState(uid: string) {
             introPhase = s.introPhase !== undefined ? s.introPhase : true;
             introCursor = s.introCursor || 0;
         }
+        // Clear old broken state
+        localStorage.removeItem(`poolv2_${uid}`);
     } catch { /* ignore */ }
 }
 
 function savePoolState(uid: string) {
     try {
-        localStorage.setItem(`poolv2_${uid}`, JSON.stringify({
+        localStorage.setItem(`poolv3_${uid}`, JSON.stringify({
             pool: activePool,
             pending: pendingWordIds,
             mastered: [...masteredIds],
@@ -440,9 +442,10 @@ function showIntroWord() {
     // Find next word still in 'intro' phase
     const introItems = activePool.filter(item => item.phase === 'intro');
 
-    if (introItems.length === 0) {
+    if (introItems.length === 0 || introCursor >= introItems.length) {
         // All words introduced — switch to quiz phase
         introPhase = false;
+        introCursor = 0;
         activePool.forEach(item => {
             if (item.phase !== 'mastered') item.phase = 'quiz';
         });
@@ -453,7 +456,7 @@ function showIntroWord() {
     }
 
     // Show words in order
-    const item = introItems[introCursor % introItems.length];
+    const item = introItems[introCursor];
     const word = tier2Words.find(w => w.id === item.wordId);
     if (!word) { introCursor++; showIntroWord(); return; }
 
@@ -476,12 +479,6 @@ function showIntroWord() {
     // Progress badge: "Word 3 of 10"
     quizAttempts.innerHTML = `<span class="check-badge">📖 Word ${introCursor + 1} of ${introItems.length + activePool.filter(i => i.phase === 'quiz').length}</span>`;
 
-    // "Next word" button — clicking Next in intro advances
-    btnNext.onclick = () => {
-        introCursor++;
-        savePoolState(currentUser?.uid);
-        displayCurrentWord();
-    };
     btnNext.disabled = false;
 }
 
