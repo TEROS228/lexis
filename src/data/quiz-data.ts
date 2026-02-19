@@ -8,7 +8,22 @@ export const quizData = {
       "To forget facts",
       "To tell a story"
     ],
-    correct: 0
+    correct: 0,
+    scenario: {
+      question: "A scientist who analyses data from an experiment will:",
+      options: [
+        "Ignore the results.",
+        "Study the results carefully to draw conclusions.",
+        "Destroy the data.",
+        "I'm not sure."
+      ],
+      correct: 1
+    },
+    fillBlank: {
+      question: "The team will ________ the survey results to understand customer needs.",
+      options: ["analyse", "abandon", "achieve", "adjust"],
+      correct: 0
+    }
   },
   approach: {
     question: "What does \"approach\" mean?",
@@ -18,7 +33,22 @@ export const quizData = {
       "The end of a book",
       "A heavy rain"
     ],
-    correct: 0
+    correct: 0,
+    scenario: {
+      question: "A teacher who uses a hands-on approach to teaching will:",
+      options: [
+        "Only use textbooks and lectures.",
+        "Let students learn through practical activities and experiments.",
+        "Avoid all student participation.",
+        "I'm not sure."
+      ],
+      correct: 1
+    },
+    fillBlank: {
+      question: "The team took a new ________ to solve the problem more efficiently.",
+      options: ["approach", "abandon", "acquire", "adjust"],
+      correct: 0
+    }
   },
   area: {
     question: "What does \"area\" mean?",
@@ -28,7 +58,22 @@ export const quizData = {
       "A type of food",
       "A person's name"
     ],
-    correct: 0
+    correct: 0,
+    scenario: {
+      question: "A scientist who specializes in the area of biology is:",
+      options: [
+        "An expert who knows nothing about living things.",
+        "An expert whose focus and knowledge is in the field of biology.",
+        "Someone who works in a kitchen.",
+        "I'm not sure."
+      ],
+      correct: 1
+    },
+    fillBlank: {
+      question: "The research team focused on the ________ of renewable energy.",
+      options: ["area", "affect", "approach", "authority"],
+      correct: 0
+    }
   },
   assess: {
     question: "What does \"assess\" mean?",
@@ -38,7 +83,22 @@ export const quizData = {
       "To go to sleep",
       "To buy a car"
     ],
-    correct: 1
+    correct: 1,
+    scenario: {
+      question: "A doctor who assesses a patient's health will:",
+      options: [
+        "Ignore the patient's symptoms.",
+        "Examine and evaluate the patient's condition to decide on treatment.",
+        "Immediately perform surgery without checking.",
+        "I'm not sure."
+      ],
+      correct: 1
+    },
+    fillBlank: {
+      question: "Before starting the project, the team needs to ________ the risks involved.",
+      options: ["assess", "abandon", "achieve", "allocate"],
+      correct: 0
+    }
   },
   assume: {
     question: "What does \"assume\" mean?",
@@ -48,7 +108,22 @@ export const quizData = {
       "To ask a question",
       "To fix a machine"
     ],
-    correct: 1
+    correct: 1,
+    scenario: {
+      question: "If you assume it will rain tomorrow without checking a forecast, you are:",
+      options: [
+        "Making a decision based on solid evidence.",
+        "Believing it will rain without confirming it.",
+        "Checking weather data carefully.",
+        "I'm not sure."
+      ],
+      correct: 1
+    },
+    fillBlank: {
+      question: "Don't ________ that everyone agrees with you — ask for their opinions first.",
+      options: ["assume", "abandon", "achieve", "adjust"],
+      correct: 0
+    }
   },
   authority: {
     question: "What does \"authority\" mean?",
@@ -58,7 +133,22 @@ export const quizData = {
       "A secret plan",
       "A type of music"
     ],
-    correct: 0
+    correct: 0,
+    scenario: {
+      question: "A police officer who has authority over a crime scene can:",
+      options: [
+        "Do whatever they want without any rules.",
+        "Control who enters and make decisions about the investigation.",
+        "Be ignored by everyone at the scene.",
+        "I'm not sure."
+      ],
+      correct: 1
+    },
+    fillBlank: {
+      question: "The principal has the ________ to expel students who break the rules.",
+      options: ["authority", "abandon", "approach", "adequate"],
+      correct: 0
+    }
   },
   available: {
     question: "What does \"available\" mean?",
@@ -68,7 +158,22 @@ export const quizData = {
       "Too expensive",
       "Hidden"
     ],
-    correct: 1
+    correct: 1,
+    scenario: {
+      question: "If a parking space is available, it means:",
+      options: [
+        "The space is already taken.",
+        "The space is free and you can park there.",
+        "The space is reserved for someone else.",
+        "I'm not sure."
+      ],
+      correct: 1
+    },
+    fillBlank: {
+      question: "The doctor is not ________ on weekends, so please call during office hours.",
+      options: ["available", "adequate", "abstract", "adverse"],
+      correct: 0
+    }
   },
   benefit: {
     question: "What does \"benefit\" mean?",
@@ -78,7 +183,22 @@ export const quizData = {
       "A scientific test",
       "A bad smell"
     ],
-    correct: 1
+    correct: 1,
+    scenario: {
+      question: "One benefit of exercise is that it:",
+      options: [
+        "Makes you tired and weak.",
+        "Improves your health and mood.",
+        "Wastes your time.",
+        "I'm not sure."
+      ],
+      correct: 1
+    },
+    fillBlank: {
+      question: "Learning a second language has many ________, including better job opportunities.",
+      options: ["benefits", "barriers", "burdens", "biases"],
+      correct: 0
+    }
   },
   concept: {
     question: "What does \"concept\" mean?",
@@ -88,7 +208,22 @@ export const quizData = {
       "A loud shout",
       "A mistake"
     ],
-    correct: 1
+    correct: 1,
+    scenario: {
+      question: "When a teacher introduces the concept of gravity, they are:",
+      options: [
+        "Showing students a physical object.",
+        "Explaining the idea of how objects are pulled toward the Earth.",
+        "Describing a loud sound.",
+        "I'm not sure."
+      ],
+      correct: 1
+    },
+    fillBlank: {
+      question: "The ________ of democracy is based on the idea that people should have a say in their government.",
+      options: ["concept", "conduct", "context", "consequence"],
+      correct: 0
+    }
   },
   consist: {
     question: "What does \"consist\" mean?",
@@ -98,7 +233,22 @@ export const quizData = {
       "To run fast",
       "To disappear"
     ],
-    correct: 0
+    correct: 0,
+    scenario: {
+      question: "A healthy diet that consists of fruits and vegetables means:",
+      options: [
+        "The diet has no fruits or vegetables.",
+        "The diet is mainly made up of fruits and vegetables.",
+        "The diet includes only meat.",
+        "I'm not sure."
+      ],
+      correct: 1
+    },
+    fillBlank: {
+      question: "The team ________ of five engineers and two designers.",
+      options: ["consists", "conducts", "confirms", "contributes"],
+      correct: 0
+    }
   },
   constitute: {
     question: "What does \"constitute\" mean?",
@@ -108,7 +258,22 @@ export const quizData = {
       "To say no",
       "To travel"
     ],
-    correct: 0
+    correct: 0,
+    scenario: {
+      question: "If stealing constitutes a crime, it means:",
+      options: [
+        "Stealing is not punishable by law.",
+        "Stealing is considered and treated as a crime.",
+        "Stealing is encouraged.",
+        "I'm not sure."
+      ],
+      correct: 1
+    },
+    fillBlank: {
+      question: "Five members ________ the committee that reviews all new proposals.",
+      options: ["constitute", "conduct", "confirm", "contribute"],
+      correct: 0
+    }
   },
   context: {
     question: "What does \"context\" mean?",
@@ -118,7 +283,22 @@ export const quizData = {
       "A phone call",
       "A type of sport"
     ],
-    correct: 1
+    correct: 1,
+    scenario: {
+      question: "Understanding the context of a news story helps you:",
+      options: [
+        "Ignore what the story is about.",
+        "Understand the background and circumstances that make the story meaningful.",
+        "Forget the details.",
+        "I'm not sure."
+      ],
+      correct: 1
+    },
+    fillBlank: {
+      question: "The word 'bank' has different meanings depending on the ________.",
+      options: ["context", "conduct", "concept", "consequence"],
+      correct: 0
+    }
   },
   contract: {
     question: "What does \"contract\" mean?",
@@ -128,7 +308,22 @@ export const quizData = {
       "A bright star",
       "A funny joke"
     ],
-    correct: 0
+    correct: 0,
+    scenario: {
+      question: "When you sign a contract for a new job, you:",
+      options: [
+        "Can change the rules whenever you want.",
+        "Agree to work a certain number of hours for a certain salary.",
+        "Don't have to follow any rules.",
+        "I'm not sure."
+      ],
+      correct: 1
+    },
+    fillBlank: {
+      question: "The company broke the ________ by not paying the workers on time.",
+      options: ["contract", "contrast", "contact", "context"],
+      correct: 0
+    }
   },
   create: {
     question: "What does \"create\" mean?",
@@ -138,7 +333,22 @@ export const quizData = {
       "To wait",
       "To sleep"
     ],
-    correct: 1
+    correct: 1,
+    scenario: {
+      question: "If you create a new recipe, you:",
+      options: [
+        "Follow the instructions on a box of pasta.",
+        "Mix different ingredients to make a meal that nobody has tried before.",
+        "Buy a meal at a restaurant.",
+        "I'm not sure."
+      ],
+      correct: 1
+    },
+    fillBlank: {
+      question: "The new factory will ________ hundreds of jobs for local people.",
+      options: ["create", "credit", "criteria", "consist"],
+      correct: 0
+    }
   },
   data: {
     question: "What does \"data\" mean?",
@@ -148,7 +358,22 @@ export const quizData = {
       "A romantic date",
       "A person's age"
     ],
-    correct: 0
+    correct: 0,
+    scenario: {
+      question: "A scientist collects data from an experiment to:",
+      options: [
+        "Make the lab look busy.",
+        "See if their ideas were correct and understand what happened.",
+        "Sell it to a bookstore.",
+        "I'm not sure."
+      ],
+      correct: 1
+    },
+    fillBlank: {
+      question: "We need more ________ before we can make a final decision.",
+      options: ["data", "debate", "decade", "domain"],
+      correct: 0
+    }
   },
   define: {
     question: "What does \"define\" mean?",
@@ -168,7 +393,22 @@ export const quizData = {
       "To paint",
       "To shop"
     ],
-    correct: 1
+    correct: 1,
+    scenario: {
+      question: "Many modern medicines are derived from plants. This means:",
+      options: [
+        "The medicine is used to water the plants.",
+        "The main ingredients come from the plants.",
+        "The plants eat the medicine.",
+        "I'm not sure."
+      ],
+      correct: 1
+    },
+    fillBlank: {
+      question: "She ________ great pleasure from playing the piano.",
+      options: ["derives", "detects", "deviates", "denotes"],
+      correct: 0
+    }
   },
   distribute: {
     question: "What does \"distribute\" mean?",
@@ -178,7 +418,22 @@ export const quizData = {
       "To fix",
       "To stay still"
     ],
-    correct: 1
+    correct: 1,
+    scenario: {
+      question: "If a teacher distributes the test papers, they:",
+      options: [
+        "Keep all the papers on their desk.",
+        "Give one paper to every student in the class.",
+        "Throw the papers in the trash.",
+        "I'm not sure."
+      ],
+      correct: 1
+    },
+    fillBlank: {
+      question: "The organization will ________ food and water to the victims of the storm.",
+      options: ["distribute", "displace", "diminish", "distort"],
+      correct: 0
+    }
   },
   economy: {
     question: "What does \"economy\" mean?",
@@ -188,7 +443,22 @@ export const quizData = {
       "Health",
       "Stars"
     ],
-    correct: 0
+    correct: 0,
+    scenario: {
+      question: "If a country has a strong economy:",
+      options: [
+        "Most people are poor and cannot find jobs.",
+        "Businesses are doing well and many people have jobs.",
+        "There is no money in the banks.",
+        "I'm not sure."
+      ],
+      correct: 1
+    },
+    fillBlank: {
+      question: "Tourism is very important for the local ________.",
+      options: ["economy", "element", "edition", "energy"],
+      correct: 0
+    }
   },
   environment: {
     question: "What does \"environment\" mean?",
@@ -198,7 +468,22 @@ export const quizData = {
       "Computer program",
       "Food"
     ],
-    correct: 1
+    correct: 1,
+    scenario: {
+      question: "If you want to protect the environment, you should:",
+      options: [
+        "Throw plastic bottles into the ocean.",
+        "Recycle your trash and use less plastic.",
+        "Drive your car as much as possible.",
+        "I'm not sure."
+      ],
+      correct: 1
+    },
+    fillBlank: {
+      question: "We need a quiet ________ so we can study for the exam.",
+      options: ["environment", "entity", "element", "emphasis"],
+      correct: 0
+    }
   },
   establish: {
     question: "What does \"establish\" mean?",
@@ -208,7 +493,22 @@ export const quizData = {
       "To run",
       "To forget"
     ],
-    correct: 0
+    correct: 0,
+    scenario: {
+      question: "If you establish a new school, you:",
+      options: [
+        "Just visit a school for one day.",
+        "Build the school, hire teachers, and create a system for students.",
+        "Close an old school down.",
+        "I'm not sure."
+      ],
+      correct: 1
+    },
+    fillBlank: {
+      question: "The company was ________ in 1920.",
+      options: ["established", "estimated", "evaluated", "exhibited"],
+      correct: 0
+    }
   },
   estimate: {
     question: "What does \"estimate\" mean?",
@@ -218,7 +518,22 @@ export const quizData = {
       "To delete",
       "To joke"
     ],
-    correct: 1
+    correct: 1,
+    scenario: {
+      question: "A mechanic will give you an estimate for car repairs to tell you:",
+      options: [
+        "Exactly how long the car will last.",
+        "About how much money you will probably have to pay.",
+        "The name of the person who built the car.",
+        "I'm not sure."
+      ],
+      correct: 1
+    },
+    fillBlank: {
+      question: "It is difficult to ________ how many people will attend the concert.",
+      options: ["estimate", "establish", "evaluate", "exhibit"],
+      correct: 0
+    }
   },
   evident: {
     question: "What does \"evident\" mean?",
@@ -228,7 +543,22 @@ export const quizData = {
       "Boring",
       "Past"
     ],
-    correct: 0
+    correct: 0,
+    scenario: {
+      question: "It was evident that it had rained because:",
+      options: [
+        "The sun was shining.",
+        "The ground was wet and there were puddles everywhere.",
+        "It was very dusty outside.",
+        "I'm not sure."
+      ],
+      correct: 1
+    },
+    fillBlank: {
+      question: "His happiness was ________ to everyone who saw him.",
+      options: ["evident", "ethnic", "evolve", "enormous"],
+      correct: 0
+    }
   },
   export: {
     question: "What does \"export\" mean?",
@@ -238,7 +568,22 @@ export const quizData = {
       "To move house",
       "To hide"
     ],
-    correct: 1
+    correct: 1,
+    scenario: {
+      question: "If Brazil exports coffee to Germany, then:",
+      options: [
+        "Brazil buys coffee from Germany.",
+        "Brazil sells its coffee to Germany.",
+        "Germany gives coffee to Brazil for free.",
+        "I'm not sure."
+      ],
+      correct: 1
+    },
+    fillBlank: {
+      question: "Oil is the country's main ________.",
+      options: ["export", "expert", "expand", "expose"],
+      correct: 0
+    }
   },
   factor: {
     question: "What does \"factor\" mean?",
@@ -248,7 +593,22 @@ export const quizData = {
       "An error",
       "An animal"
     ],
-    correct: 1
+    correct: 1,
+    scenario: {
+      question: "One factor in why a person gets a job is:",
+      options: [
+        "The color of the pen they use.",
+        "Their experience and how well they did in the interview.",
+        "The weather on the day of the interview.",
+        "I'm not sure."
+      ],
+      correct: 1
+    },
+    fillBlank: {
+      question: "Price is often the most important ________ when choosing a new phone.",
+      options: ["factor", "federal", "feature", "finance"],
+      correct: 0
+    }
   },
   finance: {
     question: "What does \"finance\" mean?",
@@ -258,7 +618,22 @@ export const quizData = {
       "Experiment",
       "Exercise"
     ],
-    correct: 0
+    correct: 0,
+    scenario: {
+      question: "If a bank finances your new house, they:",
+      options: [
+        "Build the house for you.",
+        "Lend you the money you need to buy it.",
+        "Live in the house with you.",
+        "I'm not sure."
+      ],
+      correct: 1
+    },
+    fillBlank: {
+      question: "He is an expert in international ________.",
+      options: ["finance", "final", "file", "factor"],
+      correct: 0
+    }
   },
   formula: {
     question: "What does \"formula\" mean?",
@@ -268,7 +643,22 @@ export const quizData = {
       "A star",
       "Music"
     ],
-    correct: 0
+    correct: 0,
+    scenario: {
+      question: "The formula for calculating the area of a rectangle is:",
+      options: [
+        "Color times weight.",
+        "Length times width.",
+        "Age plus height.",
+        "I'm not sure."
+      ],
+      correct: 1
+    },
+    fillBlank: {
+      question: "There is no simple ________ for success.",
+      options: ["formula", "format", "foundation", "function"],
+      correct: 0
+    }
   },
   function: {
     question: "What does \"function\" mean?",
@@ -278,7 +668,22 @@ export const quizData = {
       "Trip",
       "Hunger"
     ],
-    correct: 1
+    correct: 1,
+    scenario: {
+      question: "The function of a refrigerator is to:",
+      options: [
+        "Cook food quickly.",
+        "Keep food cold so it stays fresh.",
+        "Wash your dishes.",
+        "I'm not sure."
+      ],
+      correct: 1
+    },
+    fillBlank: {
+      question: "The machine stopped ________ after the power cut.",
+      options: ["functioning", "following", "formatting", "facilitating"],
+      correct: 0
+    }
   },
   identify: {
     question: "What does \"identify\" mean?",
@@ -288,7 +693,22 @@ export const quizData = {
       "To dream",
       "To ignore"
     ],
-    correct: 1
+    correct: 1,
+    scenario: {
+      question: "Can you identify the person in this photo?",
+      options: [
+        "Yes, I have never seen them before.",
+        "Yes, that is my friend, John.",
+        "No, I don't know who I am.",
+        "I'm not sure."
+      ],
+      correct: 1
+    },
+    fillBlank: {
+      question: "Scientists have ________ a new species of bird in the jungle.",
+      options: ["identified", "identical", "ignored", "indicated"],
+      correct: 0
+    }
   },
   income: {
     question: "What does \"income\" mean?",
@@ -298,7 +718,22 @@ export const quizData = {
       "Entrance",
       "Hobby"
     ],
-    correct: 0
+    correct: 0,
+    scenario: {
+      question: "If your income increases, you:",
+      options: [
+        "Have less money than before.",
+        "Earn more money from your job or business.",
+        "Have to pay more for your rent only.",
+        "I'm not sure."
+      ],
+      correct: 1
+    },
+    fillBlank: {
+      question: "He has a very high annual ________.",
+      options: ["income", "incline", "incidence", "index"],
+      correct: 0
+    }
   },
   indicate: {
     question: "What does \"indicate\" mean?",
@@ -308,7 +743,22 @@ export const quizData = {
       "To ask",
       "To clean"
     ],
-    correct: 1
+    correct: 1,
+    scenario: {
+      question: "If a thermometer indicates 38°C, it shows that:",
+      options: [
+        "It is very cold.",
+        "The person has a fever.",
+        "It is raining.",
+        "I'm not sure."
+      ],
+      correct: 1
+    },
+    fillBlank: {
+      question: "Research ________ that eating vegetables is good for your health.",
+      options: ["indicates", "incorporates", "imposes", "identifies"],
+      correct: 0
+    }
   },
   individual: {
     question: "What does \"individual\" mean?",
@@ -318,7 +768,22 @@ export const quizData = {
       "Noise",
       "Weather"
     ],
-    correct: 1
+    correct: 1,
+    scenario: {
+      question: "Every individual in the classroom:",
+      options: [
+        "Is exactly the same as everyone else.",
+        "Has their own unique name and personality.",
+        "Is part of a single giant robot.",
+        "I'm not sure."
+      ],
+      correct: 1
+    },
+    fillBlank: {
+      question: "We need to respect the rights of the ________.",
+      options: ["individual", "index", "income", "instance"],
+      correct: 0
+    }
   },
   interpret: {
     question: "What does \"interpret\" mean?",
@@ -328,7 +793,22 @@ export const quizData = {
       "To build",
       "To copy"
     ],
-    correct: 0
+    correct: 0,
+    scenario: {
+      question: "If you interpret a dream, you:",
+      options: [
+        "Try to forget it.",
+        "Try to figure out what the dream means for your life.",
+        "Tell the dream to a stranger.",
+        "I'm not sure."
+      ],
+      correct: 1
+    },
+    fillBlank: {
+      question: "We need someone to ________ this document from French into English.",
+      options: ["interpret", "interact", "integrate", "instruct"],
+      correct: 0
+    }
   },
   involve: {
     question: "What does \"involve\" mean?",
@@ -338,7 +818,22 @@ export const quizData = {
       "To run",
       "To paint"
     ],
-    correct: 1
+    correct: 1,
+    scenario: {
+      question: "Does this project involve a lot of work?",
+      options: [
+        "No, it's very easy and fast.",
+        "Yes, you will need to spend many hours and do many tasks.",
+        "I don't know what a project is.",
+        "I'm not sure."
+      ],
+      correct: 1
+    },
+    fillBlank: {
+      question: "The accident ________ three cars and a truck.",
+      options: ["involved", "invoked", "invested", "indicated"],
+      correct: 0
+    }
   },
   issue: {
     question: "What does \"issue\" mean?",
@@ -348,7 +843,22 @@ export const quizData = {
       "Chair",
       "Shoe"
     ],
-    correct: 1
+    correct: 1,
+    scenario: {
+      question: "If the government issues new passports, they:",
+      options: [
+        "Take your old passport and destroy it.",
+        "Print and give out new official documents to the citizens.",
+        "Tell you that passports are no longer needed.",
+        "I'm not sure."
+      ],
+      correct: 1
+    },
+    fillBlank: {
+      question: "Global warming is a very serious ________ that affects the whole world.",
+      options: ["issue", "item", "isolate", "index"],
+      correct: 0
+    }
   },
   labour: {
     question: "What does \"labour\" mean?",
@@ -608,7 +1118,22 @@ export const quizData = {
       "To sleep",
       "To lose"
     ],
-    correct: 1
+    correct: 1,
+    scenario: {
+      question: "A student who works hard every day and passes all exams has:",
+      options: [
+        "Failed her goals.",
+        "Achieved her goals.",
+        "Ignored her goals.",
+        "I'm not sure."
+      ],
+      correct: 1
+    },
+    fillBlank: {
+      question: "She studied for months to ________ her dream of becoming a doctor.",
+      options: ["achieve", "abandon", "affect", "allocate"],
+      correct: 0
+    }
   },
   acquire: {
     question: "What does \"acquire\" mean?",
@@ -618,7 +1143,22 @@ export const quizData = {
       "To run",
       "To cry"
     ],
-    correct: 1
+    correct: 1,
+    scenario: {
+      question: "If a company acquires a smaller business, it means the company:",
+      options: [
+        "Destroys the smaller business.",
+        "Takes ownership of the smaller business.",
+        "Ignores the smaller business.",
+        "I'm not sure."
+      ],
+      correct: 1
+    },
+    fillBlank: {
+      question: "Over time, she managed to ________ a wide range of skills in programming.",
+      options: ["acquire", "abandon", "achieve", "adjust"],
+      correct: 0
+    }
   },
   administrate: {
     question: "What does \"administrate\" mean?",
@@ -628,7 +1168,22 @@ export const quizData = {
       "To play",
       "To break"
     ],
-    correct: 0
+    correct: 0,
+    scenario: {
+      question: "A person who administrates a school will:",
+      options: [
+        "Only teach classes.",
+        "Manage the school's operations, staff, and resources.",
+        "Clean the school.",
+        "I'm not sure."
+      ],
+      correct: 1
+    },
+    fillBlank: {
+      question: "She was hired to ________ the company's online platform.",
+      options: ["administrate", "adapt", "advocate", "allocate"],
+      correct: 0
+    }
   },
   affect: {
     question: "What does \"affect\" mean?",
@@ -638,7 +1193,22 @@ export const quizData = {
       "To clean",
       "To stop"
     ],
-    correct: 1
+    correct: 1,
+    scenario: {
+      question: "Cold weather affects crops by:",
+      options: [
+        "Helping them grow faster.",
+        "Damaging or slowing their growth.",
+        "Making them taste sweeter.",
+        "I'm not sure."
+      ],
+      correct: 1
+    },
+    fillBlank: {
+      question: "Loud noise can ________ a person's ability to concentrate.",
+      options: ["affect", "abandon", "acquire", "allocate"],
+      correct: 0
+    }
   },
   appropriate: {
     question: "What does \"appropriate\" mean?",
@@ -648,7 +1218,22 @@ export const quizData = {
       "Expensive",
       "Old"
     ],
-    correct: 1
+    correct: 1,
+    scenario: {
+      question: "Wearing formal clothes to a job interview is appropriate because:",
+      options: [
+        "It makes a bad impression.",
+        "It shows professionalism and respect for the situation.",
+        "It is too casual.",
+        "I'm not sure."
+      ],
+      correct: 1
+    },
+    fillBlank: {
+      question: "Please choose ________ language when speaking in a professional setting.",
+      options: ["appropriate", "abstract", "arbitrary", "annual"],
+      correct: 0
+    }
   },
   aspect: {
     question: "What does \"aspect\" mean?",
@@ -658,7 +1243,22 @@ export const quizData = {
       "A tool",
       "A fruit"
     ],
-    correct: 0
+    correct: 0,
+    scenario: {
+      question: "The most important aspect of a job interview is:",
+      options: [
+        "The clothes you wear.",
+        "The key feature or element that makes the biggest difference.",
+        "The location of the office.",
+        "I'm not sure."
+      ],
+      correct: 1
+    },
+    fillBlank: {
+      question: "One important ________ of learning a language is practicing every day.",
+      options: ["aspect", "approach", "authority", "attribute"],
+      correct: 0
+    }
   },
   assist: {
     question: "What does \"assist\" mean?",
@@ -668,7 +1268,22 @@ export const quizData = {
       "To shout",
       "To watch"
     ],
-    correct: 1
+    correct: 1,
+    scenario: {
+      question: "A nurse who assists a doctor during surgery will:",
+      options: [
+        "Ignore the doctor's instructions.",
+        "Help the doctor by providing tools and support.",
+        "Perform the surgery alone.",
+        "I'm not sure."
+      ],
+      correct: 1
+    },
+    fillBlank: {
+      question: "The volunteer program was set up to ________ homeless people in the city.",
+      options: ["assist", "assess", "assume", "assign"],
+      correct: 0
+    }
   },
   category: {
     question: "What does \"category\" mean?",
@@ -678,7 +1293,22 @@ export const quizData = {
       "A car",
       "A noise"
     ],
-    correct: 0
+    correct: 0,
+    scenario: {
+      question: "When a librarian puts fiction books in one category, they:",
+      options: [
+        "Mix all books together randomly.",
+        "Group similar books together for easy access.",
+        "Remove the books from the library.",
+        "I'm not sure."
+      ],
+      correct: 1
+    },
+    fillBlank: {
+      question: "This product falls under the ________ of health and wellness.",
+      options: ["category", "capacity", "concept", "conduct"],
+      correct: 0
+    }
   },
   chapter: {
     question: "What does \"chapter\" mean?",
@@ -688,7 +1318,22 @@ export const quizData = {
       "A friend",
       "A store"
     ],
-    correct: 0
+    correct: 0,
+    scenario: {
+      question: "The final chapter of a book is:",
+      options: [
+        "The first section you read.",
+        "The last major section that concludes the story.",
+        "The cover page.",
+        "I'm not sure."
+      ],
+      correct: 1
+    },
+    fillBlank: {
+      question: "Each ________ of the book covers a different period of history.",
+      options: ["chapter", "category", "context", "concept"],
+      correct: 0
+    }
   },
   commission: {
     question: "What does \"commission\" mean?",
@@ -698,7 +1343,22 @@ export const quizData = {
       "A forest",
       "A game"
     ],
-    correct: 0
+    correct: 0,
+    scenario: {
+      question: "A government commission set up to investigate corruption will:",
+      options: [
+        "Ignore the problem.",
+        "Officially investigate and report on the issue.",
+        "Promote corrupt behavior.",
+        "I'm not sure."
+      ],
+      correct: 1
+    },
+    fillBlank: {
+      question: "A special ________ was formed to review the new education policy.",
+      options: ["commission", "context", "concept", "conduct"],
+      correct: 0
+    }
   },
   community: {
     question: "What does \"community\" mean?",
@@ -708,7 +1368,22 @@ export const quizData = {
       "A computer",
       "A meal"
     ],
-    correct: 1
+    correct: 1,
+    scenario: {
+      question: "A local community project that builds a park will benefit:",
+      options: [
+        "Only one person in the area.",
+        "All the people living in that neighborhood.",
+        "Only the construction workers.",
+        "I'm not sure."
+      ],
+      correct: 1
+    },
+    fillBlank: {
+      question: "The ________ came together to clean up the local beach.",
+      options: ["community", "colleague", "concept", "conduct"],
+      correct: 0
+    }
   },
   complex: {
     question: "What does \"complex\" mean?",
@@ -718,7 +1393,22 @@ export const quizData = {
       "Sweet",
       "Short"
     ],
-    correct: 1
+    correct: 1,
+    scenario: {
+      question: "A complex math problem is one that:",
+      options: [
+        "Can be solved in one step.",
+        "Has many steps and requires careful thinking.",
+        "Has no solution.",
+        "I'm not sure."
+      ],
+      correct: 1
+    },
+    fillBlank: {
+      question: "The new software has a ________ structure that takes months to learn.",
+      options: ["complex", "clear", "casual", "common"],
+      correct: 0
+    }
   },
   compute: {
     question: "What does \"compute\" mean?",
@@ -728,7 +1418,22 @@ export const quizData = {
       "To walk",
       "To sing"
     ],
-    correct: 1
+    correct: 1,
+    scenario: {
+      question: "A computer that computes the fastest route for a delivery driver will:",
+      options: [
+        "Choose a random route.",
+        "Calculate the quickest and most efficient path.",
+        "Slow down the driver.",
+        "I'm not sure."
+      ],
+      correct: 1
+    },
+    fillBlank: {
+      question: "The system can ________ thousands of calculations per second.",
+      options: ["compute", "compile", "conform", "conclude"],
+      correct: 0
+    }
   },
   conclude: {
     question: "What does \"conclude\" mean?",
@@ -738,7 +1443,22 @@ export const quizData = {
       "To open",
       "To jump"
     ],
-    correct: 1
+    correct: 1,
+    scenario: {
+      question: "A scientist who concludes that a vaccine is safe has:",
+      options: [
+        "Started the research.",
+        "Finished the research and reached a final decision.",
+        "Ignored the results.",
+        "I'm not sure."
+      ],
+      correct: 1
+    },
+    fillBlank: {
+      question: "After reviewing all the evidence, the judge will ________ the trial.",
+      options: ["conclude", "conduct", "confirm", "contribute"],
+      correct: 0
+    }
   },
   conduct: {
     question: "What does \"conduct\" mean?",
@@ -748,7 +1468,22 @@ export const quizData = {
       "To sleep",
       "To buy"
     ],
-    correct: 0
+    correct: 0,
+    scenario: {
+      question: "A researcher who conducts an experiment will:",
+      options: [
+        "Avoid doing any experiments.",
+        "Plan, organize, and carry out the experiment.",
+        "Only read about others' experiments.",
+        "I'm not sure."
+      ],
+      correct: 1
+    },
+    fillBlank: {
+      question: "The university will ________ an investigation into the cheating allegations.",
+      options: ["conduct", "conclude", "confirm", "contribute"],
+      correct: 0
+    }
   },
   consequent: {
     question: "What does \"consequent\" mean?",
@@ -758,7 +1493,22 @@ export const quizData = {
       "Random",
       "Funny"
     ],
-    correct: 1
+    correct: 1,
+    scenario: {
+      question: "If a city has a huge storm, the consequent flooding will:",
+      options: [
+        "Make the streets very dry.",
+        "Cover the roads with water and cause traffic problems.",
+        "Happen before the storm starts.",
+        "I'm not sure."
+      ],
+      correct: 1
+    },
+    fillBlank: {
+      question: "The company closed, and the ________ loss of jobs affected many families.",
+      options: ["consequent", "constant", "considerable", "concrete"],
+      correct: 0
+    }
   },
   construct: {
     question: "What does \"construct\" mean?",
@@ -768,7 +1518,22 @@ export const quizData = {
       "To eat",
       "To fly"
     ],
-    correct: 0
+    correct: 0,
+    scenario: {
+      question: "To construct a new bridge, workers need:",
+      options: [
+        "Only a piece of paper and a pen.",
+        "Steel, concrete, and heavy machines.",
+        "To wait for it to grow.",
+        "I'm not sure."
+      ],
+      correct: 1
+    },
+    fillBlank: {
+      question: "The company plans to ________ a new office building downtown.",
+      options: ["construct", "constitute", "consult", "consume"],
+      correct: 0
+    }
   },
   consume: {
     question: "What does \"consume\" mean?",
@@ -778,7 +1543,22 @@ export const quizData = {
       "To fix",
       "To save"
     ],
-    correct: 1
+    correct: 1,
+    scenario: {
+      question: "A large SUV will consume more fuel than a small car because:",
+      options: [
+        "It is a different color.",
+        "It is heavier and needs more energy to move.",
+        "It has more seats inside.",
+        "I'm not sure."
+      ],
+      correct: 1
+    },
+    fillBlank: {
+      question: "We ________ a lot of electricity during the cold winter months.",
+      options: ["consume", "contact", "contain", "construct"],
+      correct: 0
+    }
   },
   credit: {
     question: "What does \"credit\" mean?",
@@ -788,7 +1568,22 @@ export const quizData = {
       "A book",
       "A storm"
     ],
-    correct: 1
+    correct: 1,
+    scenario: {
+      question: "If you give someone credit for a good idea, you:",
+      options: [
+        "Say that the idea was yours.",
+        "Publicly say that they were the one who thought of the idea.",
+        "Tell them their idea is bad.",
+        "I'm not sure."
+      ],
+      correct: 1
+    },
+    fillBlank: {
+      question: "I don't have cash, so I will pay by ________ card.",
+      options: ["credit", "criteria", "create", "contract"],
+      correct: 0
+    }
   },
   culture: {
     question: "What does \"culture\" mean?",
@@ -798,7 +1593,22 @@ export const quizData = {
       "A kitchen",
       "A road"
     ],
-    correct: 1
+    correct: 1,
+    scenario: {
+      question: "If you visit a new country to learn about its culture, you will:",
+      options: [
+        "Only stay in your hotel room and watch TV.",
+        "Try the local food, listen to their music, and see how they live.",
+        "Buy the same things you buy at home.",
+        "I'm not sure."
+      ],
+      correct: 1
+    },
+    fillBlank: {
+      question: "It is important to respect people from different ________.",
+      options: ["cultures", "currencies", "cycles", "criteria"],
+      correct: 0
+    }
   },
   design: {
     question: "What does \"design\" mean?",
@@ -808,7 +1618,22 @@ export const quizData = {
       "A cloud",
       "A noise"
     ],
-    correct: 0
+    correct: 0,
+    scenario: {
+      question: "If you design a new website, you:",
+      options: [
+        "Just look at other websites all day.",
+        "Decide where the buttons go and what colors to use.",
+        "Buy a new computer.",
+        "I'm not sure."
+      ],
+      correct: 1
+    },
+    fillBlank: {
+      question: "An architect's job is to ________ beautiful and safe buildings.",
+      options: ["design", "denote", "derive", "detect"],
+      correct: 0
+    }
   },
   distinct: {
     question: "What does \"distinct\" mean?",
@@ -818,7 +1643,22 @@ export const quizData = {
       "Same",
       "Fast"
     ],
-    correct: 1
+    correct: 1,
+    scenario: {
+      question: "There is a distinct smell of coffee in the room. This means:",
+      options: [
+        "You are not sure what the smell is.",
+        "You can easily tell that it is the smell of coffee.",
+        "The room has no smell at all.",
+        "I'm not sure."
+      ],
+      correct: 1
+    },
+    fillBlank: {
+      question: "The two birds look similar, but they are two ________ species.",
+      options: ["distinct", "discrete", "definite", "diverse"],
+      correct: 0
+    }
   },
   element: {
     question: "What does \"element\" mean?",
@@ -828,7 +1668,22 @@ export const quizData = {
       "A giant",
       "A car"
     ],
-    correct: 0
+    correct: 0,
+    scenario: {
+      question: "What is a key element of a good story?",
+      options: [
+        "The price of the book.",
+        "Interesting characters and an exciting plot.",
+        "The color of the ink.",
+        "I'm not sure."
+      ],
+      correct: 1
+    },
+    fillBlank: {
+      question: "Trust is a vital ________ in any friendship.",
+      options: ["element", "edition", "edit", "emphasis"],
+      correct: 0
+    }
   },
   equate: {
     question: "What does \"equate\" mean?",
@@ -848,7 +1703,22 @@ export const quizData = {
       "To create",
       "To hide"
     ],
-    correct: 1
+    correct: 1,
+    scenario: {
+      question: "A teacher will evaluate your presentation by:",
+      options: [
+        "Listening to it and giving you a grade based on how well you did.",
+        "Ignoring you while you speak.",
+        "Telling you a story about their own life.",
+        "I'm not sure."
+      ],
+      correct: 0
+    },
+    fillBlank: {
+      question: "We need to ________ the results of the survey before we make a decision.",
+      options: ["evaluate", "evaporate", "evolve", "exhibit"],
+      correct: 0
+    }
   },
   feature: {
     question: "What does \"feature\" mean?",
@@ -858,7 +1728,22 @@ export const quizData = {
       "A movie",
       "A road"
     ],
-    correct: 1
+    correct: 1,
+    scenario: {
+      question: "A key feature of a smartphone is:",
+      options: [
+        "That it is made of plastic.",
+        "The ability to connect to the internet.",
+        "The box it comes in.",
+        "I'm not sure."
+      ],
+      correct: 1
+    },
+    fillBlank: {
+      question: "The house has many interesting ________, including a large garden.",
+      options: ["features", "factors", "federal", "finances"],
+      correct: 0
+    }
   },
   final: {
     question: "What does \"final\" mean?",
@@ -868,7 +1753,22 @@ export const quizData = {
       "Middle",
       "New"
     ],
-    correct: 1
+    correct: 1,
+    scenario: {
+      question: "In the final episode of a TV show, you:",
+      options: [
+        "Meet all the characters for the first time.",
+        "Find out how the whole story ends.",
+        "Watch the show's trailer.",
+        "I'm not sure."
+      ],
+      correct: 1
+    },
+    fillBlank: {
+      question: "The ________ score was 3-1.",
+      options: ["final", "finance", "file", "factor"],
+      correct: 0
+    }
   },
   focus: {
     question: "What does \"focus\" mean?",
@@ -878,7 +1778,22 @@ export const quizData = {
       "To sleep",
       "To run"
     ],
-    correct: 1
+    correct: 1,
+    scenario: {
+      question: "If you focus on your book while you are in a noisy cafe, you:",
+      options: [
+        "Listen to everyone's conversation.",
+        "Pay attention only to the words you are reading.",
+        "Fall asleep.",
+        "I'm not sure."
+      ],
+      correct: 1
+    },
+    fillBlank: {
+      question: "We need to ________ on the most important parts of the problem.",
+      options: ["focus", "follow", "format", "fluctuate"],
+      correct: 0
+    }
   },
   impact: {
     question: "What does \"impact\" mean?",
@@ -888,7 +1803,22 @@ export const quizData = {
       "A secret",
       "A dream"
     ],
-    correct: 0
+    correct: 0,
+    scenario: {
+      question: "The new law had a huge impact on small businesses. This means:",
+      options: [
+        "Nothing changed for the businesses.",
+        "The businesses had to change how they work completely.",
+        "The businesses all closed for a holiday.",
+        "I'm not sure."
+      ],
+      correct: 1
+    },
+    fillBlank: {
+      question: "The ________ of the collision destroyed both cars.",
+      options: ["impact", "image", "ideology", "instance"],
+      correct: 0
+    }
   },
   injure: {
     question: "What does \"injure\" mean?",
@@ -898,7 +1828,22 @@ export const quizData = {
       "To help",
       "To play"
     ],
-    correct: 1
+    correct: 1,
+    scenario: {
+      question: "If you injure your leg during a football match, you:",
+      options: [
+        "Score a goal.",
+        "Might have a broken bone or a bad cut and need a doctor.",
+        "Buy new shoes.",
+        "I'm not sure."
+      ],
+      correct: 1
+    },
+    fillBlank: {
+      question: "Several people were ________ in the car accident.",
+      options: ["injured", "inhibited", "initiated", "indicated"],
+      correct: 0
+    }
   },
   institute: {
     question: "What does \"institute\" mean?",
@@ -908,7 +1853,22 @@ export const quizData = {
       "A forest",
       "A toy"
     ],
-    correct: 0
+    correct: 0,
+    scenario: {
+      question: "A \"Research Institute\" is a place where:",
+      options: [
+        "People go to watch movies.",
+        "Scientists work to discover new things.",
+        "People go to buy clothes.",
+        "I'm not sure."
+      ],
+      correct: 1
+    },
+    fillBlank: {
+      question: "She works at the Massachusetts ________ of Technology.",
+      options: ["Institute", "Instance", "Insight", "Income"],
+      correct: 0
+    }
   },
   invest: {
     question: "What does \"invest\" mean?",
@@ -918,7 +1878,22 @@ export const quizData = {
       "To sleep",
       "To eat"
     ],
-    correct: 0
+    correct: 0,
+    scenario: {
+      question: "If you invest in a company, you:",
+      options: [
+        "Spend all your money on their products.",
+        "Give them money now, hoping they will grow and give you more money later.",
+        "Work for the company for free.",
+        "I'm not sure."
+      ],
+      correct: 1
+    },
+    fillBlank: {
+      question: "You should ________ your time in learning new skills.",
+      options: ["invest", "interpret", "intervene", "indicate"],
+      correct: 0
+    }
   },
   item: {
     question: "What does \"item\" mean?",
@@ -928,7 +1903,22 @@ export const quizData = {
       "A weather",
       "A person"
     ],
-    correct: 1
+    correct: 1,
+    scenario: {
+      question: "If you have ten items in your shopping basket, you have:",
+      options: [
+        "Ten different lists of food.",
+        "Ten separate things (like a loaf of bread, a carton of milk, etc.).",
+        "Spent ten dollars.",
+        "I'm not sure."
+      ],
+      correct: 1
+    },
+    fillBlank: {
+      question: "What is the next ________ on the meeting agenda?",
+      options: ["item", "issue", "isolate", "index"],
+      correct: 0
+    }
   },
   journal: {
     question: "What does \"journal\" mean?",
@@ -1208,7 +2198,22 @@ export const quizData = {
       "A complete failure",
       "A heavy stone"
     ],
-    correct: 1
+    correct: 1,
+    scenario: {
+      question: "If a road is blocked, you would look for an alternative route because:",
+      options: [
+        "You want to take the same road.",
+        "You need a different path to reach your destination.",
+        "There is no other way to travel.",
+        "I'm not sure."
+      ],
+      correct: 1
+    },
+    fillBlank: {
+      question: "Solar energy is a clean ________ to fossil fuels.",
+      options: ["alternative", "approach", "attribute", "authority"],
+      correct: 0
+    }
   },
   circumstance: {
     question: "What does \"circumstance\" mean?",
@@ -1218,7 +2223,22 @@ export const quizData = {
       "A type of clothing",
       "A person's name"
     ],
-    correct: 1
+    correct: 1,
+    scenario: {
+      question: "Under no circumstances should you leave a child alone in a car because:",
+      options: [
+        "It is perfectly safe.",
+        "It is dangerous and irresponsible regardless of the situation.",
+        "Children enjoy being alone.",
+        "I'm not sure."
+      ],
+      correct: 1
+    },
+    fillBlank: {
+      question: "Given the difficult ________s, they managed to complete the project on time.",
+      options: ["circumstances", "contexts", "concepts", "capacities"],
+      correct: 0
+    }
   },
   comment: {
     question: "What does \"comment\" mean?",
@@ -1228,7 +2248,22 @@ export const quizData = {
       "To run away",
       "To build something"
     ],
-    correct: 1
+    correct: 1,
+    scenario: {
+      question: "When a teacher comments on a student's essay, the teacher:",
+      options: [
+        "Ignores the essay.",
+        "Gives feedback and opinions about the essay.",
+        "Rewrites the essay.",
+        "I'm not sure."
+      ],
+      correct: 1
+    },
+    fillBlank: {
+      question: "The professor made a positive ________ about the student's research.",
+      options: ["comment", "concept", "context", "conduct"],
+      correct: 0
+    }
   },
   compensate: {
     question: "What does \"compensate\" mean?",
@@ -1238,7 +2273,22 @@ export const quizData = {
       "To get sick",
       "To laugh"
     ],
-    correct: 1
+    correct: 1,
+    scenario: {
+      question: "When a company compensates an employee for overtime, it:",
+      options: [
+        "Takes money away from them.",
+        "Pays extra for the additional hours worked.",
+        "Fires the employee.",
+        "I'm not sure."
+      ],
+      correct: 1
+    },
+    fillBlank: {
+      question: "The airline offered a voucher to ________ passengers for the delayed flight.",
+      options: ["compensate", "compile", "conform", "conclude"],
+      correct: 0
+    }
   },
   component: {
     question: "What does \"component\" mean?",
@@ -1248,7 +2298,22 @@ export const quizData = {
       "A secret",
       "A loud explosion"
     ],
-    correct: 1
+    correct: 1,
+    scenario: {
+      question: "A computer component like a keyboard is:",
+      options: [
+        "The entire computer system.",
+        "One individual part that contributes to the computer's function.",
+        "An unnecessary extra.",
+        "I'm not sure."
+      ],
+      correct: 1
+    },
+    fillBlank: {
+      question: "Trust is an essential ________ of any successful relationship.",
+      options: ["component", "context", "concept", "conduct"],
+      correct: 0
+    }
   },
   consent: {
     question: "What does \"consent\" mean?",
@@ -1258,7 +2323,22 @@ export const quizData = {
       "A large city",
       "A type of bird"
     ],
-    correct: 1
+    correct: 1,
+    scenario: {
+      question: "A doctor who needs patient consent before surgery must:",
+      options: [
+        "Perform the surgery without asking.",
+        "Get the patient's agreement and understanding before proceeding.",
+        "Ignore the patient's wishes.",
+        "I'm not sure."
+      ],
+      correct: 1
+    },
+    fillBlank: {
+      question: "You must get written ________ before sharing anyone's personal data.",
+      options: ["consent", "context", "concept", "conduct"],
+      correct: 0
+    }
   },
   considerable: {
     question: "What does \"considerable\" mean?",
@@ -1268,7 +2348,22 @@ export const quizData = {
       "Invisible",
       "Fast"
     ],
-    correct: 1
+    correct: 1,
+    scenario: {
+      question: "A considerable improvement in test scores means students:",
+      options: [
+        "Got slightly lower scores.",
+        "Got significantly better scores than before.",
+        "Got the same scores.",
+        "I'm not sure."
+      ],
+      correct: 1
+    },
+    fillBlank: {
+      question: "There has been a ________ increase in online shopping in recent years.",
+      options: ["considerable", "concurrent", "coherent", "compatible"],
+      correct: 0
+    }
   },
   constant: {
     question: "What does \"constant\" mean?",
@@ -1278,7 +2373,22 @@ export const quizData = {
       "Very rare",
       "Extremely loud"
     ],
-    correct: 1
+    correct: 1,
+    scenario: {
+      question: "A constant noise in an office is one that:",
+      options: [
+        "Stops and starts randomly.",
+        "Continues without stopping.",
+        "Is very quiet.",
+        "I'm not sure."
+      ],
+      correct: 1
+    },
+    fillBlank: {
+      question: "The ________ pressure of deadlines was causing the team a lot of stress.",
+      options: ["constant", "concurrent", "coherent", "compatible"],
+      correct: 0
+    }
   },
   constrain: {
     question: "What does \"constrain\" mean?",
@@ -1288,7 +2398,22 @@ export const quizData = {
       "To grow",
       "To paint"
     ],
-    correct: 1
+    correct: 1,
+    scenario: {
+      question: "A budget that constrains a project will:",
+      options: [
+        "Give the team unlimited spending.",
+        "Limit what the team can spend and do.",
+        "Speed up the project.",
+        "I'm not sure."
+      ],
+      correct: 1
+    },
+    fillBlank: {
+      question: "Lack of funding may ________ the scope of the research project.",
+      options: ["constrain", "conclude", "conform", "compile"],
+      correct: 0
+    }
   },
   contribute: {
     question: "What does \"contribute\" mean?",
@@ -1298,7 +2423,22 @@ export const quizData = {
       "To ignore",
       "To destroy"
     ],
-    correct: 1
+    correct: 1,
+    scenario: {
+      question: "An employee who contributes to a project will:",
+      options: [
+        "Do nothing and wait for others.",
+        "Add their skills, time, or ideas to help the project succeed.",
+        "Sabotage the project.",
+        "I'm not sure."
+      ],
+      correct: 1
+    },
+    fillBlank: {
+      question: "Everyone should ________ to keeping the environment clean.",
+      options: ["contribute", "conduct", "conclude", "confirm"],
+      correct: 0
+    }
   },
   convene: {
     question: "What does \"convene\" mean?",
@@ -1308,7 +2448,22 @@ export const quizData = {
       "To sleep",
       "To cook"
     ],
-    correct: 1
+    correct: 1,
+    scenario: {
+      question: "The committee will convene tomorrow at 9:00 AM. This means:",
+      options: [
+        "The meeting will end at 9:00 AM.",
+        "The members will all meet together at 9:00 AM.",
+        "Everyone will stay at home.",
+        "I'm not sure."
+      ],
+      correct: 1
+    },
+    fillBlank: {
+      question: "The president decided to ________ a special meeting to discuss the crisis.",
+      options: ["convene", "convert", "convince", "converse"],
+      correct: 0
+    }
   },
   coordinate: {
     question: "What does \"coordinate\" mean?",
@@ -1318,7 +2473,22 @@ export const quizData = {
       "To lose one's way",
       "To break a glass"
     ],
-    correct: 0
+    correct: 0,
+    scenario: {
+      question: "A wedding planner must coordinate the flowers, the food, and the music to:",
+      options: [
+        "Make sure they all arrive at different, random times.",
+        "Make sure everything happens perfectly and at the right time.",
+        "Cancel the wedding.",
+        "I'm not sure."
+      ],
+      correct: 1
+    },
+    fillBlank: {
+      question: "We need to ________ our efforts if we want to finish this on time.",
+      options: ["coordinate", "cooperate", "core", "correspond"],
+      correct: 0
+    }
   },
   core: {
     question: "What does \"core\" mean?",
@@ -1328,7 +2498,22 @@ export const quizData = {
       "A type of cloud",
       "A noisy party"
     ],
-    correct: 1
+    correct: 1,
+    scenario: {
+      question: "The core of an apple is the part that:",
+      options: [
+        "You usually eat because it is sweet.",
+        "Is in the middle and contains the seeds.",
+        "Is the thin red skin on the outside.",
+        "I'm not sure."
+      ],
+      correct: 1
+    },
+    fillBlank: {
+      question: "Hard work is the ________ of his success.",
+      options: ["core", "corporate", "code", "coordinate"],
+      correct: 0
+    }
   },
   corporate: {
     question: "What does \"corporate\" mean?",
@@ -1338,7 +2523,22 @@ export const quizData = {
       "Very personal",
       "Something free"
     ],
-    correct: 0
+    correct: 0,
+    scenario: {
+      question: "A corporate office is usually a place where:",
+      options: [
+        "People sell vegetables from their gardens.",
+        "People work for a big, international company.",
+        "Children go to play after school.",
+        "I'm not sure."
+      ],
+      correct: 1
+    },
+    fillBlank: {
+      question: "The company changed its ________ logo to look more modern.",
+      options: ["corporate", "core", "coordinate", "correspond"],
+      correct: 0
+    }
   },
   correspond: {
     question: "What does \"correspond\" mean?",
@@ -1368,7 +2568,22 @@ export const quizData = {
       "To add numbers",
       "To forget"
     ],
-    correct: 1
+    correct: 1,
+    scenario: {
+      question: "If you see someone carrying an umbrella and wearing a raincoat, you can deduce that:",
+      options: [
+        "They are going to a party.",
+        "It is raining or about to rain outside.",
+        "They are very hot.",
+        "I'm not sure."
+      ],
+      correct: 1
+    },
+    fillBlank: {
+      question: "From the clues at the scene, the police were able to ________ what happened.",
+      options: ["deduce", "define", "decline", "detect"],
+      correct: 0
+    }
   },
   demonstrate: {
     question: "What does \"demonstrate\" mean?",
@@ -1378,7 +2593,22 @@ export const quizData = {
       "To sleep",
       "To break"
     ],
-    correct: 1
+    correct: 1,
+    scenario: {
+      question: "If a chef demonstrates how to cut an onion, they:",
+      options: [
+        "Write a long book about onions.",
+        "Actually cut an onion in front of you so you can see how.",
+        "Tell you to go buy some onions.",
+        "I'm not sure."
+      ],
+      correct: 1
+    },
+    fillBlank: {
+      question: "The teacher will ________ how to solve the math problem on the board.",
+      options: ["demonstrate", "deny", "denote", "detect"],
+      correct: 0
+    }
   },
   document: {
     question: "What does \"document\" mean?",
@@ -1388,7 +2618,22 @@ export const quizData = {
       "A wild animal",
       "A heavy bag"
     ],
-    correct: 0
+    correct: 0,
+    scenario: {
+      question: "If you document your trip to Europe, you:",
+      options: [
+        "Forget everything that happened.",
+        "Take photos and write notes about everything you see.",
+        "Stay at home and read a book about Europe.",
+        "I'm not sure."
+      ],
+      correct: 1
+    },
+    fillBlank: {
+      question: "Your passport is an official ________ that proves who you are.",
+      options: ["document", "domain", "draft", "device"],
+      correct: 0
+    }
   },
   dominate: {
     question: "What does \"dominate\" mean?",
@@ -1398,7 +2643,22 @@ export const quizData = {
       "To follow others",
       "To help"
     ],
-    correct: 1
+    correct: 1,
+    scenario: {
+      question: "A very tall building will dominate the city skyline because:",
+      options: [
+        "It is hidden behind other buildings.",
+        "It is much bigger than everything else and is easy to see.",
+        "It is made of glass.",
+        "I'm not sure."
+      ],
+      correct: 1
+    },
+    fillBlank: {
+      question: "One company began to ________ the entire market for mobile phones.",
+      options: ["dominate", "distribute", "distort", "display"],
+      correct: 0
+    }
   },
   emphasis: {
     question: "What does \"emphasis\" mean?",
@@ -1408,7 +2668,22 @@ export const quizData = {
       "A quiet whisper",
       "A mistake"
     ],
-    correct: 1
+    correct: 1,
+    scenario: {
+      question: "If a school puts an emphasis on sports, they:",
+      options: [
+        "Don't have any gym classes.",
+        "Spend a lot of money on teams, coaches, and fields.",
+        "Only care about math and science.",
+        "I'm not sure."
+      ],
+      correct: 1
+    },
+    fillBlank: {
+      question: "In this course, we place great ________ on speaking skills.",
+      options: ["emphasis", "emerge", "enable", "enforce"],
+      correct: 0
+    }
   },
   ensure: {
     question: "What does \"ensure\" mean?",
@@ -1418,7 +2693,22 @@ export const quizData = {
       "To ignore",
       "To break"
     ],
-    correct: 1
+    correct: 1,
+    scenario: {
+      question: "To ensure that you wake up on time, you should:",
+      options: [
+        "Hope that the sun is bright.",
+        "Set two different alarms on your phone.",
+        "Go to bed very late.",
+        "I'm not sure."
+      ],
+      correct: 1
+    },
+    fillBlank: {
+      question: "Please ________ that all the windows are closed before you leave.",
+      options: ["ensure", "enforce", "enable", "enhance"],
+      correct: 0
+    }
   },
   exclude: {
     question: "What does \"exclude\" mean?",
@@ -1428,7 +2718,22 @@ export const quizData = {
       "To welcome",
       "To fix"
     ],
-    correct: 1
+    correct: 1,
+    scenario: {
+      question: "If a club excludes children, it means:",
+      options: [
+        "Only children are allowed to join.",
+        "Only adults are allowed; children cannot come in.",
+        "Children get a cheaper price.",
+        "I'm not sure."
+      ],
+      correct: 1
+    },
+    fillBlank: {
+      question: "The price of the hotel does not ________ breakfast.",
+      options: ["include", "exclude", "expand", "expose"],
+      correct: 1
+    }
   },
   framework: {
     question: "What does \"framework\" mean?",
@@ -1438,7 +2743,22 @@ export const quizData = {
       "A broken toy",
       "A soft cushion"
     ],
-    correct: 1
+    correct: 1,
+    scenario: {
+      question: "The framework of a building is usually made of:",
+      options: [
+        "Glass and paper.",
+        "Steel or wooden beams that hold the walls up.",
+        "Only paint.",
+        "I'm not sure."
+      ],
+      correct: 1
+    },
+    fillBlank: {
+      question: "We need to establish a legal ________ for the new company.",
+      options: ["framework", "foundation", "function", "formula"],
+      correct: 0
+    }
   },
   fund: {
     question: "What does \"fund\" mean?",
@@ -1448,7 +2768,22 @@ export const quizData = {
       "To have fun",
       "To lose a job"
     ],
-    correct: 1
+    correct: 1,
+    scenario: {
+      question: "If you start a \"vacation fund\", you:",
+      options: [
+        "Spend all your money on a new car.",
+        "Put a little money aside every month to pay for a trip.",
+        "Borrow money from a friend.",
+        "I'm not sure."
+      ],
+      correct: 1
+    },
+    fillBlank: {
+      question: "The government has set up a ________ to help small businesses.",
+      options: ["fund", "function", "formula", "feature"],
+      correct: 0
+    }
   },
   illustrate: {
     question: "What does \"illustrate\" mean?",
@@ -1458,7 +2793,22 @@ export const quizData = {
       "To be sick",
       "To run fast"
     ],
-    correct: 1
+    correct: 1,
+    scenario: {
+      question: "A teacher might illustrate a science point by:",
+      options: [
+        "Sitting in silence.",
+        "Drawing a diagram on the board.",
+        "Giving everyone a nap.",
+        "I'm not sure."
+      ],
+      correct: 1
+    },
+    fillBlank: {
+      question: "This story ________ the importance of being honest.",
+      options: ["illustrates", "identifies", "ignores", "indicates"],
+      correct: 0
+    }
   },
   immigrate: {
     question: "What does \"immigrate\" mean?",
@@ -1468,7 +2818,22 @@ export const quizData = {
       "To go on vacation",
       "To stay home"
     ],
-    correct: 1
+    correct: 1,
+    scenario: {
+      question: "If you immigrate to Canada, you:",
+      options: [
+        "Go there for a one-week holiday.",
+        "Move there to live and work permanently.",
+        "Leave Canada to go back home.",
+        "I'm not sure."
+      ],
+      correct: 1
+    },
+    fillBlank: {
+      question: "His family ________ to the United States in the 1990s.",
+      options: ["immigrated", "ignored", "identified", "indicated"],
+      correct: 0
+    }
   },
   imply: {
     question: "What does \"imply\" mean?",
@@ -1478,7 +2843,22 @@ export const quizData = {
       "To shout",
       "To draw"
     ],
-    correct: 1
+    correct: 1,
+    scenario: {
+      question: "If someone looks at their watch while you are talking, they imply that:",
+      options: [
+        "They love your story.",
+        "They are in a hurry and want you to stop talking.",
+        "Their watch is broken.",
+        "I'm not sure."
+      ],
+      correct: 1
+    },
+    fillBlank: {
+      question: "Are you ________ that I am lying?",
+      options: ["implying", "implicating", "implementing", "imposing"],
+      correct: 0
+    }
   },
   initial: {
     question: "What does \"initial\" mean?",
@@ -1488,7 +2868,22 @@ export const quizData = {
       "In the middle",
       "Very old"
     ],
-    correct: 1
+    correct: 1,
+    scenario: {
+      question: "My initial reaction to the news was surprise. This means:",
+      options: [
+        "I was surprised for a long time.",
+        "The very first thing I felt was surprise.",
+        "I wasn't surprised at all.",
+        "I'm not sure."
+      ],
+      correct: 1
+    },
+    fillBlank: {
+      question: "Please write your ________ (the first letters of your names) here.",
+      options: ["initials", "individual", "index", "instance"],
+      correct: 0
+    }
   },
   instance: {
     question: "What does \"instance\" mean?",
@@ -1498,7 +2893,22 @@ export const quizData = {
       "A fast car",
       "A loud noise"
     ],
-    correct: 1
+    correct: 1,
+    scenario: {
+      question: "For instance, you could use a phone to take a photo. In this sentence, \"for instance\" means:",
+      options: [
+        "\"In a few minutes.\"",
+        "\"For example.\"",
+        "\"Never.\"",
+        "I'm not sure."
+      ],
+      correct: 1
+    },
+    fillBlank: {
+      question: "There have been several ________ of theft in the building recently.",
+      options: ["instances", "insights", "initials", "images"],
+      correct: 0
+    }
   },
   interact: {
     question: "What does \"interact\" mean?",
@@ -1508,7 +2918,22 @@ export const quizData = {
       "To sleep",
       "To break a machine"
     ],
-    correct: 1
+    correct: 1,
+    scenario: {
+      question: "Children need to interact with other children to:",
+      options: [
+        "Learn how to be alone.",
+        "Learn how to share, talk, and play together.",
+        "Learn how to sleep.",
+        "I'm not sure."
+      ],
+      correct: 1
+    },
+    fillBlank: {
+      question: "The two chemicals ________ to produce a bright green gas.",
+      options: ["interact", "integrate", "instruct", "indicate"],
+      correct: 0
+    }
   },
   justify: {
     question: "What does \"justify\" mean?",
@@ -1808,7 +3233,22 @@ export const quizData = {
       "A mistake",
       "A feeling of sadness"
     ],
-    correct: 1
+    correct: 1,
+    scenario: {
+      question: "A student who has access to the internet can:",
+      options: [
+        "Only read printed books.",
+        "Use the internet for research, communication, and learning.",
+        "Not use any technology.",
+        "I'm not sure."
+      ],
+      correct: 1
+    },
+    fillBlank: {
+      question: "Only authorized employees have ________ to the server room.",
+      options: ["access", "adapt", "affect", "allocate"],
+      correct: 0
+    }
   },
   adequate: {
     question: "What does \"adequate\" mean?",
@@ -1818,7 +3258,22 @@ export const quizData = {
       "Extremely perfect",
       "Too small"
     ],
-    correct: 1
+    correct: 1,
+    scenario: {
+      question: "If a student's essay is adequate, the teacher will most likely:",
+      options: [
+        "Give the student an A+.",
+        "Accept it but say it could be better.",
+        "Fail the student immediately.",
+        "I'm not sure."
+      ],
+      correct: 1
+    },
+    fillBlank: {
+      question: "The food supply was ________ to feed all the refugees in the camp.",
+      options: ["adequate", "abstract", "adverse", "arbitrary"],
+      correct: 0
+    }
   },
   annual: {
     question: "What does \"annual\" mean?",
@@ -1828,7 +3283,22 @@ export const quizData = {
       "Happening never",
       "Happening every hour"
     ],
-    correct: 1
+    correct: 1,
+    scenario: {
+      question: "An annual company report is published:",
+      options: [
+        "Every day.",
+        "Once a year to summarize the company's performance.",
+        "Every month.",
+        "I'm not sure."
+      ],
+      correct: 1
+    },
+    fillBlank: {
+      question: "The company holds an ________ meeting to discuss its financial results.",
+      options: ["annual", "abstract", "adequate", "adjacent"],
+      correct: 0
+    }
   },
   apparent: {
     question: "What does \"apparent\" mean?",
@@ -1838,7 +3308,22 @@ export const quizData = {
       "Very confusing",
       "Ancient"
     ],
-    correct: 1
+    correct: 1,
+    scenario: {
+      question: "When a problem becomes apparent, it means:",
+      options: [
+        "The problem is hidden from everyone.",
+        "The problem becomes clear and noticeable.",
+        "The problem disappears.",
+        "I'm not sure."
+      ],
+      correct: 1
+    },
+    fillBlank: {
+      question: "It was ________ that she had not prepared for the presentation.",
+      options: ["apparent", "adequate", "annual", "abstract"],
+      correct: 0
+    }
   },
   approximate: {
     question: "What does \"approximate\" mean?",
@@ -1848,7 +3333,22 @@ export const quizData = {
       "Very far",
       "Wrong"
     ],
-    correct: 1
+    correct: 1,
+    scenario: {
+      question: "An approximate answer to a math problem is:",
+      options: [
+        "Exactly correct to every decimal place.",
+        "A rough estimate that is close but not precise.",
+        "Completely wrong.",
+        "I'm not sure."
+      ],
+      correct: 1
+    },
+    fillBlank: {
+      question: "The ________ cost of the project will be around $50,000.",
+      options: ["approximate", "adequate", "annual", "abstract"],
+      correct: 0
+    }
   },
   attitude: {
     question: "What does \"attitude\" mean?",
@@ -1858,7 +3358,22 @@ export const quizData = {
       "A type of airplane",
       "A loud noise"
     ],
-    correct: 1
+    correct: 1,
+    scenario: {
+      question: "An employee with a positive attitude at work will:",
+      options: [
+        "Complain about every task.",
+        "Approach challenges with enthusiasm and optimism.",
+        "Refuse to cooperate with colleagues.",
+        "I'm not sure."
+      ],
+      correct: 1
+    },
+    fillBlank: {
+      question: "Her ________ toward learning has helped her succeed in school.",
+      options: ["attitude", "approach", "authority", "attribute"],
+      correct: 0
+    }
   },
   attribute: {
     question: "What does \"attribute\" mean?",
@@ -1868,7 +3383,22 @@ export const quizData = {
       "A mistake",
       "A building"
     ],
-    correct: 0
+    correct: 0,
+    scenario: {
+      question: "When a coach attributes a team's success to hard work, the coach is saying:",
+      options: [
+        "The team was just lucky.",
+        "Hard work is the main reason for their success.",
+        "The team didn't work hard enough.",
+        "I'm not sure."
+      ],
+      correct: 1
+    },
+    fillBlank: {
+      question: "Creativity is often seen as a key ________ of a successful entrepreneur.",
+      options: ["attribute", "authority", "approach", "adequate"],
+      correct: 0
+    }
   },
   civil: {
     question: "What does \"civil\" mean?",
@@ -1878,7 +3408,22 @@ export const quizData = {
       "Very rude",
       "Extremely loud"
     ],
-    correct: 0
+    correct: 0,
+    scenario: {
+      question: "A civil rights movement fights for:",
+      options: [
+        "Military power.",
+        "Equal rights and freedoms for all citizens.",
+        "Higher taxes.",
+        "I'm not sure."
+      ],
+      correct: 1
+    },
+    fillBlank: {
+      question: "The new law focuses on ________ liberties, including freedom of speech.",
+      options: ["civil", "capable", "casual", "concurrent"],
+      correct: 0
+    }
   },
   code: {
     question: "What does \"code\" mean?",
@@ -1888,7 +3433,22 @@ export const quizData = {
       "A type of weather",
       "A loud song"
     ],
-    correct: 0
+    correct: 0,
+    scenario: {
+      question: "A programmer who writes code for an app is:",
+      options: [
+        "Drawing pictures for the app.",
+        "Writing instructions that tell the computer how to run the app.",
+        "Making physical hardware for the phone.",
+        "I'm not sure."
+      ],
+      correct: 1
+    },
+    fillBlank: {
+      question: "The ________ of conduct outlines the expected behavior for all employees.",
+      options: ["code", "concept", "context", "conduct"],
+      correct: 0
+    }
   },
   commit: {
     question: "What does \"commit\" mean?",
@@ -1898,7 +3458,22 @@ export const quizData = {
       "To sleep",
       "To run"
     ],
-    correct: 1
+    correct: 1,
+    scenario: {
+      question: "When a company commits to reducing its carbon emissions, it:",
+      options: [
+        "Makes a promise with no intention of following through.",
+        "Makes a firm pledge to take action and reduce emissions.",
+        "Ignores environmental concerns.",
+        "I'm not sure."
+      ],
+      correct: 1
+    },
+    fillBlank: {
+      question: "You need to ________ fully to the training program to see results.",
+      options: ["commit", "compile", "coincide", "confine"],
+      correct: 0
+    }
   },
   communicate: {
     question: "What does \"communicate\" mean?",
@@ -1908,7 +3483,22 @@ export const quizData = {
       "To fight",
       "To hide"
     ],
-    correct: 1
+    correct: 1,
+    scenario: {
+      question: "A manager who communicates clearly with their team will:",
+      options: [
+        "Leave the team confused about their tasks.",
+        "Make sure everyone understands their roles and goals.",
+        "Avoid talking to their team.",
+        "I'm not sure."
+      ],
+      correct: 1
+    },
+    fillBlank: {
+      question: "It's important to ________ your ideas clearly during a presentation.",
+      options: ["communicate", "conclude", "conduct", "contribute"],
+      correct: 0
+    }
   },
   concentrate: {
     question: "What does \"concentrate\" mean?",
@@ -1918,7 +3508,22 @@ export const quizData = {
       "To forget",
       "To play"
     ],
-    correct: 1
+    correct: 1,
+    scenario: {
+      question: "A student who concentrates during class will:",
+      options: [
+        "Daydream and miss important information.",
+        "Pay full attention and absorb the lesson.",
+        "Talk to friends instead of listening.",
+        "I'm not sure."
+      ],
+      correct: 1
+    },
+    fillBlank: {
+      question: "Turn off your phone so you can ________ on your work.",
+      options: ["concentrate", "conclude", "conduct", "contribute"],
+      correct: 0
+    }
   },
   confer: {
     question: "What does \"confer\" mean?",
@@ -1928,7 +3533,22 @@ export const quizData = {
       "To break",
       "To shout"
     ],
-    correct: 1
+    correct: 1,
+    scenario: {
+      question: "When a university confers a degree on a graduate, it:",
+      options: [
+        "Takes away the graduate's right to study.",
+        "Officially awards the degree to the graduate.",
+        "Cancels the graduate's enrollment.",
+        "I'm not sure."
+      ],
+      correct: 1
+    },
+    fillBlank: {
+      question: "The doctors need to ________ before making a decision about the treatment.",
+      options: ["confer", "compile", "conform", "confine"],
+      correct: 0
+    }
   },
   contrast: {
     question: "What does \"contrast\" mean?",
@@ -1938,7 +3558,22 @@ export const quizData = {
       "To paint",
       "To sleep"
     ],
-    correct: 1
+    correct: 1,
+    scenario: {
+      question: "There is a big contrast between:",
+      options: [
+        "Two white pieces of paper.",
+        "A very hot summer day and a freezing winter night.",
+        "Two people wearing the same shirt.",
+        "I'm not sure."
+      ],
+      correct: 1
+    },
+    fillBlank: {
+      question: "The bright red flowers provide a beautiful ________ to the green grass.",
+      options: ["contrast", "context", "contract", "conduct"],
+      correct: 0
+    }
   },
   cycle: {
     question: "What does \"cycle\" mean?",
@@ -1948,7 +3583,22 @@ export const quizData = {
       "A type of food",
       "A loud noise"
     ],
-    correct: 1
+    correct: 1,
+    scenario: {
+      question: "The cycle of the seasons means that:",
+      options: [
+        "It is summer for five years and then winter for one day.",
+        "Spring always follows winter, and summer always follows spring.",
+        "It is always the same temperature every day.",
+        "I'm not sure."
+      ],
+      correct: 1
+    },
+    fillBlank: {
+      question: "Most businesses go through a ________ of growth and then slower times.",
+      options: ["cycle", "culture", "currency", "context"],
+      correct: 0
+    }
   },
   debate: {
     question: "What does \"debate\" mean?",
@@ -1958,7 +3608,22 @@ export const quizData = {
       "A quiet sleep",
       "A type of fish"
     ],
-    correct: 1
+    correct: 1,
+    scenario: {
+      question: "In a school debate about school uniforms:",
+      options: [
+        "Everyone must agree that uniforms are good.",
+        "One group argues for uniforms and another group argues against them.",
+        "Nobody is allowed to speak.",
+        "I'm not sure."
+      ],
+      correct: 1
+    },
+    fillBlank: {
+      question: "There has been a lot of ________ about the new tax law.",
+      options: ["debate", "data", "decade", "domain"],
+      correct: 0
+    }
   },
   despite: {
     question: "What does \"despite\" mean?",
@@ -1968,7 +3633,22 @@ export const quizData = {
       "Always",
       "Never"
     ],
-    correct: 1
+    correct: 1,
+    scenario: {
+      question: "If you go for a run despite the rain, you:",
+      options: [
+        "Wait for the rain to stop before you go.",
+        "Go running even though it is raining.",
+        "Stay inside and watch the rain.",
+        "I'm not sure."
+      ],
+      correct: 1
+    },
+    fillBlank: {
+      question: "________ the loud noise, the baby stayed asleep.",
+      options: ["Despite", "Definite", "Discrete", "Domain"],
+      correct: 0
+    }
   },
   dimension: {
     question: "What does \"dimension\" mean?",
@@ -1978,7 +3658,22 @@ export const quizData = {
       "A type of clock",
       "A loud sound"
     ],
-    correct: 1
+    correct: 1,
+    scenario: {
+      question: "If you need to know the dimensions of a rug, you measure:",
+      options: [
+        "How much it cost at the store.",
+        "How long and how wide it is.",
+        "What color it is.",
+        "I'm not sure."
+      ],
+      correct: 1
+    },
+    fillBlank: {
+      question: "Please write down the ________ of the box so we know if it will fit in the car.",
+      options: ["dimensions", "devices", "discrete", "drafts"],
+      correct: 0
+    }
   },
   domestic: {
     question: "What does \"domestic\" mean?",
@@ -1988,7 +3683,22 @@ export const quizData = {
       "Very wild",
       "Extremely fast"
     ],
-    correct: 1
+    correct: 1,
+    scenario: {
+      question: "A domestic flight is a flight that:",
+      options: [
+        "Goes to a different country far away.",
+        "Starts and ends in the same country.",
+        "Is only for pilots.",
+        "I'm not sure."
+      ],
+      correct: 1
+    },
+    fillBlank: {
+      question: "Cats and dogs are ________ animals that live with humans.",
+      options: ["domestic", "diverse", "distinct", "dynamic"],
+      correct: 0
+    }
   },
   emerge: {
     question: "What does \"emerge\" mean?",
@@ -1998,7 +3708,22 @@ export const quizData = {
       "To stay hidden",
       "To break"
     ],
-    correct: 1
+    correct: 1,
+    scenario: {
+      question: "If a bear emerges from a cave, it:",
+      options: [
+        "Goes deep inside where it's dark.",
+        "Walks out into the light where you can see it.",
+        "Falls asleep inside.",
+        "I'm not sure."
+      ],
+      correct: 1
+    },
+    fillBlank: {
+      question: "New details about the accident began to ________ after the investigation.",
+      options: ["emerge", "emphasize", "enable", "enforce"],
+      correct: 0
+    }
   },
   error: {
     question: "What does \"error\" mean?",
@@ -2008,7 +3733,22 @@ export const quizData = {
       "A fast runner",
       "A type of music"
     ],
-    correct: 1
+    correct: 1,
+    scenario: {
+      question: "If you make an error on your tax return, you might:",
+      options: [
+        "Win a prize from the government.",
+        "Have to pay a fine or fix the paperwork.",
+        "Get a free vacation.",
+        "I'm not sure."
+      ],
+      correct: 1
+    },
+    fillBlank: {
+      question: "The computer showed an ________ message when I tried to open the file.",
+      options: ["error", "entity", "energy", "element"],
+      correct: 0
+    }
   },
   ethnic: {
     question: "What does \"ethnic\" mean?",
@@ -2018,7 +3758,22 @@ export const quizData = {
       "Very expensive",
       "A type of cloud"
     ],
-    correct: 0
+    correct: 0,
+    scenario: {
+      question: "An ethnic restaurant usually serves:",
+      options: [
+        "Only fast food like burgers.",
+        "Traditional food from a specific country or culture.",
+        "Food that has no flavor.",
+        "I'm not sure."
+      ],
+      correct: 1
+    },
+    fillBlank: {
+      question: "The city is home to many different ________ groups.",
+      options: ["ethnic", "ethics", "estate", "evident"],
+      correct: 0
+    }
   },
   goal: {
     question: "What does \"goal\" mean?",
@@ -2028,7 +3783,22 @@ export const quizData = {
       "A past event",
       "A heavy stone"
     ],
-    correct: 1
+    correct: 1,
+    scenario: {
+      question: "If your goal is to learn 1,000 English words, you:",
+      options: [
+        "Don't care if you learn anything.",
+        "Study every day so you can reach that number.",
+        "Already know all the words.",
+        "I'm not sure."
+      ],
+      correct: 1
+    },
+    fillBlank: {
+      question: "My main ________ this year is to run a marathon.",
+      options: ["goal", "grade", "grant", "globe"],
+      correct: 0
+    }
   },
   grant: {
     question: "What does \"grant\" mean?",
@@ -2038,7 +3808,22 @@ export const quizData = {
       "To shout",
       "To hide"
     ],
-    correct: 1
+    correct: 1,
+    scenario: {
+      question: "If the city grants you a permit to build a house, you:",
+      options: [
+        "Must stop building immediately.",
+        "Have official permission to start building.",
+        "Have to sell your land.",
+        "I'm not sure."
+      ],
+      correct: 1
+    },
+    fillBlank: {
+      question: "The university offered him a ________ to pay for his research.",
+      options: ["grant", "grade", "goal", "globe"],
+      correct: 0
+    }
   },
   hence: {
     question: "What does \"hence\" mean?",
@@ -2048,7 +3833,22 @@ export const quizData = {
       "Maybe",
       "Never"
     ],
-    correct: 0
+    correct: 0,
+    scenario: {
+      question: "\"He grew up in Japan; hence, he speaks Japanese fluently.\" This means:",
+      options: [
+        "He speaks Japanese even though he never lived there.",
+        "He speaks Japanese because he lived there.",
+        "He forgot how to speak Japanese.",
+        "I'm not sure."
+      ],
+      correct: 1
+    },
+    fillBlank: {
+      question: "The cost of transport is high; ________, the food prices are rising.",
+      options: ["hence", "however", "here", "furthermore"],
+      correct: 0
+    }
   },
   hypothesis: {
     question: "What does \"hypothesis\" mean?",
@@ -2058,7 +3858,22 @@ export const quizData = {
       "A large animal",
       "A loud noise"
     ],
-    correct: 1
+    correct: 1,
+    scenario: {
+      question: "A scientist forms a hypothesis and then:",
+      options: [
+        "Forgets about it.",
+        "Does experiments to see if the idea is actually true.",
+        "Tells everyone it is a 100% proven fact.",
+        "I'm not sure."
+      ],
+      correct: 1
+    },
+    fillBlank: {
+      question: "My ________ is that plants grow faster in classical music.",
+      options: ["hypothesis", "highlight", "hierarchy", "goal"],
+      correct: 0
+    }
   },
   implement: {
     question: "What does \"implement\" mean?",
@@ -2068,7 +3883,22 @@ export const quizData = {
       "To sleep",
       "To forget"
     ],
-    correct: 1
+    correct: 1,
+    scenario: {
+      question: "If a company implements a new \"no smoking\" rule, they:",
+      options: [
+        "Just talk about it but don't do anything.",
+        "Actually start making people follow the rule.",
+        "Cancel the rule.",
+        "I'm not sure."
+      ],
+      correct: 1
+    },
+    fillBlank: {
+      question: "It will be difficult to ________ these changes.",
+      options: ["implement", "impact", "immigrate", "indicate"],
+      correct: 0
+    }
   },
   implicate: {
     question: "What does \"implicate\" mean?",
@@ -2078,7 +3908,22 @@ export const quizData = {
       "To praise someone",
       "To run fast"
     ],
-    correct: 0
+    correct: 0,
+    scenario: {
+      question: "If a witness implicates a man in a robbery, they:",
+      options: [
+        "Say the man was at home sleeping.",
+        "Tell the police the man was the one who stole the money.",
+        "Say they didn't see anything.",
+        "I'm not sure."
+      ],
+      correct: 1
+    },
+    fillBlank: {
+      question: "The evidence ________ several high-ranking officials.",
+      options: ["implicates", "implements", "impacts", "indicates"],
+      correct: 0
+    }
   },
   impose: {
     question: "What does \"impose\" mean?",
@@ -2088,7 +3933,22 @@ export const quizData = {
       "To relax",
       "To help"
     ],
-    correct: 1
+    correct: 1,
+    scenario: {
+      question: "If the government imposes a new tax on sugar, people:",
+      options: [
+        "Can choose if they want to pay it.",
+        "Must pay more money when they buy sweet things.",
+        "Get sugar for free.",
+        "I'm not sure."
+      ],
+      correct: 1
+    },
+    fillBlank: {
+      question: "I don't want to ________ my views on you.",
+      options: ["impose", "imply", "implicate", "implement"],
+      correct: 0
+    }
   },
   integrate: {
     question: "What does \"integrate\" mean?",
@@ -2098,7 +3958,22 @@ export const quizData = {
       "To break",
       "To ignore"
     ],
-    correct: 1
+    correct: 1,
+    scenario: {
+      question: "To integrate into a new country, a person might:",
+      options: [
+        "Only talk to people from their old country.",
+        "Learn the local language and make local friends.",
+        "Never leave their house.",
+        "I'm not sure."
+      ],
+      correct: 1
+    },
+    fillBlank: {
+      question: "It's important to ________ new students into the school community.",
+      options: ["integrate", "instruct", "inspect", "initiate"],
+      correct: 0
+    }
   },
   internal: {
     question: "What does \"internal\" mean?",
@@ -2108,7 +3983,22 @@ export const quizData = {
       "Very far away",
       "Extremely loud"
     ],
-    correct: 1
+    correct: 1,
+    scenario: {
+      question: "Internal injuries are:",
+      options: [
+        "Cuts on the skin that you can see.",
+        "Hurt parts inside the body, like the heart or lungs.",
+        "Problems with your car.",
+        "I'm not sure."
+      ],
+      correct: 1
+    },
+    fillBlank: {
+      question: "The company is having ________ problems with its management.",
+      options: ["internal", "intense", "integral", "inevitable"],
+      correct: 0
+    }
   },
   investigate: {
     question: "What does \"investigate\" mean?",
@@ -2118,7 +4008,22 @@ export const quizData = {
       "To build a house",
       "To sing a song"
     ],
-    correct: 1
+    correct: 1,
+    scenario: {
+      question: "The police investigate a robbery by:",
+      options: [
+        "Guessing who did it.",
+        "Looking for fingerprints, talking to witnesses, and checking cameras.",
+        "Closing the case immediately.",
+        "I'm not sure."
+      ],
+      correct: 1
+    },
+    fillBlank: {
+      question: "Scientists are ________ the cause of the disease.",
+      options: ["investigating", "investing", "intervening", "integrating"],
+      correct: 0
+    }
   },
   job: {
     question: "What does \"job\" mean?",
@@ -2418,7 +4323,22 @@ export const quizData = {
       "To break",
       "To shout"
     ],
-    correct: 1
+    correct: 1,
+    scenario: {
+      question: "When a new employee adjusts to the workplace, they:",
+      options: [
+        "Quit immediately.",
+        "Get comfortable with the new environment and routines.",
+        "Demand higher pay.",
+        "I'm not sure."
+      ],
+      correct: 1
+    },
+    fillBlank: {
+      question: "She had to ________ her schedule to fit in the extra meetings.",
+      options: ["adjust", "abandon", "achieve", "acknowledge"],
+      correct: 0
+    }
   },
   alter: {
     question: "What does \"alter\" mean?",
@@ -2428,7 +4348,22 @@ export const quizData = {
       "To build",
       "To fix"
     ],
-    correct: 1
+    correct: 1,
+    scenario: {
+      question: "A tailor who alters a suit is:",
+      options: [
+        "Designing a brand new suit from scratch.",
+        "Making changes to the existing suit to improve the fit.",
+        "Selling the suit to someone else.",
+        "I'm not sure."
+      ],
+      correct: 1
+    },
+    fillBlank: {
+      question: "The architect had to ________ the original design to meet safety requirements.",
+      options: ["alter", "achieve", "acknowledge", "allocate"],
+      correct: 0
+    }
   },
   amend: {
     question: "What does \"amend\" mean?",
@@ -2438,7 +4373,22 @@ export const quizData = {
       "To sleep",
       "To run"
     ],
-    correct: 1
+    correct: 1,
+    scenario: {
+      question: "When a government amends a law, it:",
+      options: [
+        "Creates a completely new law from scratch.",
+        "Makes changes to improve or update the existing law.",
+        "Removes the law entirely.",
+        "I'm not sure."
+      ],
+      correct: 1
+    },
+    fillBlank: {
+      question: "The committee voted to ________ the policy to include new regulations.",
+      options: ["amend", "achieve", "acknowledge", "allocate"],
+      correct: 0
+    }
   },
   aware: {
     question: "What does \"aware\" mean?",
@@ -2448,7 +4398,22 @@ export const quizData = {
       "Very tired",
       "Angry"
     ],
-    correct: 0
+    correct: 0,
+    scenario: {
+      question: "A driver who is aware of road conditions will:",
+      options: [
+        "Ignore traffic signs and other vehicles.",
+        "Pay attention and adjust their driving to stay safe.",
+        "Drive with their eyes closed.",
+        "I'm not sure."
+      ],
+      correct: 1
+    },
+    fillBlank: {
+      question: "Are you ________ that the meeting has been rescheduled for tomorrow?",
+      options: ["aware", "adequate", "annual", "apparent"],
+      correct: 0
+    }
   },
   capacity: {
     question: "What does \"capacity\" mean?",
@@ -2458,7 +4423,22 @@ export const quizData = {
       "A fast runner",
       "A loud noise"
     ],
-    correct: 0
+    correct: 0,
+    scenario: {
+      question: "A stadium with a capacity of 50,000 people means:",
+      options: [
+        "Only 50 people can enter.",
+        "The stadium can hold up to 50,000 people.",
+        "The stadium costs 50,000 dollars.",
+        "I'm not sure."
+      ],
+      correct: 1
+    },
+    fillBlank: {
+      question: "The new factory has the ________ to produce 1,000 cars per day.",
+      options: ["capacity", "context", "conduct", "concept"],
+      correct: 0
+    }
   },
   challenge: {
     question: "What does \"challenge\" mean?",
@@ -2468,7 +4448,22 @@ export const quizData = {
       "A type of food",
       "A quiet room"
     ],
-    correct: 1
+    correct: 1,
+    scenario: {
+      question: "Learning a new language is a challenge because:",
+      options: [
+        "It is very simple and takes no effort.",
+        "It requires time, effort, and persistence to master.",
+        "Everyone already knows it.",
+        "I'm not sure."
+      ],
+      correct: 1
+    },
+    fillBlank: {
+      question: "The biggest ________ for the team was completing the project on time.",
+      options: ["challenge", "concept", "conduct", "context"],
+      correct: 0
+    }
   },
   clause: {
     question: "What does \"clause\" mean?",
@@ -2478,7 +4473,22 @@ export const quizData = {
       "A sharp tool",
       "A loud sound"
     ],
-    correct: 0
+    correct: 0,
+    scenario: {
+      question: "A contract with a confidentiality clause means:",
+      options: [
+        "You can share all information publicly.",
+        "There is a specific section that requires you to keep certain information secret.",
+        "The contract has no legal force.",
+        "I'm not sure."
+      ],
+      correct: 1
+    },
+    fillBlank: {
+      question: "The ________ in the contract states that either party can cancel with 30 days' notice.",
+      options: ["clause", "concept", "context", "conduct"],
+      correct: 0
+    }
   },
   compound: {
     question: "What does \"compound\" mean?",
@@ -2488,7 +4498,22 @@ export const quizData = {
       "A broken machine",
       "A secret"
     ],
-    correct: 1
+    correct: 1,
+    scenario: {
+      question: "Water is a compound because:",
+      options: [
+        "It exists as a single element.",
+        "It is made up of hydrogen and oxygen atoms combined.",
+        "It cannot be broken down.",
+        "I'm not sure."
+      ],
+      correct: 1
+    },
+    fillBlank: {
+      question: "Interest that is ________ grows much faster than simple interest.",
+      options: ["compound", "conform", "compile", "confine"],
+      correct: 0
+    }
   },
   conflict: {
     question: "What does \"conflict\" mean?",
@@ -2498,7 +4523,22 @@ export const quizData = {
       "A type of music",
       "A deep sleep"
     ],
-    correct: 1
+    correct: 1,
+    scenario: {
+      question: "A conflict between two countries can lead to:",
+      options: [
+        "Immediate friendship and cooperation.",
+        "Tensions, disputes, or even war.",
+        "Shared cultural events.",
+        "I'm not sure."
+      ],
+      correct: 1
+    },
+    fillBlank: {
+      question: "The ________ between the two departments slowed down the project.",
+      options: ["conflict", "concept", "context", "conduct"],
+      correct: 0
+    }
   },
   consult: {
     question: "What does \"consult\" mean?",
@@ -2508,7 +4548,22 @@ export const quizData = {
       "To shout at someone",
       "To sleep"
     ],
-    correct: 1
+    correct: 1,
+    scenario: {
+      question: "When you consult a doctor, you:",
+      options: [
+        "Avoid medical advice.",
+        "Seek professional advice about your health.",
+        "Prescribe medicine to yourself.",
+        "I'm not sure."
+      ],
+      correct: 1
+    },
+    fillBlank: {
+      question: "You should ________ a lawyer before signing any major contract.",
+      options: ["consult", "compile", "conform", "confine"],
+      correct: 0
+    }
   },
   contact: {
     question: "What does \"contact\" mean?",
@@ -2518,7 +4573,22 @@ export const quizData = {
       "A type of shoe",
       "A loud noise"
     ],
-    correct: 0
+    correct: 0,
+    scenario: {
+      question: "If you lose contact with an old friend, you:",
+      options: [
+        "Talk to them every day on the phone.",
+        "Stop calling or writing to them and don't know where they are.",
+        "Meet them for coffee every weekend.",
+        "I'm not sure."
+      ],
+      correct: 1
+    },
+    fillBlank: {
+      question: "Please ________ me if you have any more questions.",
+      options: ["contact", "conduct", "consent", "confirm"],
+      correct: 0
+    }
   },
   decline: {
     question: "What does \"decline\" mean?",
@@ -2528,7 +4598,22 @@ export const quizData = {
       "To accept an offer",
       "To jump"
     ],
-    correct: 1
+    correct: 1,
+    scenario: {
+      question: "If the number of birds in the park declines, it means:",
+      options: [
+        "There are more birds than before.",
+        "There are fewer birds than there used to be.",
+        "The birds are all very happy.",
+        "I'm not sure."
+      ],
+      correct: 1
+    },
+    fillBlank: {
+      question: "I offered him a job, but he decided to ________ it.",
+      options: ["decline", "deduce", "define", "detect"],
+      correct: 0
+    }
   },
   discrete: {
     question: "What does \"discrete\" mean?",
@@ -2538,7 +4623,22 @@ export const quizData = {
       "Very loud",
       "Extremely fast"
     ],
-    correct: 1
+    correct: 1,
+    scenario: {
+      question: "If you break a chocolate bar into discrete pieces, each piece is:",
+      options: [
+        "Still melted together in one pile.",
+        "A separate, individual square that you can hold.",
+        "Too small to see.",
+        "I'm not sure."
+      ],
+      correct: 1
+    },
+    fillBlank: {
+      question: "The organisms can be divided into several ________ categories.",
+      options: ["discrete", "definite", "dimension", "diverse"],
+      correct: 0
+    }
   },
   draft: {
     question: "What does \"draft\" mean?",
@@ -2548,7 +4648,22 @@ export const quizData = {
       "A type of drink",
       "A heavy stone"
     ],
-    correct: 1
+    correct: 1,
+    scenario: {
+      question: "When you write a \"first draft\" of an essay, you:",
+      options: [
+        "Turn it in to the teacher immediately as a final copy.",
+        "Write down your ideas and know you will change and fix them later.",
+        "Print it out and put it in a frame.",
+        "I'm not sure."
+      ],
+      correct: 1
+    },
+    fillBlank: {
+      question: "I need to check the first ________ of the contract before we sign it.",
+      options: ["draft", "document", "domain", "display"],
+      correct: 0
+    }
   },
   enable: {
     question: "What does \"enable\" mean?",
@@ -2558,7 +4673,22 @@ export const quizData = {
       "To forget",
       "To sleep"
     ],
-    correct: 1
+    correct: 1,
+    scenario: {
+      question: "A passport enables you to:",
+      options: [
+        "Drive a car in your city.",
+        "Travel to other countries legally.",
+        "Buy groceries.",
+        "I'm not sure."
+      ],
+      correct: 1
+    },
+    fillBlank: {
+      question: "The new law will ________ more people to buy their own homes.",
+      options: ["enable", "emerge", "emphasize", "enforce"],
+      correct: 0
+    }
   },
   energy: {
     question: "What does \"energy\" mean?",
@@ -2568,7 +4698,22 @@ export const quizData = {
       "A type of book",
       "A quiet sound"
     ],
-    correct: 1
+    correct: 1,
+    scenario: {
+      question: "If you have a lot of energy in the morning, you:",
+      options: [
+        "Want to stay in bed and sleep more.",
+        "Feel ready to run, work, and be active.",
+        "Feel very hungry.",
+        "I'm not sure."
+      ],
+      correct: 1
+    },
+    fillBlank: {
+      question: "We need to find new ways to produce clean ________.",
+      options: ["energy", "element", "emphasis", "entity"],
+      correct: 0
+    }
   },
   enforce: {
     question: "What does \"enforce\" mean?",
@@ -2578,7 +4723,22 @@ export const quizData = {
       "To break a window",
       "To sing"
     ],
-    correct: 1
+    correct: 1,
+    scenario: {
+      question: "It is the job of the police to enforce the speed limit. This means they:",
+      options: [
+        "Ask people nicely to drive slowly.",
+        "Give tickets or fines to people who drive too fast.",
+        "Drive very fast themselves.",
+        "I'm not sure."
+      ],
+      correct: 1
+    },
+    fillBlank: {
+      question: "It is difficult to ________ the law if there are not enough officers.",
+      options: ["enforce", "enable", "enhance", "ensure"],
+      correct: 0
+    }
   },
   entity: {
     question: "What does \"entity\" mean?",
@@ -2588,7 +4748,22 @@ export const quizData = {
       "A type of ghost",
       "A mistake"
     ],
-    correct: 1
+    correct: 1,
+    scenario: {
+      question: "A large corporation is a legal entity. This means:",
+      options: [
+        "It is just a group of friends.",
+        "It is seen as a \"person\" or a separate thing by the law.",
+        "It doesn't really exist.",
+        "I'm not sure."
+      ],
+      correct: 1
+    },
+    fillBlank: {
+      question: "The museum is a separate ________ from the local government.",
+      options: ["entity", "element", "energy", "emphasis"],
+      correct: 0
+    }
   },
   equivalent: {
     question: "What does \"equivalent\" mean?",
@@ -2598,7 +4773,22 @@ export const quizData = {
       "Very small",
       "Extremely tall"
     ],
-    correct: 1
+    correct: 1,
+    scenario: {
+      question: "In the US, a $5 bill is equivalent to:",
+      options: [
+        "Five gold bars.",
+        "Five $1 bills.",
+        "One cent.",
+        "I'm not sure."
+      ],
+      correct: 1
+    },
+    fillBlank: {
+      question: "Eight kilometers is ________ to roughly five miles.",
+      options: ["equivalent", "empirical", "enormous", "evident"],
+      correct: 0
+    }
   },
   evolve: {
     question: "What does \"evolve\" mean?",
@@ -2608,7 +4798,22 @@ export const quizData = {
       "To stop working",
       "To fall"
     ],
-    correct: 1
+    correct: 1,
+    scenario: {
+      question: "How has mobile phone technology evolved?",
+      options: [
+        "It has stayed exactly the same since 1990.",
+        "Phones have become smaller, faster, and smarter over time.",
+        "Phones have become much larger and heavier.",
+        "I'm not sure."
+      ],
+      correct: 1
+    },
+    fillBlank: {
+      question: "Animals ________ over millions of years to fit their environment.",
+      options: ["evolve", "evaluate", "exhibit", "enforce"],
+      correct: 0
+    }
   },
   expand: {
     question: "What does \"expand\" mean?",
@@ -2618,7 +4823,22 @@ export const quizData = {
       "To hide",
       "To fix"
     ],
-    correct: 1
+    correct: 1,
+    scenario: {
+      question: "If a company expands into other countries, it:",
+      options: [
+        "Closes all its offices.",
+        "Opens new shops in different parts of the world.",
+        "Stays in only one small city.",
+        "I'm not sure."
+      ],
+      correct: 1
+    },
+    fillBlank: {
+      question: "Metals ________ when they are heated.",
+      options: ["expand", "expert", "export", "expose"],
+      correct: 0
+    }
   },
   expose: {
     question: "What does \"expose\" mean?",
@@ -2628,7 +4848,22 @@ export const quizData = {
       "To sleep",
       "To run"
     ],
-    correct: 1
+    correct: 1,
+    scenario: {
+      question: "If you expose a secret, you:",
+      options: [
+        "Keep it hidden in your mind.",
+        "Tell everyone the truth about it.",
+        "Forget the secret.",
+        "I'm not sure."
+      ],
+      correct: 1
+    },
+    fillBlank: {
+      question: "Don't ________ your skin to the sun for too long without sunblock.",
+      options: ["expose", "exploit", "export", "expand"],
+      correct: 0
+    }
   },
   external: {
     question: "What does \"external\" mean?",
@@ -2638,7 +4873,22 @@ export const quizData = {
       "Very near",
       "Very loud"
     ],
-    correct: 1
+    correct: 1,
+    scenario: {
+      question: "An external hard drive is one that:",
+      options: [
+        "Is built inside the computer.",
+        "Is connected to the computer by a cable and sits on the desk.",
+        "Doesn't work at all.",
+        "I'm not sure."
+      ],
+      correct: 1
+    },
+    fillBlank: {
+      question: "The ________ walls of the house were painted white.",
+      options: ["external", "extract", "explicit", "expand"],
+      correct: 0
+    }
   },
   facilitate: {
     question: "What does \"facilitate\" mean?",
@@ -2648,7 +4898,22 @@ export const quizData = {
       "To break",
       "To cry"
     ],
-    correct: 1
+    correct: 1,
+    scenario: {
+      question: "A good teacher facilitates learning by:",
+      options: [
+        "Making the lessons very confusing.",
+        "Explaining things clearly and answering questions.",
+        "Not coming to class.",
+        "I'm not sure."
+      ],
+      correct: 1
+    },
+    fillBlank: {
+      question: "The new highway will ________ travel between the two cities.",
+      options: ["facilitate", "factor", "federal", "feature"],
+      correct: 0
+    }
   },
   fundamental: {
     question: "What does \"fundamental\" mean?",
@@ -2658,7 +4923,22 @@ export const quizData = {
       "Very funny",
       "Old"
     ],
-    correct: 1
+    correct: 1,
+    scenario: {
+      question: "A fundamental rule of safe driving is:",
+      options: [
+        "To have a fast car.",
+        "To pay attention to the road at all times.",
+        "To listen to loud music.",
+        "I'm not sure."
+      ],
+      correct: 1
+    },
+    fillBlank: {
+      question: "Freedom of speech is a ________ human right.",
+      options: ["fundamental", "forthcoming", "flexible", "finite"],
+      correct: 0
+    }
   },
   generate: {
     question: "What does \"generate\" mean?",
@@ -2668,7 +4948,22 @@ export const quizData = {
       "To wait",
       "To sleep"
     ],
-    correct: 1
+    correct: 1,
+    scenario: {
+      question: "Solar panels generate electricity by:",
+      options: [
+        "Using up all the water in the house.",
+        "Turning sunlight into power.",
+        "Making a lot of noise.",
+        "I'm not sure."
+      ],
+      correct: 1
+    },
+    fillBlank: {
+      question: "The new business will ________ many jobs for local people.",
+      options: ["generate", "grade", "grant", "globe"],
+      correct: 0
+    }
   },
   generation: {
     question: "What does \"generation\" mean?",
@@ -2678,7 +4973,22 @@ export const quizData = {
       "A secret plan",
       "A loud noise"
     ],
-    correct: 0
+    correct: 0,
+    scenario: {
+      question: "Your \"grandparents' generation\" includes:",
+      options: [
+        "You and your friends at school.",
+        "People who were born around the same time as your grandfather and grandmother.",
+        "Your parents and their brothers.",
+        "I'm not sure."
+      ],
+      correct: 1
+    },
+    fillBlank: {
+      question: "The younger ________ is more comfortable using technology.",
+      options: ["generation", "gender", "grade", "globe"],
+      correct: 0
+    }
   },
   image: {
     question: "What does \"image\" mean?",
@@ -2688,7 +4998,22 @@ export const quizData = {
       "A smell",
       "A taste"
     ],
-    correct: 1
+    correct: 1,
+    scenario: {
+      question: "If you have a clear image of your dream house, you:",
+      options: [
+        "Have no idea what it looks like.",
+        "Can see exactly what it looks like in your mind.",
+        "Forgot where you live.",
+        "I'm not sure."
+      ],
+      correct: 1
+    },
+    fillBlank: {
+      question: "The satellite sent back ________ of the planet Mars.",
+      options: ["images", "illusions", "ideologies", "instances"],
+      correct: 0
+    }
   },
   liberal: {
     question: "What does \"liberal\" mean?",
@@ -3001,6 +5326,21 @@ export const quizData = {
     correct: 1
   },
   abstract: {
+    scenario: {
+      question: "An abstract idea like 'freedom' is:",
+      options: [
+        "Something you can touch or hold.",
+        "A concept that exists in the mind, not as a physical object.",
+        "A type of building.",
+        "I'm not sure."
+      ],
+      correct: 1
+    },
+    fillBlank: {
+      question: "The ________ concept of justice can be difficult to define precisely.",
+      options: ["abstract", "accurate", "adjacent", "annual"],
+      correct: 0
+    },
     question: "What does \"abstract\" mean?",
     options: [
       "A real, physical object",
@@ -3011,6 +5351,21 @@ export const quizData = {
     correct: 1
   },
   accurate: {
+    scenario: {
+      question: "A weather forecast that is accurate means:",
+      options: [
+        "The forecast is wrong.",
+        "The forecast correctly predicts what will happen.",
+        "The forecast is always changing.",
+        "I'm not sure."
+      ],
+      correct: 1
+    },
+    fillBlank: {
+      question: "The scientist made sure her measurements were ________ before recording the results.",
+      options: ["accurate", "abstract", "adequate", "annual"],
+      correct: 0
+    },
     question: "What does \"accurate\" mean?",
     options: [
       "Wrong and messy",
@@ -3028,7 +5383,22 @@ export const quizData = {
       "To sleep",
       "To break a rule"
     ],
-    correct: 1
+    correct: 1,
+    scenario: {
+      question: "When a manager acknowledges an employee's hard work, the manager:",
+      options: [
+        "Ignores what the employee did.",
+        "Recognizes and expresses appreciation for the employee's efforts.",
+        "Fires the employee.",
+        "I'm not sure."
+      ],
+      correct: 1
+    },
+    fillBlank: {
+      question: "The scientist refused to ________ the flaws in her research.",
+      options: ["acknowledge", "abandon", "acquire", "allocate"],
+      correct: 0
+    }
   },
   aggregate: {
     question: "What does \"aggregate\" mean?",
@@ -3038,7 +5408,22 @@ export const quizData = {
       "A type of music",
       "A secret plan"
     ],
-    correct: 1
+    correct: 1,
+    scenario: {
+      question: "The aggregate score of a sports tournament is:",
+      options: [
+        "The score of just one game.",
+        "The combined total score across all games.",
+        "The lowest score of all games.",
+        "I'm not sure."
+      ],
+      correct: 1
+    },
+    fillBlank: {
+      question: "The ________ data from all surveys showed a clear trend.",
+      options: ["aggregate", "accurate", "annual", "apparent"],
+      correct: 0
+    }
   },
   allocate: {
     question: "What does \"allocate\" mean?",
@@ -3048,7 +5433,22 @@ export const quizData = {
       "To run away",
       "To shout"
     ],
-    correct: 1
+    correct: 1,
+    scenario: {
+      question: "A government that allocates funds to education will:",
+      options: [
+        "Spend money on schools, teachers, and learning materials.",
+        "Cut the education budget.",
+        "Ignore educational needs.",
+        "I'm not sure."
+      ],
+      correct: 0
+    },
+    fillBlank: {
+      question: "The manager decided to ________ more resources to the research department.",
+      options: ["allocate", "abandon", "achieve", "adjust"],
+      correct: 0
+    }
   },
   assign: {
     question: "What does \"assign\" mean?",
@@ -3058,7 +5458,22 @@ export const quizData = {
       "To paint a wall",
       "To forget"
     ],
-    correct: 1
+    correct: 1,
+    scenario: {
+      question: "A teacher who assigns homework is:",
+      options: [
+        "Taking homework away from students.",
+        "Giving students specific work to complete at home.",
+        "Doing the homework themselves.",
+        "I'm not sure."
+      ],
+      correct: 1
+    },
+    fillBlank: {
+      question: "The manager will ________ each team member a specific task.",
+      options: ["assign", "achieve", "acknowledge", "adjust"],
+      correct: 0
+    }
   },
   attach: {
     question: "What does \"attach\" mean?",
@@ -3068,7 +5483,22 @@ export const quizData = {
       "To break",
       "To fly"
     ],
-    correct: 1
+    correct: 1,
+    scenario: {
+      question: "When you attach a file to an email, you:",
+      options: [
+        "Delete the file.",
+        "Add the file so the recipient can receive and open it.",
+        "Send the email without any content.",
+        "I'm not sure."
+      ],
+      correct: 1
+    },
+    fillBlank: {
+      question: "Please ________ your resume to the application form.",
+      options: ["attach", "assess", "assume", "assign"],
+      correct: 0
+    }
   },
   author: {
     question: "What does \"author\" mean?",
@@ -3078,7 +5508,22 @@ export const quizData = {
       "A person who fixes cars",
       "A type of tree"
     ],
-    correct: 1
+    correct: 1,
+    scenario: {
+      question: "The author of a novel is:",
+      options: [
+        "The person who prints the book.",
+        "The person who created the story by writing it.",
+        "The person who reads the book aloud.",
+        "I'm not sure."
+      ],
+      correct: 1
+    },
+    fillBlank: {
+      question: "The ________ of the report must approve any changes before publication.",
+      options: ["author", "approach", "authority", "attribute"],
+      correct: 0
+    }
   },
   bond: {
     question: "What does \"bond\" mean?",
@@ -3088,7 +5533,22 @@ export const quizData = {
       "A loud explosion",
       "A small insect"
     ],
-    correct: 1
+    correct: 1,
+    scenario: {
+      question: "A bond between two friends is:",
+      options: [
+        "A rivalry that drives them apart.",
+        "A deep emotional connection that holds them together.",
+        "A type of financial contract.",
+        "I'm not sure."
+      ],
+      correct: 1
+    },
+    fillBlank: {
+      question: "Shared experiences can create a strong ________ between people.",
+      options: ["bond", "benefit", "bias", "bulk"],
+      correct: 0
+    }
   },
   brief: {
     question: "What does \"brief\" mean?",
@@ -3098,7 +5558,22 @@ export const quizData = {
       "Extremely expensive",
       "Very old"
     ],
-    correct: 1
+    correct: 1,
+    scenario: {
+      question: "A brief meeting is one that:",
+      options: [
+        "Lasts for several hours.",
+        "Lasts only a short time and covers the key points.",
+        "Has no agenda.",
+        "I'm not sure."
+      ],
+      correct: 1
+    },
+    fillBlank: {
+      question: "Please give a ________ summary of the main findings.",
+      options: ["brief", "bulk", "bias", "behalf"],
+      correct: 0
+    }
   },
   capable: {
     question: "What does \"capable\" mean?",
@@ -3108,7 +5583,22 @@ export const quizData = {
       "Very angry",
       "Always late"
     ],
-    correct: 0
+    correct: 0,
+    scenario: {
+      question: "A pilot who is capable of flying in bad weather means:",
+      options: [
+        "The pilot refuses to fly in any bad conditions.",
+        "The pilot has the skill and training to handle difficult flying conditions.",
+        "The pilot is afraid of storms.",
+        "I'm not sure."
+      ],
+      correct: 1
+    },
+    fillBlank: {
+      question: "She is ________ of handling complex projects on her own.",
+      options: ["capable", "coherent", "compatible", "concurrent"],
+      correct: 0
+    }
   },
   cite: {
     question: "What does \"cite\" mean?",
@@ -3118,7 +5608,22 @@ export const quizData = {
       "To go for a walk",
       "To sleep"
     ],
-    correct: 1
+    correct: 1,
+    scenario: {
+      question: "When you cite a source in an essay, you are:",
+      options: [
+        "Copying the text without credit.",
+        "Acknowledging where your information came from.",
+        "Making up your own facts.",
+        "I'm not sure."
+      ],
+      correct: 1
+    },
+    fillBlank: {
+      question: "You must ________ all sources when writing an academic paper.",
+      options: ["cite", "conduct", "conclude", "contribute"],
+      correct: 0
+    }
   },
   cooperate: {
     question: "What does \"cooperate\" mean?",
@@ -3138,7 +5643,22 @@ export const quizData = {
       "To eat lunch",
       "To sing"
     ],
-    correct: 1
+    correct: 1,
+    scenario: {
+      question: "A company discriminates if it:",
+      options: [
+        "Hires the best person for the job.",
+        "Refuses to hire someone just because of their skin color or religion.",
+        "Gives everyone a bonus at Christmas.",
+        "I'm not sure."
+      ],
+      correct: 1
+    },
+    fillBlank: {
+      question: "It is illegal to ________ against someone because of their age.",
+      options: ["discriminate", "differentiate", "demonstrate", "displace"],
+      correct: 0
+    }
   },
   display: {
     question: "What does \"display\" mean?",
@@ -3148,7 +5668,22 @@ export const quizData = {
       "To forget",
       "To break"
     ],
-    correct: 1
+    correct: 1,
+    scenario: {
+      question: "A shop might display its best clothes:",
+      options: [
+        "In the back room where it's dark.",
+        "In the front window for everyone to see.",
+        "In a locked box.",
+        "I'm not sure."
+      ],
+      correct: 1
+    },
+    fillBlank: {
+      question: "The museum has a beautiful ________ of ancient gold jewelry.",
+      options: ["display", "device", "dimension", "draft"],
+      correct: 0
+    }
   },
   diverse: {
     question: "What does \"diverse\" mean?",
@@ -3158,7 +5693,22 @@ export const quizData = {
       "Very small",
       "Very quiet"
     ],
-    correct: 1
+    correct: 1,
+    scenario: {
+      question: "A diverse group of students would include:",
+      options: [
+        "Ten boys who are all 10 years old and from the same town.",
+        "People of different ages, countries, and interests.",
+        "Three people who all like the same movie.",
+        "I'm not sure."
+      ],
+      correct: 1
+    },
+    fillBlank: {
+      question: "New York is a very ________ city with people from all over the world.",
+      options: ["diverse", "distinct", "discrete", "domestic"],
+      correct: 0
+    }
   },
   domain: {
     question: "What does \"domain\" mean?",
@@ -3168,7 +5718,22 @@ export const quizData = {
       "A loud noise",
       "A fast car"
     ],
-    correct: 1
+    correct: 1,
+    scenario: {
+      question: "In the domain of science, \"gravity\" is:",
+      options: [
+        "A type of food.",
+        "A very important topic that everyone studies.",
+        "A famous singer.",
+        "I'm not sure."
+      ],
+      correct: 1
+    },
+    fillBlank: {
+      question: "Computing used to be the ________ of experts, but now everyone uses it.",
+      options: ["domain", "document", "draft", "dimension"],
+      correct: 0
+    }
   },
   edit: {
     question: "What does \"edit\" mean?",
@@ -3178,7 +5743,22 @@ export const quizData = {
       "To burn a book",
       "To sleep"
     ],
-    correct: 1
+    correct: 1,
+    scenario: {
+      question: "If you edit a video, you:",
+      options: [
+        "Film it for the first time.",
+        "Remove the boring parts and add music to make it better.",
+        "Show it to your friends on YouTube.",
+        "I'm not sure."
+      ],
+      correct: 1
+    },
+    fillBlank: {
+      question: "You should ________ your essay for spelling mistakes before you hand it in.",
+      options: ["edit", "element", "eliminate", "emerge"],
+      correct: 0
+    }
   },
   enhance: {
     question: "What does \"enhance\" mean?",
@@ -3188,7 +5768,22 @@ export const quizData = {
       "To break",
       "To lose"
     ],
-    correct: 1
+    correct: 1,
+    scenario: {
+      question: "You can enhance the flavor of a soup by:",
+      options: [
+        "Adding more water to it.",
+        "Adding fresh herbs and salt.",
+        "Boiling it for too long.",
+        "I'm not sure."
+      ],
+      correct: 1
+    },
+    fillBlank: {
+      question: "These pictures have been ________ to make the colors look brighter.",
+      options: ["enhanced", "enforced", "enabled", "emerged"],
+      correct: 0
+    }
   },
   estate: {
     question: "What does \"estate\" mean?",
@@ -3198,7 +5793,22 @@ export const quizData = {
       "A type of drink",
       "A fast animal"
     ],
-    correct: 1
+    correct: 1,
+    scenario: {
+      question: "A \"real estate agent\" helps people:",
+      options: [
+        "Buy and sell groceries.",
+        "Buy and sell houses and land.",
+        "Find a new job.",
+        "I'm not sure."
+      ],
+      correct: 1
+    },
+    fillBlank: {
+      question: "He left his entire ________ to his children.",
+      options: ["estate", "estimate", "ethics", "element"],
+      correct: 0
+    }
   },
   exceed: {
     question: "What does \"exceed\" mean?",
@@ -3208,7 +5818,22 @@ export const quizData = {
       "To stop",
       "To fail"
     ],
-    correct: 1
+    correct: 1,
+    scenario: {
+      question: "If you exceed the speed limit of 60 km/h, you are driving:",
+      options: [
+        "Exactly 60 km/h.",
+        "75 km/h.",
+        "40 km/h.",
+        "I'm not sure."
+      ],
+      correct: 1
+    },
+    fillBlank: {
+      question: "The final cost of the project must not ________ the budget.",
+      options: ["exceed", "exclude", "exhibit", "expand"],
+      correct: 0
+    }
   },
   expert: {
     question: "What does \"expert\" mean?",
@@ -3218,7 +5843,22 @@ export const quizData = {
       "A type of tool",
       "A noisy party"
     ],
-    correct: 1
+    correct: 1,
+    scenario: {
+      question: "Who is an expert on computers?",
+      options: [
+        "Someone who only knows how to turn a computer on.",
+        "Someone who can build, program, and fix computers.",
+        "Someone who has never used a computer.",
+        "I'm not sure."
+      ],
+      correct: 1
+    },
+    fillBlank: {
+      question: "We need to ask an ________ for advice on this problem.",
+      options: ["expert", "export", "expand", "expose"],
+      correct: 0
+    }
   },
   explicit: {
     question: "What does \"explicit\" mean?",
@@ -3228,7 +5868,22 @@ export const quizData = {
       "Very boring",
       "Totally wrong"
     ],
-    correct: 1
+    correct: 1,
+    scenario: {
+      question: "If your boss gives you explicit instructions, they:",
+      options: [
+        "Tell you to \"just do something.\"",
+        "Tell you exactly what to do, how to do it, and when to finish.",
+        "Don't say anything at all.",
+        "I'm not sure."
+      ],
+      correct: 1
+    },
+    fillBlank: {
+      question: "I gave you ________ directions so you wouldn't get lost.",
+      options: ["explicit", "exploit", "export", "expand"],
+      correct: 0
+    }
   },
   federal: {
     question: "What does \"federal\" mean?",
@@ -3238,7 +5893,22 @@ export const quizData = {
       "Private",
       "Very old"
     ],
-    correct: 1
+    correct: 1,
+    scenario: {
+      question: "In the US, federal laws are:",
+      options: [
+        "Only for people living in New York.",
+        "For every person living in all 50 states.",
+        "Only for the President.",
+        "I'm not sure."
+      ],
+      correct: 1
+    },
+    fillBlank: {
+      question: "He works for the ________ government in Washington, D.C.",
+      options: ["federal", "factor", "feature", "final"],
+      correct: 0
+    }
   },
   fee: {
     question: "What does \"fee\" mean?",
@@ -3248,7 +5918,22 @@ export const quizData = {
       "A type of bird",
       "A loud sound"
     ],
-    correct: 1
+    correct: 1,
+    scenario: {
+      question: "If you join a gym, you usually have to pay a monthly fee to:",
+      options: [
+        "Buy your own weights.",
+        "Use the gym's equipment and showers.",
+        "Get a free t-shirt.",
+        "I'm not sure."
+      ],
+      correct: 1
+    },
+    fillBlank: {
+      question: "Most universities charge a tuition ________.",
+      options: ["fee", "file", "finance", "fund"],
+      correct: 0
+    }
   },
   flexible: {
     question: "What does \"flexible\" mean?",
@@ -3258,7 +5943,22 @@ export const quizData = {
       "Always broken",
       "Very heavy"
     ],
-    correct: 1
+    correct: 1,
+    scenario: {
+      question: "If you have a flexible schedule, it means:",
+      options: [
+        "You must start work at exactly 9:00 AM every day.",
+        "You can choose when you start and finish your work.",
+        "You don't have a job.",
+        "I'm not sure."
+      ],
+      correct: 1
+    },
+    fillBlank: {
+      question: "Rubber is a ________ material.",
+      options: ["flexible", "finite", "federal", "final"],
+      correct: 0
+    }
   },
   furthermore: {
     question: "What does \"furthermore\" mean?",
@@ -3268,7 +5968,22 @@ export const quizData = {
       "Never",
       "Maybe"
     ],
-    correct: 1
+    correct: 1,
+    scenario: {
+      question: "\"The hotel was very dirty. Furthermore, it was very expensive.\" This means:",
+      options: [
+        "The hotel was bad because it was dirty, but the price was good.",
+        "The hotel was bad for two reasons: it was dirty AND it cost too much.",
+        "The hotel was actually very nice.",
+        "I'm not sure."
+      ],
+      correct: 1
+    },
+    fillBlank: {
+      question: "Reading helps you learn new words. ________, it improves your focus.",
+      options: ["Furthermore", "Finally", "Fortunately", "Formerly"],
+      correct: 0
+    }
   },
   gender: {
     question: "What does \"gender\" mean?",
@@ -3278,7 +5993,22 @@ export const quizData = {
       "A type of job",
       "A country"
     ],
-    correct: 1
+    correct: 1,
+    scenario: {
+      question: "If a job application asks for your gender, you write:",
+      options: [
+        "Your age.",
+        "\"Male,\" \"Female,\" or another option.",
+        "Your favorite color.",
+        "I'm not sure."
+      ],
+      correct: 1
+    },
+    fillBlank: {
+      question: "We are working to achieve ________ equality in the workplace.",
+      options: ["gender", "generation", "grade", "globe"],
+      correct: 0
+    }
   },
   ignorant: {
     question: "What does \"ignorant\" mean?",
@@ -3288,7 +6018,22 @@ export const quizData = {
       "Extremely fast",
       "Very loud"
     ],
-    correct: 1
+    correct: 1,
+    scenario: {
+      question: "If someone is ignorant of the law, they:",
+      options: [
+        "Follow every rule perfectly.",
+        "Don't know that the law exists or what it says.",
+        "Are the judge in a court.",
+        "I'm not sure."
+      ],
+      correct: 1
+    },
+    fillBlank: {
+      question: "Many people are ________ about the dangers of this chemical.",
+      options: ["ignorant", "identical", "illegal", "evident"],
+      correct: 0
+    }
   },
   incentive: {
     question: "What does \"incentive\" mean?",
@@ -3298,7 +6043,22 @@ export const quizData = {
       "A type of food",
       "A quiet room"
     ],
-    correct: 1
+    correct: 1,
+    scenario: {
+      question: "A cash bonus is an incentive for workers to:",
+      options: [
+        "Quit their jobs.",
+        "Work harder and reach their targets.",
+        "Take more holidays.",
+        "I'm not sure."
+      ],
+      correct: 1
+    },
+    fillBlank: {
+      question: "The government is offering ________ to people who buy electric cars.",
+      options: ["incentives", "impacts", "images", "instances"],
+      correct: 0
+    }
   },
   incidence: {
     question: "What does \"incidence\" mean?",
@@ -3308,7 +6068,22 @@ export const quizData = {
       "A beautiful view",
       "A loud song"
     ],
-    correct: 0
+    correct: 0,
+    scenario: {
+      question: "A high incidence of the flu in a city means:",
+      options: [
+        "Nobody is sick.",
+        "A lot of people are getting sick at the same time.",
+        "The flu has disappeared.",
+        "I'm not sure."
+      ],
+      correct: 1
+    },
+    fillBlank: {
+      question: "There is a high ________ of heart disease in this region.",
+      options: ["incidence", "incentive", "impact", "income"],
+      correct: 0
+    }
   },
   incorporate: {
     question: "What does \"incorporate\" mean?",
@@ -3318,7 +6093,22 @@ export const quizData = {
       "To break",
       "To shout"
     ],
-    correct: 1
+    correct: 1,
+    scenario: {
+      question: "If you incorporate exercise into your daily routine, you:",
+      options: [
+        "Stop exercising forever.",
+        "Make exercise a part of your normal day.",
+        "Exercise only once a year.",
+        "I'm not sure."
+      ],
+      correct: 1
+    },
+    fillBlank: {
+      question: "The new design ________ all the latest safety features.",
+      options: ["incorporates", "inclines", "imposes", "indicates"],
+      correct: 0
+    }
   },
   index: {
     question: "What does \"index\" mean?",
@@ -3328,7 +6118,22 @@ export const quizData = {
       "A type of shoe",
       "A deep hole"
     ],
-    correct: 1
+    correct: 1,
+    scenario: {
+      question: "You look at the index of a book to:",
+      options: [
+        "See the pictures.",
+        "Find out which page a specific topic is on.",
+        "Read the author's biography.",
+        "I'm not sure."
+      ],
+      correct: 1
+    },
+    fillBlank: {
+      question: "Look up \"Photosynthesis\" in the ________ at the back of the book.",
+      options: ["index", "income", "incline", "instance"],
+      correct: 0
+    }
   },
   inhibit: {
     question: "What does \"inhibit\" mean?",
@@ -3338,7 +6143,22 @@ export const quizData = {
       "To build",
       "To run"
     ],
-    correct: 1
+    correct: 1,
+    scenario: {
+      question: "Cold weather can inhibit the growth of plants. This means:",
+      options: [
+        "Plants grow much faster in the cold.",
+        "Plants grow very slowly or stop growing when it's cold.",
+        "The plants change color.",
+        "I'm not sure."
+      ],
+      correct: 1
+    },
+    fillBlank: {
+      question: "Fear of failure can ________ your progress.",
+      options: ["inhibit", "induce", "infer", "initiate"],
+      correct: 0
+    }
   },
   initiate: {
     question: "What does \"initiate\" mean?",
@@ -3348,7 +6168,22 @@ export const quizData = {
       "To sleep",
       "To forget"
     ],
-    correct: 1
+    correct: 1,
+    scenario: {
+      question: "If a company initiates a new project, they:",
+      options: [
+        "Finish the project and celebrate.",
+        "Start the first steps of the project.",
+        "Cancel the project.",
+        "I'm not sure."
+      ],
+      correct: 1
+    },
+    fillBlank: {
+      question: "The government has ________ a program to help the homeless.",
+      options: ["initiated", "inhibited", "inferred", "indicated"],
+      correct: 0
+    }
   },
   input: {
     question: "What does \"input\" mean?",
@@ -3358,7 +6193,22 @@ export const quizData = {
       "An exit door",
       "A type of fruit"
     ],
-    correct: 1
+    correct: 1,
+    scenario: {
+      question: "A computer needs input from a keyboard to:",
+      options: [
+        "Stay cool.",
+        "Know what words you want to type.",
+        "Charge its battery.",
+        "I'm not sure."
+      ],
+      correct: 1
+    },
+    fillBlank: {
+      question: "I would like your ________ on this new design.",
+      options: ["input", "income", "index", "instance"],
+      correct: 0
+    }
   },
   instruct: {
     question: "What does \"instruct\" mean?",
@@ -3368,7 +6218,22 @@ export const quizData = {
       "To play",
       "To ignore"
     ],
-    correct: 1
+    correct: 1,
+    scenario: {
+      question: "A driving teacher will instruct you on:",
+      options: [
+        "How to cook a steak.",
+        "How to park a car and use the mirrors.",
+        "Where to buy a cheap car.",
+        "I'm not sure."
+      ],
+      correct: 1
+    },
+    fillBlank: {
+      question: "She ________ me to wait in the lobby.",
+      options: ["instructed", "inspected", "inserted", "indicated"],
+      correct: 0
+    }
   },
   intelligent: {
     question: "What does \"intelligent\" mean?",
@@ -3388,7 +6253,22 @@ export const quizData = {
       "A type of food",
       "A loud noise"
     ],
-    correct: 1
+    correct: 1,
+    scenario: {
+      question: "There is a 15-minute interval in the play. This means:",
+      options: [
+        "The play is only 15 minutes long.",
+        "There is a 15-minute break where you can go get a drink.",
+        "The play has 15 actors.",
+        "I'm not sure."
+      ],
+      correct: 1
+    },
+    fillBlank: {
+      question: "Trains leave at ten-minute ________.",
+      options: ["intervals", "instances", "insights", "initials"],
+      correct: 0
+    }
   },
   lecture: {
     question: "What does \"lecture\" mean?",
@@ -3608,7 +6488,22 @@ export const quizData = {
       "To fail",
       "To lose"
     ],
-    correct: 1
+    correct: 1,
+    scenario: {
+      question: "When people move to a new country, they need to adapt by:",
+      options: [
+        "Refusing to learn the local language or customs.",
+        "Learning the language, following local customs, and adjusting to the new environment.",
+        "Returning home immediately.",
+        "I'm not sure."
+      ],
+      correct: 1
+    },
+    fillBlank: {
+      question: "Animals that cannot ________ to changing environments may become extinct.",
+      options: ["adapt", "abandon", "affect", "advocate"],
+      correct: 0
+    }
   },
   adult: {
     question: "What does \"adult\" mean?",
@@ -3618,7 +6513,22 @@ export const quizData = {
       "A toy",
       "A small insect"
     ],
-    correct: 1
+    correct: 1,
+    scenario: {
+      question: "In most countries, an adult can:",
+      options: [
+        "Vote, sign contracts, and take legal responsibility for their actions.",
+        "Only attend school.",
+        "Not work or drive.",
+        "I'm not sure."
+      ],
+      correct: 0
+    },
+    fillBlank: {
+      question: "She is now an ________ and can make her own decisions.",
+      options: ["adult", "annual", "apparent", "attribute"],
+      correct: 0
+    }
   },
   advocate: {
     question: "What does \"advocate\" mean?",
@@ -3628,7 +6538,22 @@ export const quizData = {
       "To sleep",
       "To break a rule"
     ],
-    correct: 1
+    correct: 1,
+    scenario: {
+      question: "A person who advocates for children's rights will:",
+      options: [
+        "Ignore children's problems.",
+        "Speak out and take action to protect children's rights.",
+        "Take children's rights away.",
+        "I'm not sure."
+      ],
+      correct: 1
+    },
+    fillBlank: {
+      question: "Many doctors ________ for better nutrition education in schools.",
+      options: ["advocate", "abandon", "acquire", "adjust"],
+      correct: 0
+    }
   },
   aid: {
     question: "What does \"aid\" mean?",
@@ -3638,7 +6563,22 @@ export const quizData = {
       "To shout",
       "To watch"
     ],
-    correct: 1
+    correct: 1,
+    scenario: {
+      question: "When a charity provides aid to disaster victims, it:",
+      options: [
+        "Ignores the people in need.",
+        "Gives food, shelter, and support to those affected.",
+        "Takes resources from the victims.",
+        "I'm not sure."
+      ],
+      correct: 1
+    },
+    fillBlank: {
+      question: "The government sent financial ________ to regions affected by the floods.",
+      options: ["aid", "access", "adapt", "annual"],
+      correct: 0
+    }
   },
   channel: {
     question: "What does \"channel\" mean?",
@@ -3648,7 +6588,22 @@ export const quizData = {
       "A heavy box",
       "A loud noise"
     ],
-    correct: 0
+    correct: 0,
+    scenario: {
+      question: "Using social media as a channel to market your product means:",
+      options: [
+        "Selling products in a physical store.",
+        "Using social media platforms as a way to reach and communicate with customers.",
+        "Making phone calls to customers.",
+        "I'm not sure."
+      ],
+      correct: 1
+    },
+    fillBlank: {
+      question: "Email is still an effective ________ for business communication.",
+      options: ["channel", "concept", "context", "conduct"],
+      correct: 0
+    }
   },
   chemical: {
     question: "What does \"chemical\" mean?",
@@ -3658,7 +6613,22 @@ export const quizData = {
       "Related to music",
       "Related to sports"
     ],
-    correct: 0
+    correct: 0,
+    scenario: {
+      question: "A factory that releases chemical waste into a river is:",
+      options: [
+        "Helping clean the water.",
+        "Polluting the water with harmful substances.",
+        "Adding nutrients to the ecosystem.",
+        "I'm not sure."
+      ],
+      correct: 1
+    },
+    fillBlank: {
+      question: "The lab stores all ________ substances in a secure, locked cabinet.",
+      options: ["chemical", "classic", "coherent", "capable"],
+      correct: 0
+    }
   },
   classic: {
     question: "What does \"classic\" mean?",
@@ -3668,7 +6638,22 @@ export const quizData = {
       "Very cheap",
       "Broken"
     ],
-    correct: 1
+    correct: 1,
+    scenario: {
+      question: "Shakespeare's plays are considered classic works because:",
+      options: [
+        "They were written recently.",
+        "They are timeless, high-quality works that have stood the test of time.",
+        "They are very cheap to produce.",
+        "I'm not sure."
+      ],
+      correct: 1
+    },
+    fillBlank: {
+      question: "This song is a ________ that everyone still enjoys decades later.",
+      options: ["classic", "capable", "coherent", "compatible"],
+      correct: 0
+    }
   },
   comprehensive: {
     question: "What does \"comprehensive\" mean?",
@@ -3678,7 +6663,22 @@ export const quizData = {
       "Very short",
       "Extremely loud"
     ],
-    correct: 1
+    correct: 1,
+    scenario: {
+      question: "A comprehensive medical checkup will:",
+      options: [
+        "Only test one thing.",
+        "Test all aspects of a person's health.",
+        "Be very quick and superficial.",
+        "I'm not sure."
+      ],
+      correct: 1
+    },
+    fillBlank: {
+      question: "The team prepared a ________ report covering every aspect of the project.",
+      options: ["comprehensive", "coherent", "compatible", "concurrent"],
+      correct: 0
+    }
   },
   comprise: {
     question: "What does \"comprise\" mean?",
@@ -3688,7 +6688,22 @@ export const quizData = {
       "To break",
       "To run"
     ],
-    correct: 1
+    correct: 1,
+    scenario: {
+      question: "A team that comprises 10 members means the team:",
+      options: [
+        "Has fewer than 10 members.",
+        "Is made up of 10 members.",
+        "Has exactly one leader.",
+        "I'm not sure."
+      ],
+      correct: 1
+    },
+    fillBlank: {
+      question: "The report ________ three main sections: introduction, analysis, and conclusion.",
+      options: ["comprises", "conducts", "confirms", "contributes"],
+      correct: 0
+    }
   },
   confirm: {
     question: "What does \"confirm\" mean?",
@@ -3698,7 +6713,22 @@ export const quizData = {
       "To forget",
       "To shout"
     ],
-    correct: 1
+    correct: 1,
+    scenario: {
+      question: "When a hotel confirms your reservation, it means:",
+      options: [
+        "Your booking has been cancelled.",
+        "The hotel has verified and accepted your booking.",
+        "You need to book again.",
+        "I'm not sure."
+      ],
+      correct: 1
+    },
+    fillBlank: {
+      question: "Please ________ your attendance by replying to this email.",
+      options: ["confirm", "conduct", "conclude", "contribute"],
+      correct: 0
+    }
   },
   contrary: {
     question: "What does \"contrary\" mean?",
@@ -3708,7 +6738,22 @@ export const quizData = {
       "Very helpful",
       "Always right"
     ],
-    correct: 1
+    correct: 1,
+    scenario: {
+      question: "If everyone says the movie is good, but you say it is bad, you have a contrary opinion. This means:",
+      options: [
+        "You agree with everyone.",
+        "You have the opposite opinion.",
+        "You haven't seen the movie.",
+        "I'm not sure."
+      ],
+      correct: 1
+    },
+    fillBlank: {
+      question: "________ to popular belief, most sharks are not dangerous to humans.",
+      options: ["Contrary", "Consequent", "Constant", "Considerable"],
+      correct: 0
+    }
   },
   convert: {
     question: "What does \"convert\" mean?",
@@ -3718,7 +6763,22 @@ export const quizData = {
       "To hide",
       "To sleep"
     ],
-    correct: 1
+    correct: 1,
+    scenario: {
+      question: "If you convert dollars into euros, you:",
+      options: [
+        "Throw your dollars away.",
+        "Exchange your American money for European money.",
+        "Keep both types of money in your wallet.",
+        "I'm not sure."
+      ],
+      correct: 1
+    },
+    fillBlank: {
+      question: "We decided to ________ the garage into a new bedroom.",
+      options: ["convert", "convene", "convince", "converse"],
+      correct: 0
+    }
   },
   couple: {
     question: "What does \"couple\" mean?",
@@ -3728,7 +6788,22 @@ export const quizData = {
       "A large group",
       "A loud noise"
     ],
-    correct: 1
+    correct: 1,
+    scenario: {
+      question: "If you say \"I'll be there in a couple of minutes,\" you mean:",
+      options: [
+        "You will arrive in one hour.",
+        "You will arrive in about two or three minutes.",
+        "You are not coming.",
+        "I'm not sure."
+      ],
+      correct: 1
+    },
+    fillBlank: {
+      question: "A married ________ usually lives in the same house.",
+      options: ["couple", "core", "code", "contact"],
+      correct: 0
+    }
   },
   decade: {
     question: "What does \"decade\" mean?",
@@ -3738,7 +6813,22 @@ export const quizData = {
       "A period of 100 years",
       "A period of 1 year"
     ],
-    correct: 1
+    correct: 1,
+    scenario: {
+      question: "If you have lived in the same house for a decade, you have lived there:",
+      options: [
+        "For 10 months.",
+        "For 10 years.",
+        "For 100 years.",
+        "I'm not sure."
+      ],
+      correct: 1
+    },
+    fillBlank: {
+      question: "The world has changed a lot in the last ________.",
+      options: ["decade", "data", "debate", "domain"],
+      correct: 0
+    }
   },
   definite: {
     question: "What does \"definite\" mean?",
@@ -3748,7 +6838,22 @@ export const quizData = {
       "Very small",
       "Extremely quiet"
     ],
-    correct: 1
+    correct: 1,
+    scenario: {
+      question: "If you have a definite plan to meet at 6:00 PM, it means:",
+      options: [
+        "You might come, or you might not.",
+        "The time and place are decided and will not change.",
+        "You forgot what time you were supposed to meet.",
+        "I'm not sure."
+      ],
+      correct: 1
+    },
+    fillBlank: {
+      question: "We need a ________ answer: are you coming to the party or not?",
+      options: ["definite", "deviate", "discrete", "dynamic"],
+      correct: 0
+    }
   },
   deny: {
     question: "What does \"deny\" mean?",
@@ -3758,7 +6863,22 @@ export const quizData = {
       "To help",
       "To fix"
     ],
-    correct: 1
+    correct: 1,
+    scenario: {
+      question: "If a boy is caught with chocolate on his face but denies eating the cake, he says:",
+      options: [
+        "\"The cake was delicious!\"",
+        "\"I didn't eat any cake, I promise!\"",
+        "\"I will eat the cake later.\"",
+        "I'm not sure."
+      ],
+      correct: 1
+    },
+    fillBlank: {
+      question: "You cannot ________ that the weather has been terrible lately.",
+      options: ["deny", "demonstrate", "denote", "detect"],
+      correct: 0
+    }
   },
   differentiate: {
     question: "What does \"differentiate\" mean?",
@@ -3768,7 +6888,22 @@ export const quizData = {
       "To sleep",
       "To run"
     ],
-    correct: 1
+    correct: 1,
+    scenario: {
+      question: "It is hard to differentiate between the two twins because:",
+      options: [
+        "They live in different cities.",
+        "They look exactly the same and wear the same clothes.",
+        "They have different names.",
+        "I'm not sure."
+      ],
+      correct: 1
+    },
+    fillBlank: {
+      question: "Good service is what ________ this restaurant from all the others.",
+      options: ["differentiates", "demonstrates", "denotes", "distributes"],
+      correct: 0
+    }
   },
   dispose: {
     question: "What does \"dispose\" mean?",
@@ -3778,7 +6913,22 @@ export const quizData = {
       "To build",
       "To shout"
     ],
-    correct: 1
+    correct: 1,
+    scenario: {
+      question: "How should you dispose of old batteries?",
+      options: [
+        "Keep them in your pocket forever.",
+        "Take them to a special recycling center.",
+        "Throw them into a lake.",
+        "I'm not sure."
+      ],
+      correct: 1
+    },
+    fillBlank: {
+      question: "Please ________ of your trash in the bins provided.",
+      options: ["dispose", "displace", "diminish", "distort"],
+      correct: 0
+    }
   },
   dynamic: {
     question: "What does \"dynamic\" mean?",
@@ -3788,7 +6938,22 @@ export const quizData = {
       "Very old",
       "Broken"
     ],
-    correct: 1
+    correct: 1,
+    scenario: {
+      question: "A dynamic leader is someone who:",
+      options: [
+        "Never changes their mind and always stays quiet.",
+        "Has lots of energy and is always coming up with new ideas.",
+        "Is very lazy.",
+        "I'm not sure."
+      ],
+      correct: 1
+    },
+    fillBlank: {
+      question: "The world of technology is very ________ and changes every day.",
+      options: ["dynamic", "domestic", "distinct", "diverse"],
+      correct: 0
+    }
   },
   eliminate: {
     question: "What does \"eliminate\" mean?",
@@ -3798,7 +6963,22 @@ export const quizData = {
       "To help",
       "To start"
     ],
-    correct: 1
+    correct: 1,
+    scenario: {
+      question: "If you want to eliminate sugar from your diet, you:",
+      options: [
+        "Eat only a little bit of chocolate.",
+        "Stop eating anything that has sugar in it.",
+        "Buy more fruit.",
+        "I'm not sure."
+      ],
+      correct: 1
+    },
+    fillBlank: {
+      question: "The police are working to ________ crime in this area.",
+      options: ["eliminate", "emerge", "emphasize", "enable"],
+      correct: 0
+    }
   },
   empirical: {
     question: "What does \"empirical\" mean?",
@@ -3808,7 +6988,22 @@ export const quizData = {
       "Based on magic",
       "Very loud"
     ],
-    correct: 1
+    correct: 1,
+    scenario: {
+      question: "Which of these is empirical evidence that it's cold outside?",
+      options: [
+        "Thinking, \"It's probably cold today.\"",
+        "Looking at a thermometer that says -10°C.",
+        "Reading a story about a snowy mountain.",
+        "I'm not sure."
+      ],
+      correct: 1
+    },
+    fillBlank: {
+      question: "Scientists need ________ data to prove that their theories are correct.",
+      options: ["empirical", "emphasis", "energy", "enormous"],
+      correct: 0
+    }
   },
   equip: {
     question: "What does \"equip\" mean?",
@@ -3818,7 +7013,22 @@ export const quizData = {
       "To sleep",
       "To break"
     ],
-    correct: 1
+    correct: 1,
+    scenario: {
+      question: "If you equip a kitchen, you will need to buy:",
+      options: [
+        "A bed and a pillow.",
+        "Stoves, pots, and knives.",
+        "A car and a bicycle.",
+        "I'm not sure."
+      ],
+      correct: 1
+    },
+    fillBlank: {
+      question: "The soldiers were ________ with the latest technology.",
+      options: ["equipped", "equivalent", "evaporated", "exported"],
+      correct: 0
+    }
   },
   extract: {
     question: "What does \"extract\" mean?",
@@ -3828,7 +7038,22 @@ export const quizData = {
       "To hide",
       "To fix"
     ],
-    correct: 1
+    correct: 1,
+    scenario: {
+      question: "A dentist will extract a tooth if:",
+      options: [
+        "It is perfectly healthy.",
+        "It is badly broken and cannot be fixed.",
+        "You want to have whiter teeth.",
+        "I'm not sure."
+      ],
+      correct: 1
+    },
+    fillBlank: {
+      question: "They used a machine to ________ oil from deep underground.",
+      options: ["extract", "external", "exploit", "expose"],
+      correct: 0
+    }
   },
   file: {
     question: "What does \"file\" mean?",
@@ -3838,7 +7063,22 @@ export const quizData = {
       "A loud song",
       "A fast runner"
     ],
-    correct: 0
+    correct: 0,
+    scenario: {
+      question: "If you save a file on your computer, you:",
+      options: [
+        "Print it out and throw it away.",
+        "Give it a name so you can find and open it later.",
+        "Send it to everyone you know.",
+        "I'm not sure."
+      ],
+      correct: 1
+    },
+    fillBlank: {
+      question: "The police have a ________ on every known criminal in the city.",
+      options: ["file", "finance", "final", "fund"],
+      correct: 0
+    }
   },
   finite: {
     question: "What does \"finite\" mean?",
@@ -3848,7 +7088,22 @@ export const quizData = {
       "Very large",
       "Extremely fast"
     ],
-    correct: 1
+    correct: 1,
+    scenario: {
+      question: "The world's supply of oil is finite. This means:",
+      options: [
+        "There is an unlimited amount of oil forever.",
+        "One day, the oil will run out completely.",
+        "Oil is made of water.",
+        "I'm not sure."
+      ],
+      correct: 1
+    },
+    fillBlank: {
+      question: "We only have a ________ amount of time to finish this task.",
+      options: ["finite", "final", "flexible", "format"],
+      correct: 0
+    }
   },
   foundation: {
     question: "What does \"foundation\" mean?",
@@ -3858,7 +7113,22 @@ export const quizData = {
       "A type of food",
       "A loud noise"
     ],
-    correct: 1
+    correct: 1,
+    scenario: {
+      question: "A strong foundation is important for a house because:",
+      options: [
+        "It makes the roof look pretty.",
+        "It holds the house up and stops it from sinking or falling.",
+        "It's the best place to put the TV.",
+        "I'm not sure."
+      ],
+      correct: 1
+    },
+    fillBlank: {
+      question: "This course provides a solid ________ for future study.",
+      options: ["foundation", "framework", "formula", "function"],
+      correct: 0
+    }
   },
   globe: {
     question: "What does \"globe\" mean?",
@@ -3868,7 +7138,22 @@ export const quizData = {
       "A type of star",
       "A loud scream"
     ],
-    correct: 1
+    correct: 1,
+    scenario: {
+      question: "If you travel across the globe, you:",
+      options: [
+        "Go to the shop next door.",
+        "Travel all around the world to different countries.",
+        "Stay in your own city.",
+        "I'm not sure."
+      ],
+      correct: 1
+    },
+    fillBlank: {
+      question: "English is spoken all over the ________.",
+      options: ["globe", "grade", "grant", "goal"],
+      correct: 0
+    }
   },
   grade: {
     question: "What does \"grade\" mean?",
@@ -3878,7 +7163,22 @@ export const quizData = {
       "A type of shoe",
       "A deep hole"
     ],
-    correct: 1
+    correct: 1,
+    scenario: {
+      question: "If you get a high grade on your test, it means:",
+      options: [
+        "You failed the exam.",
+        "You did very well and got an A or a B.",
+        "The test was very short.",
+        "I'm not sure."
+      ],
+      correct: 1
+    },
+    fillBlank: {
+      question: "This is the highest ________ of steel available.",
+      options: ["grade", "goal", "globe", "grant"],
+      correct: 0
+    }
   },
   guarantee: {
     question: "What does \"guarantee\" mean?",
@@ -3888,7 +7188,22 @@ export const quizData = {
       "A mistake",
       "A loud noise"
     ],
-    correct: 1
+    correct: 1,
+    scenario: {
+      question: "If a shop gives a one-year guarantee on a TV, they promise to:",
+      options: [
+        "Give you a free remote every month.",
+        "Fix the TV for free if it breaks during that year.",
+        "Sell you a second TV for half price.",
+        "I'm not sure."
+      ],
+      correct: 1
+    },
+    fillBlank: {
+      question: "There is no ________ that it will be sunny tomorrow.",
+      options: ["guarantee", "grant", "goal", "grade"],
+      correct: 0
+    }
   },
   hierarchy: {
     question: "What does \"hierarchy\" mean?",
@@ -3898,7 +7213,22 @@ export const quizData = {
       "A type of plant",
       "A quiet room"
     ],
-    correct: 1
+    correct: 1,
+    scenario: {
+      question: "In a company hierarchy:",
+      options: [
+        "Everyone has exactly the same power.",
+        "The CEO is at the top, and the entry-level workers are at the bottom.",
+        "There are no bosses.",
+        "I'm not sure."
+      ],
+      correct: 1
+    },
+    fillBlank: {
+      question: "He rose quickly up the corporate ________.",
+      options: ["hierarchy", "hypothesis", "highlight", "generation"],
+      correct: 0
+    }
   },
   identical: {
     question: "What does \"identical\" mean?",
@@ -3908,7 +7238,22 @@ export const quizData = {
       "Very small",
       "Very old"
     ],
-    correct: 1
+    correct: 1,
+    scenario: {
+      question: "Identical twins:",
+      options: [
+        "Look completely different.",
+        "Look so similar that it's hard to tell them apart.",
+        "Are born in different years.",
+        "I'm not sure."
+      ],
+      correct: 1
+    },
+    fillBlank: {
+      question: "The two cars are ________ in every way.",
+      options: ["identical", "ideal", "ideology", "evident"],
+      correct: 0
+    }
   },
   ideology: {
     question: "What does \"ideology\" mean?",
@@ -3918,7 +7263,22 @@ export const quizData = {
       "A type of car",
       "A loud sound"
     ],
-    correct: 1
+    correct: 1,
+    scenario: {
+      question: "A person's political ideology affects:",
+      options: [
+        "What they eat for breakfast.",
+        "How they think the country should be governed.",
+        "What color shoes they buy.",
+        "I'm not sure."
+      ],
+      correct: 1
+    },
+    fillBlank: {
+      question: "The two parties have very different ________.",
+      options: ["ideologies", "identities", "illusions", "generations"],
+      correct: 0
+    }
   },
   infer: {
     question: "What does \"infer\" mean?",
@@ -3928,7 +7288,22 @@ export const quizData = {
       "To forget",
       "To shout"
     ],
-    correct: 1
+    correct: 1,
+    scenario: {
+      question: "If your friend is crying, you can infer that:",
+      options: [
+        "They are very happy.",
+        "Something sad or bad has happened to them.",
+        "They are sleeping.",
+        "I'm not sure."
+      ],
+      correct: 1
+    },
+    fillBlank: {
+      question: "From what she said, I ________ that she was not happy with the result.",
+      options: ["inferred", "induced", "indicated", "integrated"],
+      correct: 0
+    }
   },
   innovate: {
     question: "What does \"innovate\" mean?",
@@ -3938,7 +7313,22 @@ export const quizData = {
       "To sleep",
       "To break"
     ],
-    correct: 1
+    correct: 1,
+    scenario: {
+      question: "Tech companies must innovate to stay successful. This means they:",
+      options: [
+        "Keep making the same product for 50 years.",
+        "Keep coming up with new ideas and better technology.",
+        "Lower their prices.",
+        "I'm not sure."
+      ],
+      correct: 1
+    },
+    fillBlank: {
+      question: "We need to ________ if we want to beat our competitors.",
+      options: ["innovate", "initiate", "inhibit", "indicate"],
+      correct: 0
+    }
   },
   insert: {
     question: "What does \"insert\" mean?",
@@ -3948,7 +7338,22 @@ export const quizData = {
       "To run",
       "To hide"
     ],
-    correct: 1
+    correct: 1,
+    scenario: {
+      question: "To use an ATM, you must first insert your card. This means:",
+      options: [
+        "Hold the card in your hand.",
+        "Put the card into the slot in the machine.",
+        "Throw the card away.",
+        "I'm not sure."
+      ],
+      correct: 1
+    },
+    fillBlank: {
+      question: "Please ________ your key into the lock.",
+      options: ["insert", "initiate", "inhibit", "indicate"],
+      correct: 0
+    }
   },
   intervene: {
     question: "What does \"intervene\" mean?",
@@ -3958,7 +7363,22 @@ export const quizData = {
       "To sleep",
       "To break"
     ],
-    correct: 1
+    correct: 1,
+    scenario: {
+      question: "If a teacher intervenes in a fight between students, they:",
+      options: [
+        "Watch the fight and do nothing.",
+        "Stop the fight and help the students talk about it.",
+        "Start fighting too.",
+        "I'm not sure."
+      ],
+      correct: 1
+    },
+    fillBlank: {
+      question: "The government decided to ________ to stop the bank from failing.",
+      options: ["intervene", "interpret", "interact", "initiate"],
+      correct: 0
+    }
   },
   isolate: {
     question: "What does \"isolate\" mean?",
@@ -3968,7 +7388,22 @@ export const quizData = {
       "To help",
       "To shout"
     ],
-    correct: 1
+    correct: 1,
+    scenario: {
+      question: "If a scientist wants to study a specific virus, they must isolate it. This means they:",
+      options: [
+        "Put it in a room with many other different viruses.",
+        "Separate it from everything else so they can see only that virus.",
+        "Give it to as many people as possible.",
+        "I'm not sure."
+      ],
+      correct: 1
+    },
+    fillBlank: {
+      question: "During the pandemic, people who were sick had to ________ themselves to protect others.",
+      options: ["isolate", "issue", "item", "indicate"],
+      correct: 0
+    }
   },
   media: {
     question: "What does \"media\" mean?",
@@ -4008,7 +7443,22 @@ export const quizData = {
       "To protect",
       "To find"
     ],
-    correct: 1
+    correct: 1,
+    scenario: {
+      question: "If a captain decides to abandon a sinking ship, he will:",
+      options: [
+        "Stay on the ship and try to fix it.",
+        "Get everyone into lifeboats and leave the ship.",
+        "Paint the ship a new color.",
+        "I'm not sure."
+      ],
+      correct: 1
+    },
+    fillBlank: {
+      question: "To ________ something is to stop doing it because it is too difficult or you no longer want it.",
+      options: ["abandon", "acquire", "achieve", "adjust"],
+      correct: 0
+    }
   },
   accommodate: {
     question: "What does \"accommodate\" mean?",
@@ -4018,7 +7468,22 @@ export const quizData = {
       "To break a tool",
       "To forget a name"
     ],
-    correct: 0
+    correct: 0,
+    scenario: {
+      question: "A hotel that can accommodate 500 guests means it can:",
+      options: [
+        "Refuse 500 guests.",
+        "Have space and facilities for 500 guests.",
+        "Charge 500 guests extra.",
+        "I'm not sure."
+      ],
+      correct: 1
+    },
+    fillBlank: {
+      question: "The new office was designed to ________ up to 200 employees comfortably.",
+      options: ["accommodate", "abandon", "advocate", "allocate"],
+      correct: 0
+    }
   },
   accompany: {
     question: "What does \"accompany\" mean?",
@@ -4038,7 +7503,22 @@ export const quizData = {
       "To share with others",
       "To buy a gift"
     ],
-    correct: 0
+    correct: 0,
+    scenario: {
+      question: "When a person accumulates savings over years, they are:",
+      options: [
+        "Spending all their money immediately.",
+        "Gradually building up a larger amount of money.",
+        "Giving their money away.",
+        "I'm not sure."
+      ],
+      correct: 1
+    },
+    fillBlank: {
+      question: "Over time, small mistakes can ________ and cause serious problems.",
+      options: ["accumulate", "achieve", "acknowledge", "affect"],
+      correct: 0
+    }
   },
   adjacent: {
     question: "What does \"adjacent\" mean?",
@@ -4048,7 +7528,22 @@ export const quizData = {
       "Inside something",
       "Under the ground"
     ],
-    correct: 1
+    correct: 1,
+    scenario: {
+      question: "If your classroom is adjacent to the library, you would:",
+      options: [
+        "Need to walk very far to reach the library.",
+        "Be able to reach the library through a nearby door or hallway.",
+        "Never be able to visit the library.",
+        "I'm not sure."
+      ],
+      correct: 1
+    },
+    fillBlank: {
+      question: "The two countries share a border because they are ________ to each other.",
+      options: ["adjacent", "abstract", "adequate", "arbitrary"],
+      correct: 0
+    }
   },
   albeit: {
     question: "What does \"albeit\" mean?",
@@ -4058,7 +7553,22 @@ export const quizData = {
       "Never",
       "Because"
     ],
-    correct: 1
+    correct: 1,
+    scenario: {
+      question: "\"The project was successful, albeit expensive\" means:",
+      options: [
+        "The project failed because it was expensive.",
+        "The project succeeded even though it cost a lot.",
+        "The project was cheap and successful.",
+        "I'm not sure."
+      ],
+      correct: 1
+    },
+    fillBlank: {
+      question: "She finished the race, ________ slowly, and felt very proud.",
+      options: ["albeit", "already", "always", "almost"],
+      correct: 0
+    }
   },
   ambiguous: {
     question: "What does \"ambiguous\" mean?",
@@ -4068,7 +7578,22 @@ export const quizData = {
       "Extremely loud",
       "Very small"
     ],
-    correct: 1
+    correct: 1,
+    scenario: {
+      question: "An ambiguous instruction like 'Do it quickly' can cause problems because:",
+      options: [
+        "Everyone knows exactly what 'quickly' means.",
+        "Different people might interpret 'quickly' differently.",
+        "It is too long to understand.",
+        "I'm not sure."
+      ],
+      correct: 1
+    },
+    fillBlank: {
+      question: "The contract was ________, so both parties disagreed about what it meant.",
+      options: ["ambiguous", "accurate", "adequate", "annual"],
+      correct: 0
+    }
   },
   analogy: {
     question: "What does \"analogy\" mean?",
@@ -4078,7 +7603,22 @@ export const quizData = {
       "A scientific error",
       "A heavy weight"
     ],
-    correct: 0
+    correct: 0,
+    scenario: {
+      question: "Using the analogy 'life is a journey' helps people understand life by:",
+      options: [
+        "Making life more confusing.",
+        "Comparing life to a physical journey to explain its ups and downs.",
+        "Proving that life has no meaning.",
+        "I'm not sure."
+      ],
+      correct: 1
+    },
+    fillBlank: {
+      question: "The teacher used an ________ to explain how the brain works like a computer.",
+      options: ["analogy", "analysis", "approach", "authority"],
+      correct: 0
+    }
   },
   anticipate: {
     question: "What does \"anticipate\" mean?",
@@ -4088,7 +7628,22 @@ export const quizData = {
       "To ignore a problem",
       "To run fast"
     ],
-    correct: 1
+    correct: 1,
+    scenario: {
+      question: "A weather forecaster who anticipates a storm will:",
+      options: [
+        "Ignore weather patterns.",
+        "Warn people in advance so they can prepare.",
+        "Wait until the storm arrives to react.",
+        "I'm not sure."
+      ],
+      correct: 1
+    },
+    fillBlank: {
+      question: "The company failed to ________ the rapid changes in consumer demand.",
+      options: ["anticipate", "abandon", "acquire", "adjust"],
+      correct: 0
+    }
   },
   append: {
     question: "What does \"append\" mean?",
@@ -4098,7 +7653,22 @@ export const quizData = {
       "To start a fire",
       "To sleep"
     ],
-    correct: 1
+    correct: 1,
+    scenario: {
+      question: "If you append a signature to a letter, you:",
+      options: [
+        "Remove your name from the letter.",
+        "Add your signature at the end of the letter.",
+        "Rewrite the whole letter.",
+        "I'm not sure."
+      ],
+      correct: 1
+    },
+    fillBlank: {
+      question: "Please ________ your contact details to the end of the form.",
+      options: ["append", "assess", "assume", "adjust"],
+      correct: 0
+    }
   },
   appreciate: {
     question: "What does \"appreciate\" mean?",
@@ -4108,7 +7678,22 @@ export const quizData = {
       "To break",
       "To shout"
     ],
-    correct: 1
+    correct: 1,
+    scenario: {
+      question: "When you appreciate a gift from a friend, you:",
+      options: [
+        "Ignore the gift.",
+        "Feel grateful and recognize the kindness behind it.",
+        "Return the gift immediately.",
+        "I'm not sure."
+      ],
+      correct: 1
+    },
+    fillBlank: {
+      question: "I really ________ your help with the project last week.",
+      options: ["appreciate", "achieve", "acquire", "adjust"],
+      correct: 0
+    }
   },
   arbitrary: {
     question: "What does \"arbitrary\" mean?",
@@ -4118,7 +7703,22 @@ export const quizData = {
       "Very old",
       "Scientific"
     ],
-    correct: 1
+    correct: 1,
+    scenario: {
+      question: "An arbitrary decision is one that:",
+      options: [
+        "Is based on careful research and logic.",
+        "Is made randomly without a specific reason.",
+        "Always follows strict rules.",
+        "I'm not sure."
+      ],
+      correct: 1
+    },
+    fillBlank: {
+      question: "The rules seemed ________ — no one could explain why they existed.",
+      options: ["arbitrary", "adequate", "accurate", "abstract"],
+      correct: 0
+    }
   },
   assemble: {
     question: "What does \"assemble\" mean?",
@@ -4128,7 +7728,22 @@ export const quizData = {
       "To lose",
       "To hide"
     ],
-    correct: 1
+    correct: 1,
+    scenario: {
+      question: "When workers assemble a car at a factory, they:",
+      options: [
+        "Destroy the car parts.",
+        "Put together all the parts to build the car.",
+        "Paint the car without building it.",
+        "I'm not sure."
+      ],
+      correct: 1
+    },
+    fillBlank: {
+      question: "The students were asked to ________ in the main hall for the ceremony.",
+      options: ["assemble", "assess", "assume", "assign"],
+      correct: 0
+    }
   },
   assure: {
     question: "What does \"assure\" mean?",
@@ -4138,7 +7753,22 @@ export const quizData = {
       "To ask a question",
       "To be afraid"
     ],
-    correct: 0
+    correct: 0,
+    scenario: {
+      question: "A doctor who assures a patient that the operation is safe will:",
+      options: [
+        "Make the patient more worried.",
+        "Give the patient confidence that everything will be okay.",
+        "Refuse to perform the operation.",
+        "I'm not sure."
+      ],
+      correct: 1
+    },
+    fillBlank: {
+      question: "I can ________ you that your package will arrive by tomorrow.",
+      options: ["assure", "assess", "assume", "adjust"],
+      correct: 0
+    }
   },
   attain: {
     question: "What does \"attain\" mean?",
@@ -4148,7 +7778,22 @@ export const quizData = {
       "To sleep",
       "To fall"
     ],
-    correct: 1
+    correct: 1,
+    scenario: {
+      question: "A runner who attains a world record has:",
+      options: [
+        "Failed to finish the race.",
+        "Successfully achieved the fastest time ever recorded.",
+        "Given up training.",
+        "I'm not sure."
+      ],
+      correct: 1
+    },
+    fillBlank: {
+      question: "With hard work, you can ________ any goal you set for yourself.",
+      options: ["attain", "abandon", "acknowledge", "adjust"],
+      correct: 0
+    }
   },
   automate: {
     question: "What does \"automate\" mean?",
@@ -4158,7 +7803,22 @@ export const quizData = {
       "To break a computer",
       "To stop a car"
     ],
-    correct: 1
+    correct: 1,
+    scenario: {
+      question: "A factory that automates its production line will:",
+      options: [
+        "Hire more workers for manual tasks.",
+        "Use machines to do tasks that workers used to do.",
+        "Slow down production.",
+        "I'm not sure."
+      ],
+      correct: 1
+    },
+    fillBlank: {
+      question: "Many companies are looking to ________ repetitive tasks to save time.",
+      options: ["automate", "acknowledge", "adapt", "allocate"],
+      correct: 0
+    }
   },
   behalf: {
     question: "What does \"behalf\" mean?",
@@ -4168,7 +7828,22 @@ export const quizData = {
       "A type of hat",
       "A secret plan"
     ],
-    correct: 1
+    correct: 1,
+    scenario: {
+      question: "A lawyer who speaks on behalf of a client is:",
+      options: [
+        "Speaking for their own interests.",
+        "Representing and speaking for the client.",
+        "Ignoring the client's wishes.",
+        "I'm not sure."
+      ],
+      correct: 1
+    },
+    fillBlank: {
+      question: "I signed the contract on ________ of my company.",
+      options: ["behalf", "benefit", "bias", "bulk"],
+      correct: 0
+    }
   },
   bias: {
     question: "What does \"bias\" mean?",
@@ -4178,7 +7853,22 @@ export const quizData = {
       "A type of music",
       "A loud noise"
     ],
-    correct: 1
+    correct: 1,
+    scenario: {
+      question: "A judge who shows bias toward one side in a case will:",
+      options: [
+        "Make a fair and impartial decision.",
+        "Unfairly favor one side over the other.",
+        "Listen carefully to all evidence.",
+        "I'm not sure."
+      ],
+      correct: 1
+    },
+    fillBlank: {
+      question: "The journalist was accused of ________ for only reporting one side of the story.",
+      options: ["bias", "bulk", "behalf", "benefit"],
+      correct: 0
+    }
   },
   bulk: {
     question: "What does \"bulk\" mean?",
@@ -4188,7 +7878,22 @@ export const quizData = {
       "A thin line",
       "A soft cushion"
     ],
-    correct: 1
+    correct: 1,
+    scenario: {
+      question: "A store that sells items in bulk offers:",
+      options: [
+        "Very small individual portions.",
+        "Large quantities at a lower price per unit.",
+        "Only one item per customer.",
+        "I'm not sure."
+      ],
+      correct: 1
+    },
+    fillBlank: {
+      question: "The ________ of the work was done before the deadline.",
+      options: ["bulk", "bias", "behalf", "benefit"],
+      correct: 0
+    }
   },
   cease: {
     question: "What does \"cease\" mean?",
@@ -4198,7 +7903,22 @@ export const quizData = {
       "To grow",
       "To jump"
     ],
-    correct: 1
+    correct: 1,
+    scenario: {
+      question: "When fighting ceases in a war zone, it means:",
+      options: [
+        "The fighting is getting worse.",
+        "The fighting has stopped.",
+        "New battles are starting.",
+        "I'm not sure."
+      ],
+      correct: 1
+    },
+    fillBlank: {
+      question: "The factory was ordered to ________ operations due to safety violations.",
+      options: ["cease", "cite", "clarify", "conduct"],
+      correct: 0
+    }
   },
   chart: {
     question: "What does \"chart\" mean?",
@@ -4208,7 +7928,22 @@ export const quizData = {
       "A loud song",
       "A type of food"
     ],
-    correct: 1
+    correct: 1,
+    scenario: {
+      question: "A business that uses a chart to track sales will:",
+      options: [
+        "Have no visual record of how much they sold.",
+        "See their sales data displayed in a graph or table.",
+        "Keep all data in their memory.",
+        "I'm not sure."
+      ],
+      correct: 1
+    },
+    fillBlank: {
+      question: "The ________ clearly showed that sales increased every month.",
+      options: ["chart", "cease", "cite", "clarify"],
+      correct: 0
+    }
   },
   clarify: {
     question: "What does \"clarify\" mean?",
@@ -4218,7 +7953,22 @@ export const quizData = {
       "To paint a wall",
       "To hide the truth"
     ],
-    correct: 1
+    correct: 1,
+    scenario: {
+      question: "A teacher who clarifies a confusing concept will:",
+      options: [
+        "Make it even harder to understand.",
+        "Explain it in simpler terms so students understand.",
+        "Skip the topic entirely.",
+        "I'm not sure."
+      ],
+      correct: 1
+    },
+    fillBlank: {
+      question: "Could you please ________ what you mean by that statement?",
+      options: ["clarify", "conduct", "conclude", "contribute"],
+      correct: 0
+    }
   },
   coherent: {
     question: "What does \"coherent\" mean?",
@@ -4228,7 +7978,22 @@ export const quizData = {
       "Very expensive",
       "Extremely fast"
     ],
-    correct: 1
+    correct: 1,
+    scenario: {
+      question: "A coherent argument in an essay is one that:",
+      options: [
+        "Is full of contradictions and hard to follow.",
+        "Is clear, logical, and easy for the reader to understand.",
+        "Uses only complicated words.",
+        "I'm not sure."
+      ],
+      correct: 1
+    },
+    fillBlank: {
+      question: "Please make your explanation more ________ — it's hard to follow.",
+      options: ["coherent", "complex", "concurrent", "compatible"],
+      correct: 0
+    }
   },
   coincide: {
     question: "What does \"coincide\" mean?",
@@ -4238,7 +8003,22 @@ export const quizData = {
       "To never meet",
       "To be unique"
     ],
-    correct: 1
+    correct: 1,
+    scenario: {
+      question: "If two events coincide, it means:",
+      options: [
+        "They happen on different days.",
+        "They happen at the same time or place.",
+        "They never happen.",
+        "I'm not sure."
+      ],
+      correct: 1
+    },
+    fillBlank: {
+      question: "Her vacation plans ________ with the school holidays.",
+      options: ["coincide", "compile", "confine", "conform"],
+      correct: 0
+    }
   },
   collapse: {
     question: "What does \"collapse\" mean?",
@@ -4248,7 +8028,22 @@ export const quizData = {
       "To fly",
       "To fix"
     ],
-    correct: 1
+    correct: 1,
+    scenario: {
+      question: "When a company collapses, it means:",
+      options: [
+        "The company is growing rapidly.",
+        "The company fails completely and shuts down.",
+        "The company moves to a new location.",
+        "I'm not sure."
+      ],
+      correct: 1
+    },
+    fillBlank: {
+      question: "The bridge was in danger of ________ due to years of neglect.",
+      options: ["collapse", "compile", "coincide", "conform"],
+      correct: 0
+    }
   },
   colleague: {
     question: "What does \"colleague\" mean?",
@@ -4258,7 +8053,22 @@ export const quizData = {
       "A family member",
       "A stranger"
     ],
-    correct: 1
+    correct: 1,
+    scenario: {
+      question: "A colleague who helps you with a work project is:",
+      options: [
+        "Someone from your family.",
+        "A person who works with you and supports your tasks.",
+        "A complete stranger.",
+        "I'm not sure."
+      ],
+      correct: 1
+    },
+    fillBlank: {
+      question: "My ________ suggested a great idea during the team meeting.",
+      options: ["colleague", "commodity", "concept", "context"],
+      correct: 0
+    }
   },
   commence: {
     question: "What does \"commence\" mean?",
@@ -4268,7 +8078,22 @@ export const quizData = {
       "To wait",
       "To sleep"
     ],
-    correct: 1
+    correct: 1,
+    scenario: {
+      question: "A ceremony that commences at 10 AM will:",
+      options: [
+        "End at 10 AM.",
+        "Start at 10 AM.",
+        "Be cancelled at 10 AM.",
+        "I'm not sure."
+      ],
+      correct: 1
+    },
+    fillBlank: {
+      question: "The meeting will ________ as soon as all members have arrived.",
+      options: ["commence", "compile", "conform", "confine"],
+      correct: 0
+    }
   },
   commodity: {
     question: "What does \"commodity\" mean?",
@@ -4278,7 +8103,22 @@ export const quizData = {
       "A type of animal",
       "A loud noise"
     ],
-    correct: 0
+    correct: 0,
+    scenario: {
+      question: "Oil is an important commodity because:",
+      options: [
+        "It has no economic value.",
+        "It is a widely traded raw material that powers industries.",
+        "Only one country produces it.",
+        "I'm not sure."
+      ],
+      correct: 1
+    },
+    fillBlank: {
+      question: "Water is becoming an increasingly valuable ________ in dry regions.",
+      options: ["commodity", "colleague", "concept", "context"],
+      correct: 0
+    }
   },
   compatible: {
     question: "What does \"compatible\" mean?",
@@ -4288,7 +8128,22 @@ export const quizData = {
       "Very old",
       "Broken"
     ],
-    correct: 1
+    correct: 1,
+    scenario: {
+      question: "If two software programs are compatible, it means:",
+      options: [
+        "They crash whenever used together.",
+        "They work together without any problems.",
+        "They need different computers to run.",
+        "I'm not sure."
+      ],
+      correct: 1
+    },
+    fillBlank: {
+      question: "This charger is not ________ with the new phone model.",
+      options: ["compatible", "coherent", "concurrent", "consequent"],
+      correct: 0
+    }
   },
   compile: {
     question: "What does \"compile\" mean?",
@@ -4298,7 +8153,22 @@ export const quizData = {
       "To delete",
       "To shout"
     ],
-    correct: 1
+    correct: 1,
+    scenario: {
+      question: "A journalist who compiles a report will:",
+      options: [
+        "Delete all the information.",
+        "Gather and organize information from various sources.",
+        "Ignore the facts.",
+        "I'm not sure."
+      ],
+      correct: 1
+    },
+    fillBlank: {
+      question: "She was asked to ________ a list of all employees and their contact details.",
+      options: ["compile", "commence", "confine", "conform"],
+      correct: 0
+    }
   },
   complement: {
     question: "What does \"complement\" mean?",
@@ -4308,7 +8178,22 @@ export const quizData = {
       "To insult someone",
       "To lose"
     ],
-    correct: 1
+    correct: 1,
+    scenario: {
+      question: "A dessert that complements a meal will:",
+      options: [
+        "Ruin the taste of the meal.",
+        "Add a perfect finishing touch that enhances the meal.",
+        "Replace the main dish.",
+        "I'm not sure."
+      ],
+      correct: 1
+    },
+    fillBlank: {
+      question: "The red wine perfectly ________s the steak dinner.",
+      options: ["complement", "compile", "conform", "confine"],
+      correct: 0
+    }
   },
   conceive: {
     question: "What does \"conceive\" mean?",
@@ -4318,7 +8203,22 @@ export const quizData = {
       "To break a glass",
       "To run away"
     ],
-    correct: 1
+    correct: 1,
+    scenario: {
+      question: "An inventor who conceives a new product is:",
+      options: [
+        "Destroying an existing product.",
+        "Coming up with the idea for a new product in their mind.",
+        "Selling a product.",
+        "I'm not sure."
+      ],
+      correct: 1
+    },
+    fillBlank: {
+      question: "It was hard to ________ how anyone could climb such a steep mountain.",
+      options: ["conceive", "compile", "confine", "conform"],
+      correct: 0
+    }
   },
   concurrent: {
     question: "What does \"concurrent\" mean?",
@@ -4328,7 +8228,22 @@ export const quizData = {
       "Happening in the past",
       "Never happening"
     ],
-    correct: 1
+    correct: 1,
+    scenario: {
+      question: "Two concurrent events in a schedule means:",
+      options: [
+        "One event happens after the other.",
+        "Both events happen at the same time.",
+        "One event is cancelled.",
+        "I'm not sure."
+      ],
+      correct: 1
+    },
+    fillBlank: {
+      question: "The server can handle multiple ________ requests without slowing down.",
+      options: ["concurrent", "coherent", "compatible", "consequent"],
+      correct: 0
+    }
   },
   confine: {
     question: "What does \"confine\" mean?",
@@ -4338,7 +8253,22 @@ export const quizData = {
       "To grow larger",
       "To shout"
     ],
-    correct: 1
+    correct: 1,
+    scenario: {
+      question: "A prisoner who is confined to their cell:",
+      options: [
+        "Is allowed to roam the prison freely.",
+        "Must stay within the cell and cannot leave.",
+        "Is free to leave the prison.",
+        "I'm not sure."
+      ],
+      correct: 1
+    },
+    fillBlank: {
+      question: "The discussion should be ________d to the main topic.",
+      options: ["confine", "compile", "coincide", "conform"],
+      correct: 0
+    }
   },
   conform: {
     question: "What does \"conform\" mean?",
@@ -4348,7 +8278,22 @@ export const quizData = {
       "To break a law",
       "To sleep"
     ],
-    correct: 1
+    correct: 1,
+    scenario: {
+      question: "A student who conforms to school rules will:",
+      options: [
+        "Break rules whenever possible.",
+        "Follow the school's regulations and behavior standards.",
+        "Ignore all teachers.",
+        "I'm not sure."
+      ],
+      correct: 1
+    },
+    fillBlank: {
+      question: "All products must ________ to safety standards before being sold.",
+      options: ["conform", "compile", "coincide", "confine"],
+      correct: 0
+    }
   },
   contemporary: {
     question: "What does \"contemporary\" mean?",
@@ -4368,7 +8313,22 @@ export const quizData = {
       "To help",
       "To listen"
     ],
-    correct: 1
+    correct: 1,
+    scenario: {
+      question: "If you contradict yourself, you:",
+      options: [
+        "Say the same thing twice.",
+        "Say one thing and then say the opposite later.",
+        "Speak very clearly so everyone understands.",
+        "I'm not sure."
+      ],
+      correct: 1
+    },
+    fillBlank: {
+      question: "The witness's story began to ________ the evidence found by the police.",
+      options: ["contradict", "contribute", "convince", "converse"],
+      correct: 0
+    }
   },
   controversy: {
     question: "What does \"controversy\" mean?",
@@ -4378,7 +8338,22 @@ export const quizData = {
       "A quiet room",
       "A small gift"
     ],
-    correct: 1
+    correct: 1,
+    scenario: {
+      question: "A new law might cause controversy if:",
+      options: [
+        "Everyone in the country thinks it is a great idea.",
+        "Half the people love it and the other half hate it and protest.",
+        "Nobody knows the law exists.",
+        "I'm not sure."
+      ],
+      correct: 1
+    },
+    fillBlank: {
+      question: "There is a lot of ________ over whether kids should use phones in school.",
+      options: ["controversy", "convention", "conversion", "context"],
+      correct: 0
+    }
   },
   converse: {
     question: "What does \"converse\" mean?",
@@ -4408,7 +8383,22 @@ export const quizData = {
       "Very funny",
       "Old and broken"
     ],
-    correct: 1
+    correct: 1,
+    scenario: {
+      question: "It is crucial to wear a helmet when riding a motorcycle because:",
+      options: [
+        "It makes you look cool.",
+        "It protects your head if you have an accident.",
+        "It keeps your hair tidy.",
+        "I'm not sure."
+      ],
+      correct: 1
+    },
+    fillBlank: {
+      question: "Salt is a ________ ingredient in this recipe.",
+      options: ["crucial", "constant", "considerable", "concrete"],
+      correct: 0
+    }
   },
   currency: {
     question: "What does \"currency\" mean?",
@@ -4418,7 +8408,22 @@ export const quizData = {
       "A new fashion trend",
       "A heavy storm"
     ],
-    correct: 1
+    correct: 1,
+    scenario: {
+      question: "If you travel to Japan, you will need to use the local currency, which is:",
+      options: [
+        "Dollars.",
+        "Yen.",
+        "Euros.",
+        "I'm not sure."
+      ],
+      correct: 1
+    },
+    fillBlank: {
+      question: "The value of the ________ dropped after the news of the crisis.",
+      options: ["currency", "culture", "cycle", "criteria"],
+      correct: 0
+    }
   },
   denote: {
     question: "What does \"denote\" mean?",
@@ -4428,7 +8433,22 @@ export const quizData = {
       "To forget",
       "To build a house"
     ],
-    correct: 1
+    correct: 1,
+    scenario: {
+      question: "On a map, a small picture of a plane usually denotes:",
+      options: [
+        "A place to buy toy planes.",
+        "The location of an airport.",
+        "A very high mountain.",
+        "I'm not sure."
+      ],
+      correct: 1
+    },
+    fillBlank: {
+      question: "A red light usually ________ that you must stop your car.",
+      options: ["denotes", "demonstrates", "denies", "detects"],
+      correct: 0
+    }
   },
   depress: {
     question: "What does \"depress\" mean?",
@@ -4438,7 +8458,22 @@ export const quizData = {
       "To fly high",
       "To speed up"
     ],
-    correct: 0
+    correct: 0,
+    scenario: {
+      question: "Bad news about the economy might depress people because:",
+      options: [
+        "They are excited to spend more money.",
+        "They worry they might lose their jobs or money.",
+        "They love reading the newspaper.",
+        "I'm not sure."
+      ],
+      correct: 1
+    },
+    fillBlank: {
+      question: "Rainy, gray weather can ________ some people's mood.",
+      options: ["depress", "derive", "detect", "deviate"],
+      correct: 0
+    }
   },
   detect: {
     question: "What does \"detect\" mean?",
@@ -4448,7 +8483,22 @@ export const quizData = {
       "To ignore a sound",
       "To break a lock"
     ],
-    correct: 1
+    correct: 1,
+    scenario: {
+      question: "A smoke alarm is designed to detect:",
+      options: [
+        "When the lights are turned off.",
+        "The very first sign of smoke from a fire.",
+        "How many people are in the room.",
+        "I'm not sure."
+      ],
+      correct: 1
+    },
+    fillBlank: {
+      question: "The test can ________ tiny amounts of sugar in the water.",
+      options: ["detect", "deny", "derive", "deviate"],
+      correct: 0
+    }
   },
   deviate: {
     question: "What does \"deviate\" mean?",
@@ -4458,7 +8508,22 @@ export const quizData = {
       "To stay in one place",
       "To agree with the plan"
     ],
-    correct: 1
+    correct: 1,
+    scenario: {
+      question: "If a pilot deviates from the flight plan, they:",
+      options: [
+        "Follow the map perfectly.",
+        "Fly in a different direction than they were supposed to.",
+        "Land exactly on time.",
+        "I'm not sure."
+      ],
+      correct: 1
+    },
+    fillBlank: {
+      question: "Do not ________ from the instructions, or the cake will not taste good.",
+      options: ["deviate", "demonstrate", "denote", "detect"],
+      correct: 0
+    }
   },
   device: {
     question: "What does \"device\" mean?",
@@ -4468,7 +8533,22 @@ export const quizData = {
       "A type of weather",
       "A long story"
     ],
-    correct: 1
+    correct: 1,
+    scenario: {
+      question: "Which of these is a device used for communication?",
+      options: [
+        "A wooden chair.",
+        "A smartphone.",
+        "A pair of shoes.",
+        "I'm not sure."
+      ],
+      correct: 1
+    },
+    fillBlank: {
+      question: "A remote control is a ________ that lets you change TV channels from a distance.",
+      options: ["device", "dimension", "discrete", "draft"],
+      correct: 0
+    }
   },
   devote: {
     question: "What does \"devote\" mean?",
@@ -4478,7 +8558,22 @@ export const quizData = {
       "To hate",
       "To sleep"
     ],
-    correct: 0
+    correct: 0,
+    scenario: {
+      question: "If you devote your weekend to studying, you:",
+      options: [
+        "Go to the cinema and hang out with friends.",
+        "Spend most of Saturday and Sunday reading and learning.",
+        "Sleep all day.",
+        "I'm not sure."
+      ],
+      correct: 1
+    },
+    fillBlank: {
+      question: "She decided to ________ her life to helping poor children.",
+      options: ["devote", "deny", "derive", "detect"],
+      correct: 0
+    }
   },
   diminish: {
     question: "What does \"diminish\" mean?",
@@ -4488,7 +8583,22 @@ export const quizData = {
       "To stay the same",
       "To fix"
     ],
-    correct: 1
+    correct: 1,
+    scenario: {
+      question: "Your hunger will diminish after you:",
+      options: [
+        "Run a five-kilometer race.",
+        "Eat a big, healthy lunch.",
+        "Think about food all day.",
+        "I'm not sure."
+      ],
+      correct: 1
+    },
+    fillBlank: {
+      question: "The loud noise began to ________ as the car drove away.",
+      options: ["diminish", "deviate", "detect", "displace"],
+      correct: 0
+    }
   },
   displace: {
     question: "What does \"displace\" mean?",
@@ -4498,7 +8608,22 @@ export const quizData = {
       "To find a home",
       "To build"
     ],
-    correct: 1
+    correct: 1,
+    scenario: {
+      question: "A war might displace thousands of people. This means they:",
+      options: [
+        "Get new jobs in their own city.",
+        "Are forced to leave their homes and find a new place to live.",
+        "Decide to go on a vacation.",
+        "I'm not sure."
+      ],
+      correct: 1
+    },
+    fillBlank: {
+      question: "When you get into a full bathtub, your body will ________ some of the water.",
+      options: ["displace", "diminish", "deviate", "dispose"],
+      correct: 0
+    }
   },
   distort: {
     question: "What does \"distort\" mean?",
@@ -4508,7 +8633,22 @@ export const quizData = {
       "To clean",
       "To help"
     ],
-    correct: 1
+    correct: 1,
+    scenario: {
+      question: "A funny mirror at a carnival will distort your body by:",
+      options: [
+        "Making you look exactly like you do at home.",
+        "Making your legs look very long and your head look very wide.",
+        "Showing you a picture of someone else.",
+        "I'm not sure."
+      ],
+      correct: 1
+    },
+    fillBlank: {
+      question: "It is wrong to ________ the facts to make yourself look better.",
+      options: ["distort", "display", "dispose", "distribute"],
+      correct: 0
+    }
   },
   drama: {
     question: "What does \"drama\" mean?",
@@ -4518,7 +8658,22 @@ export const quizData = {
       "A type of food",
       "A quiet forest"
     ],
-    correct: 1
+    correct: 1,
+    scenario: {
+      question: "There was a lot of drama at the office today because:",
+      options: [
+        "Everyone sat quietly and did their work.",
+        "Two people had a big argument and one person quit their job.",
+        "Someone brought donuts for everyone.",
+        "I'm not sure."
+      ],
+      correct: 1
+    },
+    fillBlank: {
+      question: "She loves watching television ________ about doctors and hospitals.",
+      options: ["dramas", "drafts", "domains", "data"],
+      correct: 0
+    }
   },
   duration: {
     question: "What does \"duration\" mean?",
@@ -4528,7 +8683,22 @@ export const quizData = {
       "A fast movement",
       "A loud noise"
     ],
-    correct: 1
+    correct: 1,
+    scenario: {
+      question: "The duration of the movie was 3 hours. This means:",
+      options: [
+        "The movie started at 3:00 PM.",
+        "The movie took 3 hours from the start to the end.",
+        "There were 3 people in the theater.",
+        "I'm not sure."
+      ],
+      correct: 1
+    },
+    fillBlank: {
+      question: "You must keep your seatbelt on for the ________ of the flight.",
+      options: ["duration", "dimension", "device", "domain"],
+      correct: 0
+    }
   },
   encounter: {
     question: "What does \"encounter\" mean?",
@@ -4538,7 +8708,22 @@ export const quizData = {
       "To plan a meeting",
       "To run away"
     ],
-    correct: 1
+    correct: 1,
+    scenario: {
+      question: "If you encounter a snake while hiking, you:",
+      options: [
+        "Planned to meet the snake at 2:00 PM.",
+        "See the snake suddenly on the path in front of you.",
+        "See a picture of a snake in a book.",
+        "I'm not sure."
+      ],
+      correct: 1
+    },
+    fillBlank: {
+      question: "We might ________ some problems at the beginning of the project.",
+      options: ["encounter", "enable", "energy", "enforce"],
+      correct: 0
+    }
   },
   enormous: {
     question: "What does \"enormous\" mean?",
@@ -4548,7 +8733,22 @@ export const quizData = {
       "Extremely weak",
       "Very old"
     ],
-    correct: 1
+    correct: 1,
+    scenario: {
+      question: "An enormous dog would be:",
+      options: [
+        "The size of a small cat.",
+        "The size of a small horse.",
+        "Easy to carry in your arms.",
+        "I'm not sure."
+      ],
+      correct: 1
+    },
+    fillBlank: {
+      question: "The cost of fixing the house will be ________.",
+      options: ["enormous", "energy", "element", "emphasis"],
+      correct: 0
+    }
   },
   erode: {
     question: "What does \"erode\" mean?",
@@ -4558,7 +8758,22 @@ export const quizData = {
       "To paint",
       "To grow"
     ],
-    correct: 1
+    correct: 1,
+    scenario: {
+      question: "If a cliff is eroded by the sea, it will:",
+      options: [
+        "Become taller and stronger.",
+        "Slowly crumble and fall into the water over many years.",
+        "Change its color to bright red.",
+        "I'm not sure."
+      ],
+      correct: 1
+    },
+    fillBlank: {
+      question: "High prices can ________ the value of people's savings.",
+      options: ["erode", "emerge", "edit", "eliminate"],
+      correct: 0
+    }
   },
   ethic: {
     question: "What does \"ethic\" mean?",
@@ -4568,7 +8783,22 @@ export const quizData = {
       "A fast car",
       "A loud shout"
     ],
-    correct: 1
+    correct: 1,
+    scenario: {
+      question: "If you have a strong \"work ethic\", you:",
+      options: [
+        "Try to do as little work as possible.",
+        "Work hard, arrive on time, and do your job honestly.",
+        "Ask other people to do your work for you.",
+        "I'm not sure."
+      ],
+      correct: 1
+    },
+    fillBlank: {
+      question: "Many people think it is against their ________ to test products on animals.",
+      options: ["ethics", "estate", "ethnic", "element"],
+      correct: 0
+    }
   },
   eventual: {
     question: "What does \"eventual\" mean?",
@@ -4588,7 +8818,22 @@ export const quizData = {
       "To buy",
       "To break"
     ],
-    correct: 1
+    correct: 1,
+    scenario: {
+      question: "An artist might exhibit their paintings in:",
+      options: [
+        "A dark closet.",
+        "An art gallery.",
+        "Their own bedroom where no one can see.",
+        "I'm not sure."
+      ],
+      correct: 1
+    },
+    fillBlank: {
+      question: "Many rare animals are on ________ at the city zoo.",
+      options: ["exhibit", "exceed", "exclude", "expand"],
+      correct: 0
+    }
   },
   exploit: {
     question: "What does \"exploit\" mean?",
@@ -4598,7 +8843,22 @@ export const quizData = {
       "To use something/someone unfairly for your own gain",
       "To fix"
     ],
-    correct: 2
+    correct: 2,
+    scenario: {
+      question: "A company exploits its workers if it:",
+      options: [
+        "Pays them a fair salary and gives them holidays.",
+        "Makes them work 15 hours a day for very little money.",
+        "Gives them free lunch.",
+        "I'm not sure."
+      ],
+      correct: 1
+    },
+    fillBlank: {
+      question: "We need to learn how to ________ our natural resources without destroying them.",
+      options: ["exploit", "explicit", "export", "expose"],
+      correct: 0
+    }
   },
   fluctuate: {
     question: "What does \"fluctuate\" mean?",
@@ -4608,7 +8868,22 @@ export const quizData = {
       "To stop moving",
       "To sink"
     ],
-    correct: 1
+    correct: 1,
+    scenario: {
+      question: "If the price of gold fluctuates, it means:",
+      options: [
+        "It stays exactly the same price for 10 years.",
+        "It changes almost every day, sometimes higher, sometimes lower.",
+        "Gold is free.",
+        "I'm not sure."
+      ],
+      correct: 1
+    },
+    fillBlank: {
+      question: "My weight tends to ________ between 70 and 72 kilograms.",
+      options: ["fluctuate", "follow", "focus", "format"],
+      correct: 0
+    }
   },
   format: {
     question: "What does \"format\" mean?",
@@ -4618,7 +8893,22 @@ export const quizData = {
       "A secret code",
       "A loud noise"
     ],
-    correct: 0
+    correct: 0,
+    scenario: {
+      question: "The format of this English lesson is:",
+      options: [
+        "A long movie with no words.",
+        "A word, its definition, a scenario, and a question.",
+        "A physical book you can touch.",
+        "I'm not sure."
+      ],
+      correct: 1
+    },
+    fillBlank: {
+      question: "What is the ________ of the exam—is it multiple choice or an essay?",
+      options: ["format", "formula", "focus", "factor"],
+      correct: 0
+    }
   },
   forthcoming: {
     question: "What does \"forthcoming\" mean?",
@@ -4628,7 +8918,22 @@ export const quizData = {
       "Hidden",
       "Very old"
     ],
-    correct: 1
+    correct: 1,
+    scenario: {
+      question: "If a movie is forthcoming, it:",
+      options: [
+        "Came out in theaters three years ago.",
+        "Will be released in theaters in a few weeks.",
+        "Was never made.",
+        "I'm not sure."
+      ],
+      correct: 1
+    },
+    fillBlank: {
+      question: "I am looking forward to the ________ holidays.",
+      options: ["forthcoming", "foundation", "framework", "flexible"],
+      correct: 0
+    }
   },
   guideline: {
     question: "What does \"guideline\" mean?",
@@ -4638,7 +8943,22 @@ export const quizData = {
       "A heavy rope",
       "A type of music"
     ],
-    correct: 1
+    correct: 1,
+    scenario: {
+      question: "If you follow the safety guidelines at a pool, you:",
+      options: [
+        "Jump in without looking.",
+        "Walk slowly and don't dive in the shallow end.",
+        "Bring your own water.",
+        "I'm not sure."
+      ],
+      correct: 1
+    },
+    fillBlank: {
+      question: "The government issued new ________ on healthy eating.",
+      options: ["guidelines", "guarantees", "grades", "grants"],
+      correct: 0
+    }
   },
   highlight: {
     question: "What does \"highlight\" mean?",
@@ -4648,7 +8968,22 @@ export const quizData = {
       "To ignore",
       "To sleep"
     ],
-    correct: 1
+    correct: 1,
+    scenario: {
+      question: "If you highlight a sentence in a book, you:",
+      options: [
+        "Cross it out so you can't read it.",
+        "Mark it with a bright color because it is important.",
+        "Erase it.",
+        "I'm not sure."
+      ],
+      correct: 1
+    },
+    fillBlank: {
+      question: "The report ________ the need for better security.",
+      options: ["highlights", "hierarchies", "hypotheses", "generates"],
+      correct: 0
+    }
   },
   implicit: {
     question: "What does \"implicit\" mean?",
@@ -4658,7 +8993,22 @@ export const quizData = {
       "Extremely loud",
       "Totally wrong"
     ],
-    correct: 1
+    correct: 1,
+    scenario: {
+      question: "If there is an implicit agreement between friends to share the bill, it means:",
+      options: [
+        "They signed a legal contract.",
+        "They never talked about it, but they both know they will do it.",
+        "They argue about the bill every time.",
+        "I'm not sure."
+      ],
+      correct: 1
+    },
+    fillBlank: {
+      question: "There was an ________ threat in his warning.",
+      options: ["implicit", "explicit", "implicate", "impact"],
+      correct: 0
+    }
   },
   incline: {
     question: "What does \"incline\" mean?",
@@ -4668,7 +9018,22 @@ export const quizData = {
       "To fall down",
       "To break"
     ],
-    correct: 1
+    correct: 1,
+    scenario: {
+      question: "If you are inclined to believe someone, it means:",
+      options: [
+        "You think they are lying.",
+        "You feel that they are probably telling the truth.",
+        "You don't care what they say.",
+        "I'm not sure."
+      ],
+      correct: 1
+    },
+    fillBlank: {
+      question: "The road has a steep ________.",
+      options: ["incline", "incidence", "incentive", "income"],
+      correct: 0
+    }
   },
   induce: {
     question: "What does \"induce\" mean?",
@@ -4678,7 +9043,22 @@ export const quizData = {
       "To forget",
       "To clean"
     ],
-    correct: 1
+    correct: 1,
+    scenario: {
+      question: "Some medicines are used to induce sleep. This means they:",
+      options: [
+        "Make you feel very awake.",
+        "Help you fall asleep.",
+        "Give you a headache.",
+        "I'm not sure."
+      ],
+      correct: 1
+    },
+    fillBlank: {
+      question: "Nothing could ________ me to climb that mountain.",
+      options: ["induce", "indicate", "incorporate", "implement"],
+      correct: 0
+    }
   },
   inevitable: {
     question: "What does \"inevitable\" mean?",
@@ -4688,7 +9068,22 @@ export const quizData = {
       "Never going to happen",
       "Very rare"
     ],
-    correct: 1
+    correct: 1,
+    scenario: {
+      question: "If you don't study for a year, failing the exam is inevitable. This means:",
+      options: [
+        "You might pass if you are lucky.",
+        "You will definitely fail; there is no way to avoid it.",
+        "The exam will be cancelled.",
+        "I'm not sure."
+      ],
+      correct: 1
+    },
+    fillBlank: {
+      question: "Accidents are ________ when people drive too fast.",
+      options: ["inevitable", "induce", "individual", "inhibit"],
+      correct: 0
+    }
   },
   infrastructure: {
     question: "What does \"infrastructure\" mean?",
@@ -4698,7 +9093,22 @@ export const quizData = {
       "A type of bird",
       "A personal habit"
     ],
-    correct: 1
+    correct: 1,
+    scenario: {
+      question: "Improving a city's infrastructure involves:",
+      options: [
+        "Painting the houses bright colors.",
+        "Building new roads, railways, and power lines.",
+        "Hiring more actors for the theater.",
+        "I'm not sure."
+      ],
+      correct: 1
+    },
+    fillBlank: {
+      question: "The country's ________ was badly damaged during the storm.",
+      options: ["infrastructure", "individual", "index", "instance"],
+      correct: 0
+    }
   },
   inherent: {
     question: "What does \"inherent\" mean?",
@@ -4708,7 +9118,22 @@ export const quizData = {
       "Very expensive",
       "Broken"
     ],
-    correct: 1
+    correct: 1,
+    scenario: {
+      question: "There is an inherent risk in skydiving. This means:",
+      options: [
+        "It is 100% safe.",
+        "Risk is a natural part of the sport that you cannot remove.",
+        "The risk only happens if you forget your parachute.",
+        "I'm not sure."
+      ],
+      correct: 1
+    },
+    fillBlank: {
+      question: "The desire for freedom is ________ in all human beings.",
+      options: ["inherent", "inevitable", "inferred", "integral"],
+      correct: 0
+    }
   },
   inner: {
     question: "What does \"inner\" mean?",
@@ -4728,7 +9153,22 @@ export const quizData = {
       "A loud noise",
       "A physical injury"
     ],
-    correct: 1
+    correct: 1,
+    scenario: {
+      question: "A book about history can give you insight into the past. This means it:",
+      options: [
+        "Just lists dates and names.",
+        "Helps you truly understand why things happened.",
+        "Is very heavy.",
+        "I'm not sure."
+      ],
+      correct: 1
+    },
+    fillBlank: {
+      question: "Her experience gave her great ________ into the needs of the customers.",
+      options: ["insight", "initial", "inherent", "instance"],
+      correct: 0
+    }
   },
   inspect: {
     question: "What does \"inspect\" mean?",
@@ -4738,7 +9178,22 @@ export const quizData = {
       "To break",
       "To sleep"
     ],
-    correct: 1
+    correct: 1,
+    scenario: {
+      question: "A health official might inspect a restaurant kitchen to:",
+      options: [
+        "Eat a free meal.",
+        "Make sure everything is clean and safe for customers.",
+        "Meet the chef.",
+        "I'm not sure."
+      ],
+      correct: 1
+    },
+    fillBlank: {
+      question: "The police ________ the car for evidence.",
+      options: ["inspected", "inserted", "initiated", "indicated"],
+      correct: 0
+    }
   },
   integral: {
     question: "What does \"integral\" mean?",
@@ -4748,7 +9203,22 @@ export const quizData = {
       "Very small",
       "Extra"
     ],
-    correct: 1
+    correct: 1,
+    scenario: {
+      question: "Wheels are an integral part of a bicycle. This means:",
+      options: [
+        "A bicycle is better without wheels.",
+        "A bicycle cannot work or be a bicycle without wheels.",
+        "Wheels are only for decoration.",
+        "I'm not sure."
+      ],
+      correct: 1
+    },
+    fillBlank: {
+      question: "Music is an ________ part of his life.",
+      options: ["integral", "inherent", "initial", "inevitable"],
+      correct: 0
+    }
   },
   integrity: {
     question: "What does \"integrity\" mean?",
@@ -4758,7 +9228,22 @@ export const quizData = {
       "A type of machine",
       "A loud sound"
     ],
-    correct: 1
+    correct: 1,
+    scenario: {
+      question: "A person with integrity will:",
+      options: [
+        "Cheat on a test if they think they won't be caught.",
+        "Tell the truth even if it is difficult for them.",
+        "Lie to their friends to make them feel good.",
+        "I'm not sure."
+      ],
+      correct: 1
+    },
+    fillBlank: {
+      question: "Everyone respects him for his ________ and honesty.",
+      options: ["integrity", "integral", "instance", "insight"],
+      correct: 0
+    }
   },
   intense: {
     question: "What does \"intense\" mean?",
@@ -4768,7 +9253,22 @@ export const quizData = {
       "Extremely boring",
       "Very slow"
     ],
-    correct: 1
+    correct: 1,
+    scenario: {
+      question: "Intense heat in the desert can:",
+      options: [
+        "Make you feel a bit warm.",
+        "Be dangerous if you don't have enough water.",
+        "Make you want to wear a sweater.",
+        "I'm not sure."
+      ],
+      correct: 1
+    },
+    fillBlank: {
+      question: "The fire was so ________ that the firefighters couldn't get near it.",
+      options: ["intense", "initial", "integral", "inevitable"],
+      correct: 0
+    }
   },
   intermediate: {
     question: "What does \"intermediate\" mean?",
@@ -4778,7 +9278,22 @@ export const quizData = {
       "Advanced level",
       "The very end"
     ],
-    correct: 1
+    correct: 1,
+    scenario: {
+      question: "An intermediate English student:",
+      options: [
+        "Can only say \"Hello\" and \"Goodbye.\"",
+        "Can have a basic conversation but still makes mistakes.",
+        "Speaks like a native person.",
+        "I'm not sure."
+      ],
+      correct: 1
+    },
+    fillBlank: {
+      question: "This class is for ________ learners, not beginners.",
+      options: ["intermediate", "intense", "integral", "internal"],
+      correct: 0
+    }
   },
   intrinsic: {
     question: "What does \"intrinsic\" mean?",
@@ -4788,7 +9303,172 @@ export const quizData = {
       "Very cheap",
       "Temporary"
     ],
-    correct: 1
+    correct: 1,
+    scenario: {
+      question: "Small children have an intrinsic curiosity. This means:",
+      options: [
+        "They only become curious when they go to school.",
+        "They are naturally born with a desire to learn and explore.",
+        "They are never curious.",
+        "I'm not sure."
+      ],
+      correct: 1
+    },
+    fillBlank: {
+      question: "Math is an ________ part of every science.",
+      options: ["intrinsic", "intense", "internal", "integral"],
+      correct: 0
+    }
+  },
+  concrete: {
+    question: "What does \"concrete\" mean?",
+    options: [
+      "Based on imagination or ideas only",
+      "Based on real facts and objects that you can see or touch",
+      "Something soft and flexible",
+      "Theoretical"
+    ],
+    correct: 1,
+    scenario: {
+      question: "Which of these is a concrete example of a crime?",
+      options: [
+        "Thinking about taking someone's pen.",
+        "Actually stealing a car from a parking lot.",
+        "Feeling angry at a neighbor.",
+        "I'm not sure."
+      ],
+      correct: 1
+    },
+    fillBlank: {
+      question: "We need ________ evidence before we can prove he is guilty.",
+      options: ["concrete", "comprehensive", "complex", "considerable"],
+      correct: 0
+    }
+  },
+  convention: {
+    question: "What does \"convention\" mean?",
+    options: [
+      "A small private meeting",
+      "A large formal meeting of people who work in the same job or have the same interests",
+      "A type of food festival",
+      "A law or rule"
+    ],
+    correct: 1,
+    scenario: {
+      question: "If you go to a \"Comic Convention,\" you will see:",
+      options: [
+        "People buying groceries.",
+        "Many people who love comic books, often dressed as characters.",
+        "A quiet library with no people.",
+        "I'm not sure."
+      ],
+      correct: 1
+    },
+    fillBlank: {
+      question: "It is a ________ in some countries to shake hands when you meet someone.",
+      options: ["convention", "controversy", "conversion", "conflict"],
+      correct: 0
+    }
+  },
+  edition: {
+    question: "What does \"edition\" mean?",
+    options: [
+      "A completely different book",
+      "A particular form in which a book, magazine, or newspaper is published",
+      "A type of error in writing",
+      "The price of a book"
+    ],
+    correct: 1,
+    scenario: {
+      question: "If you buy the \"second edition\" of a textbook, you are buying:",
+      options: [
+        "The very first version that was ever written.",
+        "A newer version that might have new information or fewer mistakes.",
+        "Two copies of the same book.",
+        "I'm not sure."
+      ],
+      correct: 1
+    },
+    fillBlank: {
+      question: "This is a limited ________ of the magazine with a special cover.",
+      options: ["edition", "element", "economy", "edit"],
+      correct: 0
+    }
+  },
+  equation: {
+    question: "What does \"equation\" mean?",
+    options: [
+      "A type of sentence in a story",
+      "A mathematical statement in which you show that two amounts are equal",
+      "A type of problem without a solution",
+      "A scientific experiment"
+    ],
+    correct: 1,
+    scenario: {
+      question: "Which of these is a simple equation?",
+      options: [
+        "10+5",
+        "2+2=4",
+        "1,000,000",
+        "I'm not sure."
+      ],
+      correct: 1
+    },
+    fillBlank: {
+      question: "In the ________ x+5=10, the value of x is 5.",
+      options: ["equation", "element", "entity", "emphasis"],
+      correct: 0
+    }
+  },
+  intelligence: {
+    question: "What does \"intelligence\" mean?",
+    options: [
+      "The inability to learn",
+      "The ability to learn, understand, and make judgments based on reason",
+      "A type of computer game",
+      "A feeling of sadness"
+    ],
+    correct: 1,
+    scenario: {
+      question: "Artificial Intelligence (AI) is:",
+      options: [
+        "A type of robot that only cleans floors.",
+        "Computer systems that can do tasks that usually need human thinking.",
+        "A new kind of book.",
+        "I'm not sure."
+      ],
+      correct: 1
+    },
+    fillBlank: {
+      question: "He is a man of great ________.",
+      options: ["intelligence", "integrity", "instance", "income"],
+      correct: 0
+    }
+  },
+  invoke: {
+    question: "What does \"invoke\" mean?",
+    options: [
+      "To ignore a rule",
+      "To use a law or rule to support an action, or to call for help",
+      "To create a new law",
+      "To break a promise"
+    ],
+    correct: 1,
+    scenario: {
+      question: "If a person invokes their right to remain silent, they:",
+      options: [
+        "Talk to the police for three hours.",
+        "Refuse to answer any questions using the law as protection.",
+        "Start singing a song.",
+        "I'm not sure."
+      ],
+      correct: 1
+    },
+    fillBlank: {
+      question: "The president ________ emergency powers to deal with the crisis.",
+      options: ["invoked", "invested", "intervened", "indicated"],
+      correct: 0
+    }
   }
 };
 
