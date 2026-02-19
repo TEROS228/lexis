@@ -514,19 +514,25 @@ function showIntroWord() {
         quizQuestion.textContent = quiz.question;
         quizFeedback.style.display = 'none';
 
-        renderQuizOptions(quiz, (correct) => {
-            introQuizAnswered = true;
-            savePoolState(currentUser?.uid);
-            if (correct) {
-                quizFeedback.textContent = '✓ Correct!';
-                quizFeedback.className = 'quiz-feedback feedback-correct';
-            } else {
-                quizFeedback.textContent = '✗ Not quite — correct answer highlighted. Click Next →';
-                quizFeedback.className = 'quiz-feedback feedback-wrong';
-            }
-            quizFeedback.style.display = 'block';
-            btnNext.disabled = false;
-        });
+        const tryQuiz = () => {
+            quizFeedback.style.display = 'none';
+            renderQuizOptions(quiz, (correct) => {
+                if (correct) {
+                    introQuizAnswered = true;
+                    savePoolState(currentUser?.uid);
+                    quizFeedback.textContent = '✓ Correct!';
+                    quizFeedback.className = 'quiz-feedback feedback-correct';
+                    quizFeedback.style.display = 'block';
+                    btnNext.disabled = false;
+                } else {
+                    quizFeedback.textContent = '✗ Not quite — try again!';
+                    quizFeedback.className = 'quiz-feedback feedback-wrong';
+                    quizFeedback.style.display = 'block';
+                    setTimeout(tryQuiz, 1000);
+                }
+            });
+        };
+        tryQuiz();
     }
 
 }
