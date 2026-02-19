@@ -438,6 +438,16 @@
     background: #e5e7eb;
 }
 
+.check-badge {
+    font-size: 12px;
+    font-weight: 600;
+    color: #6c63ff;
+    background: #f0eeff;
+    border: 1.5px solid #d4cfff;
+    border-radius: 20px;
+    padding: 3px 10px;
+}
+
 .quiz-options {
     display: flex;
     flex-direction: column;

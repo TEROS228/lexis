@@ -28,6 +28,44 @@ function markWordExplained(uid: string, wordId: string) {
     } catch {}
 }
 
+// Spaced check queue: words waiting for stage-2 check after N new words
+// { wordId: string, dueAfter: number }[]  — dueAfter is a word-counter value
+interface CheckItem { wordId: string; dueAfter: number; }
+let checkQueue: CheckItem[] = [];
+let wordsSeenCount = 0; // increments each time a genuinely new word is displayed
+
+function loadCheckQueue(uid: string) {
+    try {
+        const stored = localStorage.getItem(`checkQueue_${uid}`);
+        checkQueue = stored ? JSON.parse(stored) : [];
+        const cnt = localStorage.getItem(`wordsSeenCount_${uid}`);
+        wordsSeenCount = cnt ? parseInt(cnt) : 0;
+    } catch { checkQueue = []; wordsSeenCount = 0; }
+}
+
+function saveCheckQueue(uid: string) {
+    try {
+        localStorage.setItem(`checkQueue_${uid}`, JSON.stringify(checkQueue));
+        localStorage.setItem(`wordsSeenCount_${uid}`, String(wordsSeenCount));
+    } catch {}
+}
+
+function enqueueForCheck(uid: string, wordId: string) {
+    // Schedule check after 4–8 new words from now
+    const delay = 4 + Math.floor(Math.random() * 5); // 4,5,6,7,8
+    checkQueue.push({ wordId, dueAfter: wordsSeenCount + delay });
+    saveCheckQueue(uid);
+}
+
+// Returns the next word due for a check, or null
+function dequeueDueCheck(): CheckItem | null {
+    const idx = checkQueue.findIndex(item => wordsSeenCount >= item.dueAfter);
+    if (idx === -1) return null;
+    const item = checkQueue.splice(idx, 1)[0];
+    saveCheckQueue(currentUser?.uid);
+    return item;
+}
+
 // Timer
 let studyStartTime = null;
 let timerInterval = null;
@@ -250,22 +288,25 @@ function showExplanationAndQuiz(word: any) {
     function stage1Attempt() {
         renderQuizOptions(quiz, (correct, remaining) => {
             if (correct) {
-                quizFeedback.textContent = '✓ Correct! Now let\'s check without hints...';
+                quizFeedback.textContent = '✓ Correct! We\'ll check again in a few words...';
                 quizFeedback.className = 'quiz-feedback feedback-correct';
                 quizFeedback.style.display = 'block';
                 quizAttempts.textContent = '';
-                // Move to stage 2 after short pause
-                setTimeout(() => showCheckQuiz(word), 1200);
+                markWordExplained(currentUser.uid, word.id);
+                enqueueForCheck(currentUser.uid, word.id);
+                // Mark as unsure for now — will become known after stage 2
+                setTimeout(() => markWord('unsure'), 900);
             } else {
                 attemptsLeft = remaining;
                 if (attemptsLeft <= 0) {
-                    // Used all attempts — reveal answer and move to stage 2
-                    quizFeedback.textContent = '✗ The correct answer is highlighted. Let\'s continue.';
+                    // Used all attempts — reveal answer, queue for check anyway
+                    quizFeedback.textContent = '✗ The correct answer is highlighted. We\'ll check again soon.';
                     quizFeedback.className = 'quiz-feedback feedback-wrong';
                     quizFeedback.style.display = 'block';
                     quizAttempts.textContent = '';
                     markWordExplained(currentUser.uid, word.id);
-                    setTimeout(() => showCheckQuiz(word), 1800);
+                    enqueueForCheck(currentUser.uid, word.id);
+                    setTimeout(() => markWord('unsure'), 1800);
                 } else {
                     updateAttemptsUI(attemptsLeft, 1);
                     quizFeedback.textContent = `✗ Not quite — try again! Read the explanation above.`;
@@ -284,41 +325,59 @@ function showExplanationAndQuiz(word: any) {
     stage1Attempt();
 }
 
-// Stage 2: check quiz WITHOUT explanation
+// Stage 2: check quiz WITHOUT explanation (spaced check)
 function showCheckQuiz(word: any) {
     const quiz = quizData[word.id];
-    if (!quiz) {
-        // No quiz data — just mark explained and go to normal mode
-        markWordExplained(currentUser.uid, word.id);
-        showNormalMode();
-        markWord('known');
-        return;
-    }
 
     // Hide explanation, show quiz only
     wordExplanation.style.display = 'none';
     wordQuiz.style.display = 'block';
     wordActions.style.display = 'none';
     quizFeedback.style.display = 'none';
-    quizAttempts.textContent = '';
+    quizAttempts.innerHTML = '<span class="check-badge">🧠 Recall check</span>';
 
-    quizQuestion.textContent = '🧠 ' + quiz.question;
+    if (!quiz) {
+        // No quiz — just mark known and continue
+        markWordStatus(word.id, 'known');
+        setTimeout(() => nextWord(), 500);
+        return;
+    }
+
+    quizQuestion.textContent = quiz.question;
 
     renderQuizOptions(quiz, (correct, _) => {
-        markWordExplained(currentUser.uid, word.id);
         if (correct) {
             quizFeedback.textContent = '✓ Great job! Word learned.';
             quizFeedback.className = 'quiz-feedback feedback-correct';
             quizFeedback.style.display = 'block';
-            setTimeout(() => markWord('known'), 900);
+            markWordStatus(word.id, 'known');
+            setTimeout(() => nextWord(), 900);
         } else {
-            // Highlight correct
             quizFeedback.textContent = '✗ Not quite — this word will come back for review.';
             quizFeedback.className = 'quiz-feedback feedback-wrong';
             quizFeedback.style.display = 'block';
-            setTimeout(() => markWord('unknown'), 1800);
+            markWordStatus(word.id, 'unknown');
+            // Re-queue with another delay
+            enqueueForCheck(currentUser.uid, word.id);
+            setTimeout(() => nextWord(), 1800);
         }
     }, 1);
+}
+
+// Update word status without advancing the card (used by spaced check)
+function markWordStatus(wordId: string, status: string) {
+    const previousStatus = userProgress[wordId];
+    if (previousStatus === 'known') knownCount--;
+    else if (previousStatus === 'unsure') unsureCount--;
+    else if (previousStatus === 'unknown') unknownCount--;
+
+    if (status === 'known') knownCount++;
+    else if (status === 'unsure') unsureCount++;
+    else if (status === 'unknown') unknownCount++;
+
+    userProgress[wordId] = status;
+    updateStats();
+    saveProgress();
 }
 
 function showNormalMode() {
@@ -409,8 +468,9 @@ onAuthStateChanged(auth, async (user) => {
             });
         }
 
-        // Load explained words from localStorage
+        // Load explained words and check queue from localStorage
         loadExplainedWords(user.uid);
+        loadCheckQueue(user.uid);
 
         // Load progress from Firestore
         await loadProgress();
@@ -490,6 +550,12 @@ function displayCurrentWord() {
     const isNew = !explainedWords.has(word.id);
     const hasQuizOrDetails = quizData[word.id] || wordDetails[word.id];
 
+    // Count this as a "seen" word for spaced check scheduling
+    if (isNew) {
+        wordsSeenCount++;
+        saveCheckQueue(currentUser?.uid);
+    }
+
     if (isNew && hasQuizOrDetails) {
         showExplanationAndQuiz(word);
     } else {
@@ -561,6 +627,21 @@ async function markWord(status) {
 
 // Navigation
 function nextWord() {
+    // Check if any queued word is due for stage-2 check
+    const due = dequeueDueCheck();
+    if (due) {
+        const word = tier2Words.find(w => w.id === due.wordId);
+        if (word) {
+            // Show stage-2 check quiz as an interruption (don't advance index)
+            wordMain.textContent = word.en;
+            meaningText.textContent = word[currentLang] || word.ru;
+            wordMeaning.style.display = 'none';
+            showCheckQuiz(word);
+            return;
+        }
+    }
+
+    // Normal advance
     if (currentWordIndex < tier2Words.length - 1) {
         currentWordIndex++;
         displayCurrentWord();
