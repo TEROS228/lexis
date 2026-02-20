@@ -2257,7 +2257,7 @@ export const quizData = {
         "Lost",
         "Achieved"
       ],
-      correct: 1
+      correct: 2
     },
     scenario3: {
       question: "A student wants to get 100% on an exam. After studying hard, they get a perfect score. They ________ perfection.",
@@ -2379,7 +2379,7 @@ export const quizData = {
         "Close",
         "Administrate"
       ],
-      correct: 1
+      correct: 2
     },
     scenario3: {
       question: "A government official runs a public program. They ________ the program.",
@@ -4905,7 +4905,7 @@ export const quizData = {
         "Constrained a bridge.",
         "Consented a bridge."
       ],
-      correct: 0
+      correct: 1
     },
     scenario3: {
       question: "You have a lot of data and you use it to build a logical theory. You:",
@@ -6521,7 +6521,7 @@ export const quizData = {
         "Adequate",
         "Excessive"
       ],
-      correct: 1
+      correct: 0
     },
     scenario3: {
       question: "A shelter provides enough food and water for all the people. The supplies are ________.",
@@ -10795,7 +10795,7 @@ export const quizData = {
         "Accurate score.",
         "Adjacent score."
       ],
-      correct: 1
+      correct: 0
     },
     scenario3: {
       question: "You have three small jars of honey. You pour them all into one big bowl to see how much you have in total. You are looking at the:",
@@ -10804,7 +10804,7 @@ export const quizData = {
         "Abstract honey.",
         "Academy honey."
       ],
-      correct: 1
+      correct: 0
     },
     fillBlank2: {
       question: "The ________ profit for the whole year was over one million dollars.",
@@ -10865,7 +10865,7 @@ export const quizData = {
         "Adjusting the internet.",
         "Advocating for desks."
       ],
-      correct: 1
+      correct: 0
     },
     fillBlank2: {
       question: "The charity will ________ more funds to the education project.",
@@ -10926,7 +10926,7 @@ export const quizData = {
         "Analyzed the seats.",
         "Appended the seats."
       ],
-      correct: 1
+      correct: 0
     },
     fillBlank2: {
       question: "Each student was ________ a personal tutor.",
@@ -10987,7 +10987,7 @@ export const quizData = {
         "Anticipated a file.",
         "Aggregated a file."
       ],
-      correct: 1
+      correct: 0
     },
     fillBlank2: {
       question: "Please ________ a recent photo to your application form.",
@@ -11048,7 +11048,7 @@ export const quizData = {
         "Analogy of the report.",
         "Albeit of the report."
       ],
-      correct: 1
+      correct: 0
     },
     fillBlank2: {
       question: "Who is your favorite ________?",
@@ -11109,7 +11109,7 @@ export const quizData = {
         "Chemical behalf.",
         "Chemical bias."
       ],
-      correct: 1
+      correct: 0
     },
     fillBlank2: {
       question: "The experience of traveling together created a strong ________ between them.",
@@ -11170,7 +11170,7 @@ export const quizData = {
         "Bonded.",
         "Biased."
       ],
-      correct: 1
+      correct: 0
     },
     fillBlank2: {
       question: "The president made a ________ statement to the press.",
@@ -11231,7 +11231,7 @@ export const quizData = {
         "Capable of flying.",
         "Capable of swimming."
       ],
-      correct: 1
+      correct: 0
     },
     fillBlank2: {
       question: "He is ________ of doing much better work than this.",
@@ -11292,7 +11292,7 @@ export const quizData = {
         "Charting an old case.",
         "Challenging an old case (in a different way)."
       ],
-      correct: 1
+      correct: 0
     },
     fillBlank2: {
       question: "You must ________ your sources when you write a research paper.",
@@ -11363,7 +11363,7 @@ export const quizData = {
         "Diminish between different flavors.",
         "Deviate between different flavors."
       ],
-      correct: 1
+      correct: 0
     },
     fillBlank2: {
       question: "It is illegal to ________ on the grounds of race or gender.",
@@ -11424,7 +11424,7 @@ export const quizData = {
         "Device (it is also a device, but \"display\" is the screen).",
         "Dimension."
       ],
-      correct: 1
+      correct: 0
     },
     fillBlank2: {
       question: "The museum has a beautiful ________ of ancient gold.",
@@ -11485,7 +11485,7 @@ export const quizData = {
         "Culturally distorted.",
         "Culturally displayed."
       ],
-      correct: 1
+      correct: 0
     },
     fillBlank2: {
       question: "The students come from very ________ backgrounds.",
@@ -11546,7 +11546,7 @@ export const quizData = {
         "Document of knowledge.",
         "Display of knowledge."
       ],
-      correct: 1
+      correct: 0
     },
     fillBlank2: {
       question: "This problem is in the ________ of the local government.",
@@ -11607,7 +11607,7 @@ export const quizData = {
         "Equating the video.",
         "Emphasizing the video."
       ],
-      correct: 1
+      correct: 0
     },
     fillBlank2: {
       question: "Can you help me ________ this report before I send it?",
@@ -11668,7 +11668,7 @@ export const quizData = {
         "Encounter the flavor.",
         "Emerge the flavor."
       ],
-      correct: 1
+      correct: 0
     },
     fillBlank2: {
       question: "The new lighting ________ the beauty of the room.",
@@ -11729,7 +11729,7 @@ export const quizData = {
         "Industrial empirical.",
         "Industrial entity."
       ],
-      correct: 1
+      correct: 0
     },
     fillBlank2: {
       question: "He left his entire ________ to his children.",
@@ -11790,7 +11790,7 @@ export const quizData = {
         "Eroded his expectations.",
         "Established his expectations."
       ],
-      correct: 1
+      correct: 0
     },
     fillBlank2: {
       question: "The cost of the repairs ________ my original estimate.",
@@ -11842,7 +11842,7 @@ export const quizData = {
         "Expert.",
         "Ethnic."
       ],
-      correct: 0
+      correct: 1
     },
     scenario3: {
       question: "A movie has a lot of violence and blood that is shown very clearly. It contains:",
@@ -11851,7 +11851,7 @@ export const quizData = {
         "Expanded violence.",
         "Evaluated violence."
       ],
-      correct: 1
+      correct: 0
     },
     fillBlank2: {
       question: "He gave me ________ directions on how to get there.",
@@ -11937,7 +11937,7 @@ export const quizData = {
         "Final agency.",
         "Foundation agency."
       ],
-      correct: 1
+      correct: 0
     },
     fillBlank2: {
       question: "He works for the ________ government.",
@@ -11998,7 +11998,7 @@ export const quizData = {
         "Legal factor.",
         "Legal finance."
       ],
-      correct: 1
+      correct: 0
     },
     fillBlank2: {
       question: "The university ________ have increased this year.",
@@ -12084,7 +12084,7 @@ export const quizData = {
         "Foundation.",
         "Framework."
       ],
-      correct: 1
+      correct: 0
     },
     fillBlank2: {
       question: "The project is too expensive. ________, it will take too long.",
@@ -12145,7 +12145,7 @@ export const quizData = {
         "General equality.",
         "Genetic equality."
       ],
-      correct: 1
+      correct: 0
     },
     fillBlank2: {
       question: "Discrimination on the basis of ________ is illegal.",
@@ -12206,7 +12206,7 @@ export const quizData = {
         "Identifying the situation.",
         "Illustrating the situation."
       ],
-      correct: 1
+      correct: 0
     },
     fillBlank2: {
       question: "He is completely ________ about how computers work.",
@@ -12267,7 +12267,7 @@ export const quizData = {
         "Implication to save the environment.",
         "Image to save the environment."
       ],
-      correct: 1
+      correct: 0
     },
     fillBlank2: {
       question: "The company offers ________s to employees who meet their targets.",
@@ -12328,7 +12328,7 @@ export const quizData = {
         "Implication of accidents.",
         "Image of accidents."
       ],
-      correct: 1
+      correct: 0
     },
     fillBlank2: {
       question: "There is a high ________ of heart disease in this area.",
@@ -12389,7 +12389,7 @@ export const quizData = {
         "Indicates many features.",
         "Inclines many features."
       ],
-      correct: 1
+      correct: 0
     },
     fillBlank2: {
       question: "We should ________ these ideas into our plan.",
@@ -12450,7 +12450,7 @@ export const quizData = {
         "Income.",
         "Incentive."
       ],
-      correct: 1
+      correct: 0
     },
     fillBlank2: {
       question: "You can find the word in the ________ at the back of the book.",
@@ -12511,7 +12511,7 @@ export const quizData = {
         "Induces you.",
         "Inspects you."
       ],
-      correct: 1
+      correct: 0
     },
     fillBlank2: {
       question: "Fear of failure can ________ your progress.",
@@ -12572,7 +12572,7 @@ export const quizData = {
         "Inferred the project.",
         "Inhabited the project."
       ],
-      correct: 1
+      correct: 0
     },
     fillBlank2: {
       question: "The government has ________d a program of economic reform.",
@@ -12633,7 +12633,7 @@ export const quizData = {
         "Insight.",
         "Incentive."
       ],
-      correct: 1
+      correct: 0
     },
     fillBlank2: {
       question: "We need more ________ from the public.",
@@ -12694,7 +12694,7 @@ export const quizData = {
         "Inserted him to go.",
         "Inferred him to go."
       ],
-      correct: 1
+      correct: 0
     },
     fillBlank2: {
       question: "She ________s students in the use of computers.",
@@ -12765,7 +12765,7 @@ export const quizData = {
         "Initial between buses.",
         "Insight between buses."
       ],
-      correct: 1
+      correct: 0
     },
     fillBlank2: {
       question: "The trains run at regular ________s.",
@@ -13045,7 +13045,7 @@ export const quizData = {
         "achieve",
         "abandon"
       ],
-      correct: 1
+      correct: 0
     },
     fillBlank3: {
       question: "The company had to ________ to new market conditions.",
@@ -13097,7 +13097,7 @@ export const quizData = {
         "Academy.",
         "Abstract."
       ],
-      correct: 1
+      correct: 0
     },
     fillBlank2: {
       question: "________ tickets are more expensive than children's tickets.",
@@ -13158,7 +13158,7 @@ export const quizData = {
         "Abandoning the sea.",
         "Adjusting the water."
       ],
-      correct: 1
+      correct: 0
     },
     fillBlank2: {
       question: "She is a strong ________ for women's rights in the workplace.",
@@ -13219,7 +13219,7 @@ export const quizData = {
         "Acid for his brain.",
         "Academy for his home."
       ],
-      correct: 1
+      correct: 0
     },
     fillBlank2: {
       question: "The government provided financial ________ to small businesses during the crisis.",
@@ -13280,7 +13280,7 @@ export const quizData = {
         "Water cease.",
         "Water capital."
       ],
-      correct: 1
+      correct: 0
     },
     fillBlank2: {
       question: "The TV ________ is showing a documentary about space.",
@@ -13341,7 +13341,7 @@ export const quizData = {
         "Category reaction.",
         "Capacity reaction."
       ],
-      correct: 1
+      correct: 0
     },
     fillBlank2: {
       question: "Some ________ can be very dangerous if you touch them.",
@@ -13402,7 +13402,7 @@ export const quizData = {
         "A very old mistake from 1940.",
         "A very polite mistake."
       ],
-      correct: 1
+      correct: 0
     },
     fillBlank2: {
       question: "She wore a ________ black dress to the party.",
@@ -13463,7 +13463,7 @@ export const quizData = {
         "Component insurance.",
         "Comment insurance."
       ],
-      correct: 1
+      correct: 0
     },
     fillBlank2: {
       question: "The book provides a ________ guide to the city.",
@@ -13524,7 +13524,7 @@ export const quizData = {
         "Complement the house.",
         "Commit the house."
       ],
-      correct: 1
+      correct: 0
     },
     fillBlank2: {
       question: "The jury is ________ of twelve ordinary citizens.",
@@ -13585,7 +13585,7 @@ export const quizData = {
         "Concluded the news.",
         "Computed the news."
       ],
-      correct: 1
+      correct: 0
     },
     fillBlank2: {
       question: "Please ________ that you have received the payment.",
@@ -13671,7 +13671,7 @@ export const quizData = {
         "Convened the factory into flats.",
         "Contacted the factory into flats."
       ],
-      correct: 1
+      correct: 0
     },
     fillBlank2: {
       question: "You can use this software to ________ files to PDF.",
@@ -13732,7 +13732,7 @@ export const quizData = {
         "Contrast of apples.",
         "Context of apples."
       ],
-      correct: 1
+      correct: 0
     },
     fillBlank2: {
       question: "They have been a ________ since high school.",
@@ -13793,7 +13793,7 @@ export const quizData = {
         "Device.",
         "Decline."
       ],
-      correct: 1
+      correct: 0
     },
     fillBlank2: {
       question: "The company has grown significantly over the last ________.",
@@ -13854,7 +13854,7 @@ export const quizData = {
         "Deduce fact.",
         "Derive fact."
       ],
-      correct: 1
+      correct: 0
     },
     fillBlank2: {
       question: "I need a ________ answer by tomorrow morning.",
@@ -13915,7 +13915,7 @@ export const quizData = {
         "Demonstrated his request.",
         "Defined his request."
       ],
-      correct: 1
+      correct: 0
     },
     fillBlank2: {
       question: "He ________ that he had stolen the money.",
@@ -13976,7 +13976,7 @@ export const quizData = {
         "Deny their product.",
         "Detect their product."
       ],
-      correct: 1
+      correct: 0
     },
     fillBlank2: {
       question: "It’s hard to ________ between the two types of birds.",
@@ -14037,7 +14037,7 @@ export const quizData = {
         "Discriminated his forces.",
         "Denied his forces."
       ],
-      correct: 1
+      correct: 0
     },
     fillBlank2: {
       question: "Please ________ of your cigarette ends in the bins provided.",
@@ -14098,7 +14098,7 @@ export const quizData = {
         "Distorted leader.",
         "Disposed leader."
       ],
-      correct: 1
+      correct: 0
     },
     fillBlank2: {
       question: "The world of technology is very ________ and changes quickly.",
@@ -14159,7 +14159,7 @@ export const quizData = {
         "Emphasized from the race.",
         "Equated from the race."
       ],
-      correct: 1
+      correct: 0
     },
     fillBlank2: {
       question: "We need to ________ all unnecessary expenses.",
@@ -14220,7 +14220,7 @@ export const quizData = {
         "Element knowledge.",
         "Economy knowledge."
       ],
-      correct: 1
+      correct: 0
     },
     fillBlank2: {
       question: "We need ________ data to support our theory.",
@@ -14281,7 +14281,7 @@ export const quizData = {
         "Well-enforced.",
         "Well-emerged."
       ],
-      correct: 1
+      correct: 0
     },
     fillBlank2: {
       question: "The kitchen is ________ with all the modern appliances.",
@@ -14342,7 +14342,7 @@ export const quizData = {
         "Export from the book.",
         "External from the book."
       ],
-      correct: 1
+      correct: 0
     },
     fillBlank2: {
       question: "Scientists ________ oil from deep underground.",
@@ -14403,7 +14403,7 @@ export const quizData = {
         "Federal a complaint.",
         "Factored a complaint."
       ],
-      correct: 1
+      correct: 0
     },
     fillBlank2: {
       question: "Keep all your tax documents in a safe ________.",
@@ -14464,7 +14464,7 @@ export const quizData = {
         "Federal lives.",
         "Finance lives."
       ],
-      correct: 1
+      correct: 0
     },
     fillBlank2: {
       question: "The earth has ________ resources.",
@@ -14525,7 +14525,7 @@ export const quizData = {
         "Charitable factor.",
         "Charitable focus."
       ],
-      correct: 1
+      correct: 0
     },
     fillBlank2: {
       question: "Respect is the ________ of any good relationship.",
@@ -14586,7 +14586,7 @@ export const quizData = {
         "Gender.",
         "Grant."
       ],
-      correct: 1
+      correct: 0
     },
     fillBlank2: {
       question: "Pollution is a problem that affects the entire ________.",
@@ -14647,7 +14647,7 @@ export const quizData = {
         "High-goal meat.",
         "High-globe meat."
       ],
-      correct: 1
+      correct: 0
     },
     fillBlank2: {
       question: "He got a good ________ in his math exam.",
@@ -14708,7 +14708,7 @@ export const quizData = {
         "Goal I will be there.",
         "Generation I will be there."
       ],
-      correct: 1
+      correct: 0
     },
     fillBlank2: {
       question: "The product comes with a two-year ________.",
@@ -14769,7 +14769,7 @@ export const quizData = {
         "Hence.",
         "Huge."
       ],
-      correct: 1
+      correct: 0
     },
     fillBlank2: {
       question: "There is a clear ________ of power in the organization.",
@@ -14830,7 +14830,7 @@ export const quizData = {
         "Individual.",
         "Internal."
       ],
-      correct: 1
+      correct: 0
     },
     fillBlank2: {
       question: "The two signatures are ________.",
@@ -14891,7 +14891,7 @@ export const quizData = {
         "Index.",
         "Ignorance."
       ],
-      correct: 1
+      correct: 0
     },
     fillBlank2: {
       question: "The party’s ________ is based on socialist principles.",
@@ -14952,7 +14952,7 @@ export const quizData = {
         "Imposed the season.",
         "Implied (the book \"implied,\" you \"inferred\")."
       ],
-      correct: 1
+      correct: 0
     },
     fillBlank2: {
       question: "What can we ________ from these results?",
@@ -15013,7 +15013,7 @@ export const quizData = {
         "Inspect.",
         "Individual."
       ],
-      correct: 1
+      correct: 0
     },
     fillBlank2: {
       question: "We need to ________ if we want to stay ahead of the competition.",
@@ -15074,7 +15074,7 @@ export const quizData = {
         "Inhibited a picture.",
         "Inferred a picture."
       ],
-      correct: 1
+      correct: 0
     },
     fillBlank2: {
       question: "________ the key into the lock.",
@@ -15135,7 +15135,7 @@ export const quizData = {
         "Inhibited the situation.",
         "Induced the situation."
       ],
-      correct: 1
+      correct: 0
     },
     fillBlank2: {
       question: "The government was forced to ________ to stop the strike.",
@@ -15196,7 +15196,7 @@ export const quizData = {
         "Invoked the DNA.",
         "Inferred the DNA."
       ],
-      correct: 1
+      correct: 0
     },
     fillBlank2: {
       question: "The village was ________d by the heavy snow.",
@@ -15296,7 +15296,7 @@ export const quizData = {
         "achieve",
         "analyze"
       ],
-      correct: 1
+      correct: 0
     },
     fillBlank3: {
       question: "The family had to ________ their home during the flood.",
@@ -15367,7 +15367,7 @@ export const quizData = {
         "abandon",
         "assess"
       ],
-      correct: 1
+      correct: 0
     },
     fillBlank3: {
       question: "The guidebook will ________ you on your journey.",
@@ -15453,7 +15453,7 @@ export const quizData = {
         "adequate",
         "abstract"
       ],
-      correct: 1
+      correct: 0
     },
     fillBlank3: {
       question: "Our classroom is ________ to the library.",
@@ -15505,7 +15505,7 @@ export const quizData = {
         "aggregate",
         "accurate"
       ],
-      correct: 1
+      correct: 0
     },
     fillBlank2: {
       question: "The evening was very pleasant, ________ a little cold.",
@@ -15566,7 +15566,7 @@ export const quizData = {
         "Adjacent.",
         "Adequate."
       ],
-      correct: 1
+      correct: 0
     },
     fillBlank2: {
       question: "His answer was ________, so I wasn't sure if he meant yes or no.",
@@ -15627,7 +15627,7 @@ export const quizData = {
         "Albeit.",
         "Adult."
       ],
-      correct: 1
+      correct: 0
     },
     fillBlank2: {
       question: "She used a clever ________ to explain the complex chemical reaction.",
@@ -15688,7 +15688,7 @@ export const quizData = {
         "Abandons the umbrellas.",
         "Acknowledges the umbrellas."
       ],
-      correct: 1
+      correct: 0
     },
     fillBlank2: {
       question: "We don't ________ any problems with the new system.",
@@ -15749,7 +15749,7 @@ export const quizData = {
         "Advocated a file.",
         "Amended a file."
       ],
-      correct: 1
+      correct: 0
     },
     fillBlank2: {
       question: "The results of the survey are ________ to the end of the document.",
@@ -15810,7 +15810,7 @@ export const quizData = {
         "Adjusted.",
         "Allocated."
       ],
-      correct: 1
+      correct: 0
     },
     fillBlank2: {
       question: "I really ________ everything you have done for me.",
@@ -15871,7 +15871,7 @@ export const quizData = {
         "Appropriate.",
         "Amended."
       ],
-      correct: 1
+      correct: 0
     },
     fillBlank2: {
       question: "The selection of the winner seemed completely ________.",
@@ -15932,7 +15932,7 @@ export const quizData = {
         "Allocate in the gym.",
         "Amend in the gym."
       ],
-      correct: 1
+      correct: 0
     },
     fillBlank2: {
       question: "We need to ________ all the relevant documents before the meeting.",
@@ -15993,7 +15993,7 @@ export const quizData = {
         "Assemble you of the car's quality.",
         "Albeit you of the car's quality."
       ],
-      correct: 1
+      correct: 0
     },
     fillBlank2: {
       question: "I can ________ you that the package will arrive tomorrow.",
@@ -16054,7 +16054,7 @@ export const quizData = {
         "Aggregated his goal of perfection.",
         "Appended his goal of perfection."
       ],
-      correct: 1
+      correct: 0
     },
     fillBlank2: {
       question: "Not everyone can ________ such a high level of success.",
@@ -16115,7 +16115,7 @@ export const quizData = {
         "Advocated your customer service.",
         "Amended your customer service."
       ],
-      correct: 1
+      correct: 0
     },
     fillBlank2: {
       question: "We are trying to ________ our manufacturing process.",
@@ -16176,7 +16176,7 @@ export const quizData = {
         "Albeit of his client.",
         "Aggregate of his client."
       ],
-      correct: 1
+      correct: 0
     },
     fillBlank2: {
       question: "I am writing to you on ________ of my company.",
@@ -16237,7 +16237,7 @@ export const quizData = {
         "Balanced.",
         "Basic."
       ],
-      correct: 1
+      correct: 0
     },
     fillBlank2: {
       question: "The reporter was accused of having a political ________.",
@@ -16298,7 +16298,7 @@ export const quizData = {
         "Benefit of his trip was in Asia.",
         "Behalf of his trip was in Asia."
       ],
-      correct: 1
+      correct: 0
     },
     fillBlank2: {
       question: "It is cheaper to buy office supplies in ________.",
@@ -16359,7 +16359,7 @@ export const quizData = {
         "Channel-fire.",
         "Category-fire."
       ],
-      correct: 1
+      correct: 0
     },
     fillBlank2: {
       question: "The company decided to ________ production of the old car model.",
@@ -16420,7 +16420,7 @@ export const quizData = {
         "Music channels.",
         "Music categories."
       ],
-      correct: 1
+      correct: 0
     },
     fillBlank2: {
       question: "The ________ shows that sales have increased this month.",
@@ -16481,7 +16481,7 @@ export const quizData = {
         "Challenging your message.",
         "Charting your message."
       ],
-      correct: 1
+      correct: 0
     },
     fillBlank2: {
       question: "Could you please ________ what you mean by \"soon\"?",
@@ -16542,7 +16542,7 @@ export const quizData = {
         "Clause.",
         "Code."
       ],
-      correct: 1
+      correct: 0
     },
     fillBlank2: {
       question: "He was so nervous that he couldn't give a ________ explanation.",
@@ -16603,7 +16603,7 @@ export const quizData = {
         "Channeled.",
         "Ceased."
       ],
-      correct: 1
+      correct: 0
     },
     fillBlank2: {
       question: "My holiday ________ with the festival, so it was very crowded.",
@@ -16664,7 +16664,7 @@ export const quizData = {
         "Coherent from exhaustion.",
         "Codes from exhaustion."
       ],
-      correct: 1
+      correct: 0
     },
     fillBlank2: {
       question: "The bridge ________ during the earthquake.",
@@ -16725,7 +16725,7 @@ export const quizData = {
         "Code.",
         "Channel."
       ],
-      correct: 1
+      correct: 0
     },
     fillBlank2: {
       question: "I'm going to lunch with a ________ from work.",
@@ -16811,7 +16811,7 @@ export const quizData = {
         "Code.",
         "Clause."
       ],
-      correct: 1
+      correct: 0
     },
     fillBlank2: {
       question: "Coffee is one of the world's most traded ________.",
@@ -16872,7 +16872,7 @@ export const quizData = {
         "Commodity.",
         "Commission."
       ],
-      correct: 1
+      correct: 0
     },
     fillBlank2: {
       question: "This software is not ________ with older computers.",
@@ -16933,7 +16933,7 @@ export const quizData = {
         "Committing information.",
         "Commenting information."
       ],
-      correct: 1
+      correct: 0
     },
     fillBlank2: {
       question: "We need to ________ a list of all our customers.",
@@ -16994,7 +16994,7 @@ export const quizData = {
         "Commit each other.",
         "Collapse each other."
       ],
-      correct: 1
+      correct: 0
     },
     fillBlank2: {
       question: "The flavors of the wine and the cheese ________ each other perfectly.",
@@ -17055,7 +17055,7 @@ export const quizData = {
         "Component of being full.",
         "Complex of being full."
       ],
-      correct: 1
+      correct: 0
     },
     fillBlank2: {
       question: "I can't ________ of any reason why he would do such a thing.",
@@ -17116,7 +17116,7 @@ export const quizData = {
         "Concluded.",
         "Comprised."
       ],
-      correct: 1
+      correct: 0
     },
     fillBlank2: {
       question: "There were several ________ events happening in the city.",
@@ -17177,7 +17177,7 @@ export const quizData = {
         "Conferred his talk to math.",
         "Concentrated his talk to math (also possible, but \"confined\" emphasizes"
       ],
-      correct: 1
+      correct: 0
     },
     fillBlank2: {
       question: "Please ________ your comments to the topic we are discussing.",
@@ -17238,7 +17238,7 @@ export const quizData = {
         "Conclude the regulations.",
         "Conceive the regulations."
       ],
-      correct: 1
+      correct: 0
     },
     fillBlank2: {
       question: "He refuses to ________ to social pressure.",
@@ -17334,7 +17334,7 @@ export const quizData = {
         "Contemporary.",
         "Constant."
       ],
-      correct: 1
+      correct: 0
     },
     fillBlank2: {
       question: "The new law has caused a lot of ________.",
@@ -17415,7 +17415,7 @@ export const quizData = {
         "Contrasting.",
         "Conversing."
       ],
-      correct: 1
+      correct: 0
     },
     fillBlank2: {
       question: "It is ________ that you arrive on time for the meeting.",
@@ -17476,7 +17476,7 @@ export const quizData = {
         "Culture.",
         "Credit."
       ],
-      correct: 1
+      correct: 0
     },
     fillBlank2: {
       question: "The US dollar is the most widely used ________ in the world.",
@@ -17537,7 +17537,7 @@ export const quizData = {
         "Demonstrates the unknown number.",
         "Deduces the unknown number."
       ],
-      correct: 1
+      correct: 0
     },
     fillBlank2: {
       question: "A red light usually ________ \"stop.\"",
@@ -17598,7 +17598,7 @@ export const quizData = {
         "Deny the pedal.",
         "Decline the pedal."
       ],
-      correct: 1
+      correct: 0
     },
     fillBlank2: {
       question: "The news about the war was very ________.",
@@ -17720,7 +17720,7 @@ export const quizData = {
         "Denied from his normal routine.",
         "Derived from his normal routine."
       ],
-      correct: 1
+      correct: 0
     },
     fillBlank2: {
       question: "The bus had to ________ from its usual route because of a road accident.",
@@ -17781,7 +17781,7 @@ export const quizData = {
         "Deduces.",
         "Denies."
       ],
-      correct: 1
+      correct: 0
     },
     fillBlank2: {
       question: "This ________ is used to measure the amount of oxygen in the air.",
@@ -17842,7 +17842,7 @@ export const quizData = {
         "Denied his life to science.",
         "Designed his life to science."
       ],
-      correct: 1
+      correct: 0
     },
     fillBlank2: {
       question: "She ________ two hours every day to practicing the piano.",
@@ -17903,7 +17903,7 @@ export const quizData = {
         "Differentiated.",
         "Denied."
       ],
-      correct: 1
+      correct: 0
     },
     fillBlank2: {
       question: "The noise ________ as we moved further away from the city.",
@@ -17964,7 +17964,7 @@ export const quizData = {
         "Detected the water.",
         "Diminished the water."
       ],
-      correct: 1
+      correct: 0
     },
     fillBlank2: {
       question: "Many workers have been ________ by new technology.",
@@ -18025,7 +18025,7 @@ export const quizData = {
         "Differentiated the truth.",
         "Detects the truth."
       ],
-      correct: 1
+      correct: 0
     },
     fillBlank2: {
       question: "The radio signal was ________ by the storm.",
@@ -18086,7 +18086,7 @@ export const quizData = {
         "Draft in my life.\"",
         "Dimension in my life.\""
       ],
-      correct: 1
+      correct: 0
     },
     fillBlank2: {
       question: "She is studying ________ at university.",
@@ -18147,7 +18147,7 @@ export const quizData = {
         "Display of your illness.",
         "Diverse of your illness."
       ],
-      correct: 1
+      correct: 0
     },
     fillBlank2: {
       question: "The ________ of the flight is about ten hours.",
@@ -18208,7 +18208,7 @@ export const quizData = {
         "Emphasized many difficulties.",
         "Equated many difficulties."
       ],
-      correct: 1
+      correct: 0
     },
     fillBlank2: {
       question: "We ________ several problems during our trip.",
@@ -18269,7 +18269,7 @@ export const quizData = {
         "Enhanced loss.",
         "Enforced loss."
       ],
-      correct: 1
+      correct: 0
     },
     fillBlank2: {
       question: "The project was an ________ success.",
@@ -18330,7 +18330,7 @@ export const quizData = {
         "Enabled their trust.",
         "Equated their trust."
       ],
-      correct: 1
+      correct: 0
     },
     fillBlank2: {
       question: "The coastline is slowly being ________ by the sea.",
@@ -18391,7 +18391,7 @@ export const quizData = {
         "Work error.",
         "Work empirical."
       ],
-      correct: 1
+      correct: 0
     },
     fillBlank2: {
       question: "The company is known for its high ________ standards.",
@@ -18462,7 +18462,7 @@ export const quizData = {
         "Estate.",
         "Ethnic."
       ],
-      correct: 1
+      correct: 0
     },
     fillBlank2: {
       question: "The museum is ________ a collection of ancient coins.",
@@ -18523,7 +18523,7 @@ export const quizData = {
         "Evolving a natural resource.",
         "Estimating a natural resource."
       ],
-      correct: 1
+      correct: 0
     },
     fillBlank2: {
       question: "We need to ________ the full potential of this new technology.",
@@ -18584,7 +18584,7 @@ export const quizData = {
         "Finishes.",
         "Features."
       ],
-      correct: 1
+      correct: 0
     },
     fillBlank2: {
       question: "My weight ________ between 70 and 75 kilograms.",
@@ -18645,7 +18645,7 @@ export const quizData = {
         "Flexed the drive.",
         "Filed the drive."
       ],
-      correct: 1
+      correct: 0
     },
     fillBlank2: {
       question: "What ________ should I save the file in?",
@@ -18706,7 +18706,7 @@ export const quizData = {
         "Federal.",
         "Finite."
       ],
-      correct: 1
+      correct: 0
     },
     fillBlank2: {
       question: "A list of ________ events is available on the website.",
@@ -18767,7 +18767,7 @@ export const quizData = {
         "Generations.",
         "Genders."
       ],
-      correct: 1
+      correct: 0
     },
     fillBlank2: {
       question: "The government has issued new ________s on healthy eating.",
@@ -18828,7 +18828,7 @@ export const quizData = {
         "Hence of the trip.",
         "Hypothesis of the trip."
       ],
-      correct: 1
+      correct: 0
     },
     fillBlank2: {
       question: "The report ________s the need for more investment.",
@@ -18889,7 +18889,7 @@ export const quizData = {
         "Illustrated trust.",
         "Immigrated trust."
       ],
-      correct: 1
+      correct: 0
     },
     fillBlank2: {
       question: "There was an ________ agreement between the two companies.",
@@ -18950,7 +18950,7 @@ export const quizData = {
         "Imposed to agree.",
         "Implied to agree."
       ],
-      correct: 1
+      correct: 0
     },
     fillBlank2: {
       question: "I am ________d to believe that he is telling the truth.",
@@ -19011,7 +19011,7 @@ export const quizData = {
         "Imposed him to do it.",
         "Implied him to do it."
       ],
-      correct: 1
+      correct: 0
     },
     fillBlank2: {
       question: "High levels of stress can ________ a heart attack.",
@@ -19072,7 +19072,7 @@ export const quizData = {
         "Induced.",
         "Indicated."
       ],
-      correct: 1
+      correct: 0
     },
     fillBlank2: {
       question: "It was ________ that there would be problems.",
@@ -19133,7 +19133,7 @@ export const quizData = {
         "Insight.",
         "Index."
       ],
-      correct: 1
+      correct: 0
     },
     fillBlank2: {
       question: "The country needs to invest more in its ________.",
@@ -19194,7 +19194,7 @@ export const quizData = {
         "Induced in the job.",
         "Inevitable (also true, but \"inherent\" means it's a natural part)."
       ],
-      correct: 1
+      correct: 0
     },
     fillBlank2: {
       question: "There are ________ risks in any business venture.",
@@ -19265,7 +19265,7 @@ export const quizData = {
         "Input.",
         "Index."
       ],
-      correct: 1
+      correct: 0
     },
     fillBlank2: {
       question: "The book provides a fascinating ________ into the lives of the rich.",
@@ -19326,7 +19326,7 @@ export const quizData = {
         "Inserted the engine.",
         "Induced the engine."
       ],
-      correct: 1
+      correct: 0
     },
     fillBlank2: {
       question: "The police ________d the scene of the crime.",
@@ -19387,7 +19387,7 @@ export const quizData = {
         "Inevitable.",
         "Inspect."
       ],
-      correct: 1
+      correct: 0
     },
     fillBlank2: {
       question: "Music is an ________ part of her life.",
@@ -19448,7 +19448,7 @@ export const quizData = {
         "Structural infrastructure.",
         "Structural institute."
       ],
-      correct: 1
+      correct: 0
     },
     fillBlank2: {
       question: "He is a man of great ________.",
@@ -19509,7 +19509,7 @@ export const quizData = {
         "Individual.",
         "Identical."
       ],
-      correct: 1
+      correct: 0
     },
     fillBlank2: {
       question: "The pain was so ________ that I couldn't move.",
@@ -19595,7 +19595,7 @@ export const quizData = {
         "Internal value.",
         "Integrated value."
       ],
-      correct: 1
+      correct: 0
     },
     fillBlank2: {
       question: "The ________ beauty of the landscape is breathtaking.",
@@ -19731,7 +19731,7 @@ export const quizData = {
         "Simple empirical.",
         "Simple emphasis."
       ],
-      correct: 1
+      correct: 0
     },
     fillBlank2: {
       question: "Can you solve this ________?",
@@ -19817,7 +19817,7 @@ export const quizData = {
         "Initiated the law.",
         "Interpreted (also used, but \"invoked\" means to use for support)."
       ],
-      correct: 1
+      correct: 0
     },
     fillBlank2: {
       question: "The UN has ________d its authority to stop the war.",
