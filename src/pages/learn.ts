@@ -643,20 +643,19 @@ function renderQuizTask(word: any, item: PoolItem, quiz: any, stageType: QuizSta
             const attemptsLeft = MAX_ATTEMPTS - item.attempts;
 
             if (attemptsLeft <= 0) {
-                quizFeedback.textContent = '✗ The correct answer is highlighted. This word will come back for review.';
+                quizFeedback.textContent = '✗ Incorrect. Review this word.';
                 quizFeedback.className = 'quiz-feedback feedback-wrong';
                 quizFeedback.style.display = 'block';
-                // Send word back to intro phase — reset completedStages, show explanation again
+                // Send word back to intro phase — reset completedStages
                 item.phase = 'intro';
                 item.completedStages = [];
                 item.attempts = 0;
                 applyStatus(item.wordId, 'unknown');
-                // Move to front of intro cursor
-                introPhase = true;
-                introCursor = activePool.filter(i => i.phase === 'intro').length - 1;
-                introQuizAnswered = false;
                 savePoolState(currentUser?.uid);
-                setTimeout(displayCurrentWord, 1800);
+                // Redirect to word-details page
+                setTimeout(() => {
+                    window.location.href = `/word-details.html?word=${item.wordId}`;
+                }, 1500);
             } else {
                 quizFeedback.textContent = `✗ Not quite — try again! (${attemptsLeft} attempt${attemptsLeft > 1 ? 's' : ''} left)`;
                 quizFeedback.className = 'quiz-feedback feedback-wrong';
