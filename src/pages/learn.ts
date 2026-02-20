@@ -619,7 +619,7 @@ function renderQuizTask(word: any, item: PoolItem, quiz: any, stageType: QuizSta
     quizQuestion.textContent = quiz.question;
     wordQuiz.style.display = 'block';
 
-    const MAX_ATTEMPTS = stageType === 'multiChoice' ? 3 : 2;
+    const MAX_ATTEMPTS = stageType === 'multiChoice' ? 3 : 1;
 
     renderAttemptsUI(MAX_ATTEMPTS - item.attempts, MAX_ATTEMPTS, stageType);
     quizFeedback.style.display = 'none';
