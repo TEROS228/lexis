@@ -5,7 +5,6 @@ export const tier2Words = [
   { id: 'achieve', en: 'Achieve', ru: 'достигать', zh: '实现' },
   { id: 'acquire', en: 'Acquire', ru: 'приобретать', zh: '获得' },
   { id: 'adapt', en: 'Adapt', ru: 'адаптировать', zh: '适应' },
-  { id: 'adequate', en: 'Adequate', ru: 'адекватный, достаточный', zh: '足够的' },
   { id: 'adjacent', en: 'Adjacent', ru: 'прилегающий', zh: '相邻的' },
   { id: 'adjust', en: 'Adjust', ru: 'регулировать, настраивать', zh: '调整' },
   { id: 'administrate', en: 'Administrate', ru: 'управлять', zh: '管理' },
