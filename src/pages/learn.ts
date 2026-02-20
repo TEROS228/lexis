@@ -11,18 +11,18 @@ let currentLang = getCurrentLanguage();
 
 // ─── Pool System ───────────────────────────────────────────────────────
 //
-// Phase A — INTRO: show 10 new words one by one (explanation only, no quiz)
+// Phase A — INTRO: show 10 new words one by one (explanation + multiChoice quiz)
 // Phase B — QUIZ:  shuffle quiz tasks for all pool words and present them
 //                  When a word reaches mastered → remove, add 1 new word
 //                  (that word goes through intro first, then joins quiz pool)
 //
-// Quiz stages per word (in order): multiChoice → fillBlank → scenario
-// Wrong answer on any stage → stage resets to multiChoice for that word
-// All 3 stages passed → mastered
+// Quiz stages per word: multiChoice → fillBlank → fillBlank2 → fillBlank3 → scenario → scenario2 → scenario3
+// Wrong answer on fillBlank/scenario → word resets to intro (explanation + multiChoice)
+// All stages passed → mastered (multiChoice + all 6 quiz stages)
 
 const POOL_SIZE = 10;
 
-type QuizStage = 'multiChoice' | 'fillBlank' | 'scenario';
+type QuizStage = 'multiChoice' | 'fillBlank' | 'fillBlank2' | 'fillBlank3' | 'scenario' | 'scenario2' | 'scenario3';
 
 interface PoolItem {
     wordId: string;
@@ -126,16 +126,20 @@ function initPoolFromProgress(uid: string, progress: Record<string, string>) {
     savePoolState(uid);
 }
 
-// Build/rebuild quiz queue: all pending fillBlank+scenario tasks for quiz-phase words, shuffled
+// Build/rebuild quiz queue: all pending fillBlank+fillBlank2+fillBlank3+scenario+scenario2+scenario3 tasks for quiz-phase words, shuffled
 function buildQuizQueue() {
     const tasks: { wordId: string; stage: QuizStage }[] = [];
     for (const item of activePool) {
         if (item.phase !== 'quiz') continue;
         const quiz = (quizData as any)[item.wordId];
-        for (const stage of ['fillBlank', 'scenario'] as QuizStage[]) {
+        for (const stage of ['fillBlank', 'fillBlank2', 'fillBlank3', 'scenario', 'scenario2', 'scenario3'] as QuizStage[]) {
             if (item.completedStages.includes(stage)) continue;
             if (stage === 'fillBlank' && !quiz?.fillBlank) continue;
+            if (stage === 'fillBlank2' && !quiz?.fillBlank2) continue;
+            if (stage === 'fillBlank3' && !quiz?.fillBlank3) continue;
             if (stage === 'scenario' && !quiz?.scenario) continue;
+            if (stage === 'scenario2' && !quiz?.scenario2) continue;
+            if (stage === 'scenario3' && !quiz?.scenario3) continue;
             tasks.push({ wordId: item.wordId, stage });
         }
     }
@@ -583,7 +587,11 @@ function showNextQuiz() {
 
     const quiz = (quizData as any)[word.id];
     const stageQuiz = task.stage === 'fillBlank' ? quiz?.fillBlank
+                    : task.stage === 'fillBlank2' ? quiz?.fillBlank2
+                    : task.stage === 'fillBlank3' ? quiz?.fillBlank3
                     : task.stage === 'scenario'  ? quiz?.scenario
+                    : task.stage === 'scenario2' ? quiz?.scenario2
+                    : task.stage === 'scenario3' ? quiz?.scenario3
                     : quiz;
 
     renderQuizTask(word, item, stageQuiz, task.stage);
@@ -600,7 +608,11 @@ function renderQuizTask(word: any, item: PoolItem, quiz: any, stageType: QuizSta
     const stageBadge = {
         multiChoice: '📝 Multiple choice',
         fillBlank: '✏️ Fill in the blank',
-        scenario: '🎭 Scenario'
+        fillBlank2: '✏️ Fill in the blank 2',
+        fillBlank3: '✏️ Fill in the blank 3',
+        scenario: '🎭 Scenario',
+        scenario2: '🎭 Scenario 2',
+        scenario3: '🎭 Scenario 3'
     }[stageType];
 
     quizAttempts.innerHTML = `<span class="check-badge">${stageBadge}</span>`;
@@ -666,11 +678,20 @@ function markStageCompleted(item: PoolItem, stage: QuizStage) {
     }
     const quiz = (quizData as any)[item.wordId];
     const needsFill = !!quiz?.fillBlank;
+    const needsFill2 = !!quiz?.fillBlank2;
+    const needsFill3 = !!quiz?.fillBlank3;
     const needsScen = !!quiz?.scenario;
-    const fillDone = !needsFill || item.completedStages.includes('fillBlank');
-    const scenDone = !needsScen || item.completedStages.includes('scenario');
+    const needsScen2 = !!quiz?.scenario2;
+    const needsScen3 = !!quiz?.scenario3;
 
-    if (fillDone && scenDone) {
+    const fillDone = !needsFill || item.completedStages.includes('fillBlank');
+    const fill2Done = !needsFill2 || item.completedStages.includes('fillBlank2');
+    const fill3Done = !needsFill3 || item.completedStages.includes('fillBlank3');
+    const scenDone = !needsScen || item.completedStages.includes('scenario');
+    const scen2Done = !needsScen2 || item.completedStages.includes('scenario2');
+    const scen3Done = !needsScen3 || item.completedStages.includes('scenario3');
+
+    if (fillDone && fill2Done && fill3Done && scenDone && scen2Done && scen3Done) {
         item.phase = 'mastered';
         masteredIds.add(item.wordId);
         applyStatus(item.wordId, 'known');
