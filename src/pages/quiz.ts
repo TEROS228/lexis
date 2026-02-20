@@ -1,7 +1,7 @@
 import { auth, onAuthStateChanged, logOut, getCachedAuthState, cacheAuthState } from '../services/firebase';
 import { getFirestore, doc, setDoc, getDoc } from 'firebase/firestore';
 import { setAvatar } from '../utils/avatar';
-import quizData from '../data/quiz-data';
+import { quizData } from '../data/quiz-data';
 
 const db = getFirestore();
 let currentUser = null;

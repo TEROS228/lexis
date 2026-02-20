@@ -2,7 +2,7 @@ import { auth, onAuthStateChanged, logOut, getCachedAuthState, cacheAuthState } 
 import { getUserNativeLanguage, getProgress, initUserProfile, saveWordProgress, getLearnedWords } from '../db';
 import { setAvatar } from '../utils/avatar';
 import tier2Words from '../data/words-tier2-full';
-import quizData from '../data/quiz-data';
+import { quizData } from '../data/quiz-data';
 import { t, updatePageTranslations, setLanguage, getCurrentLanguage } from '../i18n';
 
 console.log('=== word-list.js LOADED ===');

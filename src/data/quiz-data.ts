@@ -1,30 +1,5 @@
 // Quiz data for Tier 2 vocabulary
 export const quizData = {
-  analyse: {
-    question: "What does \"analyse\" mean?",
-    options: [
-      "To examine something in detail",
-      "To break a glass",
-      "To forget facts",
-      "To tell a story"
-    ],
-    correct: 0,
-    scenario: {
-      question: "A scientist who analyses data from an experiment will:",
-      options: [
-        "Ignore the results.",
-        "Study the results carefully to draw conclusions.",
-        "Destroy the data.",
-        "I'm not sure."
-      ],
-      correct: 1
-    },
-    fillBlank: {
-      question: "The team will ________ the survey results to understand customer needs.",
-      options: ["analyse", "abandon", "achieve", "adjust"],
-      correct: 0
-    }
-  },
   approach: {
     question: "What does \"approach\" mean?",
     options: [
@@ -818,16 +793,6 @@ export const quizData = {
       correct: 0
     }
   },
-  define: {
-    question: "What does \"define\" mean?",
-    options: [
-      "To lose",
-      "To explain the exact meaning",
-      "To shout",
-      "To listen"
-    ],
-    correct: 1
-  },
   derive: {
     question: "What does \"derive\" mean?",
     options: [
@@ -1130,31 +1095,6 @@ export const quizData = {
         "confirm",
         "clarify"
       ],
-      correct: 0
-    }
-  },
-  estimate: {
-    question: "What does \"estimate\" mean?",
-    options: [
-      "To know exactly",
-      "To guess approximately",
-      "To delete",
-      "To joke"
-    ],
-    correct: 1,
-    scenario: {
-      question: "A mechanic will give you an estimate for car repairs to tell you:",
-      options: [
-        "Exactly how long the car will last.",
-        "About how much money you will probably have to pay.",
-        "The name of the person who built the car.",
-        "I'm not sure."
-      ],
-      correct: 1
-    },
-    fillBlank: {
-      question: "It is difficult to ________ how many people will attend the concert.",
-      options: ["estimate", "establish", "evaluate", "exhibit"],
       correct: 0
     }
   },
@@ -2805,31 +2745,6 @@ export const quizData = {
       correct: 0
     }
   },
-  conduct: {
-    question: "What does \"conduct\" mean?",
-    options: [
-      "To organize and do",
-      "To hide",
-      "To sleep",
-      "To buy"
-    ],
-    correct: 0,
-    scenario: {
-      question: "A researcher who conducts an experiment will:",
-      options: [
-        "Avoid doing any experiments.",
-        "Plan, organize, and carry out the experiment.",
-        "Only read about others' experiments.",
-        "I'm not sure."
-      ],
-      correct: 1
-    },
-    fillBlank: {
-      question: "The university will ________ an investigation into the cheating allegations.",
-      options: ["conduct", "conclude", "confirm", "contribute"],
-      correct: 0
-    }
-  },
   consequent: {
     question: "What does \"consequent\" mean?",
     options: [
@@ -2888,31 +2803,6 @@ export const quizData = {
         "complex",
         "cite"
       ],
-      correct: 0
-    }
-  },
-  construct: {
-    question: "What does \"construct\" mean?",
-    options: [
-      "To build",
-      "To destroy",
-      "To eat",
-      "To fly"
-    ],
-    correct: 0,
-    scenario: {
-      question: "To construct a new bridge, workers need:",
-      options: [
-        "Only a piece of paper and a pen.",
-        "Steel, concrete, and heavy machines.",
-        "To wait for it to grow.",
-        "I'm not sure."
-      ],
-      correct: 1
-    },
-    fillBlank: {
-      question: "The company plans to ________ a new office building downtown.",
-      options: ["construct", "constitute", "consult", "consume"],
       correct: 0
     }
   },
@@ -3281,16 +3171,6 @@ export const quizData = {
       ],
       correct: 0
     }
-  },
-  equate: {
-    question: "What does \"equate\" mean?",
-    options: [
-      "To distinguish",
-      "To consider as the same",
-      "To break",
-      "To shout"
-    ],
-    correct: 1
   },
   evaluate: {
     question: "What does \"evaluate\" mean?",
@@ -4695,26 +4575,6 @@ export const quizData = {
       correct: 0
     }
   },
-  correspond: {
-    question: "What does \"correspond\" mean?",
-    options: [
-      "To be different",
-      "To match or communicate by letter",
-      "To disappear",
-      "To fall"
-    ],
-    correct: 1
-  },
-  criteria: {
-    question: "What does \"criteria\" mean?",
-    options: [
-      "A type of insect",
-      "Standards used for judging",
-      "A funny story",
-      "A large building"
-    ],
-    correct: 1
-  },
   deduce: {
     question: "What does \"deduce\" mean?",
     options: [
@@ -5565,92 +5425,6 @@ export const quizData = {
         "interact",
         "considerable",
         "context"
-      ],
-      correct: 0
-    }
-  },
-  access: {
-    question: "What does \"access\" mean?",
-    options: [
-      "A barrier",
-      "The right or ability to enter/use",
-      "A mistake",
-      "A feeling of sadness"
-    ],
-    correct: 1,
-    scenario: {
-      question: "A student who has access to the internet can:",
-      options: [
-        "Only read printed books.",
-        "Use the internet for research, communication, and learning.",
-        "Not use any technology.",
-        "I'm not sure."
-      ],
-      correct: 1
-    },
-    fillBlank: {
-      question: "Only authorized employees have ________ to the server room.",
-      options: ["access", "adapt", "affect", "allocate"],
-      correct: 0
-    }
-  },
-  adequate: {
-    question: "What does \"adequate\" mean?",
-    options: [
-      "Very poor",
-      "Satisfactory or good enough",
-      "Extremely perfect",
-      "Too small"
-    ],
-    correct: 1,
-    scenario: {
-      question: "If a student's essay is adequate, the teacher will most likely:",
-      options: [
-        "Give the student an A+.",
-        "Accept it but say it could be better.",
-        "Fail the student immediately.",
-        "I'm not sure."
-      ],
-      correct: 1
-    },
-    fillBlank: {
-      question: "The food supply was ________ to feed all the refugees in the camp.",
-      options: ["adequate", "abstract", "adverse", "arbitrary"],
-      correct: 0
-    },
-    scenario2: {
-      question: "A student studies for 10 hours before an important exam. Their preparation is ________ for them to pass.",
-      options: [
-        "Inadequate",
-        "Adequate",
-        "Excessive"
-      ],
-      correct: 0
-    },
-    scenario3: {
-      question: "A shelter provides enough food and water for all the people. The supplies are ________.",
-      options: [
-        "Insufficient",
-        "Adequate",
-        "Luxurious"
-      ],
-      correct: 1
-    },
-    fillBlank2: {
-      question: "Make sure you drink an ________ amount of water every day.",
-      options: [
-        "adequate",
-        "abstract",
-        "alternative"
-      ],
-      correct: 0
-    },
-    fillBlank3: {
-      question: "The hotel room was ________ for our needs.",
-      options: [
-        "adequate",
-        "abandon",
-        "acquire"
       ],
       correct: 0
     }
@@ -7485,16 +7259,6 @@ export const quizData = {
       correct: 0
     }
   },
-  academy: {
-    question: "What does \"academy\" mean?",
-    options: [
-      "A place of study or training",
-      "A type of car",
-      "A grocery store",
-      "A loud party"
-    ],
-    correct: 0
-  },
   adjust: {
     question: "What does \"adjust\" mean?",
     options: [
@@ -8898,31 +8662,6 @@ export const quizData = {
       correct: 0
     }
   },
-  facilitate: {
-    question: "What does \"facilitate\" mean?",
-    options: [
-      "To make something difficult",
-      "To make an action or process easier",
-      "To break",
-      "To cry"
-    ],
-    correct: 1,
-    scenario: {
-      question: "A good teacher facilitates learning by:",
-      options: [
-        "Making the lessons very confusing.",
-        "Explaining things clearly and answering questions.",
-        "Not coming to class.",
-        "I'm not sure."
-      ],
-      correct: 1
-    },
-    fillBlank: {
-      question: "The new highway will ________ travel between the two cities.",
-      options: ["facilitate", "factor", "federal", "feature"],
-      correct: 0
-    }
-  },
   fundamental: {
     question: "What does \"fundamental\" mean?",
     options: [
@@ -9227,56 +8966,6 @@ export const quizData = {
       "A fast animal"
     ],
     correct: 1
-  },
-  accurate: {
-    scenario: {
-      question: "A weather forecast that is accurate means:",
-      options: [
-        "The forecast is wrong.",
-        "The forecast correctly predicts what will happen.",
-        "The forecast is always changing.",
-        "I'm not sure."
-      ],
-      correct: 1
-    },
-    fillBlank: {
-      question: "The scientist made sure her measurements were ________ before recording the results.",
-      options: ["accurate", "abstract", "adequate", "annual"],
-      correct: 0
-    },
-    question: "What does \"accurate\" mean?",
-    options: [
-      "Wrong and messy",
-      "Correct and exact",
-      "Very old",
-      "Extremely slow"
-    ],
-    correct: 1
-  },
-  acknowledge: {
-    question: "What does \"acknowledge\" mean?",
-    options: [
-      "To ignore someone",
-      "To accept or admit that something is true",
-      "To sleep",
-      "To break a rule"
-    ],
-    correct: 1,
-    scenario: {
-      question: "When a manager acknowledges an employee's hard work, the manager:",
-      options: [
-        "Ignores what the employee did.",
-        "Recognizes and expresses appreciation for the employee's efforts.",
-        "Fires the employee.",
-        "I'm not sure."
-      ],
-      correct: 1
-    },
-    fillBlank: {
-      question: "The scientist refused to ________ the flaws in her research.",
-      options: ["acknowledge", "abandon", "acquire", "allocate"],
-      correct: 0
-    }
   },
   aggregate: {
     question: "What does \"aggregate\" mean?",
@@ -9827,16 +9516,6 @@ export const quizData = {
       correct: 0
     }
   },
-  cooperate: {
-    question: "What does \"cooperate\" mean?",
-    options: [
-      "To fight",
-      "To work together for a common goal",
-      "To hide",
-      "To build alone"
-    ],
-    correct: 1
-  },
   discriminate: {
     question: "What does \"discriminate\" mean?",
     options: [
@@ -10386,31 +10065,6 @@ export const quizData = {
       correct: 0
     }
   },
-  explicit: {
-    question: "What does \"explicit\" mean?",
-    options: [
-      "Hidden and unclear",
-      "Stated clearly and directly",
-      "Very boring",
-      "Totally wrong"
-    ],
-    correct: 1,
-    scenario: {
-      question: "If your boss gives you explicit instructions, they:",
-      options: [
-        "Tell you to \"just do something.\"",
-        "Tell you exactly what to do, how to do it, and when to finish.",
-        "Don't say anything at all.",
-        "I'm not sure."
-      ],
-      correct: 1
-    },
-    fillBlank: {
-      question: "I gave you ________ directions so you wouldn't get lost.",
-      options: ["explicit", "exploit", "export", "expand"],
-      correct: 0
-    }
-  },
   federal: {
     question: "What does \"federal\" mean?",
     options: [
@@ -10530,31 +10184,6 @@ export const quizData = {
         "community",
         "convene"
       ],
-      correct: 0
-    }
-  },
-  flexible: {
-    question: "What does \"flexible\" mean?",
-    options: [
-      "Rigid and stiff",
-      "Able to change or bend easily",
-      "Always broken",
-      "Very heavy"
-    ],
-    correct: 1,
-    scenario: {
-      question: "If you have a flexible schedule, it means:",
-      options: [
-        "You must start work at exactly 9:00 AM every day.",
-        "You can choose when you start and finish your work.",
-        "You don't have a job.",
-        "I'm not sure."
-      ],
-      correct: 1
-    },
-    fillBlank: {
-      question: "Rubber is a ________ material.",
-      options: ["flexible", "finite", "federal", "final"],
       correct: 0
     }
   },
@@ -11229,16 +10858,6 @@ export const quizData = {
       correct: 0
     }
   },
-  intelligent: {
-    question: "What does \"intelligent\" mean?",
-    options: [
-      "Stupid",
-      "Smart and able to learn well",
-      "Very slow",
-      "Extremely loud"
-    ],
-    correct: 1
-  },
   interval: {
     question: "What does \"interval\" mean?",
     options: [
@@ -11907,31 +11526,6 @@ export const quizData = {
         "community",
         "cite"
       ],
-      correct: 0
-    }
-  },
-  contrary: {
-    question: "What does \"contrary\" mean?",
-    options: [
-      "The same",
-      "Opposite or completely different",
-      "Very helpful",
-      "Always right"
-    ],
-    correct: 1,
-    scenario: {
-      question: "If everyone says the movie is good, but you say it is bad, you have a contrary opinion. This means:",
-      options: [
-        "You agree with everyone.",
-        "You have the opposite opinion.",
-        "You haven't seen the movie.",
-        "I'm not sure."
-      ],
-      correct: 1
-    },
-    fillBlank: {
-      question: "________ to popular belief, most sharks are not dangerous to humans.",
-      options: ["Contrary", "Consequent", "Constant", "Considerable"],
       correct: 0
     }
   },
@@ -13582,102 +13176,6 @@ export const quizData = {
       correct: 0
     }
   },
-  accommodate: {
-    question: "What does \"accommodate\" mean?",
-    options: [
-      "To provide a place to stay or fit a need",
-      "To argue with someone",
-      "To break a tool",
-      "To forget a name"
-    ],
-    correct: 0,
-    scenario: {
-      question: "A hotel that can accommodate 500 guests means it can:",
-      options: [
-        "Refuse 500 guests.",
-        "Have space and facilities for 500 guests.",
-        "Charge 500 guests extra.",
-        "I'm not sure."
-      ],
-      correct: 1
-    },
-    fillBlank: {
-      question: "The new office was designed to ________ up to 200 employees comfortably.",
-      options: ["accommodate", "abandon", "advocate", "allocate"],
-      correct: 0
-    }
-  },
-  accompany: {
-    question: "What does \"accompany\" mean?",
-    options: [
-      "To stay home",
-      "To go somewhere with someone",
-      "To travel alone",
-      "To lose a friend"
-    ],
-    correct: 1,
-    scenario2: {
-      question: "A famous singer performs at a concert. A pianist plays music while the singer sings. The pianist ________ the singer.",
-      options: [
-        "Ignores",
-        "Accompanies",
-        "Fights"
-      ],
-      correct: 1
-    },
-    scenario3: {
-      question: "A parent goes with their child to the first day of school. The parent ________ the child.",
-      options: [
-        "Leaves",
-        "Accompanies",
-        "Forgets"
-      ],
-      correct: 1
-    },
-    fillBlank2: {
-      question: "I will ________ you to the airport tomorrow morning.",
-      options: [
-        "accompany",
-        "abandon",
-        "assess"
-      ],
-      correct: 0
-    },
-    fillBlank3: {
-      question: "The guidebook will ________ you on your journey.",
-      options: [
-        "accompany",
-        "allocate",
-        "achieve"
-      ],
-      correct: 0
-    }
-  },
-  accumulate: {
-    question: "What does \"accumulate\" mean?",
-    options: [
-      "To collect or gather more of something over time",
-      "To throw things away",
-      "To share with others",
-      "To buy a gift"
-    ],
-    correct: 0,
-    scenario: {
-      question: "When a person accumulates savings over years, they are:",
-      options: [
-        "Spending all their money immediately.",
-        "Gradually building up a larger amount of money.",
-        "Giving their money away.",
-        "I'm not sure."
-      ],
-      correct: 1
-    },
-    fillBlank: {
-      question: "Over time, small mistakes can ________ and cause serious problems.",
-      options: ["accumulate", "achieve", "acknowledge", "affect"],
-      correct: 0
-    }
-  },
   adjacent: {
     question: "What does \"adjacent\" mean?",
     options: [
@@ -15020,31 +14518,6 @@ export const quizData = {
       correct: 0
     }
   },
-  commence: {
-    question: "What does \"commence\" mean?",
-    options: [
-      "To finish",
-      "To begin or start",
-      "To wait",
-      "To sleep"
-    ],
-    correct: 1,
-    scenario: {
-      question: "A ceremony that commences at 10 AM will:",
-      options: [
-        "End at 10 AM.",
-        "Start at 10 AM.",
-        "Be cancelled at 10 AM.",
-        "I'm not sure."
-      ],
-      correct: 1
-    },
-    fillBlank: {
-      question: "The meeting will ________ as soon as all members have arrived.",
-      options: ["commence", "compile", "conform", "confine"],
-      correct: 0
-    }
-  },
   commodity: {
     question: "What does \"commodity\" mean?",
     options: [
@@ -15533,41 +15006,6 @@ export const quizData = {
       correct: 0
     }
   },
-  contemporary: {
-    question: "What does \"contemporary\" mean?",
-    options: [
-      "Ancient",
-      "Modern / happening in the same time period",
-      "Future",
-      "Broken"
-    ],
-    correct: 1
-  },
-  contradict: {
-    question: "What does \"contradict\" mean?",
-    options: [
-      "To agree with",
-      "To say the opposite of what someone else said",
-      "To help",
-      "To listen"
-    ],
-    correct: 1,
-    scenario: {
-      question: "If you contradict yourself, you:",
-      options: [
-        "Say the same thing twice.",
-        "Say one thing and then say the opposite later.",
-        "Speak very clearly so everyone understands.",
-        "I'm not sure."
-      ],
-      correct: 1
-    },
-    fillBlank: {
-      question: "The witness's story began to ________ the evidence found by the police.",
-      options: ["contradict", "contribute", "convince", "converse"],
-      correct: 0
-    }
-  },
   controversy: {
     question: "What does \"controversy\" mean?",
     options: [
@@ -15628,26 +15066,6 @@ export const quizData = {
       ],
       correct: 0
     }
-  },
-  converse: {
-    question: "What does \"converse\" mean?",
-    options: [
-      "To be silent",
-      "To talk to someone",
-      "To run fast",
-      "To sleep"
-    ],
-    correct: 1
-  },
-  convince: {
-    question: "What does \"convince\" mean?",
-    options: [
-      "To confuse someone",
-      "To make someone believe or do something",
-      "To lie",
-      "To forget"
-    ],
-    correct: 1
   },
   crucial: {
     question: "What does \"crucial\" mean?",
@@ -16686,16 +16104,6 @@ export const quizData = {
       correct: 0
     }
   },
-  eventual: {
-    question: "What does \"eventual\" mean?",
-    options: [
-      "Happening at the beginning",
-      "Happening at the end or after some time",
-      "Never happening",
-      "Happening immediately"
-    ],
-    correct: 1
-  },
   exhibit: {
     question: "What does \"exhibit\" mean?",
     options: [
@@ -17489,16 +16897,6 @@ export const quizData = {
       correct: 0
     }
   },
-  inner: {
-    question: "What does \"inner\" mean?",
-    options: [
-      "On the outside",
-      "On the inside",
-      "Very far away",
-      "Extremely loud"
-    ],
-    correct: 1
-  },
   insight: {
     question: "What does \"insight\" mean?",
     options: [
@@ -17804,31 +17202,6 @@ export const quizData = {
       correct: 0
     }
   },
-  intermediate: {
-    question: "What does \"intermediate\" mean?",
-    options: [
-      "Beginner level",
-      "Between two stages or levels (middle)",
-      "Advanced level",
-      "The very end"
-    ],
-    correct: 1,
-    scenario: {
-      question: "An intermediate English student:",
-      options: [
-        "Can only say \"Hello\" and \"Goodbye.\"",
-        "Can have a basic conversation but still makes mistakes.",
-        "Speaks like a native person.",
-        "I'm not sure."
-      ],
-      correct: 1
-    },
-    fillBlank: {
-      question: "This class is for ________ learners, not beginners.",
-      options: ["intermediate", "intense", "integral", "internal"],
-      correct: 0
-    }
-  },
   intrinsic: {
     question: "What does \"intrinsic\" mean?",
     options: [
@@ -17890,3 +17263,5 @@ export const quizData = {
       correct: 0
     }
   },
+
+};
