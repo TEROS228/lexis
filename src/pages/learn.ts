@@ -497,6 +497,17 @@ function showIntroWord() {
             const utterance = new SpeechSynthesisUtterance(word.en);
             utterance.lang = 'en-US';
             utterance.rate = 0.7; // slower for learning
+
+            // Try to find and use an English voice
+            const voices = speechSynthesis.getVoices();
+            const englishVoice = voices.find(v =>
+                v.lang.startsWith('en-') && (v.name.includes('Google') || v.name.includes('Microsoft') || v.name.includes('Samantha') || v.name.includes('Alex'))
+            ) || voices.find(v => v.lang.startsWith('en-'));
+
+            if (englishVoice) {
+                utterance.voice = englishVoice;
+            }
+
             speechSynthesis.speak(utterance);
         };
     }
