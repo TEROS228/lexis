@@ -482,7 +482,25 @@ function showIntroWord() {
     const totalInPool = introItems.length + activePool.filter(i => i.phase === 'quiz').length;
 
     // ── Word header
-    wordMain.textContent = word.en;
+    wordMain.innerHTML = `
+        ${word.en}
+        <button class="speak-btn" style="margin-left: 12px; background: none; border: none; cursor: pointer; font-size: 24px;" title="Listen to pronunciation">
+            🔊
+        </button>
+    `;
+
+    // Add click handler for speak button
+    const speakBtn = wordMain.querySelector('.speak-btn') as HTMLButtonElement;
+    if (speakBtn) {
+        speakBtn.onclick = (e) => {
+            e.stopPropagation();
+            const utterance = new SpeechSynthesisUtterance(word.en);
+            utterance.lang = 'en-US';
+            utterance.rate = 0.7; // slower for learning
+            speechSynthesis.speak(utterance);
+        };
+    }
+
     meaningText.textContent = word[currentLang] || word.ru;
     wordMeaning.style.display = 'none';
     wordActions.style.display = 'none';
