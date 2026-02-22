@@ -6,6 +6,9 @@ import { quizData } from '../data/quiz-data';
 import { t, updatePageTranslations, setLanguage, getCurrentLanguage } from '../i18n';
 
 console.log('=== word-details.js LOADED ===');
+console.log('quizData imported:', quizData);
+console.log('quizData type:', typeof quizData);
+console.log('quizData keys:', Object.keys(quizData || {}).length);
 
 let currentUser = null;
 let currentLang = getCurrentLanguage();
@@ -107,9 +110,9 @@ function displayWordDetails() {
 function displayQuiz(word: any) {
     console.log('displayQuiz called for:', word.id);
     console.log('quizData exists:', !!quizData);
-    console.log('quizData keys count:', Object.keys(quizData).length);
+    console.log('quizData keys count:', Object.keys(quizData || {}).length);
 
-    const quiz = quizData[word.id];
+    const quiz = (quizData as any)[word.id];
     console.log('Quiz found:', !!quiz, quiz);
 
     if (!quiz) {
