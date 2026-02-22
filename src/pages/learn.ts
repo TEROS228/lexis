@@ -650,14 +650,15 @@ function showListeningQuiz(word: any, item: PoolItem) {
         const correctAnswer = word.en.toLowerCase();
 
         if (userAnswer === correctAnswer) {
+            // Hide input and button
+            input.style.display = 'none';
+            submitBtn.style.display = 'none';
+
             quizFeedback.textContent = '✓ Perfect! You got it right! 🎉';
             quizFeedback.className = 'quiz-feedback feedback-correct';
             quizFeedback.style.display = 'block';
             listeningQuizAnswered = true;
             btnNext.disabled = false;
-            input.disabled = true;
-            submitBtn.disabled = true;
-            submitBtn.style.opacity = '0.6';
         } else {
             quizFeedback.textContent = `✗ Wrong. Correct word: "${word.en}"`;
             quizFeedback.className = 'quiz-feedback feedback-wrong';
