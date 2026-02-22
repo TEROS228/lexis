@@ -612,23 +612,21 @@ function showIntroWord() {
 // ─── LISTENING QUIZ: type what you hear ────────────────────────────────
 function showListeningQuiz(word: any, item: PoolItem) {
     quizQuestion.innerHTML = `
-        <div style="text-align: center; color: white;">
-            <h3 style="font-size: 20px; font-weight: 700; margin-bottom: 30px; text-shadow: 0 2px 4px rgba(0,0,0,0.1);">Listen and type the word</h3>
-            <button class="listen-btn-animated" id="listenBtn">
-                <svg viewBox="0 0 24 24" style="width: 42px; height: 42px; stroke: white; stroke-width: 1.8; fill: none; stroke-linecap: round; stroke-linejoin: round;">
-                    <polygon points="5 9 9 9 14 5 14 19 9 15 5 15"></polygon>
-                    <path d="M17 9c1.2 1 1.8 2 1.8 3s-.6 2-1.8 3"></path>
-                </svg>
-            </button>
-        </div>
+        <h3 style="font-size: 26px; font-weight: 700; margin-bottom: 45px; color: white; text-align: center;">Listen and type the word</h3>
     `;
 
     quizOptions.innerHTML = `
+        <button class="listen-btn-animated" id="listenBtn">
+            <svg viewBox="0 0 24 24" style="width: 42px; height: 42px; stroke: white; stroke-width: 1.8; fill: none; stroke-linecap: round; stroke-linejoin: round;">
+                <polygon points="5 9 9 9 14 5 14 19 9 15 5 15"></polygon>
+                <path d="M17 9c1.2 1 1.8 2 1.8 3s-.6 2-1.8 3"></path>
+            </svg>
+        </button>
         <input type="text" id="listeningInput" class="listening-input" placeholder="Type what you hear..." />
         <button id="listeningSubmit" class="listening-submit">Submit</button>
     `;
 
-    const speakBtnLarge = quizQuestion.querySelector('#listenBtn') as HTMLButtonElement;
+    const speakBtnLarge = quizOptions.querySelector('#listenBtn') as HTMLButtonElement;
     const input = document.getElementById('listeningInput') as HTMLInputElement;
     const submitBtn = document.getElementById('listeningSubmit') as HTMLButtonElement;
 
@@ -650,7 +648,8 @@ function showListeningQuiz(word: any, item: PoolItem) {
         const correctAnswer = word.en.toLowerCase();
 
         if (userAnswer === correctAnswer) {
-            // Hide input and button
+            // Hide all quiz elements
+            speakBtnLarge.style.display = 'none';
             input.style.display = 'none';
             submitBtn.style.display = 'none';
 
