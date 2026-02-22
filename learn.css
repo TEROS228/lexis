@@ -574,3 +574,92 @@
     color: #991b1b;
     border: 2px solid #ef4444;
 }
+
+/* ===== Listening Quiz ===== */
+.listen-btn-animated {
+    width: 130px;
+    height: 130px;
+    border-radius: 50%;
+    background: linear-gradient(145deg, #5b6fdf 0%, #5865f2 100%);
+    border: none;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: all 0.3s ease;
+    box-shadow: 0 8px 24px rgba(88, 101, 242, 0.4), 0 4px 12px rgba(0, 0, 0, 0.2);
+    margin: 0 auto 30px;
+}
+
+.listen-btn-animated:hover {
+    transform: scale(1.05);
+    box-shadow: 0 12px 32px rgba(88, 101, 242, 0.5), 0 6px 16px rgba(0, 0, 0, 0.25);
+}
+
+.listen-btn-animated:active {
+    transform: scale(0.98);
+}
+
+.listen-btn-animated.playing {
+    animation: pulse 1s ease-in-out;
+}
+
+@keyframes pulse {
+    0%, 100% {
+        transform: scale(1);
+        box-shadow: 0 8px 24px rgba(88, 101, 242, 0.4), 0 4px 12px rgba(0, 0, 0, 0.2);
+    }
+    50% {
+        transform: scale(1.1);
+        box-shadow: 0 12px 36px rgba(88, 101, 242, 0.6), 0 6px 18px rgba(0, 0, 0, 0.3);
+    }
+}
+
+.listening-input {
+    width: 100%;
+    padding: 16px 20px;
+    font-size: 16px;
+    border: 2px solid rgba(255, 255, 255, 0.3);
+    border-radius: 14px;
+    background: rgba(255, 255, 255, 0.9);
+    backdrop-filter: blur(10px);
+    font-family: inherit;
+    transition: all 0.3s ease;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
+    margin-bottom: 12px;
+}
+
+.listening-input:focus {
+    outline: none;
+    border-color: rgba(255, 255, 255, 0.6);
+    background: rgba(255, 255, 255, 1);
+    box-shadow: 0 6px 16px rgba(0, 0, 0, 0.12);
+}
+
+.listening-input::placeholder {
+    color: #94a3b8;
+}
+
+.listening-submit {
+    width: 100%;
+    padding: 16px 20px;
+    font-size: 16px;
+    font-weight: 700;
+    color: white;
+    background: linear-gradient(135deg, #10b981 0%, #059669 100%);
+    border: none;
+    border-radius: 14px;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    box-shadow: 0 4px 12px rgba(16, 185, 129, 0.3);
+    font-family: inherit;
+}
+
+.listening-submit:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 8px 20px rgba(16, 185, 129, 0.4);
+}
+
+.listening-submit:active {
+    transform: translateY(0);
+}

@@ -612,31 +612,37 @@ function showIntroWord() {
 // ─── LISTENING QUIZ: type what you hear ────────────────────────────────
 function showListeningQuiz(word: any, item: PoolItem) {
     quizQuestion.innerHTML = `
-        <div style="text-align: center;">
-            <button class="speak-btn-large" style="background: #4CAF50; color: white; border: none; padding: 20px 40px; border-radius: 8px; cursor: pointer; font-size: 48px; margin-bottom: 20px;">
-                🔊
+        <div style="text-align: center; color: white;">
+            <h3 style="font-size: 20px; font-weight: 700; margin-bottom: 30px; text-shadow: 0 2px 4px rgba(0,0,0,0.1);">Listen and type the word</h3>
+            <button class="listen-btn-animated" id="listenBtn">
+                <svg viewBox="0 0 24 24" style="width: 42px; height: 42px; stroke: white; stroke-width: 1.8; fill: none; stroke-linecap: round; stroke-linejoin: round;">
+                    <polygon points="5 9 9 9 14 5 14 19 9 15 5 15"></polygon>
+                    <path d="M17 9c1.2 1 1.8 2 1.8 3s-.6 2-1.8 3"></path>
+                </svg>
             </button>
-            <p style="margin-top: 10px; color: #666;">Click to hear the word</p>
         </div>
     `;
 
     quizOptions.innerHTML = `
-        <input type="text" id="listeningInput" placeholder="Type what you hear..."
-            style="width: 100%; padding: 12px; font-size: 18px; border: 2px solid #ddd; border-radius: 8px; margin-bottom: 12px;" />
-        <button id="listeningSubmit" style="width: 100%; padding: 12px; background: #4CAF50; color: white; border: none; border-radius: 8px; font-size: 16px; cursor: pointer;">
-            Check Answer
-        </button>
+        <input type="text" id="listeningInput" class="listening-input" placeholder="Type what you hear..." />
+        <button id="listeningSubmit" class="listening-submit">Submit</button>
     `;
 
-    const speakBtnLarge = quizQuestion.querySelector('.speak-btn-large') as HTMLButtonElement;
+    const speakBtnLarge = quizQuestion.querySelector('#listenBtn') as HTMLButtonElement;
     const input = document.getElementById('listeningInput') as HTMLInputElement;
     const submitBtn = document.getElementById('listeningSubmit') as HTMLButtonElement;
 
-    // Auto-play once
-    setTimeout(() => speakWord(word.en), 300);
+    // Auto-play once with animation
+    setTimeout(() => {
+        speakBtnLarge.classList.add('playing');
+        speakWord(word.en);
+        setTimeout(() => speakBtnLarge.classList.remove('playing'), 1000);
+    }, 300);
 
     speakBtnLarge.onclick = () => {
+        speakBtnLarge.classList.add('playing');
         speakWord(word.en);
+        setTimeout(() => speakBtnLarge.classList.remove('playing'), 1000);
     };
 
     const checkAnswer = () => {
@@ -644,15 +650,16 @@ function showListeningQuiz(word: any, item: PoolItem) {
         const correctAnswer = word.en.toLowerCase();
 
         if (userAnswer === correctAnswer) {
-            quizFeedback.textContent = '✓ Perfect! You got it right!';
+            quizFeedback.textContent = '✓ Perfect! You got it right! 🎉';
             quizFeedback.className = 'quiz-feedback feedback-correct';
             quizFeedback.style.display = 'block';
             listeningQuizAnswered = true;
             btnNext.disabled = false;
             input.disabled = true;
             submitBtn.disabled = true;
+            submitBtn.style.opacity = '0.6';
         } else {
-            quizFeedback.textContent = `✗ Not quite. The correct spelling is "${word.en}". Try again!`;
+            quizFeedback.textContent = `✗ Wrong. Correct word: "${word.en}"`;
             quizFeedback.className = 'quiz-feedback feedback-wrong';
             quizFeedback.style.display = 'block';
             input.value = '';
