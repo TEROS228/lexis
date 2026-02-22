@@ -33,6 +33,7 @@ interface PoolItem {
     quizStage: QuizStage;  // kept for localStorage compat, not used in quiz phase
     attempts: number;
     completedStages: QuizStage[];  // which quiz stages have been passed
+    isReview?: boolean;  // true if word returned after wrong answer
 }
 
 // Words not yet added to pool
@@ -490,7 +491,11 @@ function showIntroWord() {
     btnNext.onclick = null;
 
     // ── Badge
-    quizAttempts.innerHTML = `<span class="check-badge">📖 ${introCursor + 1} / ${totalInPool}</span>`;
+    if (item.isReview) {
+        quizAttempts.innerHTML = `<span class="check-badge">🔄 Review</span>`;
+    } else {
+        quizAttempts.innerHTML = `<span class="check-badge">📖 ${introCursor + 1} / ${totalInPool}</span>`;
+    }
 
     // ── Explanation card
     const details = wordDetails[word.id];
@@ -650,6 +655,7 @@ function renderQuizTask(word: any, item: PoolItem, quiz: any, stageType: QuizSta
                 item.phase = 'intro';
                 item.completedStages = [];
                 item.attempts = 0;
+                item.isReview = true;  // Mark as review
                 applyStatus(item.wordId, 'unknown');
                 // Move to front of intro cursor
                 introPhase = true;
@@ -763,6 +769,11 @@ function renderQuizOptions(quiz: any, onAnswer: (correct: boolean, chosenIdx: nu
 function nextWord() {
     if (introPhase) {
         if (!introQuizAnswered) return; // locked until quiz answered
+        // Reset isReview flag when moving to next word
+        const introItems = activePool.filter(i => i.phase === 'intro');
+        if (introItems[introCursor]) {
+            introItems[introCursor].isReview = false;
+        }
         introCursor++;
         introQuizAnswered = false;
         savePoolState(currentUser?.uid);
