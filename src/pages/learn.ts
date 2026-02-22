@@ -779,6 +779,7 @@ function renderQuizTask(word: any, item: PoolItem, quiz: any, stageType: QuizSta
                 introCursor = introItems.findIndex(i => i.wordId === item.wordId);
                 if (introCursor === -1) introCursor = 0;
                 introQuizAnswered = false;
+                listeningQuizAnswered = false;
                 savePoolState(currentUser?.uid);
                 setTimeout(displayCurrentWord, 1500);
             } else {
@@ -835,6 +836,7 @@ function handleMastered(item: PoolItem) {
         introPhase = true;
         introCursor = 0;
         introQuizAnswered = false;
+        listeningQuizAnswered = false;
     }
 
     updateStats();
