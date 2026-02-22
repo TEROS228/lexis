@@ -22,7 +22,7 @@ let currentLang = getCurrentLanguage();
 
 const POOL_SIZE = 10;
 
-type QuizStage = 'multiChoice' | 'fillBlank' | 'fillBlank2' | 'fillBlank3' | 'scenario' | 'scenario2' | 'scenario3';
+type QuizStage = 'multiChoice' | 'listening' | 'fillBlank' | 'fillBlank2' | 'fillBlank3' | 'scenario' | 'scenario2' | 'scenario3';
 
 interface PoolItem {
     wordId: string;
@@ -59,6 +59,7 @@ let introCursor = 0;
 
 // Whether quiz on current intro word has been answered (unlocks Next)
 let introQuizAnswered = false;
+let listeningQuizAnswered = false;
 
 function loadPoolState(uid: string) {
     try {
@@ -455,6 +456,24 @@ function displayCurrentWord() {
     }
 }
 
+// ─── Speech Synthesis Helper ──────────────────────────────────────────
+function speakWord(text: string) {
+    const utterance = new SpeechSynthesisUtterance(text);
+    utterance.lang = 'en-US';
+    utterance.rate = 0.7;
+
+    const voices = speechSynthesis.getVoices();
+    const englishVoice = voices.find(v =>
+        v.lang.startsWith('en-') && (v.name.includes('Google') || v.name.includes('Microsoft') || v.name.includes('Samantha') || v.name.includes('Alex'))
+    ) || voices.find(v => v.lang.startsWith('en-'));
+
+    if (englishVoice) {
+        utterance.voice = englishVoice;
+    }
+
+    speechSynthesis.speak(utterance);
+}
+
 // ─── INTRO PHASE: show explanation + multiChoice quiz on same page ────────────
 function showIntroWord() {
     const introItems = activePool.filter(item => item.phase === 'intro');
@@ -519,6 +538,11 @@ function showIntroWord() {
     btnNext.disabled = !introQuizAnswered;
     btnNext.onclick = null;
 
+    // Auto-play pronunciation when word first appears
+    if (!introQuizAnswered) {
+        setTimeout(() => speakWord(word.en), 500);
+    }
+
     // ── Badge
     if (item.isReview) {
         quizAttempts.innerHTML = `<span class="check-badge">🔄 Review</span>`;
@@ -563,10 +587,14 @@ function showIntroWord() {
                 if (correct) {
                     introQuizAnswered = true;
                     savePoolState(currentUser?.uid);
-                    quizFeedback.textContent = '✓ Correct!';
+                    quizFeedback.textContent = '✓ Correct! Now write what you hear...';
                     quizFeedback.className = 'quiz-feedback feedback-correct';
                     quizFeedback.style.display = 'block';
-                    btnNext.disabled = false;
+
+                    // Show listening quiz after 1 second
+                    setTimeout(() => {
+                        showListeningQuiz(word, item);
+                    }, 1000);
                 } else {
                     disabledIndices.add(chosenIdx);
                     quizFeedback.textContent = '✗ Not quite — try again!';
@@ -579,6 +607,65 @@ function showIntroWord() {
         tryQuiz();
     }
 
+}
+
+// ─── LISTENING QUIZ: type what you hear ────────────────────────────────
+function showListeningQuiz(word: any, item: PoolItem) {
+    quizQuestion.innerHTML = `
+        <div style="text-align: center;">
+            <button class="speak-btn-large" style="background: #4CAF50; color: white; border: none; padding: 20px 40px; border-radius: 8px; cursor: pointer; font-size: 48px; margin-bottom: 20px;">
+                🔊
+            </button>
+            <p style="margin-top: 10px; color: #666;">Click to hear the word</p>
+        </div>
+    `;
+
+    quizOptions.innerHTML = `
+        <input type="text" id="listeningInput" placeholder="Type what you hear..."
+            style="width: 100%; padding: 12px; font-size: 18px; border: 2px solid #ddd; border-radius: 8px; margin-bottom: 12px;" />
+        <button id="listeningSubmit" style="width: 100%; padding: 12px; background: #4CAF50; color: white; border: none; border-radius: 8px; font-size: 16px; cursor: pointer;">
+            Check Answer
+        </button>
+    `;
+
+    const speakBtnLarge = quizQuestion.querySelector('.speak-btn-large') as HTMLButtonElement;
+    const input = document.getElementById('listeningInput') as HTMLInputElement;
+    const submitBtn = document.getElementById('listeningSubmit') as HTMLButtonElement;
+
+    // Auto-play once
+    setTimeout(() => speakWord(word.en), 300);
+
+    speakBtnLarge.onclick = () => {
+        speakWord(word.en);
+    };
+
+    const checkAnswer = () => {
+        const userAnswer = input.value.trim().toLowerCase();
+        const correctAnswer = word.en.toLowerCase();
+
+        if (userAnswer === correctAnswer) {
+            quizFeedback.textContent = '✓ Perfect! You got it right!';
+            quizFeedback.className = 'quiz-feedback feedback-correct';
+            quizFeedback.style.display = 'block';
+            listeningQuizAnswered = true;
+            btnNext.disabled = false;
+            input.disabled = true;
+            submitBtn.disabled = true;
+        } else {
+            quizFeedback.textContent = `✗ Not quite. The correct spelling is "${word.en}". Try again!`;
+            quizFeedback.className = 'quiz-feedback feedback-wrong';
+            quizFeedback.style.display = 'block';
+            input.value = '';
+            input.focus();
+        }
+    };
+
+    submitBtn.onclick = checkAnswer;
+    input.onkeypress = (e) => {
+        if (e.key === 'Enter') checkAnswer();
+    };
+
+    input.focus();
 }
 
 // ─── QUIZ PHASE: show next quiz task from queue ───────────────────────
@@ -797,7 +884,7 @@ function renderQuizOptions(quiz: any, onAnswer: (correct: boolean, chosenIdx: nu
 // ─── Navigation ───────────────────────────────────────────────────────
 function nextWord() {
     if (introPhase) {
-        if (!introQuizAnswered) return; // locked until quiz answered
+        if (!introQuizAnswered || !listeningQuizAnswered) return; // locked until both quizzes answered
         // Reset isReview flag when moving to next word
         const introItems = activePool.filter(i => i.phase === 'intro');
         if (introItems[introCursor]) {
@@ -805,6 +892,7 @@ function nextWord() {
         }
         introCursor++;
         introQuizAnswered = false;
+        listeningQuizAnswered = false;
         savePoolState(currentUser?.uid);
         displayCurrentWord();
     } else {
