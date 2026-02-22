@@ -6,9 +6,6 @@ import { quizData } from '../data/quiz-data';
 import { t, updatePageTranslations, setLanguage, getCurrentLanguage } from '../i18n';
 
 console.log('=== word-details.js LOADED ===');
-console.log('quizData imported:', quizData);
-console.log('quizData type:', typeof quizData);
-console.log('quizData keys:', Object.keys(quizData || {}).length);
 
 let currentUser = null;
 let currentLang = getCurrentLanguage();
@@ -52,9 +49,6 @@ function updateTranslations() {
 
 // Display word details
 function displayWordDetails() {
-    console.log('=== displayWordDetails START ===');
-    console.log('wordId:', wordId);
-
     // Check if word ID exists
     if (!wordId) {
         alert('Слово не указано');
@@ -63,8 +57,6 @@ function displayWordDetails() {
     }
 
     const word = tier2Words.find(w => w.id === wordId);
-    console.log('word found:', word);
-
     if (!word) {
         alert('Слово не найдено');
         window.location.href = '/word-list';
@@ -113,15 +105,10 @@ function displayWordDetails() {
 
 // Display quiz for the word
 function displayQuiz(word: any) {
-    console.log('displayQuiz called for:', word.id);
-    console.log('quizData exists:', !!quizData);
-    console.log('quizData keys count:', Object.keys(quizData || {}).length);
-
     const quiz = (quizData as any)[word.id];
-    console.log('Quiz found:', !!quiz, quiz);
 
     if (!quiz) {
-        console.log('No quiz data for word:', word.id);
+        console.warn('No quiz data for word:', word.id);
         return;
     }
 
@@ -131,7 +118,7 @@ function displayQuiz(word: any) {
     const quizFeedback = document.getElementById('quizFeedback');
 
     if (!quizSection || !quizQuestion || !quizOptions || !quizFeedback) {
-        console.error('Quiz elements not found');
+        console.error('Quiz elements not found in DOM');
         return;
     }
 
@@ -143,13 +130,15 @@ function displayQuiz(word: any) {
 
     // Create options
     quizOptions.innerHTML = '';
-    quiz.options.forEach((option, index) => {
+    quiz.options.forEach((option: string, index: number) => {
         const button = document.createElement('button');
         button.className = 'quiz-option';
         button.textContent = option;
         button.onclick = () => handleQuizAnswer(index, quiz.correct, button, word);
         quizOptions.appendChild(button);
     });
+
+    console.log('✅ Quiz displayed for:', word.id);
 }
 
 // Handle quiz answer
