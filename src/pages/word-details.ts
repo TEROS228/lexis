@@ -52,6 +52,9 @@ function updateTranslations() {
 
 // Display word details
 function displayWordDetails() {
+    console.log('=== displayWordDetails START ===');
+    console.log('wordId:', wordId);
+
     // Check if word ID exists
     if (!wordId) {
         alert('Слово не указано');
@@ -60,6 +63,8 @@ function displayWordDetails() {
     }
 
     const word = tier2Words.find(w => w.id === wordId);
+    console.log('word found:', word);
+
     if (!word) {
         alert('Слово не найдено');
         window.location.href = '/word-list';
