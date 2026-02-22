@@ -651,11 +651,14 @@ function renderQuizTask(word: any, item: PoolItem, quiz: any, stageType: QuizSta
                 item.completedStages = [];
                 item.attempts = 0;
                 applyStatus(item.wordId, 'unknown');
+                // Move to front of intro cursor
+                introPhase = true;
+                const introItems = activePool.filter(i => i.phase === 'intro');
+                introCursor = introItems.findIndex(i => i.wordId === item.wordId);
+                if (introCursor === -1) introCursor = 0;
+                introQuizAnswered = false;
                 savePoolState(currentUser?.uid);
-                // Redirect to word-details page
-                setTimeout(() => {
-                    window.location.href = `/word-details.html?word=${item.wordId}`;
-                }, 1500);
+                setTimeout(displayCurrentWord, 1500);
             } else {
                 quizFeedback.textContent = `✗ Not quite — try again! (${attemptsLeft} attempt${attemptsLeft > 1 ? 's' : ''} left)`;
                 quizFeedback.className = 'quiz-feedback feedback-wrong';
