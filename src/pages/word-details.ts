@@ -6,10 +6,17 @@ import { quizData } from '../data/quiz-data';
 import { t, updatePageTranslations, setLanguage, getCurrentLanguage } from '../i18n';
 
 console.log('=== word-details.js LOADED ===');
+console.log('tier2Words:', tier2Words);
+console.log('wordDetails:', wordDetails);
+console.log('quizData:', quizData);
+console.log('tier2Words count:', tier2Words?.length);
+console.log('quizData keys:', Object.keys(quizData).length);
 
 let currentUser = null;
 let currentLang = getCurrentLanguage();
 let wordId = null;
+
+console.log('Initial wordId from URL:', new URLSearchParams(window.location.search).get('word'));
 
 // Loading overlay
 const loadingOverlay = document.getElementById('loadingOverlay');
@@ -49,6 +56,9 @@ function updateTranslations() {
 
 // Display word details
 function displayWordDetails() {
+    console.log('📍 displayWordDetails CALLED');
+    console.log('wordId:', wordId);
+
     // Check if word ID exists
     if (!wordId) {
         alert('Слово не указано');
@@ -57,6 +67,8 @@ function displayWordDetails() {
     }
 
     const word = tier2Words.find(w => w.id === wordId);
+    console.log('Found word:', word);
+
     if (!word) {
         alert('Слово не найдено');
         window.location.href = '/word-list';
