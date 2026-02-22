@@ -222,3 +222,107 @@ body {
         font-size: 14px;
     }
 }
+
+/* ===== Quiz Styles ===== */
+.word-quiz {
+    margin: 24px 0 0;
+    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+    border-radius: 20px;
+    padding: 28px;
+    box-shadow: 0 10px 40px rgba(102, 126, 234, 0.3);
+}
+
+.quiz-header {
+    margin-bottom: 20px;
+}
+
+.quiz-question {
+    font-size: 18px;
+    font-weight: 700;
+    color: #ffffff;
+    line-height: 1.5;
+    text-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+.quiz-options {
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+}
+
+.quiz-option {
+    width: 100%;
+    padding: 16px 20px;
+    text-align: left;
+    background: #ffffff;
+    border: 3px solid transparent;
+    border-radius: 14px;
+    font-size: 16px;
+    color: #1f2937;
+    cursor: pointer;
+    transition: all 0.25s ease;
+    font-family: inherit;
+    font-weight: 500;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
+}
+
+.quiz-option:hover:not(:disabled) {
+    border-color: #667eea;
+    transform: translateY(-2px);
+    box-shadow: 0 8px 20px rgba(102, 126, 234, 0.3);
+}
+
+.quiz-option.correct {
+    background: linear-gradient(135deg, #10b981 0%, #059669 100%);
+    border-color: #10b981;
+    color: #ffffff;
+    font-weight: 700;
+    transform: scale(1.02);
+    box-shadow: 0 8px 24px rgba(16, 185, 129, 0.4);
+}
+
+.quiz-option.wrong {
+    background: linear-gradient(135deg, #ef4444 0%, #dc2626 100%);
+    border-color: #ef4444;
+    color: #ffffff;
+    font-weight: 600;
+    animation: shake 0.4s;
+    box-shadow: 0 8px 24px rgba(239, 68, 68, 0.4);
+}
+
+@keyframes shake {
+    0%, 100% { transform: translateX(0); }
+    25% { transform: translateX(-8px); }
+    75% { transform: translateX(8px); }
+}
+
+.quiz-option:disabled {
+    cursor: default;
+}
+
+.quiz-feedback {
+    margin-top: 16px;
+    padding: 14px 18px;
+    border-radius: 12px;
+    font-size: 15px;
+    font-weight: 600;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+    animation: fadeIn 0.3s;
+}
+
+@keyframes fadeIn {
+    from { opacity: 0; transform: translateY(-10px); }
+    to { opacity: 1; transform: translateY(0); }
+}
+
+.feedback-correct {
+    background: linear-gradient(135deg, #d1fae5 0%, #a7f3d0 100%);
+    color: #065f46;
+    border: 2px solid #10b981;
+}
+
+.feedback-wrong {
+    background: linear-gradient(135deg, #fee2e2 0%, #fecaca 100%);
+    color: #991b1b;
+    border: 2px solid #ef4444;
+}

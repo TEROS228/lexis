@@ -2,6 +2,7 @@ import { auth, onAuthStateChanged, getCachedAuthState } from '../services/fireba
 import { getUserNativeLanguage } from '../db';
 import tier2Words from '../data/words-tier2-full';
 import wordDetails from '../data/word-details-data';
+import { quizData } from '../data/quiz-data';
 import { t, updatePageTranslations, setLanguage, getCurrentLanguage } from '../i18n';
 
 console.log('=== word-details.js LOADED ===');
@@ -96,6 +97,69 @@ function displayWordDetails() {
             const exampleText = exampleContent.querySelector('.example-text');
             if (exampleText) exampleText.textContent = '-';
         }
+    }
+
+    // Display quiz if available
+    displayQuiz(word);
+}
+
+// Display quiz for the word
+function displayQuiz(word: any) {
+    const quiz = quizData[word.id];
+    if (!quiz) {
+        console.log('No quiz data for word:', word.id);
+        return;
+    }
+
+    const quizSection = document.getElementById('quizSection');
+    const quizQuestion = document.getElementById('quizQuestion');
+    const quizOptions = document.getElementById('quizOptions');
+    const quizFeedback = document.getElementById('quizFeedback');
+
+    if (!quizSection || !quizQuestion || !quizOptions || !quizFeedback) {
+        console.error('Quiz elements not found');
+        return;
+    }
+
+    // Show quiz section
+    quizSection.style.display = 'block';
+
+    // Set question
+    quizQuestion.textContent = quiz.question;
+
+    // Create options
+    quizOptions.innerHTML = '';
+    quiz.options.forEach((option, index) => {
+        const button = document.createElement('button');
+        button.className = 'quiz-option';
+        button.textContent = option;
+        button.onclick = () => handleQuizAnswer(index, quiz.correct, button, word);
+        quizOptions.appendChild(button);
+    });
+}
+
+// Handle quiz answer
+function handleQuizAnswer(selected: number, correct: number, button: HTMLButtonElement, word: any) {
+    const quizOptions = document.getElementById('quizOptions');
+    const quizFeedback = document.getElementById('quizFeedback');
+
+    if (!quizOptions || !quizFeedback) return;
+
+    // Disable all buttons
+    const allButtons = quizOptions.querySelectorAll('.quiz-option') as NodeListOf<HTMLButtonElement>;
+    allButtons.forEach(btn => btn.disabled = true);
+
+    if (selected === correct) {
+        button.classList.add('correct');
+        quizFeedback.textContent = '✓ Correct!';
+        quizFeedback.className = 'quiz-feedback feedback-correct';
+        quizFeedback.style.display = 'block';
+    } else {
+        button.classList.add('wrong');
+        allButtons[correct].classList.add('correct');
+        quizFeedback.textContent = `✗ Wrong. The correct answer is: ${allButtons[correct].textContent}`;
+        quizFeedback.className = 'quiz-feedback feedback-wrong';
+        quizFeedback.style.display = 'block';
     }
 }
 
