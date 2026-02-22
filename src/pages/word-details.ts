@@ -105,7 +105,13 @@ function displayWordDetails() {
 
 // Display quiz for the word
 function displayQuiz(word: any) {
+    console.log('displayQuiz called for:', word.id);
+    console.log('quizData exists:', !!quizData);
+    console.log('quizData keys count:', Object.keys(quizData).length);
+
     const quiz = quizData[word.id];
+    console.log('Quiz found:', !!quiz, quiz);
+
     if (!quiz) {
         console.log('No quiz data for word:', word.id);
         return;
