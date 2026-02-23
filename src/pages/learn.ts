@@ -73,6 +73,7 @@ function loadPoolState(uid: string) {
             introPhase = s.introPhase !== undefined ? s.introPhase : true;
             introCursor = s.introCursor || 0;
             introQuizAnswered = s.introQuizAnswered || false;
+            listeningQuizAnswered = s.listeningQuizAnswered || false;
         }
         // Clear old broken state
         localStorage.removeItem(`poolv2_${uid}`);
@@ -91,7 +92,8 @@ function savePoolState(uid: string) {
             quizQueue,
             introPhase,
             introCursor,
-            introQuizAnswered
+            introQuizAnswered,
+            listeningQuizAnswered
         }));
     } catch { /* ignore */ }
 }
@@ -124,6 +126,7 @@ function initPoolFromProgress(uid: string, progress: Record<string, string>) {
     introPhase = true;
     introCursor = 0;
     introQuizAnswered = false;
+    listeningQuizAnswered = false;
     quizQueue = [];
     savePoolState(uid);
 }
@@ -567,15 +570,20 @@ function showIntroWord() {
     if (!quiz) {
         // No quiz — just unlock Next immediately
         introQuizAnswered = true;
+        listeningQuizAnswered = true;
         btnNext.disabled = false;
         wordQuiz.style.display = 'none';
-    } else if (introQuizAnswered) {
-        // Already answered — show quiz panel locked (read-only feedback visible)
+    } else if (introQuizAnswered && listeningQuizAnswered) {
+        // Both quizzes completed — show as read-only, unlock Next
         wordQuiz.style.display = 'block';
         quizQuestion.textContent = quiz.question;
         btnNext.disabled = false;
+    } else if (introQuizAnswered && !listeningQuizAnswered) {
+        // MultiChoice done, but listening not done — show listening quiz
+        wordQuiz.style.display = 'block';
+        showListeningQuiz(word, item);
     } else {
-        // Show fresh quiz
+        // Show fresh multiChoice quiz
         wordQuiz.style.display = 'block';
         quizQuestion.textContent = quiz.question;
         quizFeedback.style.display = 'none';
@@ -913,6 +921,7 @@ function prevWord() {
     if (introPhase && introCursor > 0) {
         introCursor--;
         introQuizAnswered = true; // already answered when we were on this word
+        listeningQuizAnswered = true; // already answered when we were on this word
         savePoolState(currentUser?.uid);
         displayCurrentWord();
     }
