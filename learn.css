@@ -418,12 +418,12 @@
 /* ===== Inline Quiz ===== */
 .word-quiz {
     margin: 24px 0 4px;
-    background: rgba(255, 255, 255, 0.5);
-    backdrop-filter: blur(10px);
-    border: 1px solid rgba(255, 255, 255, 0.3);
-    border-radius: 20px;
-    padding: 28px;
-    box-shadow: 0 10px 40px rgba(0, 0, 0, 0.08);
+    background: linear-gradient(135deg, rgba(147, 51, 234, 0.08) 0%, rgba(59, 130, 246, 0.08) 100%);
+    backdrop-filter: blur(20px);
+    border: 2px solid rgba(147, 51, 234, 0.2);
+    border-radius: 24px;
+    padding: 32px 28px;
+    box-shadow: 0 12px 48px rgba(147, 51, 234, 0.15), inset 0 1px 0 rgba(255, 255, 255, 0.2);
     animation: slideUp 0.4s ease-out;
 }
 
@@ -444,11 +444,15 @@
 }
 
 .quiz-question {
-    font-size: 18px;
-    font-weight: 700;
-    color: #1f2937;
+    font-size: 20px;
+    font-weight: 800;
+    background: linear-gradient(135deg, #7c3aed, #3b82f6);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
     width: 100%;
-    line-height: 1.5;
+    line-height: 1.6;
+    margin-bottom: 8px;
 }
 
 .quiz-attempts {
@@ -487,61 +491,94 @@
 .check-badge {
     font-size: 13px;
     font-weight: 700;
-    color: #1f2937;
-    background: rgba(255, 255, 255, 0.7);
+    color: white;
+    background: linear-gradient(135deg, #7c3aed, #3b82f6);
     backdrop-filter: blur(10px);
-    border: 2px solid rgba(0, 0, 0, 0.1);
+    border: none;
     border-radius: 25px;
-    padding: 6px 14px;
-    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+    padding: 8px 16px;
+    box-shadow: 0 4px 12px rgba(124, 58, 237, 0.3);
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
 }
 
 .quiz-options {
     display: flex;
     flex-direction: column;
-    gap: 12px;
+    gap: 14px;
+    margin-top: 20px;
 }
 
 .quiz-option {
     width: 100%;
-    padding: 16px 20px;
+    padding: 18px 24px;
     text-align: left;
-    background: rgba(255, 255, 255, 0.8);
-    backdrop-filter: blur(10px);
-    border: 2px solid rgba(0, 0, 0, 0.08);
-    border-radius: 14px;
+    background: rgba(255, 255, 255, 0.95);
+    backdrop-filter: blur(15px);
+    border: 2px solid rgba(124, 58, 237, 0.15);
+    border-radius: 16px;
     font-size: 16px;
     color: #1f2937;
     cursor: pointer;
-    transition: all 0.25s ease;
+    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
     font-family: inherit;
-    font-weight: 500;
-    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.04);
+    font-weight: 600;
+    box-shadow: 0 4px 12px rgba(124, 58, 237, 0.08);
+    position: relative;
+    overflow: hidden;
+}
+
+.quiz-option::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 4px;
+    height: 100%;
+    background: linear-gradient(135deg, #7c3aed, #3b82f6);
+    opacity: 0;
+    transition: opacity 0.3s;
 }
 
 .quiz-option:hover:not(:disabled) {
-    border-color: #3b82f6;
-    transform: translateY(-2px);
-    box-shadow: 0 4px 16px rgba(59, 130, 246, 0.2);
-    background: rgba(255, 255, 255, 0.95);
+    border-color: #7c3aed;
+    transform: translateY(-3px) scale(1.01);
+    box-shadow: 0 8px 24px rgba(124, 58, 237, 0.25);
+    background: white;
+}
+
+.quiz-option:hover:not(:disabled)::before {
+    opacity: 1;
 }
 
 .quiz-option.correct {
-    background: rgba(16, 185, 129, 0.15);
+    background: linear-gradient(135deg, rgba(16, 185, 129, 0.2), rgba(5, 150, 105, 0.25));
     border-color: #10b981;
-    color: #10b981;
+    color: #059669;
     font-weight: 700;
     transform: scale(1.02);
-    box-shadow: 0 4px 16px rgba(16, 185, 129, 0.2);
+    box-shadow: 0 8px 24px rgba(16, 185, 129, 0.3);
+}
+
+.quiz-option.correct::before {
+    opacity: 1;
+    background: linear-gradient(135deg, #10b981, #059669);
+    width: 6px;
 }
 
 .quiz-option.wrong {
-    background: rgba(239, 68, 68, 0.15);
+    background: linear-gradient(135deg, rgba(239, 68, 68, 0.2), rgba(220, 38, 38, 0.25));
     border-color: #ef4444;
-    color: #ef4444;
-    font-weight: 600;
+    color: #dc2626;
+    font-weight: 700;
     animation: shake 0.4s;
-    box-shadow: 0 4px 16px rgba(239, 68, 68, 0.2);
+    box-shadow: 0 8px 24px rgba(239, 68, 68, 0.3);
+}
+
+.quiz-option.wrong::before {
+    opacity: 1;
+    background: linear-gradient(135deg, #ef4444, #dc2626);
+    width: 6px;
 }
 
 @keyframes shake {
