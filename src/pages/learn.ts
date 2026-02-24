@@ -637,30 +637,32 @@ function showListeningQuiz(word: any, item: PoolItem) {
 
     quizQuestion.innerHTML = `
         <div style="text-align: center; margin-bottom: 40px;">
-            <div style="display: inline-block; background: linear-gradient(135deg, #667eea 0%, #764ba2 100%); padding: 12px 32px; border-radius: 50px; margin-bottom: 20px;">
-                <span style="font-size: 14px; font-weight: 600; color: white; text-transform: uppercase; letter-spacing: 1px;">🎧 Listening Practice</span>
+            <div style="display: inline-block; background: linear-gradient(135deg, #f59e0b 0%, #ef4444 100%); padding: 12px 32px; border-radius: 50px; margin-bottom: 20px; box-shadow: 0 4px 15px rgba(245, 158, 11, 0.4);">
+                <span style="font-size: 14px; font-weight: 700; color: white; text-transform: uppercase; letter-spacing: 1.5px;">🎧 Listening Practice</span>
             </div>
-            <h3 style="font-size: 32px; font-weight: 800; color: white; margin: 0; text-shadow: 0 2px 10px rgba(0,0,0,0.2);">Listen and type the word</h3>
-            <p style="color: rgba(255,255,255,0.7); margin-top: 12px; font-size: 16px;">Click the button to hear the word, then type it below</p>
+            <h3 style="font-size: 36px; font-weight: 900; background: linear-gradient(135deg, #fbbf24, #f59e0b); -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text; margin: 0; text-shadow: 0 0 30px rgba(251, 191, 36, 0.3);">Listen and type the word</h3>
+            <p style="color: #fbbf24; margin-top: 16px; font-size: 17px; font-weight: 500;">Click the speaker button to hear the word 🔊</p>
         </div>
     `;
 
     quizOptions.innerHTML = `
-        <div style="background: rgba(255,255,255,0.1); backdrop-filter: blur(20px); border-radius: 24px; padding: 48px 40px; border: 1px solid rgba(255,255,255,0.2); box-shadow: 0 8px 32px rgba(0,0,0,0.1);">
+        <div style="background: linear-gradient(135deg, rgba(59, 130, 246, 0.15) 0%, rgba(147, 51, 234, 0.15) 100%); backdrop-filter: blur(20px); border-radius: 28px; padding: 50px 45px; border: 2px solid rgba(59, 130, 246, 0.3); box-shadow: 0 12px 40px rgba(0,0,0,0.15), inset 0 1px 0 rgba(255,255,255,0.1);">
             <button class="listen-btn-animated" id="listenBtn">
-                <svg viewBox="0 0 24 24" style="width: 48px; height: 48px; stroke: white; stroke-width: 2; fill: none; stroke-linecap: round; stroke-linejoin: round;">
+                <svg viewBox="0 0 24 24" style="width: 52px; height: 52px; stroke: white; stroke-width: 2.2; fill: none; stroke-linecap: round; stroke-linejoin: round;">
                     <polygon points="5 9 9 9 14 5 14 19 9 15 5 15"></polygon>
                     <path d="M17 9c1.2 1 1.8 2 1.8 3s-.6 2-1.8 3"></path>
                 </svg>
             </button>
-            <p style="text-align: center; color: rgba(255,255,255,0.6); font-size: 14px; margin: 20px 0 30px 0;">Click to replay</p>
-            <input type="text" id="listeningInput" class="listening-input" placeholder="Type what you hear..." autocomplete="off" />
+            <p style="text-align: center; color: #fbbf24; font-size: 15px; font-weight: 600; margin: 24px 0 35px 0;">↑ Click to replay the audio</p>
+            <div style="background: white; border-radius: 18px; padding: 4px; margin-bottom: 24px; box-shadow: 0 4px 20px rgba(59, 130, 246, 0.2);">
+                <input type="text" id="listeningInput" class="listening-input" placeholder="Type the word here..." autocomplete="off" style="background: white; color: #1f2937; border: none; box-shadow: none;" />
+            </div>
             <button id="listeningSubmit" class="listening-submit">
-                <span style="display: flex; align-items: center; justify-content: center; gap: 8px;">
-                    <span>Check Answer</span>
-                    <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                        <polyline points="9 18 15 12 9 6"></polyline>
+                <span style="display: flex; align-items: center; justify-content: center; gap: 10px;">
+                    <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5">
+                        <polyline points="20 6 9 17 4 12"></polyline>
                     </svg>
+                    <span>Check Answer</span>
                 </span>
             </button>
         </div>
