@@ -191,6 +191,12 @@ function displayQuestion() {
         return;
     }
 
+    // Scroll to top of quiz card
+    const quizCard = document.querySelector('.quiz-card');
+    if (quizCard) {
+        quizCard.scrollTop = 0;
+    }
+
     console.log('=== displayQuestion ===');
     console.log('currentQuestionIndex:', currentQuestionIndex);
     console.log('shuffledOptions.length:', shuffledOptions.length);

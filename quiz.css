@@ -52,6 +52,12 @@
     justify-content: center;
     padding: 48px;
     overflow-y: auto;
+    scroll-behavior: smooth;
+}
+
+/* Force scroll to top on load */
+.quiz-card:focus-within {
+    scroll-padding-top: 0;
 }
 
 .quiz-question {
