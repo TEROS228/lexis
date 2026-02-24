@@ -429,7 +429,7 @@
     font-size: 18px;
     font-weight: 700;
     color: #1f2937;
-    flex: 1;
+    width: 100%;
     line-height: 1.5;
 }
 
