@@ -92,9 +92,15 @@
                 <div class="stat-label"><span data-i18n="learn.of">из</span> <span id="totalWords">311</span></div>
             </div>
             <div class="stat-box timer-box">
-                <div class="stat-number timer" id="timerDisplay">00:00</div>
-                <div class="stat-label" data-i18n="learn.studyTime">Время</div>
+                <button class="timer-toggle-btn" id="timerToggleBtn" title="Toggle timer visibility">
+                    👁️
+                </button>
+                <div class="timer-content" id="timerContent">
+                    <div class="stat-number timer" id="timerDisplay">00:00</div>
+                    <div class="stat-label" data-i18n="learn.studyTime">Время</div>
+                </div>
             </div>
+            <button class="end-session-btn" id="endSessionBtn">End Session</button>
             <div class="stat-box">
                 <div class="stat-number known" id="knownCount">0</div>
                 <div class="stat-label" data-i18n="learn.know">Знаю</div>
