@@ -442,6 +442,9 @@ function displayCurrentWord() {
         return;
     }
 
+    // Scroll to top of page
+    window.scrollTo({ top: 0, behavior: 'instant' });
+
     // Hide everything first
     wordExplanation.style.display = 'none';
     wordQuiz.style.display = 'none';
@@ -687,7 +690,10 @@ function showListeningQuiz(word: any, item: PoolItem) {
         if (e.key === 'Enter') checkAnswer();
     };
 
-    input.focus();
+    // Focus input after a slight delay to prevent auto-scroll on load
+    setTimeout(() => {
+        input.focus({ preventScroll: true });
+    }, 100);
 }
 
 // ─── QUIZ PHASE: show next quiz task from queue ───────────────────────
