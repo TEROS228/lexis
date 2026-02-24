@@ -445,6 +445,15 @@ function displayCurrentWord() {
     // Scroll to top of page
     window.scrollTo({ top: 0, behavior: 'instant' });
 
+    // Add slide-in animation
+    const wordCard = document.querySelector('.word-card-large') as HTMLElement;
+    if (wordCard) {
+        wordCard.style.animation = 'slideInRight 0.4s ease-in-out';
+        setTimeout(() => {
+            wordCard.style.animation = '';
+        }, 400);
+    }
+
     // Hide everything first
     wordExplanation.style.display = 'none';
     wordQuiz.style.display = 'none';
@@ -700,6 +709,18 @@ function showListeningQuiz(word: any, item: PoolItem) {
             listeningQuizAnswered = true;
             btnNext.disabled = false;
             savePoolState(currentUser?.uid);
+
+            // Auto-advance after 1.5 seconds with slide animation
+            setTimeout(() => {
+                const wordCard = document.querySelector('.word-card-large') as HTMLElement;
+                if (wordCard) {
+                    wordCard.style.animation = 'slideOutLeft 0.4s ease-in-out';
+                    setTimeout(() => {
+                        wordCard.style.animation = '';
+                        btnNext.click();
+                    }, 400);
+                }
+            }, 1500);
         } else {
             // Show correct answer and allow moving forward
             speakBtnLarge.style.display = 'none';
@@ -712,6 +733,18 @@ function showListeningQuiz(word: any, item: PoolItem) {
             listeningQuizAnswered = true;
             btnNext.disabled = false;
             savePoolState(currentUser?.uid);
+
+            // Auto-advance after 2 seconds with slide animation
+            setTimeout(() => {
+                const wordCard = document.querySelector('.word-card-large') as HTMLElement;
+                if (wordCard) {
+                    wordCard.style.animation = 'slideOutLeft 0.4s ease-in-out';
+                    setTimeout(() => {
+                        wordCard.style.animation = '';
+                        btnNext.click();
+                    }, 400);
+                }
+            }, 2000);
         }
     };
 
