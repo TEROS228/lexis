@@ -290,6 +290,9 @@ const timerDisplay = document.getElementById('timerDisplay');
 const timerToggleBtn = document.getElementById('timerToggleBtn');
 const timerContent = document.getElementById('timerContent');
 const endSessionBtn = document.getElementById('endSessionBtn');
+const endSessionModal = document.getElementById('endSessionModal');
+const modalCancelBtn = document.getElementById('modalCancelBtn');
+const modalConfirmBtn = document.getElementById('modalConfirmBtn');
 const knownCountEl = document.getElementById('knownCount');
 const unsureCountEl = document.getElementById('unsureCount');
 const unknownCountEl = document.getElementById('unknownCount');
@@ -1090,12 +1093,31 @@ timerToggleBtn?.addEventListener('click', () => {
     timerContent?.classList.toggle('hidden');
 });
 
-// End session button
+// End session button - show modal
 endSessionBtn?.addEventListener('click', () => {
-    if (confirm('Are you sure you want to end this session?')) {
-        saveProgress();
-        finishSession(false);
-        window.location.href = '/';
+    if (endSessionModal) {
+        endSessionModal.style.display = 'flex';
+    }
+});
+
+// Modal cancel button
+modalCancelBtn?.addEventListener('click', () => {
+    if (endSessionModal) {
+        endSessionModal.style.display = 'none';
+    }
+});
+
+// Modal confirm button
+modalConfirmBtn?.addEventListener('click', () => {
+    saveProgress();
+    finishSession(false);
+    window.location.href = '/';
+});
+
+// Close modal on overlay click
+endSessionModal?.addEventListener('click', (e) => {
+    if (e.target === endSessionModal) {
+        endSessionModal.style.display = 'none';
     }
 });
 

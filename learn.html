@@ -93,7 +93,10 @@
             </div>
             <div class="stat-box timer-box">
                 <button class="timer-toggle-btn" id="timerToggleBtn" title="Toggle timer visibility">
-                    👁️
+                    <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                        <path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"></path>
+                        <circle cx="12" cy="12" r="3"></circle>
+                    </svg>
                 </button>
                 <div class="timer-content" id="timerContent">
                     <div class="stat-number timer" id="timerDisplay">00:00</div>
@@ -198,6 +201,25 @@
                     <button class="btn-primary" id="btnViewUnknown" data-i18n="learn.viewUnknown">Посмотреть незнакомые слова</button>
                     <a href="index.html" class="btn-secondary" data-i18n="learn.backToHome">Вернуться на главную</a>
                 </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- End Session Modal -->
+    <div class="modal-overlay" id="endSessionModal" style="display: none;">
+        <div class="modal-card">
+            <div class="modal-icon">
+                <svg width="64" height="64" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                    <circle cx="12" cy="12" r="10"></circle>
+                    <line x1="12" y1="8" x2="12" y2="12"></line>
+                    <line x1="12" y1="16" x2="12.01" y2="16"></line>
+                </svg>
+            </div>
+            <h2 class="modal-title">End Session?</h2>
+            <p class="modal-text">Are you sure you want to end this session? Your progress will be saved.</p>
+            <div class="modal-actions">
+                <button class="modal-btn modal-btn-cancel" id="modalCancelBtn">Cancel</button>
+                <button class="modal-btn modal-btn-confirm" id="modalConfirmBtn">End Session</button>
             </div>
         </div>
     </div>
