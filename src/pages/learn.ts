@@ -625,6 +625,9 @@ function showListeningQuiz(word: any, item: PoolItem) {
     // Hide explanation when showing listening quiz
     wordExplanation.style.display = 'none';
 
+    // Hide word header to not give away the answer
+    wordMain.textContent = '';
+
     quizQuestion.innerHTML = `
         <h3 style="font-size: 26px; font-weight: 700; margin-bottom: 45px; color: white; text-align: center;">Listen and type the word</h3>
     `;
