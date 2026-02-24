@@ -249,9 +249,7 @@
 
 /* Control Buttons */
 .control-buttons {
-    display: flex;
-    justify-content: space-between;
-    gap: 16px;
+    display: none;
 }
 
 .btn-secondary {

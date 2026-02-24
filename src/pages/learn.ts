@@ -698,10 +698,12 @@ function showListeningQuiz(word: any, item: PoolItem) {
         const correctAnswer = word.en.toLowerCase();
 
         if (userAnswer === correctAnswer) {
-            // Hide all quiz elements
+            // Hide speaker and submit button, show user answer in input
             speakBtnLarge.style.display = 'none';
-            input.style.display = 'none';
             submitBtn.style.display = 'none';
+            input.disabled = true;
+            input.style.color = '#10b981';
+            input.style.fontWeight = '700';
 
             quizFeedback.textContent = '✓ Perfect! You got it right! 🎉';
             quizFeedback.className = 'quiz-feedback feedback-correct';
@@ -722,12 +724,15 @@ function showListeningQuiz(word: any, item: PoolItem) {
                 }
             }, 1500);
         } else {
-            // Show correct answer and allow moving forward
+            // Show correct answer in input field
             speakBtnLarge.style.display = 'none';
-            input.style.display = 'none';
             submitBtn.style.display = 'none';
+            input.value = word.en;
+            input.disabled = true;
+            input.style.color = '#ef4444';
+            input.style.fontWeight = '700';
 
-            quizFeedback.textContent = `✗ Wrong. Correct word: "${word.en}". Click Next to continue.`;
+            quizFeedback.textContent = `✗ Wrong. Correct word: "${word.en}".`;
             quizFeedback.className = 'quiz-feedback feedback-wrong';
             quizFeedback.style.display = 'block';
             listeningQuizAnswered = true;
