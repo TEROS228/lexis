@@ -666,12 +666,19 @@ function showListeningQuiz(word: any, item: PoolItem) {
             quizFeedback.style.display = 'block';
             listeningQuizAnswered = true;
             btnNext.disabled = false;
+            savePoolState(currentUser?.uid);
         } else {
-            quizFeedback.textContent = `✗ Wrong. Correct word: "${word.en}"`;
+            // Show correct answer and allow moving forward
+            speakBtnLarge.style.display = 'none';
+            input.style.display = 'none';
+            submitBtn.style.display = 'none';
+
+            quizFeedback.textContent = `✗ Wrong. Correct word: "${word.en}". Click Next to continue.`;
             quizFeedback.className = 'quiz-feedback feedback-wrong';
             quizFeedback.style.display = 'block';
-            input.value = '';
-            input.focus();
+            listeningQuizAnswered = true;
+            btnNext.disabled = false;
+            savePoolState(currentUser?.uid);
         }
     };
 
