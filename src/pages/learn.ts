@@ -445,15 +445,6 @@ function displayCurrentWord() {
     // Scroll to top of page
     window.scrollTo({ top: 0, behavior: 'instant' });
 
-    // Add slide-in animation
-    const wordCard = document.querySelector('.word-card-large') as HTMLElement;
-    if (wordCard) {
-        wordCard.style.animation = 'slideInRight 0.4s ease-in-out';
-        setTimeout(() => {
-            wordCard.style.animation = '';
-        }, 400);
-    }
-
     // Hide everything first
     wordExplanation.style.display = 'none';
     wordQuiz.style.display = 'none';
@@ -464,11 +455,23 @@ function displayCurrentWord() {
     btnUnsure.onclick = null;
     btnUnknown.onclick = null;
 
+    // Show content first
     if (introPhase) {
         showIntroWord();
     } else {
         showNextQuiz();
     }
+
+    // Then add slide-in animation after content is ready
+    setTimeout(() => {
+        const wordCard = document.querySelector('.word-card-large') as HTMLElement;
+        if (wordCard) {
+            wordCard.style.animation = 'slideInRight 0.4s ease-in-out';
+            setTimeout(() => {
+                wordCard.style.animation = '';
+            }, 400);
+        }
+    }, 10);
 }
 
 // ─── Speech Synthesis Helper ──────────────────────────────────────────
