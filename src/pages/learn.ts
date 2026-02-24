@@ -622,6 +622,9 @@ function showIntroWord() {
 
 // ─── LISTENING QUIZ: type what you hear ────────────────────────────────
 function showListeningQuiz(word: any, item: PoolItem) {
+    // Hide explanation when showing listening quiz
+    wordExplanation.style.display = 'none';
+
     quizQuestion.innerHTML = `
         <h3 style="font-size: 26px; font-weight: 700; margin-bottom: 45px; color: white; text-align: center;">Listen and type the word</h3>
     `;
@@ -727,7 +730,8 @@ function showNextQuiz() {
     const word = tier2Words.find(w => w.id === task.wordId);
     if (!word) { showNextQuiz(); return; }
 
-    wordMain.textContent = word.en;
+    // Hide word for fillBlank and scenario quizzes
+    wordMain.textContent = '';
     meaningText.textContent = word[currentLang] || word.ru;
     wordMeaning.style.display = 'none';
     btnPrev.disabled = true;
