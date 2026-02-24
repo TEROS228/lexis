@@ -855,11 +855,21 @@ function renderQuizTask(word: any, item: PoolItem, quiz: any, stageType: QuizSta
             markStageCompleted(item, stageType);
             savePoolState(currentUser?.uid);
 
-            if (item.phase === 'mastered') {
-                setTimeout(() => handleMastered(item), 800);
-            } else {
-                setTimeout(showNextQuiz, 800);
-            }
+            // Auto-advance after 1.5 seconds with slide animation
+            setTimeout(() => {
+                const wordCard = document.querySelector('.word-card-large') as HTMLElement;
+                if (wordCard) {
+                    wordCard.style.animation = 'slideOutLeft 0.4s ease-in-out';
+                    setTimeout(() => {
+                        wordCard.style.animation = '';
+                        if (item.phase === 'mastered') {
+                            handleMastered(item);
+                        } else {
+                            showNextQuiz();
+                        }
+                    }, 400);
+                }
+            }, 1500);
         } else {
             item.attempts++;
             const attemptsLeft = MAX_ATTEMPTS - item.attempts;
@@ -882,7 +892,18 @@ function renderQuizTask(word: any, item: PoolItem, quiz: any, stageType: QuizSta
                 introQuizAnswered = false;
                 listeningQuizAnswered = false;
                 savePoolState(currentUser?.uid);
-                setTimeout(displayCurrentWord, 1500);
+
+                // Auto-advance after 2 seconds with slide animation
+                setTimeout(() => {
+                    const wordCard = document.querySelector('.word-card-large') as HTMLElement;
+                    if (wordCard) {
+                        wordCard.style.animation = 'slideOutLeft 0.4s ease-in-out';
+                        setTimeout(() => {
+                            wordCard.style.animation = '';
+                            displayCurrentWord();
+                        }, 400);
+                    }
+                }, 2000);
             } else {
                 quizFeedback.textContent = `✗ Not quite — try again! (${attemptsLeft} attempt${attemptsLeft > 1 ? 's' : ''} left)`;
                 quizFeedback.className = 'quiz-feedback feedback-wrong';
@@ -892,7 +913,7 @@ function renderQuizTask(word: any, item: PoolItem, quiz: any, stageType: QuizSta
                 setTimeout(() => {
                     quizFeedback.style.display = 'none';
                     renderQuizTask(word, item, quiz, stageType);
-                }, 1200);
+                }, 1500);
             }
         }
     });
