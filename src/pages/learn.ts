@@ -636,8 +636,8 @@ function showListeningQuiz(word: any, item: PoolItem) {
     showMeaningBtn.style.display = 'none';
 
     quizQuestion.innerHTML = `
-        <div style="text-align: center; margin-bottom: 40px;">
-            <div style="display: inline-block; background: linear-gradient(135deg, #f59e0b 0%, #ef4444 100%); padding: 12px 32px; border-radius: 50px; margin-bottom: 20px; box-shadow: 0 4px 15px rgba(245, 158, 11, 0.4);">
+        <div style="text-align: center; margin-bottom: 40px; display: flex; flex-direction: column; align-items: center;">
+            <div style="background: linear-gradient(135deg, #f59e0b 0%, #ef4444 100%); padding: 12px 32px; border-radius: 50px; margin-bottom: 20px; box-shadow: 0 4px 15px rgba(245, 158, 11, 0.4);">
                 <span style="font-size: 14px; font-weight: 700; color: white; text-transform: uppercase; letter-spacing: 1.5px;">🎧 Listening Practice</span>
             </div>
             <h3 style="font-size: 36px; font-weight: 900; background: linear-gradient(135deg, #fbbf24, #f59e0b); -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text; margin: 0; text-shadow: 0 0 30px rgba(251, 191, 36, 0.3);">Listen and type the word</h3>
@@ -653,8 +653,7 @@ function showListeningQuiz(word: any, item: PoolItem) {
                     <path d="M17 9c1.2 1 1.8 2 1.8 3s-.6 2-1.8 3"></path>
                 </svg>
             </button>
-            <p style="text-align: center; color: #fbbf24; font-size: 15px; font-weight: 600; margin: 24px 0 35px 0;">↑ Click to replay the audio</p>
-            <div style="background: white; border-radius: 18px; padding: 4px; margin-bottom: 24px; box-shadow: 0 4px 20px rgba(59, 130, 246, 0.2);">
+            <div style="background: white; border-radius: 18px; padding: 4px; margin-top: 35px; margin-bottom: 24px; box-shadow: 0 4px 20px rgba(59, 130, 246, 0.2);">
                 <input type="text" id="listeningInput" class="listening-input" placeholder="Type the word here..." autocomplete="off" style="background: white; color: #1f2937; border: none; box-shadow: none;" />
             </div>
             <button id="listeningSubmit" class="listening-submit">
