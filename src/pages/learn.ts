@@ -540,6 +540,10 @@ function showIntroWord() {
     meaningText.textContent = word[currentLang] || word.ru;
     wordMeaning.style.display = 'none';
     wordActions.style.display = 'none';
+
+    // Show eye button in intro phase (before quizzes)
+    showMeaningBtn.style.display = 'inline-block';
+
     btnPrev.disabled = introCursor === 0;
     btnNext.disabled = !introQuizAnswered;
     btnNext.onclick = null;
@@ -627,6 +631,9 @@ function showListeningQuiz(word: any, item: PoolItem) {
 
     // Hide word header to not give away the answer
     wordMain.textContent = '';
+
+    // Hide eye button during quiz
+    showMeaningBtn.style.display = 'none';
 
     quizQuestion.innerHTML = `
         <h3 style="font-size: 26px; font-weight: 700; margin-bottom: 45px; color: white; text-align: center;">Listen and type the word</h3>
@@ -737,6 +744,10 @@ function showNextQuiz() {
     wordMain.textContent = '';
     meaningText.textContent = word[currentLang] || word.ru;
     wordMeaning.style.display = 'none';
+
+    // Hide eye button during quiz
+    showMeaningBtn.style.display = 'none';
+
     btnPrev.disabled = true;
     btnNext.disabled = true;
     btnNext.onclick = null;
