@@ -636,18 +636,34 @@ function showListeningQuiz(word: any, item: PoolItem) {
     showMeaningBtn.style.display = 'none';
 
     quizQuestion.innerHTML = `
-        <h3 style="font-size: 26px; font-weight: 700; margin-bottom: 45px; color: white; text-align: center;">Listen and type the word</h3>
+        <div style="text-align: center; margin-bottom: 40px;">
+            <div style="display: inline-block; background: linear-gradient(135deg, #667eea 0%, #764ba2 100%); padding: 12px 32px; border-radius: 50px; margin-bottom: 20px;">
+                <span style="font-size: 14px; font-weight: 600; color: white; text-transform: uppercase; letter-spacing: 1px;">🎧 Listening Practice</span>
+            </div>
+            <h3 style="font-size: 32px; font-weight: 800; color: white; margin: 0; text-shadow: 0 2px 10px rgba(0,0,0,0.2);">Listen and type the word</h3>
+            <p style="color: rgba(255,255,255,0.7); margin-top: 12px; font-size: 16px;">Click the button to hear the word, then type it below</p>
+        </div>
     `;
 
     quizOptions.innerHTML = `
-        <button class="listen-btn-animated" id="listenBtn">
-            <svg viewBox="0 0 24 24" style="width: 42px; height: 42px; stroke: white; stroke-width: 1.8; fill: none; stroke-linecap: round; stroke-linejoin: round;">
-                <polygon points="5 9 9 9 14 5 14 19 9 15 5 15"></polygon>
-                <path d="M17 9c1.2 1 1.8 2 1.8 3s-.6 2-1.8 3"></path>
-            </svg>
-        </button>
-        <input type="text" id="listeningInput" class="listening-input" placeholder="Type what you hear..." />
-        <button id="listeningSubmit" class="listening-submit">Submit</button>
+        <div style="background: rgba(255,255,255,0.1); backdrop-filter: blur(20px); border-radius: 24px; padding: 48px 40px; border: 1px solid rgba(255,255,255,0.2); box-shadow: 0 8px 32px rgba(0,0,0,0.1);">
+            <button class="listen-btn-animated" id="listenBtn">
+                <svg viewBox="0 0 24 24" style="width: 48px; height: 48px; stroke: white; stroke-width: 2; fill: none; stroke-linecap: round; stroke-linejoin: round;">
+                    <polygon points="5 9 9 9 14 5 14 19 9 15 5 15"></polygon>
+                    <path d="M17 9c1.2 1 1.8 2 1.8 3s-.6 2-1.8 3"></path>
+                </svg>
+            </button>
+            <p style="text-align: center; color: rgba(255,255,255,0.6); font-size: 14px; margin: 20px 0 30px 0;">Click to replay</p>
+            <input type="text" id="listeningInput" class="listening-input" placeholder="Type what you hear..." autocomplete="off" />
+            <button id="listeningSubmit" class="listening-submit">
+                <span style="display: flex; align-items: center; justify-content: center; gap: 8px;">
+                    <span>Check Answer</span>
+                    <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                        <polyline points="9 18 15 12 9 6"></polyline>
+                    </svg>
+                </span>
+            </button>
+        </div>
     `;
 
     const speakBtnLarge = quizOptions.querySelector('#listenBtn') as HTMLButtonElement;
