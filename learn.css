@@ -420,7 +420,7 @@
 .quiz-header {
     display: flex;
     align-items: flex-start;
-    justify-content: space-between;
+    justify-content: center;
     gap: 12px;
     margin-bottom: 20px;
 }
