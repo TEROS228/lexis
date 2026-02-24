@@ -462,16 +462,18 @@ function displayCurrentWord() {
         showNextQuiz();
     }
 
-    // Then add slide-in animation after content is ready
-    setTimeout(() => {
-        const wordCard = document.querySelector('.word-card-large') as HTMLElement;
-        if (wordCard) {
-            wordCard.style.animation = 'slideInRight 0.4s ease-in-out';
-            setTimeout(() => {
-                wordCard.style.animation = '';
-            }, 400);
-        }
-    }, 10);
+    // Add slide-in animation after a brief delay to ensure content is rendered
+    requestAnimationFrame(() => {
+        requestAnimationFrame(() => {
+            const wordCard = document.querySelector('.word-card-large') as HTMLElement;
+            if (wordCard) {
+                wordCard.style.animation = 'slideInRight 0.4s ease-in-out';
+                setTimeout(() => {
+                    wordCard.style.animation = '';
+                }, 400);
+            }
+        });
+    });
 }
 
 // ─── Speech Synthesis Helper ──────────────────────────────────────────
@@ -722,7 +724,10 @@ function showListeningQuiz(word: any, item: PoolItem) {
                     wordCard.style.animation = 'slideOutLeft 0.4s ease-in-out';
                     setTimeout(() => {
                         wordCard.style.animation = '';
-                        btnNext.click();
+                        // Small delay before loading new content to ensure smooth transition
+                        setTimeout(() => {
+                            btnNext.click();
+                        }, 50);
                     }, 400);
                 }
             }, 1500);
@@ -749,7 +754,10 @@ function showListeningQuiz(word: any, item: PoolItem) {
                     wordCard.style.animation = 'slideOutLeft 0.4s ease-in-out';
                     setTimeout(() => {
                         wordCard.style.animation = '';
-                        btnNext.click();
+                        // Small delay before loading new content to ensure smooth transition
+                        setTimeout(() => {
+                            btnNext.click();
+                        }, 50);
                     }, 400);
                 }
             }, 2000);
@@ -865,11 +873,14 @@ function renderQuizTask(word: any, item: PoolItem, quiz: any, stageType: QuizSta
                     wordCard.style.animation = 'slideOutLeft 0.4s ease-in-out';
                     setTimeout(() => {
                         wordCard.style.animation = '';
-                        if (item.phase === 'mastered') {
-                            handleMastered(item);
-                        } else {
-                            showNextQuiz();
-                        }
+                        // Small delay before loading new content to ensure smooth transition
+                        setTimeout(() => {
+                            if (item.phase === 'mastered') {
+                                handleMastered(item);
+                            } else {
+                                showNextQuiz();
+                            }
+                        }, 50);
                     }, 400);
                 }
             }, 1500);
@@ -903,7 +914,10 @@ function renderQuizTask(word: any, item: PoolItem, quiz: any, stageType: QuizSta
                         wordCard.style.animation = 'slideOutLeft 0.4s ease-in-out';
                         setTimeout(() => {
                             wordCard.style.animation = '';
-                            displayCurrentWord();
+                            // Small delay before loading new content to ensure smooth transition
+                            setTimeout(() => {
+                                displayCurrentWord();
+                            }, 50);
                         }, 400);
                     }
                 }, 2000);
