@@ -679,10 +679,10 @@ function showListeningQuiz(word: any, item: PoolItem) {
     quizQuestion.innerHTML = `
         <div style="text-align: center; margin-bottom: 40px; width: 100%;">
             <div style="display: inline-block; background: linear-gradient(135deg, #f59e0b 0%, #ef4444 100%); padding: 12px 32px; border-radius: 50px; margin-bottom: 20px; box-shadow: 0 4px 15px rgba(245, 158, 11, 0.4);">
-                <span style="font-size: 14px; font-weight: 700; color: white; text-transform: uppercase; letter-spacing: 1.5px;">🎧 Listening Practice</span>
+                <span style="font-size: 14px; font-weight: 700; color: white; text-transform: uppercase; letter-spacing: 1.5px; -webkit-text-fill-color: white;">🎧 Listening Practice</span>
             </div>
             <h3 style="font-size: 36px; font-weight: 900; background: linear-gradient(135deg, #fbbf24, #f59e0b); -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text; margin: 0; text-shadow: 0 0 30px rgba(251, 191, 36, 0.3);">Listen and type the word</h3>
-            <p style="color: #fbbf24; margin-top: 16px; font-size: 17px; font-weight: 500;">Click the speaker button to hear the word 🔊</p>
+            <p style="color: #fbbf24; margin-top: 16px; font-size: 17px; font-weight: 500; -webkit-text-fill-color: #fbbf24;">Click the speaker button to hear the word 🔊</p>
         </div>
     `;
 
