@@ -35,7 +35,10 @@ export default async function handler(req, res) {
     } else if (req.method === 'POST') {
       // Update streak after session completion
       const result = await pool.query(
-        `WITH updated AS (
+        `WITH old_data AS (
+          SELECT last_activity_date FROM users WHERE uid = $1
+        ),
+        updated AS (
           UPDATE users
           SET
             current_streak = CASE
@@ -43,7 +46,7 @@ export default async function handler(req, res) {
               WHEN last_activity_date::date = CURRENT_DATE - INTERVAL '1 day' THEN current_streak + 1
               -- If last activity was today, keep current streak
               WHEN last_activity_date::date = CURRENT_DATE THEN current_streak
-              -- If last activity was before yesterday, reset to 1
+              -- If last activity was before yesterday or NULL, reset to 1
               ELSE 1
             END,
             longest_streak = CASE
@@ -52,23 +55,28 @@ export default async function handler(req, res) {
                 AND current_streak + 1 > longest_streak THEN current_streak + 1
               WHEN last_activity_date::date = CURRENT_DATE
                 AND current_streak > longest_streak THEN current_streak
-              WHEN last_activity_date::date < CURRENT_DATE - INTERVAL '1 day'
+              WHEN (last_activity_date IS NULL OR last_activity_date::date < CURRENT_DATE - INTERVAL '1 day')
                 AND 1 > longest_streak THEN 1
               ELSE longest_streak
             END,
             last_activity_date = CASE
-              -- Only update if it's a new day
-              WHEN last_activity_date::date < CURRENT_DATE THEN NOW()
+              -- Only update if it's a new day or NULL
+              WHEN last_activity_date IS NULL OR last_activity_date::date < CURRENT_DATE THEN NOW()
               ELSE last_activity_date
             END
           WHERE uid = $1
-          RETURNING current_streak, longest_streak, last_activity_date,
-                    CASE
-                      WHEN last_activity_date::date = CURRENT_DATE THEN false
-                      ELSE true
-                    END as streak_increased
+          RETURNING current_streak, longest_streak, last_activity_date
         )
-        SELECT * FROM updated`,
+        SELECT
+          updated.current_streak,
+          updated.longest_streak,
+          updated.last_activity_date,
+          CASE
+            WHEN old_data.last_activity_date IS NULL
+              OR old_data.last_activity_date::date < CURRENT_DATE THEN true
+            ELSE false
+          END as streak_increased
+        FROM updated, old_data`,
         [uid]
       );
 

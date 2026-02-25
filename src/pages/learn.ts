@@ -1147,8 +1147,12 @@ async function finishSession(completed: boolean) {
 
             // Update streak and show animation if increased
             const streakData = await updateStreak(currentUser.uid);
+            console.log('Streak data:', streakData);
             if (streakData.streak_increased) {
+                console.log('Showing streak animation for:', streakData.current_streak);
                 showStreakAnimation(streakData.current_streak);
+            } else {
+                console.log('Streak not increased, already earned today');
             }
         } catch (error) { console.error('Error saving session:', error); }
     }
