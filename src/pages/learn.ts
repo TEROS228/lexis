@@ -627,10 +627,30 @@ function showIntroWord() {
                     quizFeedback.className = 'quiz-feedback feedback-correct';
                     quizFeedback.style.display = 'block';
 
-                    // Show listening quiz after 1 second
+                    // Slide out and show listening quiz with animation
                     setTimeout(() => {
-                        showListeningQuiz(word, item);
-                    }, 1000);
+                        const wordCard = document.querySelector('.word-card-large') as HTMLElement;
+                        if (wordCard) {
+                            wordCard.style.animation = 'slideOutLeft 0.4s ease-in-out';
+                            setTimeout(() => {
+                                // Hide card while loading new content
+                                wordCard.style.opacity = '0';
+                                wordCard.style.animation = '';
+                                showListeningQuiz(word, item);
+
+                                // Show with slide-in animation
+                                requestAnimationFrame(() => {
+                                    requestAnimationFrame(() => {
+                                        wordCard.style.opacity = '1';
+                                        wordCard.style.animation = 'slideInRight 0.4s ease-in-out';
+                                        setTimeout(() => {
+                                            wordCard.style.animation = '';
+                                        }, 400);
+                                    });
+                                });
+                            }, 400);
+                        }
+                    }, 1500);
                 } else {
                     disabledIndices.add(chosenIdx);
                     quizFeedback.textContent = '✗ Not quite — try again!';
