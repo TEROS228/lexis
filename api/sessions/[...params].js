@@ -7,9 +7,13 @@ export default async function handler(req, res) {
   if (req.method === 'OPTIONS') return res.status(200).end();
 
   const pool = getPool();
-  const params = Array.isArray(req.query.params) ? req.query.params : (req.query.params ? [req.query.params] : []);
 
-  console.log('Sessions API:', { method: req.method, params, url: req.url, query: req.query });
+  // Parse URL to get path segments
+  const urlPath = req.url.split('?')[0]; // Remove query string
+  const pathSegments = urlPath.split('/').filter(Boolean); // ['api', 'sessions', ...]
+  const params = pathSegments.slice(2); // Remove 'api' and 'sessions'
+
+  console.log('Sessions API:', { method: req.method, params, url: req.url, pathSegments });
 
   // POST /api/sessions
   if (req.method === 'POST' && params.length === 0) {
@@ -55,5 +59,9 @@ export default async function handler(req, res) {
     }
   }
 
-  res.status(405).json({ error: 'Method not allowed' });
+  console.error('No matching route:', { method: req.method, params });
+  res.status(405).json({
+    error: 'Method not allowed',
+    debug: { method: req.method, params, paramsLength: params.length }
+  });
 }
