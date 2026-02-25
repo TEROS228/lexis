@@ -8,7 +8,7 @@ export default async function handler(req, res) {
 
   const pool = getPool();
   // params: [uid, tier] or [uid, tier, 'stats'|'learned'|'batch']
-  const params = req.query.params || [];
+  const params = Array.isArray(req.query.params) ? req.query.params : (req.query.params ? [req.query.params] : []);
   const [uid, tier, action] = params;
 
   // GET /api/progress/:uid/:tier/stats
