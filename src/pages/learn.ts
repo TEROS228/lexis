@@ -483,6 +483,43 @@ function displayCurrentWord() {
     });
 }
 
+// ─── Sound Effects ────────────────────────────────────────────────────
+function playSuccessSound() {
+    const audioContext = new (window.AudioContext || (window as any).webkitAudioContext)();
+    const oscillator = audioContext.createOscillator();
+    const gainNode = audioContext.createGain();
+
+    oscillator.connect(gainNode);
+    gainNode.connect(audioContext.destination);
+
+    oscillator.frequency.value = 523.25; // C5
+    oscillator.type = 'sine';
+
+    gainNode.gain.setValueAtTime(0.3, audioContext.currentTime);
+    gainNode.gain.exponentialRampToValueAtTime(0.01, audioContext.currentTime + 0.3);
+
+    oscillator.start(audioContext.currentTime);
+    oscillator.stop(audioContext.currentTime + 0.3);
+
+    // Second note
+    setTimeout(() => {
+        const osc2 = audioContext.createOscillator();
+        const gain2 = audioContext.createGain();
+
+        osc2.connect(gain2);
+        gain2.connect(audioContext.destination);
+
+        osc2.frequency.value = 659.25; // E5
+        osc2.type = 'sine';
+
+        gain2.gain.setValueAtTime(0.3, audioContext.currentTime);
+        gain2.gain.exponentialRampToValueAtTime(0.01, audioContext.currentTime + 0.4);
+
+        osc2.start(audioContext.currentTime);
+        osc2.stop(audioContext.currentTime + 0.4);
+    }, 100);
+}
+
 // ─── Speech Synthesis Helper ──────────────────────────────────────────
 function speakWord(text: string) {
     const utterance = new SpeechSynthesisUtterance(text);
@@ -621,6 +658,7 @@ function showIntroWord() {
             if (!keepFeedback) quizFeedback.style.display = 'none';
             renderQuizOptions(quiz, (correct, chosenIdx) => {
                 if (correct) {
+                    playSuccessSound();
                     introQuizAnswered = true;
                     savePoolState(currentUser?.uid);
                     quizFeedback.textContent = '✓ Correct! Now write what you hear...';
@@ -730,6 +768,7 @@ function showListeningQuiz(word: any, item: PoolItem) {
         const correctAnswer = word.en.toLowerCase();
 
         if (userAnswer === correctAnswer) {
+            playSuccessSound();
             // Hide speaker and submit button, show user answer in input
             speakBtnLarge.style.display = 'none';
             submitBtn.style.display = 'none';
@@ -884,6 +923,7 @@ function renderQuizTask(word: any, item: PoolItem, quiz: any, stageType: QuizSta
 
     renderQuizOptions(quiz, (correct) => {
         if (correct) {
+            playSuccessSound();
             quizFeedback.textContent = '✓ Correct!';
             quizFeedback.className = 'quiz-feedback feedback-correct';
             quizFeedback.style.display = 'block';
