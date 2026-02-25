@@ -14,7 +14,9 @@ export default async function handler(req, res) {
   if (req.method === 'OPTIONS') return res.status(200).end();
 
   const pool = getPool();
-  const params = Array.isArray(req.query.params) ? req.query.params : (req.query.params ? [req.query.params] : []);
+  const urlPath = req.url.split('?')[0];
+  const pathSegments = urlPath.split('/').filter(Boolean);
+  const params = pathSegments.slice(2); // Remove 'api' and 'classes'
 
   // POST /api/classes (no params)
   if (req.method === 'POST' && params.length === 0) {
