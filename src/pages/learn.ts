@@ -528,14 +528,14 @@ function playErrorSound() {
     oscillator.connect(gainNode);
     gainNode.connect(audioContext.destination);
 
-    oscillator.frequency.value = 200; // Lower frequency for error
-    oscillator.type = 'sawtooth';
+    oscillator.frequency.value = 300; // Softer mid-range frequency
+    oscillator.type = 'sine'; // Sine wave for softer sound
 
-    gainNode.gain.setValueAtTime(0.2, audioContext.currentTime);
-    gainNode.gain.exponentialRampToValueAtTime(0.01, audioContext.currentTime + 0.4);
+    gainNode.gain.setValueAtTime(0.15, audioContext.currentTime);
+    gainNode.gain.exponentialRampToValueAtTime(0.01, audioContext.currentTime + 0.3);
 
     oscillator.start(audioContext.currentTime);
-    oscillator.stop(audioContext.currentTime + 0.4);
+    oscillator.stop(audioContext.currentTime + 0.3);
 }
 
 // ─── Speech Synthesis Helper ──────────────────────────────────────────
