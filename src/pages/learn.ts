@@ -695,7 +695,7 @@ function showListeningQuiz(word: any, item: PoolItem) {
                 </svg>
             </button>
             <div style="background: white; border-radius: 18px; padding: 4px; margin-top: 35px; margin-bottom: 24px; box-shadow: 0 4px 20px rgba(59, 130, 246, 0.2);">
-                <input type="text" id="listeningInput" class="listening-input" placeholder="Type the word here..." autocomplete="off" style="background: white; color: #1f2937; border: none; box-shadow: none;" />
+                <input type="text" id="listeningInput" class="listening-input" placeholder="Type the word here..." autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false" style="background: white; color: #1f2937; border: none; box-shadow: none;" />
             </div>
             <button id="listeningSubmit" class="listening-submit">
                 <span style="display: flex; align-items: center; justify-content: center; gap: 10px;">
