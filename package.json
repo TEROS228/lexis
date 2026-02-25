@@ -8,8 +8,7 @@
     "dev": "vite",
     "build": "vite build",
     "preview": "vite preview",
-    "server": "node server.js",
-    "dev:full": "npm run server & npm run dev"
+    "start": "vite preview --port $PORT --host"
   },
   "keywords": [
     "english",
