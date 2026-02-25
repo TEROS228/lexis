@@ -520,6 +520,24 @@ function playSuccessSound() {
     }, 100);
 }
 
+function playErrorSound() {
+    const audioContext = new (window.AudioContext || (window as any).webkitAudioContext)();
+    const oscillator = audioContext.createOscillator();
+    const gainNode = audioContext.createGain();
+
+    oscillator.connect(gainNode);
+    gainNode.connect(audioContext.destination);
+
+    oscillator.frequency.value = 200; // Lower frequency for error
+    oscillator.type = 'sawtooth';
+
+    gainNode.gain.setValueAtTime(0.2, audioContext.currentTime);
+    gainNode.gain.exponentialRampToValueAtTime(0.01, audioContext.currentTime + 0.4);
+
+    oscillator.start(audioContext.currentTime);
+    oscillator.stop(audioContext.currentTime + 0.4);
+}
+
 // ─── Speech Synthesis Helper ──────────────────────────────────────────
 function speakWord(text: string) {
     const utterance = new SpeechSynthesisUtterance(text);
@@ -690,6 +708,7 @@ function showIntroWord() {
                         }
                     }, 1500);
                 } else {
+                    playErrorSound();
                     disabledIndices.add(chosenIdx);
                     quizFeedback.textContent = '✗ Not quite — try again!';
                     quizFeedback.className = 'quiz-feedback feedback-wrong';
@@ -797,6 +816,7 @@ function showListeningQuiz(word: any, item: PoolItem) {
                 }
             }, 1500);
         } else {
+            playErrorSound();
             // Show correct answer in input field
             speakBtnLarge.style.display = 'none';
             submitBtn.style.display = 'none';
@@ -954,6 +974,7 @@ function renderQuizTask(word: any, item: PoolItem, quiz: any, stageType: QuizSta
             const attemptsLeft = MAX_ATTEMPTS - item.attempts;
 
             if (attemptsLeft <= 0) {
+                playErrorSound();
                 quizFeedback.textContent = '✗ Incorrect. Review this word.';
                 quizFeedback.className = 'quiz-feedback feedback-wrong';
                 quizFeedback.style.display = 'block';
@@ -986,6 +1007,7 @@ function renderQuizTask(word: any, item: PoolItem, quiz: any, stageType: QuizSta
                     }
                 }, 2000);
             } else {
+                playErrorSound();
                 quizFeedback.textContent = `✗ Not quite — try again! (${attemptsLeft} attempt${attemptsLeft > 1 ? 's' : ''} left)`;
                 quizFeedback.className = 'quiz-feedback feedback-wrong';
                 quizFeedback.style.display = 'block';
