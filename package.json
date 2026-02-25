@@ -8,7 +8,7 @@
     "dev": "vite",
     "build": "vite build",
     "preview": "vite preview",
-    "start": "vite preview --port $PORT --host"
+    "start": "npm run build && vite preview --port ${PORT:-3000} --host"
   },
   "keywords": [
     "english",
