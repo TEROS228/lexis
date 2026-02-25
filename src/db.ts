@@ -1,5 +1,5 @@
 // PostgreSQL API Client
-const API_URL = import.meta.env.VITE_API_URL || 'http://localhost:4000/api';
+const API_URL = import.meta.env.VITE_API_URL || '/api';
 
 // Helper function for fetch with error handling
 async function fetchAPI(url, options = {}) {
@@ -268,11 +268,17 @@ export const updateStreak = async (uid: string) => {
       headers: { 'Content-Type': 'application/json' }
     });
 
-    if (!response.ok) throw new Error('Failed to update streak');
-    return await response.json();
+    if (!response.ok) {
+      const errorText = await response.text();
+      console.error('Failed to update streak:', response.status, errorText);
+      return { current_streak: 0, longest_streak: 0, last_activity_date: null, streak_increased: false };
+    }
+    const data = await response.json();
+    console.log('Streak updated successfully:', data);
+    return data;
   } catch (error) {
     console.error('Error updating streak:', error);
-    throw error;
+    return { current_streak: 0, longest_streak: 0, last_activity_date: null, streak_increased: false };
   }
 };
 
