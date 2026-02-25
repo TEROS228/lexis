@@ -1200,10 +1200,13 @@ showMeaningBtn.addEventListener('click', () => {
 btnNext.addEventListener('click', nextWord);
 btnPrev.addEventListener('click', prevWord);
 
-btnSaveExit.addEventListener('click', () => {
+btnSaveExit.addEventListener('click', async () => {
     saveProgress();
-    finishSession(false);
-    window.location.href = '/';
+    await finishSession(false);
+    // Wait for animation to show
+    setTimeout(() => {
+        window.location.href = '/';
+    }, 500);
 });
 
 // Timer toggle functionality
@@ -1226,10 +1229,13 @@ modalCancelBtn?.addEventListener('click', () => {
 });
 
 // Modal confirm button
-modalConfirmBtn?.addEventListener('click', () => {
+modalConfirmBtn?.addEventListener('click', async () => {
     saveProgress();
-    finishSession(false);
-    window.location.href = '/';
+    await finishSession(false);
+    // Wait for animation to show
+    setTimeout(() => {
+        window.location.href = '/';
+    }, 500);
 });
 
 // Close modal on overlay click
