@@ -904,7 +904,7 @@ function renderQuizTask(word: any, item: PoolItem, quiz: any, stageType: QuizSta
                         if (item.phase === 'mastered') {
                             handleMastered(item);
                         } else {
-                            showNextQuiz();
+                            displayCurrentWord();
                         }
                     }, 400);
                 }
