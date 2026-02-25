@@ -7,7 +7,9 @@ export default async function handler(req, res) {
   if (req.method === 'OPTIONS') return res.status(200).end();
 
   const pool = getPool();
-  const params = req.query.params || [];
+  const params = Array.isArray(req.query.params) ? req.query.params : (req.query.params ? [req.query.params] : []);
+
+  console.log('Sessions API:', { method: req.method, params, url: req.url, query: req.query });
 
   // POST /api/sessions
   if (req.method === 'POST' && params.length === 0) {
