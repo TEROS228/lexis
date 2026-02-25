@@ -875,3 +875,63 @@
 }
 
 .profile-asgn-card.asgn-done .pct-badge { color: #10b981; }
+
+/* Streak Card Styles */
+.stat-card.streak-card {
+    background: linear-gradient(135deg, #ff6b6b 0%, #ff8e53 100%);
+    border: none;
+    position: relative;
+    overflow: hidden;
+}
+
+.stat-card.streak-card::before {
+    content: '';
+    position: absolute;
+    top: -50%;
+    right: -50%;
+    width: 200%;
+    height: 200%;
+    background: radial-gradient(circle, rgba(255, 255, 255, 0.1) 0%, transparent 70%);
+    animation: streakGlow 3s ease-in-out infinite;
+}
+
+@keyframes streakGlow {
+    0%, 100% {
+        transform: translate(0, 0);
+    }
+    50% {
+        transform: translate(-10px, 10px);
+    }
+}
+
+.stat-card.streak-card .stat-icon {
+    font-size: 48px;
+    animation: streakFlame 1.5s ease-in-out infinite;
+    filter: drop-shadow(0 0 10px rgba(255, 140, 0, 0.8));
+}
+
+@keyframes streakFlame {
+    0%, 100% {
+        transform: scale(1) translateY(0);
+    }
+    50% {
+        transform: scale(1.1) translateY(-5px);
+    }
+}
+
+.stat-card.streak-card .stat-value,
+.stat-card.streak-card .stat-label,
+.stat-card.streak-card .stat-sublabel {
+    color: white;
+}
+
+.stat-card.streak-card .stat-value {
+    text-shadow: 0 4px 10px rgba(0, 0, 0, 0.3);
+}
+
+.stat-sublabel {
+    font-size: 13px;
+    font-weight: 600;
+    margin-top: 8px;
+    opacity: 0.9;
+}

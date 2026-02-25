@@ -1,5 +1,5 @@
 import { auth, onAuthStateChanged, logOut, getCachedAuthState, cacheAuthState } from '../services/firebase';
-import { getUserNativeLanguage, getUserProfile, getProgress, initUserProfile, getSessions, getSessionStats, getLearnedWords } from '../db';
+import { getUserNativeLanguage, getUserProfile, getProgress, initUserProfile, getSessions, getSessionStats, getLearnedWords, getStreak } from '../db';
 import { initI18n, setLanguage, getCurrentLanguage, updatePageTranslations } from '../i18n';
 import { setAvatar } from '../utils/avatar';
 
@@ -567,10 +567,17 @@ async function loadSessions() {
     const sessionsTotalStats = document.getElementById('sessionsTotalStats');
 
     try {
-        const [sessions, stats] = await Promise.all([
+        const [sessions, stats, streakData] = await Promise.all([
             getSessions(currentUser.uid),
-            getSessionStats(currentUser.uid)
+            getSessionStats(currentUser.uid),
+            getStreak(currentUser.uid)
         ]);
+
+        // Show streak stats
+        if (streakData) {
+            document.getElementById('currentStreak').textContent = streakData.current_streak || 0;
+            document.getElementById('longestStreak').textContent = streakData.longest_streak || 0;
+        }
 
         // Show stats if there are sessions
         if (stats && parseInt(stats.total_sessions) > 0) {

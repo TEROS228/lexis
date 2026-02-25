@@ -259,5 +259,33 @@ export const getSessionStats = async (uid: string) => {
   }
 };
 
+// ============ STREAK API ============
+
+export const updateStreak = async (uid: string) => {
+  try {
+    const response = await fetch(`${API_URL}/streak/${uid}`, {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' }
+    });
+
+    if (!response.ok) throw new Error('Failed to update streak');
+    return await response.json();
+  } catch (error) {
+    console.error('Error updating streak:', error);
+    throw error;
+  }
+};
+
+export const getStreak = async (uid: string) => {
+  try {
+    const response = await fetch(`${API_URL}/streak/${uid}`);
+    if (!response.ok) throw new Error('Failed to get streak');
+    return await response.json();
+  } catch (error) {
+    console.error('Error getting streak:', error);
+    return { current_streak: 0, longest_streak: 0, last_activity_date: null, streak_earned_today: false };
+  }
+};
+
 // Export for Firestore compatibility
 export const getFirestore = () => ({});

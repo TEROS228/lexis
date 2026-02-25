@@ -1,5 +1,5 @@
 import { auth, onAuthStateChanged, logOut, getCachedAuthState, cacheAuthState } from '../services/firebase';
-import { getUserNativeLanguage, getProgress, saveProgressBatch, initUserProfile, saveSession } from '../db';
+import { getUserNativeLanguage, getProgress, saveProgressBatch, initUserProfile, saveSession, updateStreak } from '../db';
 import tier2Words from '../data/words-tier2-full';
 import wordDetails from '../data/word-details-data';
 import { quizData } from '../data/quiz-data';
@@ -1144,8 +1144,44 @@ async function finishSession(completed: boolean) {
         try {
             await saveSession(currentUser.uid, 'tier2', totalStudySeconds,
                 sessionWordsReviewed, sessionKnown, sessionUnsure, sessionUnknown, completed);
+
+            // Update streak and show animation if increased
+            const streakData = await updateStreak(currentUser.uid);
+            if (streakData.streak_increased) {
+                showStreakAnimation(streakData.current_streak);
+            }
         } catch (error) { console.error('Error saving session:', error); }
     }
+}
+
+// ─── Streak Animation ─────────────────────────────────────────────────
+function showStreakAnimation(streakCount: number) {
+    const overlay = document.createElement('div');
+    overlay.className = 'streak-overlay';
+    overlay.innerHTML = `
+        <div class="streak-card">
+            <div class="streak-flame">🔥</div>
+            <div class="streak-count">${streakCount}</div>
+            <div class="streak-text">Day Streak!</div>
+            <div class="streak-message">Keep it up! Come back tomorrow to continue your streak.</div>
+        </div>
+    `;
+    document.body.appendChild(overlay);
+
+    // Play success sound
+    playSuccessSound();
+
+    // Auto-remove after 4 seconds
+    setTimeout(() => {
+        overlay.classList.add('fade-out');
+        setTimeout(() => overlay.remove(), 500);
+    }, 4000);
+
+    // Click to dismiss
+    overlay.addEventListener('click', () => {
+        overlay.classList.add('fade-out');
+        setTimeout(() => overlay.remove(), 500);
+    });
 }
 
 async function showCompletionScreen() {
