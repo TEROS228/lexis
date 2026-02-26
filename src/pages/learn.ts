@@ -1139,22 +1139,42 @@ function prevWord() {
 
 // ─── Session finish ───────────────────────────────────────────────────
 async function finishSession(completed: boolean) {
+    console.log('🔵 finishSession called with completed:', completed);
     stopTimer();
     if (currentUser && totalStudySeconds > 0 && sessionWordsReviewed > 0) {
+        console.log('🔵 Saving session:', { uid: currentUser.uid, seconds: totalStudySeconds, words: sessionWordsReviewed });
         try {
             await saveSession(currentUser.uid, 'tier2', totalStudySeconds,
                 sessionWordsReviewed, sessionKnown, sessionUnsure, sessionUnknown, completed);
+            console.log('✅ Session saved successfully');
 
             // Update streak and show animation if increased
+            console.log('🔵 Calling updateStreak for uid:', currentUser.uid);
             const streakData = await updateStreak(currentUser.uid);
-            console.log('Streak data:', streakData);
-            if (streakData.streak_increased) {
-                console.log('Showing streak animation for:', streakData.current_streak);
+            console.log('✅ Streak API response:', JSON.stringify(streakData, null, 2));
+
+            if (streakData && streakData.streak_increased) {
+                console.log('🔥 STREAK INCREASED! Current streak:', streakData.current_streak);
                 showStreakAnimation(streakData.current_streak);
+            } else if (streakData) {
+                console.log('ℹ️ Streak not increased. Data:', {
+                    current_streak: streakData.current_streak,
+                    longest_streak: streakData.longest_streak,
+                    last_activity_date: streakData.last_activity_date,
+                    streak_increased: streakData.streak_increased
+                });
             } else {
-                console.log('Streak not increased, already earned today');
+                console.error('❌ No streak data returned!');
             }
-        } catch (error) { console.error('Error saving session:', error); }
+        } catch (error) {
+            console.error('❌ Error in finishSession:', error);
+        }
+    } else {
+        console.log('⚠️ finishSession skipped - conditions not met:', {
+            hasUser: !!currentUser,
+            studySeconds: totalStudySeconds,
+            wordsReviewed: sessionWordsReviewed
+        });
     }
 }
 

@@ -263,21 +263,28 @@ export const getSessionStats = async (uid: string) => {
 
 export const updateStreak = async (uid: string) => {
   try {
+    console.log('🔵 updateStreak called for uid:', uid);
+    console.log('🔵 API_URL:', API_URL);
+    console.log('🔵 Full URL:', `${API_URL}/streak/${uid}`);
+
     const response = await fetch(`${API_URL}/streak/${uid}`, {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' }
     });
 
+    console.log('🔵 Streak API response status:', response.status);
+    console.log('🔵 Streak API response ok:', response.ok);
+
     if (!response.ok) {
       const errorText = await response.text();
-      console.error('Failed to update streak:', response.status, errorText);
+      console.error('❌ Failed to update streak:', response.status, errorText);
       return { current_streak: 0, longest_streak: 0, last_activity_date: null, streak_increased: false };
     }
     const data = await response.json();
-    console.log('Streak updated successfully:', data);
+    console.log('✅ Streak API returned data:', JSON.stringify(data, null, 2));
     return data;
   } catch (error) {
-    console.error('Error updating streak:', error);
+    console.error('❌ Error updating streak:', error);
     return { current_streak: 0, longest_streak: 0, last_activity_date: null, streak_increased: false };
   }
 };

@@ -3,6 +3,8 @@ import pool from '../_db.js';
 export default async function handler(req, res) {
   const { uid } = req.query;
 
+  console.log('🔵 Streak API called:', { method: req.method, uid, query: req.query, url: req.url });
+
   // Enable CORS
   res.setHeader('Access-Control-Allow-Origin', '*');
   res.setHeader('Access-Control-Allow-Methods', 'GET, POST, OPTIONS');
@@ -12,8 +14,14 @@ export default async function handler(req, res) {
     return res.status(200).end();
   }
 
+  if (!uid) {
+    console.error('❌ No uid provided in request');
+    return res.status(400).json({ error: 'UID is required' });
+  }
+
   try {
     if (req.method === 'GET') {
+      console.log('🔵 GET streak for uid:', uid);
       // Get current streak
       const result = await pool.query(
         `SELECT current_streak, longest_streak, last_activity_date,
@@ -30,9 +38,11 @@ export default async function handler(req, res) {
         return res.status(404).json({ error: 'User not found' });
       }
 
+      console.log('✅ GET streak result:', result.rows[0]);
       return res.status(200).json(result.rows[0]);
 
     } else if (req.method === 'POST') {
+      console.log('🔵 POST updateStreak for uid:', uid);
       // Update streak after session completion
       const result = await pool.query(
         `WITH old_data AS (
@@ -81,16 +91,19 @@ export default async function handler(req, res) {
       );
 
       if (result.rows.length === 0) {
+        console.error('❌ User not found for uid:', uid);
         return res.status(404).json({ error: 'User not found' });
       }
 
-      return res.status(200).json(result.rows[0]);
+      const responseData = result.rows[0];
+      console.log('✅ POST streak result:', JSON.stringify(responseData, null, 2));
+      return res.status(200).json(responseData);
     }
 
     return res.status(405).json({ error: 'Method not allowed' });
 
   } catch (error) {
-    console.error('Streak API Error:', error);
+    console.error('❌ Streak API Error:', error);
     return res.status(500).json({ error: error.message });
   }
 }

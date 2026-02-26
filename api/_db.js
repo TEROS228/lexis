@@ -7,10 +7,13 @@ export function getPool() {
   if (!pool) {
     pool = new Pool({
       connectionString: process.env.DATABASE_URL,
-      ssl: { rejectUnauthorized: false }
+      ssl: { rejectUnauthorized: false },
+      max: 1, // Vercel serverless - use minimal connections
+      idleTimeoutMillis: 30000,
+      connectionTimeoutMillis: 10000,
     });
 
-    // Initialize streak columns if they don't exist
+    // Initialize streak columns if they don't exist (run once)
     pool.query(`
       ALTER TABLE users
       ADD COLUMN IF NOT EXISTS current_streak INTEGER DEFAULT 0,
