@@ -300,5 +300,27 @@ export const getStreak = async (uid: string) => {
   }
 };
 
+export const resetStreak = async (uid: string) => {
+  try {
+    console.log('🔵 Resetting streak for uid:', uid);
+    const response = await fetch(`${API_URL}/streak/${uid}`, {
+      method: 'DELETE',
+      headers: { 'Content-Type': 'application/json' }
+    });
+
+    if (!response.ok) {
+      const errorText = await response.text();
+      console.error('❌ Failed to reset streak:', response.status, errorText);
+      throw new Error('Failed to reset streak');
+    }
+    const data = await response.json();
+    console.log('✅ Streak reset:', data);
+    return data;
+  } catch (error) {
+    console.error('❌ Error resetting streak:', error);
+    throw error;
+  }
+};
+
 // Export for Firestore compatibility
 export const getFirestore = () => ({});

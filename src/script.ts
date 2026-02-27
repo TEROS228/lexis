@@ -11,7 +11,7 @@ import {
   cacheAuthState,
   updateProfile
 } from './services/firebase';
-import { initUserProfile, saveUserRoleAndLanguage } from './db';
+import { initUserProfile, saveUserRoleAndLanguage, resetStreak } from './db';
 import { setAvatar } from './utils/avatar';
 
 // Current user
@@ -556,6 +556,24 @@ document.addEventListener('click', (e) => {
     if (!userProfile?.contains(e.target)) {
         userInfoTrigger?.classList.remove('active');
         userDropdown?.classList.remove('active');
+    }
+});
+
+// Reset streak handler (TEST)
+const resetStreakBtn = document.getElementById('resetStreakBtn');
+resetStreakBtn?.addEventListener('click', async () => {
+    if (!currentUser) return;
+
+    const confirmed = confirm('Are you sure you want to reset your streak? (TEST MODE)');
+    if (!confirmed) return;
+
+    try {
+        await resetStreak(currentUser.uid);
+        showToast('Streak Reset', 'Your streak has been reset to 0. Start a new session to earn it again!', 4000, 'info');
+        console.log('Streak reset successfully');
+    } catch (error) {
+        console.error('Reset streak error:', error);
+        showToast('Error', 'Failed to reset streak', 4000, 'info');
     }
 });
 

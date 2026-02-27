@@ -7,7 +7,7 @@ export default async function handler(req, res) {
 
   // Enable CORS
   res.setHeader('Access-Control-Allow-Origin', '*');
-  res.setHeader('Access-Control-Allow-Methods', 'GET, POST, OPTIONS');
+  res.setHeader('Access-Control-Allow-Methods', 'GET, POST, DELETE, OPTIONS');
   res.setHeader('Access-Control-Allow-Headers', 'Content-Type');
 
   if (req.method === 'OPTIONS') {
@@ -98,6 +98,26 @@ export default async function handler(req, res) {
       const responseData = result.rows[0];
       console.log('✅ POST streak result:', JSON.stringify(responseData, null, 2));
       return res.status(200).json(responseData);
+
+    } else if (req.method === 'DELETE') {
+      console.log('🔵 DELETE reset streak for uid:', uid);
+      // Reset streak to 0
+      const result = await pool.query(
+        `UPDATE users
+         SET current_streak = 0,
+             last_activity_date = NULL
+         WHERE uid = $1
+         RETURNING current_streak, longest_streak, last_activity_date`,
+        [uid]
+      );
+
+      if (result.rows.length === 0) {
+        console.error('❌ User not found for uid:', uid);
+        return res.status(404).json({ error: 'User not found' });
+      }
+
+      console.log('✅ Streak reset successfully');
+      return res.status(200).json(result.rows[0]);
     }
 
     return res.status(405).json({ error: 'Method not allowed' });
