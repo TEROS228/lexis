@@ -1140,13 +1140,16 @@ function prevWord() {
 // ─── Session finish ───────────────────────────────────────────────────
 async function finishSession(completed: boolean) {
     console.log('🔵 finishSession called with completed:', completed);
-    alert('🔵 finishSession called!');
     stopTimer();
-    if (currentUser && totalStudySeconds > 0 && sessionWordsReviewed > 0) {
-        console.log('🔵 Saving session:', { uid: currentUser.uid, seconds: totalStudySeconds, words: sessionWordsReviewed });
+
+    // Count words reviewed this session (any word with status change)
+    const wordsReviewedCount = Object.keys(sessionProgress).length;
+
+    if (currentUser && totalStudySeconds > 0 && wordsReviewedCount > 0) {
+        console.log('🔵 Saving session:', { uid: currentUser.uid, seconds: totalStudySeconds, words: wordsReviewedCount });
         try {
             await saveSession(currentUser.uid, 'tier2', totalStudySeconds,
-                sessionWordsReviewed, sessionKnown, sessionUnsure, sessionUnknown, completed);
+                wordsReviewedCount, sessionKnown, sessionUnsure, sessionUnknown, completed);
             console.log('✅ Session saved successfully');
 
             // Update streak and show animation if increased
@@ -1174,7 +1177,7 @@ async function finishSession(completed: boolean) {
         console.log('⚠️ finishSession skipped - conditions not met:', {
             hasUser: !!currentUser,
             studySeconds: totalStudySeconds,
-            wordsReviewed: sessionWordsReviewed
+            wordsReviewed: wordsReviewedCount
         });
     }
 }
