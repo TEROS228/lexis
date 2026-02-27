@@ -431,6 +431,13 @@ function applyStatus(wordId: string, status: string) {
     saveProgress();
 }
 
+// Track any quiz interaction for streak
+function trackQuizActivity(wordId: string) {
+    if (!sessionProgress[wordId]) {
+        sessionProgress[wordId] = 'reviewing';
+    }
+}
+
 // ─── Stats ─────────────────────────────────────────────────────────────
 function updateStats() {
     knownCountEl.textContent = String(knownCount);
@@ -675,6 +682,9 @@ function showIntroWord() {
         const tryQuiz = (keepFeedback = false) => {
             if (!keepFeedback) quizFeedback.style.display = 'none';
             renderQuizOptions(quiz, (correct, chosenIdx) => {
+                // Track quiz activity for streak
+                trackQuizActivity(word.id);
+
                 if (correct) {
                     playSuccessSound();
                     introQuizAnswered = true;
@@ -785,6 +795,9 @@ function showListeningQuiz(word: any, item: PoolItem) {
     const checkAnswer = () => {
         const userAnswer = input.value.trim().toLowerCase();
         const correctAnswer = word.en.toLowerCase();
+
+        // Track quiz activity for streak
+        trackQuizActivity(word.id);
 
         if (userAnswer === correctAnswer) {
             playSuccessSound();
@@ -942,6 +955,9 @@ function renderQuizTask(word: any, item: PoolItem, quiz: any, stageType: QuizSta
     quizFeedback.style.display = 'none';
 
     renderQuizOptions(quiz, (correct) => {
+        // Track quiz activity for streak
+        trackQuizActivity(word.id);
+
         if (correct) {
             playSuccessSound();
             quizFeedback.textContent = '✓ Correct!';
