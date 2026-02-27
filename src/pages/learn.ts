@@ -1140,6 +1140,7 @@ function prevWord() {
 // ─── Session finish ───────────────────────────────────────────────────
 async function finishSession(completed: boolean) {
     console.log('🔵 finishSession called with completed:', completed);
+    alert('🔵 finishSession called!');
     stopTimer();
     if (currentUser && totalStudySeconds > 0 && sessionWordsReviewed > 0) {
         console.log('🔵 Saving session:', { uid: currentUser.uid, seconds: totalStudySeconds, words: sessionWordsReviewed });
