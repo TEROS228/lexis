@@ -1208,21 +1208,67 @@ function showStreakAnimation(streakCount: number) {
             <div class="streak-count">${streakCount}</div>
             <div class="streak-text">Day Streak!</div>
             <div class="streak-message">Keep it up! Come back tomorrow to continue your streak.</div>
+            <button class="streak-continue">Continue</button>
         </div>
     `;
     document.body.appendChild(overlay);
 
+    // Create confetti particles
+    createConfetti(overlay);
+
     // Play success sound
     playSuccessSound();
 
-    // Click to dismiss and redirect to home
-    overlay.addEventListener('click', () => {
+    // Add vibration feedback (if available)
+    if (navigator.vibrate) {
+        navigator.vibrate([100, 50, 100, 50, 200]);
+    }
+
+    // Continue button click handler
+    const continueBtn = overlay.querySelector('.streak-continue');
+    continueBtn?.addEventListener('click', (e) => {
+        e.stopPropagation();
         overlay.classList.add('fade-out');
         setTimeout(() => {
             overlay.remove();
             window.location.href = '/';
-        }, 500);
+        }, 400);
     });
+
+    // Click overlay to dismiss
+    overlay.addEventListener('click', (e) => {
+        if (e.target === overlay) {
+            overlay.classList.add('fade-out');
+            setTimeout(() => {
+                overlay.remove();
+                window.location.href = '/';
+            }, 400);
+        }
+    });
+}
+
+// Create confetti particles effect
+function createConfetti(container: HTMLElement) {
+    const colors = ['#ffd700', '#ff6b6b', '#4ecdc4', '#45b7d1', '#f7b731', '#ff9ff3'];
+    const confettiCount = 60;
+
+    for (let i = 0; i < confettiCount; i++) {
+        const confetti = document.createElement('div');
+        confetti.className = 'confetti';
+        confetti.style.left = Math.random() * 100 + '%';
+        confetti.style.top = -20 + 'px';
+        confetti.style.background = colors[Math.floor(Math.random() * colors.length)];
+        confetti.style.width = (Math.random() * 8 + 6) + 'px';
+        confetti.style.height = confetti.style.width;
+        confetti.style.borderRadius = Math.random() > 0.5 ? '50%' : '0';
+        confetti.style.animationDuration = (Math.random() * 2 + 2) + 's';
+        confetti.style.animationDelay = (Math.random() * 0.5) + 's';
+
+        container.appendChild(confetti);
+
+        // Remove confetti after animation
+        setTimeout(() => confetti.remove(), 3500);
+    }
 }
 
 async function showCompletionScreen() {

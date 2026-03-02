@@ -896,20 +896,20 @@
     box-shadow: 0 6px 16px rgba(239, 68, 68, 0.4);
 }
 
-/* Streak Animation */
+/* Streak Animation - Duolingo Quality */
 .streak-overlay {
     position: fixed;
     top: 0;
     left: 0;
     right: 0;
     bottom: 0;
-    background: rgba(0, 0, 0, 0.8);
-    backdrop-filter: blur(10px);
+    background: rgba(0, 0, 0, 0.85);
+    backdrop-filter: blur(12px);
     display: flex;
     align-items: center;
     justify-content: center;
     z-index: 10001;
-    animation: fadeInOverlay 0.4s ease;
+    animation: fadeInOverlay 0.5s cubic-bezier(0.4, 0, 0.2, 1);
     cursor: pointer;
 }
 
@@ -920,12 +920,12 @@
     }
     to {
         opacity: 1;
-        backdrop-filter: blur(10px);
+        backdrop-filter: blur(12px);
     }
 }
 
 .streak-overlay.fade-out {
-    animation: fadeOutOverlay 0.5s ease forwards;
+    animation: fadeOutOverlay 0.4s cubic-bezier(0.4, 0, 0.2, 1) forwards;
 }
 
 @keyframes fadeOutOverlay {
@@ -936,57 +936,92 @@
 }
 
 .streak-card {
-    background: linear-gradient(135deg, #ff6b6b 0%, #ff8e53 100%);
-    border-radius: 32px;
-    padding: 60px 50px;
+    background: linear-gradient(135deg, #FF9600 0%, #FF6B00 100%);
+    border-radius: 40px;
+    padding: 80px 60px;
     text-align: center;
-    box-shadow: 0 30px 80px rgba(255, 107, 107, 0.5);
-    animation: streakBounce 0.6s cubic-bezier(0.68, -0.55, 0.265, 1.55);
-    max-width: 400px;
+    box-shadow:
+        0 40px 100px rgba(255, 107, 0, 0.6),
+        0 0 0 1px rgba(255, 255, 255, 0.1) inset;
+    animation: streakEntrance 0.7s cubic-bezier(0.34, 1.56, 0.64, 1);
+    max-width: 480px;
     width: 90%;
+    position: relative;
+    overflow: visible;
 }
 
-@keyframes streakBounce {
+@keyframes streakEntrance {
     0% {
-        transform: scale(0.3) rotate(-10deg);
+        transform: scale(0.3) translateY(100px);
         opacity: 0;
     }
     50% {
-        transform: scale(1.1) rotate(5deg);
+        transform: scale(1.05) translateY(-20px);
     }
     100% {
-        transform: scale(1) rotate(0deg);
+        transform: scale(1) translateY(0);
         opacity: 1;
     }
 }
 
 .streak-flame {
-    font-size: 100px;
-    animation: flamePulse 1.5s ease-in-out infinite;
-    filter: drop-shadow(0 0 20px rgba(255, 140, 0, 0.8));
+    font-size: 120px;
+    line-height: 1;
+    animation: flameFloat 2s ease-in-out infinite;
+    filter: drop-shadow(0 10px 40px rgba(255, 140, 0, 0.9));
+    display: inline-block;
 }
 
-@keyframes flamePulse {
+@keyframes flameFloat {
     0%, 100% {
-        transform: scale(1);
+        transform: translateY(0) scale(1) rotate(-2deg);
     }
     50% {
-        transform: scale(1.15);
+        transform: translateY(-15px) scale(1.1) rotate(2deg);
     }
 }
 
 .streak-count {
-    font-size: 72px;
+    font-size: 96px;
     font-weight: 900;
     color: white;
-    margin: 20px 0 10px;
-    text-shadow: 0 4px 20px rgba(0, 0, 0, 0.3);
-    animation: countUp 0.5s ease-out 0.3s backwards;
+    margin: 30px 0 0;
+    text-shadow:
+        0 6px 30px rgba(0, 0, 0, 0.4),
+        0 2px 4px rgba(0, 0, 0, 0.3);
+    line-height: 1;
+    animation: countPop 0.6s cubic-bezier(0.34, 1.56, 0.64, 1) 0.2s backwards;
+    letter-spacing: -4px;
 }
 
-@keyframes countUp {
+@keyframes countPop {
+    0% {
+        transform: scale(0);
+        opacity: 0;
+    }
+    50% {
+        transform: scale(1.15);
+    }
+    100% {
+        transform: scale(1);
+        opacity: 1;
+    }
+}
+
+.streak-text {
+    font-size: 36px;
+    font-weight: 900;
+    color: white;
+    margin: 10px 0 30px;
+    text-shadow: 0 4px 20px rgba(0, 0, 0, 0.3);
+    animation: textSlideUp 0.5s cubic-bezier(0.4, 0, 0.2, 1) 0.3s backwards;
+    text-transform: uppercase;
+    letter-spacing: 2px;
+}
+
+@keyframes textSlideUp {
     from {
-        transform: translateY(30px);
+        transform: translateY(20px);
         opacity: 0;
     }
     to {
@@ -995,22 +1030,102 @@
     }
 }
 
-.streak-text {
-    font-size: 32px;
-    font-weight: 800;
-    color: white;
-    margin-bottom: 20px;
-    text-shadow: 0 2px 10px rgba(0, 0, 0, 0.2);
-    animation: countUp 0.5s ease-out 0.4s backwards;
-}
-
 .streak-message {
-    font-size: 16px;
+    font-size: 18px;
     font-weight: 600;
     color: rgba(255, 255, 255, 0.95);
-    line-height: 1.6;
-    max-width: 300px;
+    line-height: 1.8;
+    max-width: 340px;
     margin: 0 auto;
-    animation: countUp 0.5s ease-out 0.5s backwards;
+    animation: textSlideUp 0.5s cubic-bezier(0.4, 0, 0.2, 1) 0.4s backwards;
+}
+
+.streak-continue {
+    margin-top: 40px;
+    padding: 18px 40px;
+    background: white;
+    color: #FF6B00;
+    border: none;
+    border-radius: 16px;
+    font-size: 18px;
+    font-weight: 800;
+    cursor: pointer;
+    box-shadow: 0 8px 24px rgba(0, 0, 0, 0.2);
+    animation: textSlideUp 0.5s cubic-bezier(0.4, 0, 0.2, 1) 0.5s backwards;
+    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+    text-transform: uppercase;
+    letter-spacing: 1px;
+}
+
+.streak-continue:hover {
+    transform: translateY(-3px) scale(1.05);
+    box-shadow: 0 12px 32px rgba(0, 0, 0, 0.3);
+}
+
+.streak-continue:active {
+    transform: translateY(-1px) scale(1.02);
+}
+
+/* Confetti Particles */
+.confetti {
+    position: absolute;
+    width: 10px;
+    height: 10px;
+    background: #ffd700;
+    animation: confettiFall 3s linear forwards;
+    pointer-events: none;
+}
+
+@keyframes confettiFall {
+    0% {
+        transform: translateY(0) rotate(0deg);
+        opacity: 1;
+    }
+    100% {
+        transform: translateY(100vh) rotate(720deg);
+        opacity: 0;
+    }
+}
+
+.confetti:nth-child(2n) {
+    background: #ff6b6b;
+}
+
+.confetti:nth-child(3n) {
+    background: #4ecdc4;
+}
+
+.confetti:nth-child(4n) {
+    background: #45b7d1;
+}
+
+.confetti:nth-child(5n) {
+    background: #f7b731;
+}
+
+/* Radial Glow Effect */
+.streak-card::before {
+    content: '';
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    width: 150%;
+    height: 150%;
+    background: radial-gradient(circle, rgba(255, 150, 0, 0.3) 0%, transparent 70%);
+    transform: translate(-50%, -50%);
+    pointer-events: none;
+    animation: pulseGlow 2s ease-in-out infinite;
+    z-index: -1;
+}
+
+@keyframes pulseGlow {
+    0%, 100% {
+        opacity: 0.5;
+        transform: translate(-50%, -50%) scale(1);
+    }
+    50% {
+        opacity: 1;
+        transform: translate(-50%, -50%) scale(1.1);
+    }
 }
 
