@@ -1215,12 +1215,6 @@ function showStreakAnimation(streakCount: number) {
     // Play success sound
     playSuccessSound();
 
-    // Auto-remove after 4 seconds
-    setTimeout(() => {
-        overlay.classList.add('fade-out');
-        setTimeout(() => overlay.remove(), 500);
-    }, 4000);
-
     // Click to dismiss
     overlay.addEventListener('click', () => {
         overlay.classList.add('fade-out');
