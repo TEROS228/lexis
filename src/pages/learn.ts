@@ -406,7 +406,10 @@ onAuthStateChanged(auth, async (user) => {
         initPoolFromProgress(user.uid, userProgress);
         updateStats();
 
-        // Show quiz loader before first display
+        // Hide main loading screen first
+        hideLoading();
+
+        // Show quiz loader immediately to prevent flash
         showQuizLoader();
 
         // Wait for quiz data to be ready (prevents flash of action buttons)
@@ -414,11 +417,10 @@ onAuthStateChanged(auth, async (user) => {
             displayCurrentWord();
             setTimeout(() => {
                 hideQuizLoader();
-            }, 500); // Keep loader visible for smooth transition
-        }, 300);
+            }, 600); // Keep loader visible for smooth transition
+        }, 400);
 
         startTimer();
-        hideLoading();
     } else {
         cacheAuthState(null);
         alert('Пожалуйста, войдите в систему');
