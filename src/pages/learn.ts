@@ -393,6 +393,10 @@ onAuthStateChanged(auth, async (user) => {
         setAvatar(userAvatar as HTMLImageElement, user.photoURL, user.displayName || user.email, 36);
         userName.textContent = user.displayName || user.email;
 
+        // Hide main loading screen and show quiz loader IMMEDIATELY
+        hideLoading();
+        showQuizLoader();
+
         try { await initUserProfile(user); } catch { /* ignore */ }
 
         const nativeLang = await getUserNativeLanguage(user.uid);
@@ -410,12 +414,6 @@ onAuthStateChanged(auth, async (user) => {
         await loadProgress();
         initPoolFromProgress(user.uid, userProgress);
         updateStats();
-
-        // Hide main loading screen first
-        hideLoading();
-
-        // Show quiz loader immediately to prevent flash
-        showQuizLoader();
 
         // Wait for quiz data to be ready (prevents flash of action buttons)
         setTimeout(() => {
