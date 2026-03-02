@@ -1215,10 +1215,13 @@ function showStreakAnimation(streakCount: number) {
     // Play success sound
     playSuccessSound();
 
-    // Click to dismiss
+    // Click to dismiss and redirect to home
     overlay.addEventListener('click', () => {
         overlay.classList.add('fade-out');
-        setTimeout(() => overlay.remove(), 500);
+        setTimeout(() => {
+            overlay.remove();
+            window.location.href = '/';
+        }, 500);
     });
 }
 
@@ -1241,10 +1244,12 @@ btnPrev.addEventListener('click', prevWord);
 btnSaveExit.addEventListener('click', async () => {
     saveProgress();
     await finishSession(false);
-    // Wait for animation to show
-    setTimeout(() => {
+    // If no streak animation shown, redirect immediately
+    // Otherwise, streak animation will handle redirect on click
+    const hasStreakOverlay = document.querySelector('.streak-overlay');
+    if (!hasStreakOverlay) {
         window.location.href = '/';
-    }, 500);
+    }
 });
 
 // Timer toggle functionality
@@ -1270,10 +1275,12 @@ modalCancelBtn?.addEventListener('click', () => {
 modalConfirmBtn?.addEventListener('click', async () => {
     saveProgress();
     await finishSession(false);
-    // Wait for animation to show
-    setTimeout(() => {
+    // If no streak animation shown, redirect immediately
+    // Otherwise, streak animation will handle redirect on click
+    const hasStreakOverlay = document.querySelector('.streak-overlay');
+    if (!hasStreakOverlay) {
         window.location.href = '/';
-    }, 500);
+    }
 });
 
 // Close modal on overlay click
