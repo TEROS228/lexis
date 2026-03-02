@@ -216,6 +216,38 @@ function stopTimer() {
 const loadingOverlay = document.getElementById('loadingOverlay');
 function hideLoading() { if (loadingOverlay) loadingOverlay.style.display = 'none'; }
 
+// ─── Quiz Loader ─────────────────────────────────────────────────────
+let quizLoader: HTMLElement | null = null;
+
+function showQuizLoader() {
+    if (quizLoader) return; // Already showing
+
+    quizLoader = document.createElement('div');
+    quizLoader.className = 'quiz-loader-overlay';
+    quizLoader.innerHTML = `
+        <div class="loader-wrapper">
+            <div class="loader-circle"></div>
+            <div class="loader-circle"></div>
+            <div class="loader-circle"></div>
+            <div class="loader-shadow"></div>
+            <div class="loader-shadow"></div>
+            <div class="loader-shadow"></div>
+        </div>
+        <div class="loader-text">Loading quiz...</div>
+    `;
+    document.body.appendChild(quizLoader);
+}
+
+function hideQuizLoader() {
+    if (!quizLoader) return;
+
+    quizLoader.classList.add('fade-out');
+    setTimeout(() => {
+        quizLoader?.remove();
+        quizLoader = null;
+    }, 400);
+}
+
 // ─── Language selector ───────────────────────────────────────────────
 const languageBtn = document.getElementById('languageBtn');
 const languageDropdown = document.getElementById('languageDropdown');
@@ -373,7 +405,18 @@ onAuthStateChanged(auth, async (user) => {
         await loadProgress();
         initPoolFromProgress(user.uid, userProgress);
         updateStats();
-        displayCurrentWord();
+
+        // Show quiz loader before first display
+        showQuizLoader();
+
+        // Wait for quiz data to be ready (prevents flash of action buttons)
+        setTimeout(() => {
+            displayCurrentWord();
+            setTimeout(() => {
+                hideQuizLoader();
+            }, 500); // Keep loader visible for smooth transition
+        }, 300);
+
         startTimer();
         hideLoading();
     } else {
