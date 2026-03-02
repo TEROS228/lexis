@@ -245,6 +245,10 @@ function hideQuizLoader() {
     setTimeout(() => {
         quizLoader?.remove();
         quizLoader = null;
+        // Show word container when loader is gone
+        if (wordContainer) {
+            wordContainer.classList.add('ready');
+        }
     }, 400);
 }
 
@@ -305,6 +309,7 @@ const userInfoTrigger = document.getElementById('userInfoTrigger');
 const userDropdown = document.getElementById('userDropdown');
 const signOutBtn = document.getElementById('signOutBtn');
 
+const wordContainer = document.querySelector('.word-container') as HTMLElement;
 const wordMain = document.getElementById('wordMain');
 const wordMeaning = document.getElementById('wordMeaning');
 const meaningText = document.getElementById('meaningText');

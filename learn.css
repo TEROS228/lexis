@@ -4,6 +4,16 @@
     padding: 40px 24px;
 }
 
+/* Hide word container initially until quiz is ready */
+.word-container {
+    opacity: 0;
+    transition: opacity 0.5s ease;
+}
+
+.word-container.ready {
+    opacity: 1;
+}
+
 /* Slide animations */
 @keyframes slideOutLeft {
     0% {
