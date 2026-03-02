@@ -539,58 +539,113 @@ function displayCurrentWord() {
 }
 
 // ─── Sound Effects ────────────────────────────────────────────────────
+// Create audio context once and reuse
+let audioContext: AudioContext | null = null;
+let audioInitialized = false;
+
+function getAudioContext() {
+    if (!audioContext) {
+        try {
+            audioContext = new (window.AudioContext || (window as any).webkitAudioContext)();
+        } catch (e) {
+            console.warn('AudioContext not supported:', e);
+            return null;
+        }
+    }
+    return audioContext;
+}
+
+// Initialize audio on first user interaction
+function initAudio() {
+    if (audioInitialized) return;
+    const ctx = getAudioContext();
+    if (ctx && ctx.state === 'suspended') {
+        ctx.resume().then(() => {
+            audioInitialized = true;
+        });
+    } else {
+        audioInitialized = true;
+    }
+}
+
+// Add listeners to initialize audio on first click
+document.addEventListener('click', initAudio, { once: true });
+document.addEventListener('touchstart', initAudio, { once: true });
+
 function playSuccessSound() {
-    const audioContext = new (window.AudioContext || (window as any).webkitAudioContext)();
-    const oscillator = audioContext.createOscillator();
-    const gainNode = audioContext.createGain();
+    try {
+        const ctx = getAudioContext();
+        if (!ctx) return;
 
-    oscillator.connect(gainNode);
-    gainNode.connect(audioContext.destination);
+        // Resume context if suspended (browser autoplay policy)
+        if (ctx.state === 'suspended') {
+            ctx.resume();
+        }
 
-    oscillator.frequency.value = 523.25; // C5
-    oscillator.type = 'sine';
+        const oscillator = ctx.createOscillator();
+        const gainNode = ctx.createGain();
 
-    gainNode.gain.setValueAtTime(0.3, audioContext.currentTime);
-    gainNode.gain.exponentialRampToValueAtTime(0.01, audioContext.currentTime + 0.3);
+        oscillator.connect(gainNode);
+        gainNode.connect(ctx.destination);
 
-    oscillator.start(audioContext.currentTime);
-    oscillator.stop(audioContext.currentTime + 0.3);
+        oscillator.frequency.value = 523.25; // C5
+        oscillator.type = 'sine';
 
-    // Second note
-    setTimeout(() => {
-        const osc2 = audioContext.createOscillator();
-        const gain2 = audioContext.createGain();
+        gainNode.gain.setValueAtTime(0.3, ctx.currentTime);
+        gainNode.gain.exponentialRampToValueAtTime(0.01, ctx.currentTime + 0.3);
 
-        osc2.connect(gain2);
-        gain2.connect(audioContext.destination);
+        oscillator.start(ctx.currentTime);
+        oscillator.stop(ctx.currentTime + 0.3);
 
-        osc2.frequency.value = 659.25; // E5
-        osc2.type = 'sine';
+        // Second note
+        setTimeout(() => {
+            const osc2 = ctx.createOscillator();
+            const gain2 = ctx.createGain();
 
-        gain2.gain.setValueAtTime(0.3, audioContext.currentTime);
-        gain2.gain.exponentialRampToValueAtTime(0.01, audioContext.currentTime + 0.4);
+            osc2.connect(gain2);
+            gain2.connect(ctx.destination);
 
-        osc2.start(audioContext.currentTime);
-        osc2.stop(audioContext.currentTime + 0.4);
-    }, 100);
+            osc2.frequency.value = 659.25; // E5
+            osc2.type = 'sine';
+
+            gain2.gain.setValueAtTime(0.3, ctx.currentTime);
+            gain2.gain.exponentialRampToValueAtTime(0.01, ctx.currentTime + 0.4);
+
+            osc2.start(ctx.currentTime);
+            osc2.stop(ctx.currentTime + 0.4);
+        }, 100);
+    } catch (e) {
+        console.warn('Error playing success sound:', e);
+    }
 }
 
 function playErrorSound() {
-    const audioContext = new (window.AudioContext || (window as any).webkitAudioContext)();
-    const oscillator = audioContext.createOscillator();
-    const gainNode = audioContext.createGain();
+    try {
+        const ctx = getAudioContext();
+        if (!ctx) return;
 
-    oscillator.connect(gainNode);
-    gainNode.connect(audioContext.destination);
+        // Resume context if suspended (browser autoplay policy)
+        if (ctx.state === 'suspended') {
+            ctx.resume();
+        }
 
-    oscillator.frequency.value = 300; // Softer mid-range frequency
-    oscillator.type = 'sine'; // Sine wave for softer sound
+        const oscillator = ctx.createOscillator();
+        const gainNode = ctx.createGain();
 
-    gainNode.gain.setValueAtTime(0.15, audioContext.currentTime);
-    gainNode.gain.exponentialRampToValueAtTime(0.01, audioContext.currentTime + 0.3);
+        oscillator.connect(gainNode);
+        gainNode.connect(ctx.destination);
 
-    oscillator.start(audioContext.currentTime);
-    oscillator.stop(audioContext.currentTime + 0.3);
+        oscillator.frequency.value = 300; // Softer mid-range frequency
+        oscillator.type = 'sine'; // Sine wave for softer sound
+
+        gainNode.gain.setValueAtTime(0.15, ctx.currentTime);
+        gainNode.gain.exponentialRampToValueAtTime(0.01, ctx.currentTime + 0.3);
+
+        oscillator.start(ctx.currentTime);
+        oscillator.stop(ctx.currentTime + 0.3);
+    } catch (e) {
+        console.warn('Error playing error sound:', e);
+    }
 }
 
 // ─── Speech Synthesis Helper ──────────────────────────────────────────
