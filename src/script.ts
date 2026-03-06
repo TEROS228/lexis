@@ -620,19 +620,30 @@ onAuthStateChanged(auth, async (user) => {
             const { getUserProfile } = await import('./db');
             const userData = await getUserProfile(user.uid);
 
+            console.log('User profile data:', userData);
+            console.log('User role:', userData?.role);
+
             if (!userData || !userData.role) {
                 // New user - show role selection modal
+                console.log('Showing role modal for user without role');
                 pendingUser = user;
                 showRoleModal();
             } else if (userData.role === 'teacher') {
                 // Show dashboard link for teachers
+                console.log('User is teacher, showing dashboard link');
                 const dashboardLink = document.getElementById('dashboardLink');
                 if (dashboardLink) {
                     dashboardLink.style.display = 'flex';
                 }
+            } else {
+                console.log('User is student');
             }
         } catch (error) {
             console.error('Error checking user role:', error);
+            // If user not found in DB, show role modal
+            console.log('User not found in DB, showing role modal');
+            pendingUser = user;
+            showRoleModal();
         }
     } else {
         // User is signed out - clear cache and show sign-in
