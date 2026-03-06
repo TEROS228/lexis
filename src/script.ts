@@ -615,11 +615,16 @@ onAuthStateChanged(auth, async (user) => {
         setAvatar(userAvatar as HTMLImageElement, user.photoURL, user.displayName || user.email || '', 36);
         if (userName) userName.textContent = user.displayName || user.email;
 
-        // Check if teacher and show dashboard link
+        // Check if user has role set, if not show role selection modal
         try {
             const { getUserProfile } = await import('./db');
             const userData = await getUserProfile(user.uid);
-            if (userData && userData.role === 'teacher') {
+
+            if (!userData || !userData.role) {
+                // New user - show role selection modal
+                pendingUser = user;
+                showRoleModal();
+            } else if (userData.role === 'teacher') {
                 // Show dashboard link for teachers
                 const dashboardLink = document.getElementById('dashboardLink');
                 if (dashboardLink) {
