@@ -1,3 +1,4 @@
+import '../../learn.css';
 import { auth, onAuthStateChanged, logOut, getCachedAuthState, cacheAuthState } from '../services/firebase';
 import { getUserNativeLanguage, getProgress, saveProgressBatch, initUserProfile, saveSession, updateStreak } from '../db';
 import tier2Words from '../data/words-tier2-full';
