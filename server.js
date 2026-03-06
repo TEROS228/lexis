@@ -35,6 +35,8 @@ const pool = new pg.Pool({
 // CORS configuration
 const allowedOrigins = [
   'https://lexis-eight.vercel.app',
+  'https://wordlex.online',
+  'https://www.wordlex.online',
   'http://localhost:3000',
   'http://localhost:5173'
 ];
@@ -63,8 +65,8 @@ app.post('/api/users', async (req, res) => {
   const { uid, email, displayName, photoURL } = req.body;
   try {
     const result = await pool.query(
-      `INSERT INTO users (uid, email, display_name, photo_url, role, created_at)
-       VALUES ($1, $2, $3, $4, 'student', CURRENT_TIMESTAMP)
+      `INSERT INTO users (uid, email, display_name, photo_url, created_at)
+       VALUES ($1, $2, $3, $4, CURRENT_TIMESTAMP)
        ON CONFLICT (uid) DO UPDATE SET
          email = EXCLUDED.email,
          display_name = EXCLUDED.display_name,
