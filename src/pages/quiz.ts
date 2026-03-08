@@ -308,19 +308,49 @@ function showFeedback(selectedIndex, correctIndex) {
 
 // Next question
 btnNextQuestion.addEventListener('click', () => {
-    if (currentQuestionIndex < quizWords.length - 1) {
-        currentQuestionIndex++;
-        displayQuestion();
+    // Hide feedback with animation before changing question
+    if (quizFeedback.style.display !== 'none') {
+        quizFeedback.classList.add('hiding');
+        setTimeout(() => {
+            quizFeedback.style.display = 'none';
+            quizFeedback.classList.remove('hiding');
+
+            if (currentQuestionIndex < quizWords.length - 1) {
+                currentQuestionIndex++;
+                displayQuestion();
+            } else {
+                showResults();
+            }
+        }, 300);
     } else {
-        showResults();
+        if (currentQuestionIndex < quizWords.length - 1) {
+            currentQuestionIndex++;
+            displayQuestion();
+        } else {
+            showResults();
+        }
     }
 });
 
 // Previous question
 btnPrevQuestion.addEventListener('click', () => {
-    if (currentQuestionIndex > 0) {
-        currentQuestionIndex--;
-        displayQuestion();
+    // Hide feedback with animation before changing question
+    if (quizFeedback.style.display !== 'none') {
+        quizFeedback.classList.add('hiding');
+        setTimeout(() => {
+            quizFeedback.style.display = 'none';
+            quizFeedback.classList.remove('hiding');
+
+            if (currentQuestionIndex > 0) {
+                currentQuestionIndex--;
+                displayQuestion();
+            }
+        }, 300);
+    } else {
+        if (currentQuestionIndex > 0) {
+            currentQuestionIndex--;
+            displayQuestion();
+        }
     }
 });
 

@@ -169,12 +169,30 @@ function handleQuizAnswer(selected: number, correct: number, button: HTMLButtonE
         quizFeedback.textContent = '✓ Correct!';
         quizFeedback.className = 'quiz-feedback feedback-correct';
         quizFeedback.style.display = 'block';
+
+        // Hide feedback after 1.5 seconds with animation
+        setTimeout(() => {
+            quizFeedback.classList.add('hiding');
+            setTimeout(() => {
+                quizFeedback.style.display = 'none';
+                quizFeedback.classList.remove('hiding');
+            }, 300);
+        }, 1500);
     } else {
         button.classList.add('wrong');
         allButtons[correct].classList.add('correct');
         quizFeedback.textContent = `✗ Wrong. The correct answer is: ${allButtons[correct].textContent}`;
         quizFeedback.className = 'quiz-feedback feedback-wrong';
         quizFeedback.style.display = 'block';
+
+        // Hide feedback after 2 seconds with animation
+        setTimeout(() => {
+            quizFeedback.classList.add('hiding');
+            setTimeout(() => {
+                quizFeedback.style.display = 'none';
+                quizFeedback.classList.remove('hiding');
+            }, 300);
+        }, 2000);
     }
 }
 
