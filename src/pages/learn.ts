@@ -372,29 +372,27 @@ function hideFeedback() {
 function showFeedback(text: string, isCorrect: boolean) {
     console.log('🟢 showFeedback called:', text, 'isCorrect:', isCorrect);
 
-    // Force animation restart by hiding first if already visible
-    if (quizFeedback.style.display !== 'none') {
-        console.log('⚠️ Feedback already visible, resetting');
-        quizFeedback.style.display = 'none';
-        quizFeedback.className = 'quiz-feedback';
-        // Force reflow
-        void quizFeedback.offsetWidth;
-    }
+    // Remove all classes and hide
+    quizFeedback.className = 'quiz-feedback';
+    quizFeedback.style.display = 'none';
+    console.log('🔄 Reset element');
 
-    // Use requestAnimationFrame to ensure browser has time to process the hide
-    requestAnimationFrame(() => {
-        requestAnimationFrame(() => {
-            // Reset classes and trigger reflow to restart animation
-            quizFeedback.className = 'quiz-feedback';
-            void quizFeedback.offsetWidth; // Force reflow
+    // Force reflow to ensure reset is processed
+    void quizFeedback.offsetWidth;
 
-            // Set content and show
-            quizFeedback.textContent = text;
-            quizFeedback.className = isCorrect ? 'quiz-feedback feedback-correct' : 'quiz-feedback feedback-wrong';
-            quizFeedback.style.display = 'block';
-            console.log('✅ Feedback shown with classes:', quizFeedback.className);
-        });
-    });
+    // Set content and base class
+    quizFeedback.textContent = text;
+    const baseClass = isCorrect ? 'quiz-feedback feedback-correct' : 'quiz-feedback feedback-wrong';
+    quizFeedback.className = baseClass;
+    quizFeedback.style.display = 'block';
+
+    console.log('📦 Element ready, adding show class');
+
+    // Use setTimeout to trigger animation after element is in DOM
+    setTimeout(() => {
+        quizFeedback.className = baseClass + ' show';
+        console.log('✅ Animation triggered with classes:', quizFeedback.className);
+    }, 10);
 }
 
 // ─── Session/Progress state ───────────────────────────────────────────
