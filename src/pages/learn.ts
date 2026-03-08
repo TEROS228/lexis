@@ -1247,6 +1247,8 @@ function renderAttemptsUI(attemptsLeft: number, max: number, stageType: string) 
 }
 
 function renderQuizOptions(quiz: any, onAnswer: (correct: boolean, chosenIdx: number) => void, showCorrectOnWrong = true, disabledIndices: Set<number> = new Set()) {
+    console.log('🎯 renderQuizOptions called');
+    console.log('📍 renderQuizOptions call stack:', new Error().stack);
     quizOptions.innerHTML = quiz.options.map((opt: string, i: number) =>
         `<button class="quiz-option" data-index="${i}">${opt}</button>`
     ).join('');
@@ -1258,6 +1260,7 @@ function renderQuizOptions(quiz: any, onAnswer: (correct: boolean, chosenIdx: nu
             btn.classList.add('wrong');
         } else {
             btn.addEventListener('click', () => {
+                console.log('🎯 Quiz button clicked, idx:', idx, 'correct:', idx === quiz.correct);
                 const correct = idx === quiz.correct;
                 quizOptions.querySelectorAll('.quiz-option').forEach((b: Element, i: number) => {
                     if (correct && i === quiz.correct) b.classList.add('correct');
@@ -1265,6 +1268,7 @@ function renderQuizOptions(quiz: any, onAnswer: (correct: boolean, chosenIdx: nu
                     else if (i === idx && !correct) b.classList.add('wrong');
                     (b as HTMLButtonElement).disabled = true;
                 });
+                console.log('🎯 Calling onAnswer callback');
                 onAnswer(correct, idx);
             }, { once: true });
         }
