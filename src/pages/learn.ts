@@ -354,19 +354,30 @@ if (quizFeedback && quizFeedback.parentElement) {
 
 // Helper function to hide feedback with animation
 function hideFeedback() {
-    if (quizFeedback.style.display === 'none') return;
+    console.log('🔵 hideFeedback called, current display:', quizFeedback.style.display);
+    if (quizFeedback.style.display === 'none') {
+        console.log('⚠️ Already hidden, skipping');
+        return;
+    }
+    console.log('✅ Adding hiding class');
     quizFeedback.classList.add('hiding');
     setTimeout(() => {
+        console.log('✅ Setting display none after animation');
         quizFeedback.style.display = 'none';
         quizFeedback.classList.remove('hiding');
-    }, 400);
+    }, 450); // Slightly longer than animation duration to ensure it completes
 }
 
 // Helper function to show feedback with animation
 function showFeedback(text: string, isCorrect: boolean) {
+    console.log('🟢 showFeedback called:', text, 'isCorrect:', isCorrect);
+
     // Force animation restart by hiding first if already visible
     if (quizFeedback.style.display !== 'none') {
+        console.log('⚠️ Feedback already visible, resetting');
         quizFeedback.style.display = 'none';
+        // Force reflow
+        void quizFeedback.offsetWidth;
     }
 
     // Reset classes and trigger reflow to restart animation
@@ -377,6 +388,7 @@ function showFeedback(text: string, isCorrect: boolean) {
     quizFeedback.textContent = text;
     quizFeedback.className = isCorrect ? 'quiz-feedback feedback-correct' : 'quiz-feedback feedback-wrong';
     quizFeedback.style.display = 'block';
+    console.log('✅ Feedback shown with classes:', quizFeedback.className);
 }
 
 // ─── Session/Progress state ───────────────────────────────────────────
@@ -815,8 +827,7 @@ function showIntroWord() {
         quizFeedback.style.display = 'none';
 
         const disabledIndices = new Set<number>();
-        const tryQuiz = (keepFeedback = false) => {
-            if (!keepFeedback) quizFeedback.style.display = 'none';
+        const tryQuiz = () => {
             renderQuizOptions(quiz, (correct, chosenIdx) => {
                 // Track quiz activity for streak
                 trackQuizActivity(word.id);
@@ -859,8 +870,8 @@ function showIntroWord() {
                     setTimeout(() => {
                         hideFeedback();
                         setTimeout(() => {
-                            tryQuiz(false);
-                        }, 400);
+                            tryQuiz();
+                        }, 450);
                     }, 1500);
                 }
             }, false, disabledIndices);
@@ -1153,7 +1164,7 @@ function renderQuizTask(word: any, item: PoolItem, quiz: any, stageType: QuizSta
                     hideFeedback();
                     setTimeout(() => {
                         renderQuizTask(word, item, quiz, stageType);
-                    }, 400);
+                    }, 450);
                 }, 1500);
             }
         }
