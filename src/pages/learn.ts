@@ -364,6 +364,13 @@ function hideFeedback() {
 
 // Helper function to show feedback with animation
 function showFeedback(text: string, isCorrect: boolean) {
+    // Hide first to reset animation
+    quizFeedback.style.display = 'none';
+
+    // Force reflow to reset animation
+    void quizFeedback.offsetWidth;
+
+    // Show with new content
     quizFeedback.textContent = text;
     quizFeedback.className = isCorrect ? 'quiz-feedback feedback-correct' : 'quiz-feedback feedback-wrong';
     quizFeedback.style.display = 'block';
