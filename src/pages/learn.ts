@@ -557,6 +557,10 @@ function updateStats() {
 
 // ─── Main display function ────────────────────────────────────────────
 function displayCurrentWord() {
+    // Reset render lock when displaying new word
+    isRenderingOptions = false;
+    console.log('🔓 Reset isRenderingOptions in displayCurrentWord');
+
     if (activePool.length === 0 && pendingWordIds.length === 0) {
         showCompletionScreen();
         return;
@@ -1246,9 +1250,18 @@ function renderAttemptsUI(attemptsLeft: number, max: number, stageType: string) 
     quizAttempts.innerHTML = `<span class="attempts-label">Attempts:</span>${dots}`;
 }
 
+let isRenderingOptions = false;
 function renderQuizOptions(quiz: any, onAnswer: (correct: boolean, chosenIdx: number) => void, showCorrectOnWrong = true, disabledIndices: Set<number> = new Set()) {
-    console.log('🎯 renderQuizOptions called');
+    console.log('🎯 renderQuizOptions called, isRenderingOptions:', isRenderingOptions);
     console.log('📍 renderQuizOptions call stack:', new Error().stack);
+
+    // Prevent re-rendering while quiz is being answered
+    if (isRenderingOptions) {
+        console.log('⚠️ Skipping renderQuizOptions - already rendering');
+        return;
+    }
+
+    isRenderingOptions = true;
     quizOptions.innerHTML = quiz.options.map((opt: string, i: number) =>
         `<button class="quiz-option" data-index="${i}">${opt}</button>`
     ).join('');
