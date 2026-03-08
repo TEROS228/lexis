@@ -702,6 +702,21 @@
     }
 }
 
+@keyframes slideOutToRight {
+    0% {
+        transform: translateX(0);
+        opacity: 1;
+    }
+    100% {
+        transform: translateX(400px);
+        opacity: 0;
+    }
+}
+
+.quiz-feedback.hiding {
+    animation: slideOutToRight 0.4s cubic-bezier(0.4, 0, 0.6, 1) forwards;
+}
+
 .feedback-correct {
     background: linear-gradient(135deg, #10b981 0%, #059669 100%);
     color: white;

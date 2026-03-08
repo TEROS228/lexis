@@ -352,6 +352,16 @@ if (quizFeedback && quizFeedback.parentElement) {
     document.body.appendChild(quizFeedback);
 }
 
+// Helper function to hide feedback with animation
+function hideFeedback() {
+    if (quizFeedback.style.display === 'none') return;
+    quizFeedback.classList.add('hiding');
+    setTimeout(() => {
+        quizFeedback.style.display = 'none';
+        quizFeedback.classList.remove('hiding');
+    }, 400);
+}
+
 // ─── Session/Progress state ───────────────────────────────────────────
 let userProgress: Record<string, string> = {};
 let knownCount = 0;
@@ -804,7 +814,7 @@ function showIntroWord() {
 
                     // Hide feedback and slide out to show listening quiz
                     setTimeout(() => {
-                        quizFeedback.style.display = 'none';
+                        hideFeedback();
                         const wordCard = document.querySelector('.word-card-large') as HTMLElement;
                         if (wordCard) {
                             wordCard.style.animation = 'slideOutLeft 0.4s ease-in-out';
@@ -1132,8 +1142,10 @@ function renderQuizTask(word: any, item: PoolItem, quiz: any, stageType: QuizSta
                 renderAttemptsUI(attemptsLeft, MAX_ATTEMPTS, stageType);
                 savePoolState(currentUser?.uid);
                 setTimeout(() => {
-                    quizFeedback.style.display = 'none';
-                    renderQuizTask(word, item, quiz, stageType);
+                    hideFeedback();
+                    setTimeout(() => {
+                        renderQuizTask(word, item, quiz, stageType);
+                    }, 400);
                 }, 1500);
             }
         }
