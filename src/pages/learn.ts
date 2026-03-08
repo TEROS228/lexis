@@ -843,7 +843,12 @@ function showIntroWord() {
                     quizFeedback.textContent = '✗ Not quite — try again!';
                     quizFeedback.className = 'quiz-feedback feedback-wrong';
                     quizFeedback.style.display = 'block';
-                    tryQuiz(true);
+                    setTimeout(() => {
+                        hideFeedback();
+                        setTimeout(() => {
+                            tryQuiz(false);
+                        }, 400);
+                    }, 1500);
                 }
             }, false, disabledIndices);
         };
