@@ -359,35 +359,14 @@ function hideFeedback() {
     setTimeout(() => {
         quizFeedback.style.display = 'none';
         quizFeedback.classList.remove('hiding');
-        isRenderingOptions = false; // Reset lock after feedback is hidden
     }, 450);
 }
 
 // Helper function to show feedback with animation
-let showFeedbackTimeout: number | null = null;
 function showFeedback(text: string, isCorrect: boolean) {
-    // Clear any pending show animation
-    if (showFeedbackTimeout) {
-        clearTimeout(showFeedbackTimeout);
-        showFeedbackTimeout = null;
-    }
-
-    // Remove all classes and hide
-    quizFeedback.className = 'quiz-feedback';
-    quizFeedback.style.display = 'none';
-    void quizFeedback.offsetWidth;
-
-    // Set content and base class
     quizFeedback.textContent = text;
-    const baseClass = isCorrect ? 'quiz-feedback feedback-correct' : 'quiz-feedback feedback-wrong';
-    quizFeedback.className = baseClass;
+    quizFeedback.className = isCorrect ? 'quiz-feedback feedback-correct' : 'quiz-feedback feedback-wrong';
     quizFeedback.style.display = 'block';
-
-    // Use setTimeout to trigger animation after element is in DOM
-    showFeedbackTimeout = setTimeout(() => {
-        quizFeedback.className = baseClass + ' show';
-        showFeedbackTimeout = null;
-    }, 10);
 }
 
 // ─── Session/Progress state ───────────────────────────────────────────
@@ -1231,14 +1210,7 @@ function renderAttemptsUI(attemptsLeft: number, max: number, stageType: string) 
     quizAttempts.innerHTML = `<span class="attempts-label">Attempts:</span>${dots}`;
 }
 
-let isRenderingOptions = false;
 function renderQuizOptions(quiz: any, onAnswer: (correct: boolean, chosenIdx: number) => void, showCorrectOnWrong = true, disabledIndices: Set<number> = new Set()) {
-    // Prevent re-rendering while quiz feedback is being shown
-    if (isRenderingOptions) {
-        return;
-    }
-
-    isRenderingOptions = true;
     quizOptions.innerHTML = quiz.options.map((opt: string, i: number) =>
         `<button class="quiz-option" data-index="${i}">${opt}</button>`
     ).join('');
