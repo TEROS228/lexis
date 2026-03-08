@@ -354,29 +354,20 @@ if (quizFeedback && quizFeedback.parentElement) {
 
 // Helper function to hide feedback with animation
 function hideFeedback() {
-    console.log('🔵 hideFeedback called, current display:', quizFeedback.style.display);
-    if (quizFeedback.style.display === 'none') {
-        console.log('⚠️ Already hidden, skipping');
-        return;
-    }
-    console.log('✅ Adding hiding class');
+    if (quizFeedback.style.display === 'none') return;
     quizFeedback.classList.add('hiding');
     setTimeout(() => {
-        console.log('✅ Setting display none after animation');
         quizFeedback.style.display = 'none';
         quizFeedback.classList.remove('hiding');
-    }, 450); // Slightly longer than animation duration to ensure it completes
+        isRenderingOptions = false; // Reset lock after feedback is hidden
+    }, 450);
 }
 
 // Helper function to show feedback with animation
 let showFeedbackTimeout: number | null = null;
 function showFeedback(text: string, isCorrect: boolean) {
-    console.log('🟢 showFeedback called:', text, 'isCorrect:', isCorrect);
-    console.log('📍 Call stack:', new Error().stack);
-
     // Clear any pending show animation
     if (showFeedbackTimeout) {
-        console.log('⚠️ Clearing previous timeout');
         clearTimeout(showFeedbackTimeout);
         showFeedbackTimeout = null;
     }
@@ -384,9 +375,6 @@ function showFeedback(text: string, isCorrect: boolean) {
     // Remove all classes and hide
     quizFeedback.className = 'quiz-feedback';
     quizFeedback.style.display = 'none';
-    console.log('🔄 Reset element');
-
-    // Force reflow to ensure reset is processed
     void quizFeedback.offsetWidth;
 
     // Set content and base class
@@ -395,12 +383,9 @@ function showFeedback(text: string, isCorrect: boolean) {
     quizFeedback.className = baseClass;
     quizFeedback.style.display = 'block';
 
-    console.log('📦 Element ready, adding show class');
-
     // Use setTimeout to trigger animation after element is in DOM
     showFeedbackTimeout = setTimeout(() => {
         quizFeedback.className = baseClass + ' show';
-        console.log('✅ Animation triggered with classes:', quizFeedback.className);
         showFeedbackTimeout = null;
     }, 10);
 }
@@ -557,10 +542,6 @@ function updateStats() {
 
 // ─── Main display function ────────────────────────────────────────────
 function displayCurrentWord() {
-    // Reset render lock when displaying new word
-    isRenderingOptions = false;
-    console.log('🔓 Reset isRenderingOptions in displayCurrentWord');
-
     if (activePool.length === 0 && pendingWordIds.length === 0) {
         showCompletionScreen();
         return;
@@ -1252,12 +1233,8 @@ function renderAttemptsUI(attemptsLeft: number, max: number, stageType: string) 
 
 let isRenderingOptions = false;
 function renderQuizOptions(quiz: any, onAnswer: (correct: boolean, chosenIdx: number) => void, showCorrectOnWrong = true, disabledIndices: Set<number> = new Set()) {
-    console.log('🎯 renderQuizOptions called, isRenderingOptions:', isRenderingOptions);
-    console.log('📍 renderQuizOptions call stack:', new Error().stack);
-
-    // Prevent re-rendering while quiz is being answered
+    // Prevent re-rendering while quiz feedback is being shown
     if (isRenderingOptions) {
-        console.log('⚠️ Skipping renderQuizOptions - already rendering');
         return;
     }
 
@@ -1273,7 +1250,6 @@ function renderQuizOptions(quiz: any, onAnswer: (correct: boolean, chosenIdx: nu
             btn.classList.add('wrong');
         } else {
             btn.addEventListener('click', () => {
-                console.log('🎯 Quiz button clicked, idx:', idx, 'correct:', idx === quiz.correct);
                 const correct = idx === quiz.correct;
                 quizOptions.querySelectorAll('.quiz-option').forEach((b: Element, i: number) => {
                     if (correct && i === quiz.correct) b.classList.add('correct');
@@ -1281,7 +1257,6 @@ function renderQuizOptions(quiz: any, onAnswer: (correct: boolean, chosenIdx: nu
                     else if (i === idx && !correct) b.classList.add('wrong');
                     (b as HTMLButtonElement).disabled = true;
                 });
-                console.log('🎯 Calling onAnswer callback');
                 onAnswer(correct, idx);
             }, { once: true });
         }
