@@ -364,24 +364,22 @@ function hideFeedback() {
 
 // Helper function to show feedback with animation
 function showFeedback(text: string, isCorrect: boolean) {
-    // Remove element completely from layout
-    quizFeedback.style.display = 'none';
-    quizFeedback.style.animation = 'none';
-    quizFeedback.className = '';
+    const parent = quizFeedback.parentElement;
+    if (!parent) return;
 
-    // Force reflow
-    void quizFeedback.offsetWidth;
+    // Remove from DOM
+    quizFeedback.remove();
 
-    // Set content and classes
-    quizFeedback.textContent = text;
-    quizFeedback.className = isCorrect ? 'quiz-feedback feedback-correct' : 'quiz-feedback feedback-wrong';
+    // Small delay to ensure browser processes removal
+    setTimeout(() => {
+        // Set content and classes
+        quizFeedback.textContent = text;
+        quizFeedback.className = isCorrect ? 'quiz-feedback feedback-correct' : 'quiz-feedback feedback-wrong';
+        quizFeedback.style.display = 'block';
 
-    // Show element
-    quizFeedback.style.display = 'block';
-
-    // Reset animation to trigger it again
-    void quizFeedback.offsetWidth;
-    quizFeedback.style.animation = '';
+        // Re-add to DOM - this triggers animation from scratch
+        parent.appendChild(quizFeedback);
+    }, 10);
 }
 
 // ─── Session/Progress state ───────────────────────────────────────────
