@@ -347,6 +347,11 @@ const quizOptions = document.getElementById('quizOptions');
 const quizFeedback = document.getElementById('quizFeedback');
 const quizAttempts = document.getElementById('quizAttempts');
 
+// Move quizFeedback to body so position: fixed works correctly
+if (quizFeedback && quizFeedback.parentElement) {
+    document.body.appendChild(quizFeedback);
+}
+
 // ─── Session/Progress state ───────────────────────────────────────────
 let userProgress: Record<string, string> = {};
 let knownCount = 0;
