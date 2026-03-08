@@ -259,8 +259,8 @@ function displayQuestion() {
     btnPrevQuestion.disabled = currentQuestionIndex === 0;
     btnNextQuestion.disabled = userAnswers[currentQuestionIndex] === null;
 
-    // Hide feedback initially
-    if (userAnswers[currentQuestionIndex] === null) {
+    // Hide feedback initially (only if not already hiding with animation)
+    if (userAnswers[currentQuestionIndex] === null && !quizFeedback.classList.contains('hiding')) {
         quizFeedback.style.display = 'none';
     }
 }
@@ -293,6 +293,8 @@ function selectOption(selectedShuffledIndex, correctShuffledIndex) {
 
 // Show feedback
 function showFeedback(selectedIndex, correctIndex) {
+    // Remove hiding class if present
+    quizFeedback.classList.remove('hiding');
     quizFeedback.style.display = 'flex';
 
     if (selectedIndex === correctIndex) {
