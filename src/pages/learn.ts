@@ -376,19 +376,25 @@ function showFeedback(text: string, isCorrect: boolean) {
     if (quizFeedback.style.display !== 'none') {
         console.log('⚠️ Feedback already visible, resetting');
         quizFeedback.style.display = 'none';
+        quizFeedback.className = 'quiz-feedback';
         // Force reflow
         void quizFeedback.offsetWidth;
     }
 
-    // Reset classes and trigger reflow to restart animation
-    quizFeedback.className = 'quiz-feedback';
-    void quizFeedback.offsetWidth; // Force reflow
+    // Use requestAnimationFrame to ensure browser has time to process the hide
+    requestAnimationFrame(() => {
+        requestAnimationFrame(() => {
+            // Reset classes and trigger reflow to restart animation
+            quizFeedback.className = 'quiz-feedback';
+            void quizFeedback.offsetWidth; // Force reflow
 
-    // Set content and show
-    quizFeedback.textContent = text;
-    quizFeedback.className = isCorrect ? 'quiz-feedback feedback-correct' : 'quiz-feedback feedback-wrong';
-    quizFeedback.style.display = 'block';
-    console.log('✅ Feedback shown with classes:', quizFeedback.className);
+            // Set content and show
+            quizFeedback.textContent = text;
+            quizFeedback.className = isCorrect ? 'quiz-feedback feedback-correct' : 'quiz-feedback feedback-wrong';
+            quizFeedback.style.display = 'block';
+            console.log('✅ Feedback shown with classes:', quizFeedback.className);
+        });
+    });
 }
 
 // ─── Session/Progress state ───────────────────────────────────────────
