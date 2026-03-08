@@ -754,7 +754,7 @@ function showIntroWord() {
         explMeaning.textContent = langDetails.meaning || '';
         explContext.textContent = langDetails.context || '';
         explExample.textContent = langDetails.example || '';
-        wordExplanation.style.display = 'block';
+        wordExplanation.style.display = 'grid';
     } else {
         wordExplanation.style.display = 'none';
     }
