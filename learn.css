@@ -675,29 +675,28 @@
 }
 
 .quiz-feedback {
-    margin-top: 24px;
-    padding: 24px 32px;
-    border-radius: 20px;
-    font-size: 18px;
+    position: fixed;
+    top: 20px;
+    right: 20px;
+    padding: 20px 28px;
+    border-radius: 16px;
+    font-size: 16px;
     font-weight: 700;
-    box-shadow: 0 8px 24px rgba(0, 0, 0, 0.15);
-    animation: feedbackBounce 0.6s cubic-bezier(0.68, -0.55, 0.265, 1.55);
-    text-align: center;
+    box-shadow: 0 12px 32px rgba(0, 0, 0, 0.2);
+    animation: slideInFromRight 0.4s cubic-bezier(0.68, -0.55, 0.265, 1.55);
+    text-align: left;
+    z-index: 1000;
+    max-width: 320px;
+    backdrop-filter: blur(10px);
 }
 
-@keyframes feedbackBounce {
+@keyframes slideInFromRight {
     0% {
-        transform: scale(0.3);
+        transform: translateX(400px);
         opacity: 0;
     }
-    50% {
-        transform: scale(1.05);
-    }
-    70% {
-        transform: scale(0.95);
-    }
     100% {
-        transform: scale(1);
+        transform: translateX(0);
         opacity: 1;
     }
 }
