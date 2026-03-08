@@ -197,7 +197,7 @@
 }
 
 .quiz-feedback.hiding {
-    animation: slideUp 0.3s forwards;
+    animation: slideUp 0.3s ease forwards !important;
 }
 
 .quiz-feedback.correct {
