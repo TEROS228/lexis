@@ -676,8 +676,8 @@
 
 .quiz-feedback {
     position: fixed;
-    top: 80px;
-    right: 40px;
+    top: 20px;
+    right: 24px;
     padding: 16px 32px;
     border-radius: 50px;
     font-size: 16px;

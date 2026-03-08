@@ -17,8 +17,7 @@ tar -czf lexis-api.tar.gz \
   ecosystem.config.cjs \
   package.json \
   package-lock.json \
-  .env.vps \
-  --exclude node_modules
+  .env.vps
 
 echo "📤 Uploading to VPS..."
 scp lexis-api.tar.gz ${VPS_USER}@${VPS_IP}:/tmp/

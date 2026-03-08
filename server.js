@@ -63,6 +63,7 @@ app.get('/health', (req, res) => {
 
 app.post('/api/users', async (req, res) => {
   const { uid, email, displayName, photoURL } = req.body;
+  console.log('📝 Creating/updating user:', { uid, email, displayName });
   try {
     const result = await pool.query(
       `INSERT INTO users (uid, email, display_name, photo_url, created_at)
@@ -74,9 +75,10 @@ app.post('/api/users', async (req, res) => {
        RETURNING *`,
       [uid, email, displayName, photoURL]
     );
+    console.log('✅ User result:', { uid: result.rows[0].uid, email: result.rows[0].email, role: result.rows[0].role });
     res.json(result.rows[0]);
   } catch (error) {
-    console.error('Error creating user:', error);
+    console.error('❌ Error creating user:', error);
     res.status(500).json({ error: error.message });
   }
 });
