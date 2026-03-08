@@ -798,12 +798,13 @@ function showIntroWord() {
                     playSuccessSound();
                     introQuizAnswered = true;
                     savePoolState(currentUser?.uid);
-                    quizFeedback.textContent = '✓ Correct! Now write what you hear...';
+                    quizFeedback.textContent = '✓ Correct!';
                     quizFeedback.className = 'quiz-feedback feedback-correct';
                     quizFeedback.style.display = 'block';
 
-                    // Slide out and show listening quiz with animation
+                    // Hide feedback and slide out to show listening quiz
                     setTimeout(() => {
+                        quizFeedback.style.display = 'none';
                         const wordCard = document.querySelector('.word-card-large') as HTMLElement;
                         if (wordCard) {
                             wordCard.style.animation = 'slideOutLeft 0.4s ease-in-out';
