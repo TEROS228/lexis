@@ -369,8 +369,17 @@ function hideFeedback() {
 }
 
 // Helper function to show feedback with animation
+let showFeedbackTimeout: number | null = null;
 function showFeedback(text: string, isCorrect: boolean) {
     console.log('🟢 showFeedback called:', text, 'isCorrect:', isCorrect);
+    console.log('📍 Call stack:', new Error().stack);
+
+    // Clear any pending show animation
+    if (showFeedbackTimeout) {
+        console.log('⚠️ Clearing previous timeout');
+        clearTimeout(showFeedbackTimeout);
+        showFeedbackTimeout = null;
+    }
 
     // Remove all classes and hide
     quizFeedback.className = 'quiz-feedback';
@@ -389,9 +398,10 @@ function showFeedback(text: string, isCorrect: boolean) {
     console.log('📦 Element ready, adding show class');
 
     // Use setTimeout to trigger animation after element is in DOM
-    setTimeout(() => {
+    showFeedbackTimeout = setTimeout(() => {
         quizFeedback.className = baseClass + ' show';
         console.log('✅ Animation triggered with classes:', quizFeedback.className);
+        showFeedbackTimeout = null;
     }, 10);
 }
 
