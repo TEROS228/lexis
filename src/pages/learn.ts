@@ -364,32 +364,24 @@ function hideFeedback() {
 
 // Helper function to show feedback with animation
 function showFeedback(text: string, isCorrect: boolean) {
-    console.log('🎬 showFeedback called:', text);
-    console.log('🎬 Current display before hide:', quizFeedback.style.display);
-    console.log('🎬 Current className before:', quizFeedback.className);
-
-    // Hide first to reset animation
+    // Remove element completely from layout
     quizFeedback.style.display = 'none';
+    quizFeedback.style.animation = 'none';
     quizFeedback.className = '';
 
-    // Force reflow to reset animation
+    // Force reflow
     void quizFeedback.offsetWidth;
 
-    // Show with new content
+    // Set content and classes
     quizFeedback.textContent = text;
     quizFeedback.className = isCorrect ? 'quiz-feedback feedback-correct' : 'quiz-feedback feedback-wrong';
+
+    // Show element
     quizFeedback.style.display = 'block';
 
-    console.log('🎬 After show - display:', quizFeedback.style.display, 'className:', quizFeedback.className);
-
-    // Check if element is actually visible in DOM
-    setTimeout(() => {
-        const rect = quizFeedback.getBoundingClientRect();
-        const computedStyle = window.getComputedStyle(quizFeedback);
-        console.log('🎬 Element rect:', rect);
-        console.log('🎬 Computed animation:', computedStyle.animation);
-        console.log('🎬 Computed transform:', computedStyle.transform);
-    }, 100);
+    // Reset animation to trigger it again
+    void quizFeedback.offsetWidth;
+    quizFeedback.style.animation = '';
 }
 
 // ─── Session/Progress state ───────────────────────────────────────────
