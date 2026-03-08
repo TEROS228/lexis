@@ -362,6 +362,23 @@ function hideFeedback() {
     }, 400);
 }
 
+// Helper function to show feedback with animation
+function showFeedback(text: string, isCorrect: boolean) {
+    // Force animation restart by hiding first if already visible
+    if (quizFeedback.style.display !== 'none') {
+        quizFeedback.style.display = 'none';
+    }
+
+    // Reset classes and trigger reflow to restart animation
+    quizFeedback.className = 'quiz-feedback';
+    void quizFeedback.offsetWidth; // Force reflow
+
+    // Set content and show
+    quizFeedback.textContent = text;
+    quizFeedback.className = isCorrect ? 'quiz-feedback feedback-correct' : 'quiz-feedback feedback-wrong';
+    quizFeedback.style.display = 'block';
+}
+
 // ─── Session/Progress state ───────────────────────────────────────────
 let userProgress: Record<string, string> = {};
 let knownCount = 0;
@@ -808,9 +825,7 @@ function showIntroWord() {
                     playSuccessSound();
                     introQuizAnswered = true;
                     savePoolState(currentUser?.uid);
-                    quizFeedback.textContent = '✓ Correct!';
-                    quizFeedback.className = 'quiz-feedback feedback-correct';
-                    quizFeedback.style.display = 'block';
+                    showFeedback('✓ Correct!', true);
 
                     // Hide feedback and slide out to show listening quiz
                     setTimeout(() => {
@@ -840,9 +855,7 @@ function showIntroWord() {
                 } else {
                     playErrorSound();
                     disabledIndices.add(chosenIdx);
-                    quizFeedback.textContent = '✗ Not quite — try again!';
-                    quizFeedback.className = 'quiz-feedback feedback-wrong';
-                    quizFeedback.style.display = 'block';
+                    showFeedback('✗ Not quite — try again!', false);
                     setTimeout(() => {
                         hideFeedback();
                         setTimeout(() => {
@@ -925,9 +938,7 @@ function showListeningQuiz(word: any, item: PoolItem) {
             input.style.color = '#10b981';
             input.style.fontWeight = '700';
 
-            quizFeedback.textContent = '✓ Perfect! You got it right! 🎉';
-            quizFeedback.className = 'quiz-feedback feedback-correct';
-            quizFeedback.style.display = 'block';
+            showFeedback('✓ Perfect! You got it right! 🎉', true);
             listeningQuizAnswered = true;
             btnNext.disabled = false;
             savePoolState(currentUser?.uid);
@@ -955,9 +966,7 @@ function showListeningQuiz(word: any, item: PoolItem) {
             input.style.color = '#ef4444';
             input.style.fontWeight = '700';
 
-            quizFeedback.textContent = `✗ Wrong. Correct word: "${word.en}".`;
-            quizFeedback.className = 'quiz-feedback feedback-wrong';
-            quizFeedback.style.display = 'block';
+            showFeedback(`✗ Wrong. Correct word: "${word.en}".`, false);
             listeningQuizAnswered = true;
             btnNext.disabled = false;
             savePoolState(currentUser?.uid);
@@ -1077,9 +1086,7 @@ function renderQuizTask(word: any, item: PoolItem, quiz: any, stageType: QuizSta
 
         if (correct) {
             playSuccessSound();
-            quizFeedback.textContent = '✓ Correct!';
-            quizFeedback.className = 'quiz-feedback feedback-correct';
-            quizFeedback.style.display = 'block';
+            showFeedback('✓ Correct!', true);
             item.attempts = 0;
             markStageCompleted(item, stageType);
             savePoolState(currentUser?.uid);
@@ -1108,9 +1115,7 @@ function renderQuizTask(word: any, item: PoolItem, quiz: any, stageType: QuizSta
 
             if (attemptsLeft <= 0) {
                 playErrorSound();
-                quizFeedback.textContent = '✗ Incorrect. Review this word.';
-                quizFeedback.className = 'quiz-feedback feedback-wrong';
-                quizFeedback.style.display = 'block';
+                showFeedback('✗ Incorrect. Review this word.', false);
                 // Send word back to intro phase — reset completedStages
                 item.phase = 'intro';
                 item.completedStages = [];
@@ -1141,9 +1146,7 @@ function renderQuizTask(word: any, item: PoolItem, quiz: any, stageType: QuizSta
                 }, 2000);
             } else {
                 playErrorSound();
-                quizFeedback.textContent = `✗ Not quite — try again! (${attemptsLeft} attempt${attemptsLeft > 1 ? 's' : ''} left)`;
-                quizFeedback.className = 'quiz-feedback feedback-wrong';
-                quizFeedback.style.display = 'block';
+                showFeedback(`✗ Not quite — try again! (${attemptsLeft} attempt${attemptsLeft > 1 ? 's' : ''} left)`, false);
                 renderAttemptsUI(attemptsLeft, MAX_ATTEMPTS, stageType);
                 savePoolState(currentUser?.uid);
                 setTimeout(() => {
