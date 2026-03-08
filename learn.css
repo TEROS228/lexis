@@ -676,28 +676,27 @@
 
 .quiz-feedback {
     position: fixed;
-    top: 20px;
-    left: 50%;
-    transform: translateX(-50%);
+    top: 140px;
+    right: 40px;
     padding: 16px 32px;
     border-radius: 50px;
     font-size: 16px;
     font-weight: 700;
     box-shadow: 0 12px 32px rgba(0, 0, 0, 0.2);
-    animation: slideInFromTop 0.4s cubic-bezier(0.68, -0.55, 0.265, 1.55);
+    animation: slideInFromRight 0.4s cubic-bezier(0.68, -0.55, 0.265, 1.55);
     text-align: center;
     z-index: 1000;
     max-width: 400px;
     backdrop-filter: blur(10px);
 }
 
-@keyframes slideInFromTop {
+@keyframes slideInFromRight {
     0% {
-        transform: translate(-50%, -100px);
+        transform: translateX(400px);
         opacity: 0;
     }
     100% {
-        transform: translate(-50%, 0);
+        transform: translateX(0);
         opacity: 1;
     }
 }
