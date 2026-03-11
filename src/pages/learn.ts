@@ -945,18 +945,21 @@ function showListeningQuiz(word: any, item: PoolItem) {
             btnNext.disabled = false;
             savePoolState(currentUser?.uid);
 
-            // Auto-advance after 1.5 seconds with slide animation
+            // Hide feedback then auto-advance after 1.5 seconds with slide animation
             setTimeout(() => {
-                const wordCard = document.querySelector('.word-card-large') as HTMLElement;
-                if (wordCard) {
-                    wordCard.style.animation = 'slideOutLeft 0.4s ease-in-out';
-                    setTimeout(() => {
-                        // Hide card while loading new content
-                        wordCard.style.opacity = '0';
-                        wordCard.style.animation = '';
-                        btnNext.click();
-                    }, 400);
-                }
+                hideFeedback();
+                setTimeout(() => {
+                    const wordCard = document.querySelector('.word-card-large') as HTMLElement;
+                    if (wordCard) {
+                        wordCard.style.animation = 'slideOutLeft 0.4s ease-in-out';
+                        setTimeout(() => {
+                            // Hide card while loading new content
+                            wordCard.style.opacity = '0';
+                            wordCard.style.animation = '';
+                            btnNext.click();
+                        }, 400);
+                    }
+                }, 450);
             }, 1500);
         } else {
             playErrorSound();
@@ -973,18 +976,21 @@ function showListeningQuiz(word: any, item: PoolItem) {
             btnNext.disabled = false;
             savePoolState(currentUser?.uid);
 
-            // Auto-advance after 2 seconds with slide animation
+            // Hide feedback then auto-advance after 2 seconds with slide animation
             setTimeout(() => {
-                const wordCard = document.querySelector('.word-card-large') as HTMLElement;
-                if (wordCard) {
-                    wordCard.style.animation = 'slideOutLeft 0.4s ease-in-out';
-                    setTimeout(() => {
-                        // Hide card while loading new content
-                        wordCard.style.opacity = '0';
-                        wordCard.style.animation = '';
-                        btnNext.click();
-                    }, 400);
-                }
+                hideFeedback();
+                setTimeout(() => {
+                    const wordCard = document.querySelector('.word-card-large') as HTMLElement;
+                    if (wordCard) {
+                        wordCard.style.animation = 'slideOutLeft 0.4s ease-in-out';
+                        setTimeout(() => {
+                            // Hide card while loading new content
+                            wordCard.style.opacity = '0';
+                            wordCard.style.animation = '';
+                            btnNext.click();
+                        }, 400);
+                    }
+                }, 450);
             }, 2000);
         }
     };
@@ -1093,23 +1099,26 @@ function renderQuizTask(word: any, item: PoolItem, quiz: any, stageType: QuizSta
             markStageCompleted(item, stageType);
             savePoolState(currentUser?.uid);
 
-            // Auto-advance after 1.5 seconds with slide animation
+            // Hide feedback then auto-advance after 1.5 seconds with slide animation
             setTimeout(() => {
-                const wordCard = document.querySelector('.word-card-large') as HTMLElement;
-                if (wordCard) {
-                    wordCard.style.animation = 'slideOutLeft 0.4s ease-in-out';
-                    setTimeout(() => {
-                        // Hide card while loading new content
-                        wordCard.style.opacity = '0';
-                        wordCard.style.animation = '';
+                hideFeedback();
+                setTimeout(() => {
+                    const wordCard = document.querySelector('.word-card-large') as HTMLElement;
+                    if (wordCard) {
+                        wordCard.style.animation = 'slideOutLeft 0.4s ease-in-out';
+                        setTimeout(() => {
+                            // Hide card while loading new content
+                            wordCard.style.opacity = '0';
+                            wordCard.style.animation = '';
 
-                        if (item.phase === 'mastered') {
-                            handleMastered(item);
-                        } else {
-                            displayCurrentWord();
-                        }
-                    }, 400);
-                }
+                            if (item.phase === 'mastered') {
+                                handleMastered(item);
+                            } else {
+                                displayCurrentWord();
+                            }
+                        }, 400);
+                    }
+                }, 450);
             }, 1500);
         } else {
             item.attempts++;
@@ -1133,18 +1142,21 @@ function renderQuizTask(word: any, item: PoolItem, quiz: any, stageType: QuizSta
                 listeningQuizAnswered = false;
                 savePoolState(currentUser?.uid);
 
-                // Auto-advance after 2 seconds with slide animation
+                // Hide feedback then auto-advance after 2 seconds with slide animation
                 setTimeout(() => {
-                    const wordCard = document.querySelector('.word-card-large') as HTMLElement;
-                    if (wordCard) {
-                        wordCard.style.animation = 'slideOutLeft 0.4s ease-in-out';
-                        setTimeout(() => {
-                            // Hide card while loading new content
-                            wordCard.style.opacity = '0';
-                            wordCard.style.animation = '';
-                            displayCurrentWord();
-                        }, 400);
-                    }
+                    hideFeedback();
+                    setTimeout(() => {
+                        const wordCard = document.querySelector('.word-card-large') as HTMLElement;
+                        if (wordCard) {
+                            wordCard.style.animation = 'slideOutLeft 0.4s ease-in-out';
+                            setTimeout(() => {
+                                // Hide card while loading new content
+                                wordCard.style.opacity = '0';
+                                wordCard.style.animation = '';
+                                displayCurrentWord();
+                            }, 400);
+                        }
+                    }, 450);
                 }, 2000);
             } else {
                 playErrorSound();
