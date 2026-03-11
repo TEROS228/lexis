@@ -360,6 +360,10 @@ nav {
     color: var(--text-light);
 }
 
+.dropdown-item span {
+    color: var(--text);
+}
+
 .dropdown-divider {
     height: 1px;
     background: var(--border);
