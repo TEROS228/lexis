@@ -79,13 +79,13 @@ body {
 
 /* Header */
 header {
-    background: var(--bg);
-    border-bottom: 1px solid var(--border);
+    background: linear-gradient(135deg, #1f2937 0%, #111827 100%);
+    border-bottom: 1px solid rgba(255, 255, 255, 0.1);
     position: sticky;
     top: 0;
     z-index: 100;
     backdrop-filter: blur(10px);
-    background: rgba(255, 255, 255, 0.9);
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.3);
 }
 
 nav {
@@ -121,14 +121,14 @@ nav {
 
 .nav-links a {
     text-decoration: none;
-    color: var(--text);
+    color: rgba(255, 255, 255, 0.9);
     font-weight: 500;
     font-size: 16px;
     transition: color 0.3s;
 }
 
 .nav-links a:hover {
-    color: var(--primary);
+    color: #ffffff;
 }
 
 /* Profile Button */
@@ -166,8 +166,8 @@ nav {
     display: flex;
     align-items: center;
     gap: 8px;
-    background: var(--bg-light);
-    border: 1px solid var(--border);
+    background: rgba(255, 255, 255, 0.1);
+    border: 1px solid rgba(255, 255, 255, 0.2);
     border-radius: 8px;
     padding: 10px 16px;
     cursor: pointer;
@@ -177,8 +177,8 @@ nav {
 }
 
 .language-btn:hover {
-    background: white;
-    border-color: var(--primary);
+    background: rgba(255, 255, 255, 0.2);
+    border-color: rgba(255, 255, 255, 0.3);
 }
 
 .language-btn .flag {
@@ -186,12 +186,12 @@ nav {
 }
 
 .language-btn .lang-text {
-    color: var(--text);
+    color: rgba(255, 255, 255, 0.95);
 }
 
 .language-btn .arrow {
     font-size: 10px;
-    color: var(--text-light);
+    color: rgba(255, 255, 255, 0.7);
     transition: transform 0.3s;
 }
 
@@ -268,16 +268,17 @@ nav {
     display: flex;
     align-items: center;
     gap: 12px;
-    background: white;
+    background: rgba(255, 255, 255, 0.1);
     padding: 8px 16px;
     border-radius: 12px;
-    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+    border: 1px solid rgba(255, 255, 255, 0.2);
     cursor: pointer;
     transition: all 0.3s;
 }
 
 .user-info-trigger:hover {
-    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+    background: rgba(255, 255, 255, 0.15);
+    border-color: rgba(255, 255, 255, 0.3);
 }
 
 .user-avatar {
@@ -289,13 +290,13 @@ nav {
 
 .user-name {
     font-weight: 600;
-    color: var(--text);
+    color: rgba(255, 255, 255, 0.95);
     font-size: 14px;
 }
 
 .dropdown-arrow {
     font-size: 10px;
-    color: var(--text-light);
+    color: rgba(255, 255, 255, 0.7);
     transition: transform 0.3s;
 }
 
