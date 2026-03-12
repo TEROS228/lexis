@@ -11,8 +11,6 @@ export default async function handler(req, res) {
   const pathSegments = urlPath.split('/').filter(Boolean);
   const params = pathSegments.slice(2); // Remove 'api' and 'assignments'
 
-  console.log('[Assignments API] Method:', req.method, 'URL:', req.url, 'Params:', params);
-
   // POST /api/assignments
   if (req.method === 'POST' && params.length === 0) {
     const { classId, studentUid, teacherUid, type, target, dueDate, title, description } = req.body;
@@ -48,7 +46,6 @@ export default async function handler(req, res) {
   // GET /api/assignments/teacher/:uid
   if (req.method === 'GET' && params[0] === 'teacher') {
     const teacherUid = params[1];
-    console.log('[Assignments API] Loading assignments for teacher:', teacherUid);
     try {
       const result = await pool.query(
         `SELECT a.*, c.class_name, u.display_name as student_name FROM assignments a
@@ -56,10 +53,8 @@ export default async function handler(req, res) {
          WHERE a.teacher_uid = $1 ORDER BY a.created_at DESC`,
         [teacherUid]
       );
-      console.log('[Assignments API] Found', result.rows.length, 'assignments');
       return res.json(result.rows);
     } catch (error) {
-      console.error('[Assignments API] Error:', error);
       return res.status(500).json({ error: error.message });
     }
   }

@@ -18,8 +18,6 @@ export default async function handler(req, res) {
   const pathSegments = urlPath.split('/').filter(Boolean);
   const params = pathSegments.slice(2); // Remove 'api' and 'classes'
 
-  console.log('[Classes API] Method:', req.method, 'URL:', req.url, 'Params:', params);
-
   // POST /api/classes (no params)
   if (req.method === 'POST' && params.length === 0) {
     const { teacherUid, className } = req.body;
@@ -60,17 +58,14 @@ export default async function handler(req, res) {
   // GET /api/classes/teacher/:uid
   if (req.method === 'GET' && params[0] === 'teacher') {
     const teacherUid = params[1];
-    console.log('[Classes API] Loading classes for teacher:', teacherUid);
     try {
       const result = await pool.query(
         `SELECT c.*, (SELECT COUNT(*) FROM class_enrollments WHERE class_id = c.id) as student_count
          FROM classes c WHERE c.teacher_uid = $1 ORDER BY c.created_at DESC`,
         [teacherUid]
       );
-      console.log('[Classes API] Found', result.rows.length, 'classes');
       return res.json(result.rows);
     } catch (error) {
-      console.error('[Classes API] Error:', error);
       return res.status(500).json({ error: error.message });
     }
   }
