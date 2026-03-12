@@ -1255,9 +1255,11 @@ function renderQuizOptions(quiz: any, cacheKey: string, onAnswer: (correct: bool
         const optionsWithIndices = quiz.options.map((opt: string, i: number) => ({ option: opt, originalIndex: i }));
         shuffledOptions = shuffleArray(optionsWithIndices);
         shuffledOptionsCache.set(cacheKey, shuffledOptions);
-        console.log('🎲 Shuffled options for', cacheKey, ':', shuffledOptions.map(o => o.originalIndex), 'Total options:', quiz.options.length);
+        const correctPos = shuffledOptions.findIndex((item: any) => item.originalIndex === quiz.correct);
+        console.log('🎲 Shuffled options for', cacheKey, ':', shuffledOptions.map(o => o.originalIndex), '| Correct answer at position:', correctPos + 1, '/', quiz.options.length);
     } else {
-        console.log('📦 Using cached options for', cacheKey, ':', shuffledOptions.map(o => o.originalIndex));
+        const correctPos = shuffledOptions.findIndex((item: any) => item.originalIndex === quiz.correct);
+        console.log('📦 Using cached options for', cacheKey, ':', shuffledOptions.map(o => o.originalIndex), '| Correct at position:', correctPos + 1);
     }
 
     quizOptions.innerHTML = shuffledOptions.map((item: any, displayIndex: number) =>
