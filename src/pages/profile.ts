@@ -384,6 +384,9 @@ async function loadProgress() {
     }
 }
 
+// Show loading overlay
+showLoading();
+
 // Timeout fallback - if Firebase doesn't respond in 500ms, use cached data
 let authResolved = false;
 setTimeout(() => {
