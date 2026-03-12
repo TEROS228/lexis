@@ -63,6 +63,9 @@ let introCursor = 0;
 let introQuizAnswered = false;
 let listeningQuizAnswered = false;
 
+// Store shuffled options for each word+stage combination to prevent re-shuffling on retry
+let shuffledOptionsCache: Map<string, any[]> = new Map();
+
 function loadPoolState(uid: string) {
     try {
         const stored = localStorage.getItem(`poolv6_${uid}`);
@@ -818,8 +821,9 @@ function showIntroWord() {
         quizFeedback.style.display = 'none';
 
         const disabledIndices = new Set<number>();
+        const cacheKey = `${word.id}_intro_multiChoice`;
         const tryQuiz = () => {
-            renderQuizOptions(quiz, (correct, chosenIdx) => {
+            renderQuizOptions(quiz, cacheKey, (correct, chosenIdx) => {
                 // Track quiz activity for streak
                 trackQuizActivity(word.id);
 
@@ -828,6 +832,8 @@ function showIntroWord() {
                     introQuizAnswered = true;
                     savePoolState(currentUser?.uid);
                     showFeedback('✓ Correct!', true);
+                    // Clear cache for this question since it's completed
+                    shuffledOptionsCache.delete(cacheKey);
 
                     // Hide feedback and slide out to show listening quiz
                     setTimeout(() => {
@@ -1088,7 +1094,10 @@ function renderQuizTask(word: any, item: PoolItem, quiz: any, stageType: QuizSta
     renderAttemptsUI(MAX_ATTEMPTS - item.attempts, MAX_ATTEMPTS, stageType);
     quizFeedback.style.display = 'none';
 
-    renderQuizOptions(quiz, (correct) => {
+    // Create cache key for this word+stage combination
+    const cacheKey = `${item.wordId}_${stageType}`;
+
+    renderQuizOptions(quiz, cacheKey, (correct) => {
         // Track quiz activity for streak
         trackQuizActivity(word.id);
 
@@ -1098,6 +1107,8 @@ function renderQuizTask(word: any, item: PoolItem, quiz: any, stageType: QuizSta
             item.attempts = 0;
             markStageCompleted(item, stageType);
             savePoolState(currentUser?.uid);
+            // Clear cache for this question since it's completed
+            shuffledOptionsCache.delete(cacheKey);
 
             // Hide feedback then auto-advance after 1.5 seconds with slide animation
             setTimeout(() => {
@@ -1141,6 +1152,8 @@ function renderQuizTask(word: any, item: PoolItem, quiz: any, stageType: QuizSta
                 introQuizAnswered = false;
                 listeningQuizAnswered = false;
                 savePoolState(currentUser?.uid);
+                // Clear cache for this question since we're resetting
+                shuffledOptionsCache.delete(cacheKey);
 
                 // Hide feedback then auto-advance after 2 seconds with slide animation
                 setTimeout(() => {
@@ -1235,10 +1248,14 @@ function renderAttemptsUI(attemptsLeft: number, max: number, stageType: string) 
     quizAttempts.innerHTML = `<span class="attempts-label">Attempts:</span>${dots}`;
 }
 
-function renderQuizOptions(quiz: any, onAnswer: (correct: boolean, chosenIdx: number) => void, showCorrectOnWrong = true, disabledIndices: Set<number> = new Set()) {
-    // Shuffle options with their original indices
-    const optionsWithIndices = quiz.options.map((opt: string, i: number) => ({ option: opt, originalIndex: i }));
-    const shuffledOptions = shuffleArray(optionsWithIndices);
+function renderQuizOptions(quiz: any, cacheKey: string, onAnswer: (correct: boolean, chosenIdx: number) => void, showCorrectOnWrong = true, disabledIndices: Set<number> = new Set()) {
+    // Get or create shuffled options from cache
+    let shuffledOptions = shuffledOptionsCache.get(cacheKey);
+    if (!shuffledOptions) {
+        const optionsWithIndices = quiz.options.map((opt: string, i: number) => ({ option: opt, originalIndex: i }));
+        shuffledOptions = shuffleArray(optionsWithIndices);
+        shuffledOptionsCache.set(cacheKey, shuffledOptions);
+    }
 
     quizOptions.innerHTML = shuffledOptions.map((item: any, displayIndex: number) =>
         `<button class="quiz-option" data-original-index="${item.originalIndex}" data-display-index="${displayIndex}">${item.option}</button>`
