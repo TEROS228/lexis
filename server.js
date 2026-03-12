@@ -26,6 +26,44 @@ const pool = new pg.Pool({
       ADD COLUMN IF NOT EXISTS longest_streak INTEGER DEFAULT 0,
       ADD COLUMN IF NOT EXISTS last_activity_date TIMESTAMP
     `);
+
+    // Create classes table
+    await pool.query(`
+      CREATE TABLE IF NOT EXISTS classes (
+        id SERIAL PRIMARY KEY,
+        teacher_uid TEXT NOT NULL,
+        name TEXT NOT NULL,
+        code TEXT UNIQUE NOT NULL,
+        created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
+      )
+    `);
+
+    // Create class_students table
+    await pool.query(`
+      CREATE TABLE IF NOT EXISTS class_students (
+        id SERIAL PRIMARY KEY,
+        class_id INTEGER REFERENCES classes(id) ON DELETE CASCADE,
+        student_uid TEXT NOT NULL,
+        joined_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+        UNIQUE(class_id, student_uid)
+      )
+    `);
+
+    // Create assignments table
+    await pool.query(`
+      CREATE TABLE IF NOT EXISTS assignments (
+        id SERIAL PRIMARY KEY,
+        teacher_uid TEXT NOT NULL,
+        class_id INTEGER REFERENCES classes(id) ON DELETE CASCADE,
+        title TEXT NOT NULL,
+        description TEXT,
+        type TEXT NOT NULL,
+        target INTEGER NOT NULL,
+        due_date TIMESTAMP NOT NULL,
+        created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
+      )
+    `);
+
     console.log('✅ Database initialized');
   } catch (err) {
     console.error('❌ Error initializing database:', err);
@@ -341,23 +379,125 @@ app.delete('/api/streak/:uid', async (req, res) => {
 // ============ CLASSES API ============
 // (simplified version - add full implementation later)
 
-app.get('/api/classes', async (req, res) => {
+// ============ CLASSES API ============
+
+// Get all classes for a teacher
+app.get('/api/classes/teacher/:uid', async (req, res) => {
   try {
-    const result = await pool.query('SELECT * FROM classes ORDER BY created_at DESC');
+    const { uid } = req.params;
+    const result = await pool.query(
+      `SELECT c.*,
+        (SELECT COUNT(*) FROM class_students WHERE class_id = c.id) as student_count
+       FROM classes c
+       WHERE c.teacher_uid = $1
+       ORDER BY c.created_at DESC`,
+      [uid]
+    );
     res.json(result.rows);
   } catch (error) {
+    console.error('Error loading classes:', error);
+    res.status(500).json({ error: error.message });
+  }
+});
+
+// Create a new class
+app.post('/api/classes', async (req, res) => {
+  try {
+    const { teacher_uid, name } = req.body;
+
+    // Generate unique 6-character code
+    const code = Math.random().toString(36).substring(2, 8).toUpperCase();
+
+    const result = await pool.query(
+      'INSERT INTO classes (teacher_uid, name, code) VALUES ($1, $2, $3) RETURNING *',
+      [teacher_uid, name, code]
+    );
+
+    res.json(result.rows[0]);
+  } catch (error) {
+    console.error('Error creating class:', error);
+    res.status(500).json({ error: error.message });
+  }
+});
+
+// Delete a class
+app.delete('/api/classes/:id', async (req, res) => {
+  try {
+    const { id } = req.params;
+    await pool.query('DELETE FROM classes WHERE id = $1', [id]);
+    res.json({ success: true });
+  } catch (error) {
+    console.error('Error deleting class:', error);
+    res.status(500).json({ error: error.message });
+  }
+});
+
+// Get students in a class
+app.get('/api/classes/:id/students', async (req, res) => {
+  try {
+    const { id } = req.params;
+    const result = await pool.query(
+      `SELECT cs.*, u.email, u.display_name, u.photo_url
+       FROM class_students cs
+       LEFT JOIN users u ON cs.student_uid = u.uid
+       WHERE cs.class_id = $1
+       ORDER BY cs.joined_at DESC`,
+      [id]
+    );
+    res.json(result.rows);
+  } catch (error) {
+    console.error('Error loading students:', error);
     res.status(500).json({ error: error.message });
   }
 });
 
 // ============ ASSIGNMENTS API ============
-// (simplified version - add full implementation later)
 
-app.get('/api/assignments', async (req, res) => {
+// Get all assignments for a teacher
+app.get('/api/assignments/teacher/:uid', async (req, res) => {
   try {
-    const result = await pool.query('SELECT * FROM assignments ORDER BY created_at DESC');
+    const { uid } = req.params;
+    const result = await pool.query(
+      `SELECT a.*, c.name as class_name
+       FROM assignments a
+       LEFT JOIN classes c ON a.class_id = c.id
+       WHERE a.teacher_uid = $1
+       ORDER BY a.created_at DESC`,
+      [uid]
+    );
     res.json(result.rows);
   } catch (error) {
+    console.error('Error loading assignments:', error);
+    res.status(500).json({ error: error.message });
+  }
+});
+
+// Create a new assignment
+app.post('/api/assignments', async (req, res) => {
+  try {
+    const { teacher_uid, class_id, title, description, type, target, due_date } = req.body;
+
+    const result = await pool.query(
+      `INSERT INTO assignments (teacher_uid, class_id, title, description, type, target, due_date)
+       VALUES ($1, $2, $3, $4, $5, $6, $7) RETURNING *`,
+      [teacher_uid, class_id, title, description, type, target, due_date]
+    );
+
+    res.json(result.rows[0]);
+  } catch (error) {
+    console.error('Error creating assignment:', error);
+    res.status(500).json({ error: error.message });
+  }
+});
+
+// Delete an assignment
+app.delete('/api/assignments/:id', async (req, res) => {
+  try {
+    const { id } = req.params;
+    await pool.query('DELETE FROM assignments WHERE id = $1', [id]);
+    res.json({ success: true });
+  } catch (error) {
+    console.error('Error deleting assignment:', error);
     res.status(500).json({ error: error.message });
   }
 });
