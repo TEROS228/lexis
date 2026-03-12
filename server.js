@@ -32,15 +32,15 @@ const pool = new pg.Pool({
       CREATE TABLE IF NOT EXISTS classes (
         id SERIAL PRIMARY KEY,
         teacher_uid TEXT NOT NULL,
-        name TEXT NOT NULL,
-        code TEXT UNIQUE NOT NULL,
+        class_name TEXT NOT NULL,
+        class_code TEXT UNIQUE NOT NULL,
         created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
       )
     `);
 
-    // Create class_students table
+    // Create class_enrollments table
     await pool.query(`
-      CREATE TABLE IF NOT EXISTS class_students (
+      CREATE TABLE IF NOT EXISTS class_enrollments (
         id SERIAL PRIMARY KEY,
         class_id INTEGER REFERENCES classes(id) ON DELETE CASCADE,
         student_uid TEXT NOT NULL,
@@ -387,7 +387,7 @@ app.get('/api/classes/teacher/:uid', async (req, res) => {
     const { uid } = req.params;
     const result = await pool.query(
       `SELECT c.*,
-        (SELECT COUNT(*) FROM class_students WHERE class_id = c.id) as student_count
+        (SELECT COUNT(*) FROM class_enrollments WHERE class_id = c.id) as student_count
        FROM classes c
        WHERE c.teacher_uid = $1
        ORDER BY c.created_at DESC`,
@@ -409,7 +409,7 @@ app.post('/api/classes', async (req, res) => {
     const code = Math.random().toString(36).substring(2, 8).toUpperCase();
 
     const result = await pool.query(
-      'INSERT INTO classes (teacher_uid, name, code) VALUES ($1, $2, $3) RETURNING *',
+      'INSERT INTO classes (teacher_uid, class_name, class_code) VALUES ($1, $2, $3) RETURNING *',
       [teacher_uid, name, code]
     );
 
@@ -438,7 +438,7 @@ app.get('/api/classes/:id/students', async (req, res) => {
     const { id } = req.params;
     const result = await pool.query(
       `SELECT cs.*, u.email, u.display_name, u.photo_url
-       FROM class_students cs
+       FROM class_enrollments cs
        LEFT JOIN users u ON cs.student_uid = u.uid
        WHERE cs.class_id = $1
        ORDER BY cs.joined_at DESC`,
