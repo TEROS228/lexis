@@ -4,6 +4,7 @@ import tier2Words from '../data/words-tier2-full';
 import wordDetails from '../data/word-details-data';
 import { quizData } from '../data/quiz-data';
 import { t, updatePageTranslations, setLanguage, getCurrentLanguage } from '../i18n';
+import { showAuthRequiredModal } from '../utils/auth-modal';
 
 console.log('=== word-details.js LOADED ===');
 console.log('tier2Words:', tier2Words);
@@ -257,8 +258,7 @@ onAuthStateChanged(auth, async (user) => {
             hideLoading();
         } else {
             hideLoading();
-            alert('Пожалуйста, войдите в систему');
-            window.location.href = '/';
+            showAuthRequiredModal();
         }
     } catch (error) {
         console.error('Auth error:', error);

@@ -1,4 +1,5 @@
 import translations from './translations';
+import { showAuthRequiredModal } from './utils/auth-modal';
 import {
   auth,
   onAuthStateChanged,
@@ -659,8 +660,7 @@ startBtns.forEach(btn => {
     btn.addEventListener('click', (e) => {
         if (!currentUser) {
             e.preventDefault();
-            alert('Пожалуйста, войдите в систему для начала обучения');
-            if (authModal) authModal.style.display = 'flex';
+            showAuthRequiredModal();
         }
     });
 });

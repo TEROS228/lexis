@@ -2,6 +2,7 @@ import { auth, onAuthStateChanged, logOut, getCachedAuthState, cacheAuthState } 
 import { getFirestore, doc, setDoc, getDoc } from 'firebase/firestore';
 import { setAvatar } from '../utils/avatar';
 import { quizData } from '../data/quiz-data';
+import { showAuthRequiredModal } from '../utils/auth-modal';
 
 const db = getFirestore();
 let currentUser = null;
@@ -137,8 +138,7 @@ onAuthStateChanged(auth, async (user) => {
         loadQuiz();
     } else {
         cacheAuthState(null);
-        alert('Пожалуйста, войдите в систему');
-        window.location.href = '/';
+        showAuthRequiredModal();
     }
 });
 

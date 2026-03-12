@@ -2,6 +2,7 @@ import { auth, onAuthStateChanged, getCachedAuthState, cacheAuthState } from '..
 import { getUserNativeLanguage, getProgress, initUserProfile } from '../db';
 import { setAvatar } from '../utils/avatar';
 import { initI18n, setLanguage, getCurrentLanguage, updatePageTranslations } from '../i18n';
+import { showAuthRequiredModal } from '../utils/auth-modal';
 let currentUser = null;
 let currentLang = getCurrentLanguage();
 
@@ -152,8 +153,7 @@ onAuthStateChanged(auth, async (user) => {
         hideLoading();
     } else {
         cacheAuthState(null);
-        alert('Пожалуйста, войдите в систему');
-        window.location.href = '/';
+        showAuthRequiredModal();
     }
 });
 

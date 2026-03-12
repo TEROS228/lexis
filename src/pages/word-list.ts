@@ -4,6 +4,7 @@ import { setAvatar } from '../utils/avatar';
 import tier2Words from '../data/words-tier2-full';
 import { quizData } from '../data/quiz-data';
 import { t, updatePageTranslations, setLanguage, getCurrentLanguage } from '../i18n';
+import { showAuthRequiredModal } from '../utils/auth-modal';
 
 console.log('=== word-list.js LOADED ===');
 console.log('tier2Words loaded:', tier2Words?.length);
@@ -222,8 +223,7 @@ onAuthStateChanged(auth, async (user) => {
         hideLoading();
     } else {
         cacheAuthState(null);
-        alert('Пожалуйста, войдите в систему');
-        window.location.href = '/';
+        showAuthRequiredModal();
     }
 });
 

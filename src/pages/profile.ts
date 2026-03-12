@@ -2,6 +2,7 @@ import { auth, onAuthStateChanged, logOut, getCachedAuthState, cacheAuthState } 
 import { getUserNativeLanguage, getUserProfile, getProgress, initUserProfile, getSessions, getSessionStats, getLearnedWords, getStreak } from '../db';
 import { initI18n, setLanguage, getCurrentLanguage, updatePageTranslations } from '../i18n';
 import { setAvatar } from '../utils/avatar';
+import { showAuthRequiredModal } from '../utils/auth-modal';
 
 const API_URL = import.meta.env.VITE_API_URL || 'http://localhost:4000/api';
 
@@ -394,8 +395,7 @@ setTimeout(() => {
             loadUserProfile().then(() => hideLoading());
         } else {
             hideLoading();
-            alert('Пожалуйста, войдите в систему');
-            window.location.href = '/';
+            showAuthRequiredModal();
         }
     }
 }, 500);

@@ -6,6 +6,7 @@ import wordDetails from '../data/word-details-data';
 import { quizData } from '../data/quiz-data';
 import { setAvatar } from '../utils/avatar';
 import { initI18n, setLanguage, getCurrentLanguage, updatePageTranslations } from '../i18n';
+import { showAuthRequiredModal } from '../utils/auth-modal';
 
 let currentUser = null;
 let currentLang = getCurrentLanguage();
@@ -462,8 +463,7 @@ onAuthStateChanged(auth, async (user) => {
         startTimer();
     } else {
         cacheAuthState(null);
-        alert('Пожалуйста, войдите в систему');
-        window.location.href = '/';
+        showAuthRequiredModal();
     }
 });
 
