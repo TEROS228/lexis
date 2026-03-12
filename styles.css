@@ -92,7 +92,7 @@ nav {
     display: flex;
     justify-content: space-between;
     align-items: center;
-    padding: 24px 40px !important;
+    padding: 12px 40px !important;
     min-height: auto;
 }
 
@@ -108,7 +108,7 @@ nav {
 }
 
 .logo-img {
-    height: 85px;
+    height: 65px;
     width: auto;
     object-fit: contain;
 }
