@@ -17,14 +17,34 @@ export function showAuthRequiredModal() {
     const button = overlay.querySelector('#authModalBtn');
     button?.addEventListener('click', () => {
         overlay.remove();
-        window.location.href = '/';
+
+        // If we're already on the home page, show the auth modal
+        if (window.location.pathname === '/' || window.location.pathname === '/index.html') {
+            const authModal = document.getElementById('authModal');
+            if (authModal) {
+                authModal.style.display = 'flex';
+            }
+        } else {
+            // Otherwise redirect to home page
+            window.location.href = '/';
+        }
     });
 
     // Click overlay to close
     overlay.addEventListener('click', (e) => {
         if (e.target === overlay) {
             overlay.remove();
-            window.location.href = '/';
+
+            // If we're already on the home page, show the auth modal
+            if (window.location.pathname === '/' || window.location.pathname === '/index.html') {
+                const authModal = document.getElementById('authModal');
+                if (authModal) {
+                    authModal.style.display = 'flex';
+                }
+            } else {
+                // Otherwise redirect to home page
+                window.location.href = '/';
+            }
         }
     });
 }
