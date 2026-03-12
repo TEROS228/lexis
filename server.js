@@ -403,14 +403,14 @@ app.get('/api/classes/teacher/:uid', async (req, res) => {
 // Create a new class
 app.post('/api/classes', async (req, res) => {
   try {
-    const { teacher_uid, name } = req.body;
+    const { teacherUid, className } = req.body;
 
     // Generate unique 6-character code
     const code = Math.random().toString(36).substring(2, 8).toUpperCase();
 
     const result = await pool.query(
       'INSERT INTO classes (teacher_uid, class_name, class_code) VALUES ($1, $2, $3) RETURNING *',
-      [teacher_uid, name, code]
+      [teacherUid, className, code]
     );
 
     res.json(result.rows[0]);
@@ -458,7 +458,7 @@ app.get('/api/assignments/teacher/:uid', async (req, res) => {
   try {
     const { uid } = req.params;
     const result = await pool.query(
-      `SELECT a.*, c.name as class_name
+      `SELECT a.*, c.class_name
        FROM assignments a
        LEFT JOIN classes c ON a.class_id = c.id
        WHERE a.teacher_uid = $1
