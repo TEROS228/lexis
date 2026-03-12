@@ -1255,12 +1255,6 @@ function renderQuizOptions(quiz: any, cacheKey: string, onAnswer: (correct: bool
         const optionsWithIndices = quiz.options.map((opt: string, i: number) => ({ option: opt, originalIndex: i }));
         shuffledOptions = shuffleArray(optionsWithIndices);
         shuffledOptionsCache.set(cacheKey, shuffledOptions);
-        const correctPos = shuffledOptions.findIndex((item: any) => item.originalIndex === quiz.correct);
-        console.log('🎲 Shuffled for', cacheKey);
-        console.log('   Order:', shuffledOptions.map(o => o.originalIndex), '| quiz.correct =', quiz.correct, '| Now at position:', correctPos + 1, '/', quiz.options.length);
-    } else {
-        const correctPos = shuffledOptions.findIndex((item: any) => item.originalIndex === quiz.correct);
-        console.log('📦 Cached for', cacheKey, '| Order:', shuffledOptions.map(o => o.originalIndex), '| quiz.correct =', quiz.correct, '| At position:', correctPos + 1);
     }
 
     quizOptions.innerHTML = shuffledOptions.map((item: any, displayIndex: number) =>
