@@ -203,8 +203,15 @@ createClassBtn.addEventListener('click', async () => {
 // Load teacher's classes
 async function loadClasses() {
     try {
-        const response = await fetch(`${API_URL}/classes/teacher/${currentUser.uid}`);
-        if (!response.ok) throw new Error('Failed to load classes');
+        const url = `${API_URL}/classes/teacher/${currentUser.uid}`;
+        console.log('Loading classes from:', url);
+        const response = await fetch(url);
+        console.log('Response status:', response.status);
+        if (!response.ok) {
+            const text = await response.text();
+            console.error('Response error:', text);
+            throw new Error('Failed to load classes');
+        }
 
         classes = await response.json();
         renderClasses();
@@ -615,7 +622,16 @@ document.getElementById('createAssignmentBtn')?.addEventListener('click', () => 
 async function loadAssignments() {
     if (!currentUser) return;
     try {
-        const assignments = await fetch(`${API_URL}/assignments/teacher/${currentUser.uid}`).then(r => r.json());
+        const url = `${API_URL}/assignments/teacher/${currentUser.uid}`;
+        console.log('Loading assignments from:', url);
+        const response = await fetch(url);
+        console.log('Assignments response status:', response.status);
+        if (!response.ok) {
+            const text = await response.text();
+            console.error('Assignments response error:', text);
+            return;
+        }
+        const assignments = await response.json();
 
         if (!assignments.length) {
             assignmentsEmpty.style.display = 'block';
