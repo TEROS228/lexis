@@ -1236,28 +1236,48 @@ function renderAttemptsUI(attemptsLeft: number, max: number, stageType: string) 
 }
 
 function renderQuizOptions(quiz: any, onAnswer: (correct: boolean, chosenIdx: number) => void, showCorrectOnWrong = true, disabledIndices: Set<number> = new Set()) {
-    quizOptions.innerHTML = quiz.options.map((opt: string, i: number) =>
-        `<button class="quiz-option" data-index="${i}">${opt}</button>`
+    // Shuffle options with their original indices
+    const optionsWithIndices = quiz.options.map((opt: string, i: number) => ({ option: opt, originalIndex: i }));
+    const shuffledOptions = shuffleArray(optionsWithIndices);
+
+    quizOptions.innerHTML = shuffledOptions.map((item: any, displayIndex: number) =>
+        `<button class="quiz-option" data-original-index="${item.originalIndex}" data-display-index="${displayIndex}">${item.option}</button>`
     ).join('');
 
     quizOptions.querySelectorAll('.quiz-option').forEach((btn: Element) => {
-        const idx = parseInt((btn as HTMLElement).dataset.index);
-        if (disabledIndices.has(idx)) {
+        const originalIdx = parseInt((btn as HTMLElement).dataset.originalIndex);
+        const displayIdx = parseInt((btn as HTMLElement).dataset.displayIndex);
+
+        if (disabledIndices.has(originalIdx)) {
             (btn as HTMLButtonElement).disabled = true;
             btn.classList.add('wrong');
         } else {
             btn.addEventListener('click', () => {
-                const correct = idx === quiz.correct;
+                const correct = originalIdx === quiz.correct;
+
+                // Find the display index of the correct answer
+                const correctDisplayIndex = shuffledOptions.findIndex((item: any) => item.originalIndex === quiz.correct);
+
                 quizOptions.querySelectorAll('.quiz-option').forEach((b: Element, i: number) => {
-                    if (correct && i === quiz.correct) b.classList.add('correct');
-                    else if (!correct && showCorrectOnWrong && i === quiz.correct) b.classList.add('correct');
-                    else if (i === idx && !correct) b.classList.add('wrong');
+                    if (correct && i === correctDisplayIndex) b.classList.add('correct');
+                    else if (!correct && showCorrectOnWrong && i === correctDisplayIndex) b.classList.add('correct');
+                    else if (i === displayIdx && !correct) b.classList.add('wrong');
                     (b as HTMLButtonElement).disabled = true;
                 });
-                onAnswer(correct, idx);
+                onAnswer(correct, originalIdx);
             }, { once: true });
         }
     });
+}
+
+// Fisher-Yates shuffle algorithm
+function shuffleArray<T>(array: T[]): T[] {
+    const newArray = [...array];
+    for (let i = newArray.length - 1; i > 0; i--) {
+        const j = Math.floor(Math.random() * (i + 1));
+        [newArray[i], newArray[j]] = [newArray[j], newArray[i]];
+    }
+    return newArray;
 }
 
 // ─── Navigation ───────────────────────────────────────────────────────
