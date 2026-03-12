@@ -420,6 +420,37 @@ app.post('/api/classes', async (req, res) => {
   }
 });
 
+// Get class details with students
+app.get('/api/classes/:id', async (req, res) => {
+  try {
+    const { id } = req.params;
+
+    // Get class info
+    const classResult = await pool.query('SELECT * FROM classes WHERE id = $1', [id]);
+    if (classResult.rows.length === 0) {
+      return res.status(404).json({ error: 'Class not found' });
+    }
+
+    // Get students
+    const studentsResult = await pool.query(
+      `SELECT u.uid, u.email, u.display_name, u.photo_url, ce.joined_at
+       FROM class_enrollments ce
+       JOIN users u ON ce.student_uid = u.uid
+       WHERE ce.class_id = $1
+       ORDER BY ce.joined_at DESC`,
+      [id]
+    );
+
+    res.json({
+      class: classResult.rows[0],
+      students: studentsResult.rows
+    });
+  } catch (error) {
+    console.error('Error loading class:', error);
+    res.status(500).json({ error: error.message });
+  }
+});
+
 // Delete a class
 app.delete('/api/classes/:id', async (req, res) => {
   try {
