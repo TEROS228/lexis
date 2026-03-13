@@ -9,6 +9,8 @@ let classes: any[] = [];
 let currentStep = 1;
 const totalSteps = 6;
 let isRecurring = false;
+let selectedDueDate: Date = null;
+let dueDateSetTime: Date = null; // Track when due date was set
 let recurringData = {
     interval: 1,
     unit: 'weeks',
@@ -162,21 +164,60 @@ document.getElementById('nextStep3')?.addEventListener('click', () => {
 const due = new Date();
 due.setDate(due.getDate() + 7);
 (document.getElementById('assignmentDueDate') as HTMLInputElement).value = due.toISOString().split('T')[0];
+dueDateSetTime = new Date();
+selectedDueDate = due;
 
 document.querySelectorAll('.ca-preset').forEach(btn => {
     btn.addEventListener('click', () => {
         const days = parseInt((btn as HTMLElement).dataset.days);
         const d = new Date();
+        dueDateSetTime = new Date(); // Track current time
         d.setDate(d.getDate() + days);
+        selectedDueDate = d;
         (document.getElementById('assignmentDueDate') as HTMLInputElement).value = d.toISOString().split('T')[0];
     });
+});
+
+// Track manual date changes
+document.getElementById('assignmentDueDate')?.addEventListener('change', () => {
+    const dateStr = (document.getElementById('assignmentDueDate') as HTMLInputElement).value;
+    if (dateStr) {
+        selectedDueDate = new Date(dateStr);
+        dueDateSetTime = new Date();
+    }
 });
 
 document.getElementById('nextStep4')?.addEventListener('click', () => {
     const v = (document.getElementById('assignmentDueDate') as HTMLInputElement).value;
     if (!v) { showToast('Error', 'Please pick a due date', 'error'); return; }
+    calculateRecurringInterval(); // Calculate interval before moving to step 5
     goToStep(5);
 });
+
+// Calculate recurring interval from due date
+function calculateRecurringInterval() {
+    if (!selectedDueDate || !dueDateSetTime) return;
+
+    const now = new Date(dueDateSetTime);
+    now.setHours(0, 0, 0, 0);
+    const dueDate = new Date(selectedDueDate);
+    dueDate.setHours(0, 0, 0, 0);
+
+    const diffTime = Math.abs(dueDate.getTime() - now.getTime());
+    const diffDays = Math.ceil(diffTime / (1000 * 60 * 60 * 24));
+
+    // Determine best unit and interval
+    if (diffDays % 30 === 0 && diffDays >= 30) {
+        recurringData.interval = diffDays / 30;
+        recurringData.unit = 'months';
+    } else if (diffDays % 7 === 0 && diffDays >= 7) {
+        recurringData.interval = diffDays / 7;
+        recurringData.unit = 'weeks';
+    } else {
+        recurringData.interval = diffDays;
+        recurringData.unit = 'days';
+    }
+}
 
 // Step 5: recurring
 document.querySelectorAll('[data-recurring]').forEach(btn => {
@@ -208,17 +249,7 @@ document.querySelectorAll('[data-end]').forEach(btn => {
     });
 });
 
-// Recurring interval/unit change
-document.getElementById('recurringInterval')?.addEventListener('input', () => {
-    recurringData.interval = parseInt((document.getElementById('recurringInterval') as HTMLInputElement).value);
-    updateRecurringPreview();
-});
-
-document.getElementById('recurringUnit')?.addEventListener('change', () => {
-    recurringData.unit = (document.getElementById('recurringUnit') as HTMLSelectElement).value;
-    updateRecurringPreview();
-});
-
+// Recurring end date/count change
 document.getElementById('recurringEndDate')?.addEventListener('change', () => {
     recurringData.endDate = (document.getElementById('recurringEndDate') as HTMLInputElement).value;
     updateRecurringPreview();
@@ -239,10 +270,11 @@ function updateRecurringPreview() {
         return;
     }
 
+    // Use the auto-calculated interval
     const unitName = recurringData.unit === 'days' ? 'day' : recurringData.unit === 'weeks' ? 'week' : 'month';
     const plural = recurringData.interval > 1 ? 's' : '';
 
-    let text = `This assignment will be created every ${recurringData.interval} ${unitName}${plural}`;
+    let text = `This assignment will repeat every ${recurringData.interval} ${unitName}${plural}`;
 
     if (recurringData.endType === 'never') {
         text += ' until you manually stop it.';
