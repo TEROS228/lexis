@@ -785,13 +785,12 @@ function showIntroWord() {
         quizAttempts.innerHTML = `<span class="check-badge">📖 ${introCursor + 1} / ${totalInPool}</span>`;
     }
 
-    // ── Explanation card
+    // ── Explanation card (now English only)
     const details = wordDetails[word.id];
-    const langDetails = details && (details[currentLang] || details['ru'] || details['en'] || Object.values(details)[0]) as any;
-    if (langDetails) {
-        explMeaning.textContent = langDetails.meaning || '';
-        explContext.textContent = langDetails.context || '';
-        explExample.textContent = langDetails.example || '';
+    if (details) {
+        explMeaning.textContent = details.meaning || '';
+        explContext.textContent = details.context || '';
+        explExample.textContent = details.example || '';
         wordExplanation.style.display = 'grid';
     } else {
         wordExplanation.style.display = 'none';

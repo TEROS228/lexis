@@ -93,14 +93,13 @@ function displayWordDetails() {
     if (wordEn) wordEn.textContent = word.en;
     if (wordTranslation) wordTranslation.textContent = word[currentLang] || word.ru;
 
-    // If word details exist, show them (with fallback: currentLang -> ru -> en -> first available)
-    const langDetails = details && (details[currentLang] || details['ru'] || details['en'] || Object.values(details)[0]);
-    if (langDetails) {
-        if (meaningContent) meaningContent.textContent = langDetails.meaning;
-        if (contextContent) contextContent.textContent = langDetails.context;
+    // Show word details (now English only)
+    if (details) {
+        if (meaningContent) meaningContent.textContent = details.meaning;
+        if (contextContent) contextContent.textContent = details.context;
         if (exampleContent) {
             const exampleText = exampleContent.querySelector('.example-text');
-            if (exampleText) exampleText.textContent = langDetails.example;
+            if (exampleText) exampleText.textContent = details.example;
         }
     } else {
         // No details at all
