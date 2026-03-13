@@ -278,7 +278,7 @@ export const wordDetails = {
   behalf: {
     meaning: 'Done for another person or as their representative.',
     context: '"I am calling on behalf of my boss to confirm the appointment."',
-    example: 'The lawyer spoke on behalf of the victim\'
+    example: 'The lawyer spoke on behalf of the victim.'
   },
   benefit: {
     meaning: 'A helpful or good effect, or something intended to help.',
@@ -393,7 +393,7 @@ export const wordDetails = {
   coincide: {
     meaning: 'To happen at the same time as something else.',
     context: '"My birthday coincides with a national holiday this year."',
-    example: 'The publication of the book was timed to coincide with the film\'
+    example: 'The publication of the book was timed to coincide with the film.'
   },
   collapse: {
     meaning: 'To fall down suddenly because of pressure or lack of strength.',
@@ -468,7 +468,7 @@ export const wordDetails = {
   component: {
     meaning: 'One of the parts that make up a whole machine, system, or idea.',
     context: '"An engine has many small components that must work together."',
-    example: 'Nitrogen is a major component of the Earth\'
+    example: 'Nitrogen is a major component of the Earth.'
   },
   compound: {
     meaning: 'A chemical that combines two or more elements; or something made of mixed parts.',
@@ -533,7 +533,7 @@ export const wordDetails = {
   confirm: {
     meaning: 'To prove that something is true, or to make an arrangement certain.',
     context: '"I\'m calling to confirm my hotel reservation for tomorrow."',
-    example: 'New evidence has confirmed the scientist\'
+    example: 'New evidence has confirmed the scientist.'
   },
   conflict: {
     meaning: 'An active disagreement between people with opposing opinions or principles.',
@@ -613,7 +613,7 @@ export const wordDetails = {
   contradict: {
     meaning: 'To say the opposite of what someone else has said; to be the opposite of.',
     context: '"His actions contradict his words" (he says one thing but does another).',
-    example: 'The witness\'
+    example: 'The witness.'
   },
   contrary: {
     meaning: 'Opposite.',
@@ -643,7 +643,7 @@ export const wordDetails = {
   converse: {
     meaning: 'The opposite of a fact or statement; or (as a verb) to have a conversation.',
     context: '"She enjoyed the chance to converse with someone in her native language."',
-    example: 'It is difficult to converse with someone who doesn\'
+    example: 'It is difficult to converse with someone who doesn.'
   },
   convert: {
     meaning: 'To change in form, character, or function.',
@@ -748,7 +748,7 @@ export const wordDetails = {
   define: {
     meaning: 'To say exactly what something means.',
     context: '"It is difficult to define exactly what \'happiness\' is."',
-    example: 'It is difficult to define exactly what \'
+    example: 'It is difficult to define exactly what .'
   },
   definite: {
     meaning: 'Fixed, certain, or clear; not likely to change.',
@@ -818,7 +818,7 @@ export const wordDetails = {
   dimension: {
     meaning: 'A measurement like height, length, or width.',
     context: 'We need to measure the dimensions of the sofa to see if it fits in the room.',
-    example: 'The new road adds a new dimension to the city\'
+    example: 'The new road adds a new dimension to the city.'
   },
   diminish: {
     meaning: 'To become smaller or less important.',
@@ -888,7 +888,7 @@ export const wordDetails = {
   dominate: {
     meaning: 'To have control or power over someone or something.',
     context: 'A very tall building might dominate the city skyline.',
-    example: 'The cathedral dominates the city\'
+    example: 'The cathedral dominates the city.'
   },
   draft: {
     meaning: 'A first version of a piece of writing that will be changed later.',
@@ -913,7 +913,7 @@ export const wordDetails = {
   economy: {
     meaning: 'The system of money and trade in a country.',
     context: 'Tourism is very important for the local economy.',
-    example: 'The country\'
+    example: 'The country.'
   },
   edit: {
     meaning: 'To change or correct a text, film, or photo.',
@@ -1138,7 +1138,7 @@ export const wordDetails = {
   fee: {
     meaning: 'An amount of money paid for a service or piece of work.',
     context: 'You have to pay an entrance fee to go into the museum.',
-    example: 'The lawyer\'
+    example: 'The lawyer.'
   },
   file: {
     meaning: 'A collection of information stored on a computer or in a folder.',
@@ -1148,7 +1148,7 @@ export const wordDetails = {
   final: {
     meaning: 'Last, or happening at the end.',
     context: 'This is my final warning; please be quiet.',
-    example: 'The referee\'
+    example: 'The referee.'
   },
   finance: {
     meaning: 'The management of money; or to provide money for something.',
@@ -1188,7 +1188,7 @@ export const wordDetails = {
   forthcoming: {
     meaning: 'Happening soon; or willing to give information.',
     context: 'I am looking forward to the forthcoming holiday.',
-    example: 'The author\'
+    example: 'The author.'
   },
   foundation: {
     meaning: 'The basic structure or idea that something is built on.',
@@ -1566,3 +1566,5 @@ export const wordDetails = {
     example: 'The last item on the agenda is the budget.'
   },
 };
+
+export default wordDetails;
