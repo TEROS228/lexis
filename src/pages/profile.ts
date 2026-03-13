@@ -60,20 +60,16 @@ function hideSkeletonLoaders() {
 showSkeletonLoaders();
 
 const totalWordsReviewed = document.getElementById('totalWordsReviewed');
-const knownWords = document.getElementById('knownWords');
-const unsureWords = document.getElementById('unsureWords');
-const unknownWords = document.getElementById('unknownWords');
+const learnedWords = document.getElementById('learnedWords');
+const reviewedWords = document.getElementById('reviewedWords');
 
-const knownSegment = document.getElementById('knownSegment');
-const unsureSegment = document.getElementById('unsureSegment');
-const unknownSegment = document.getElementById('unknownSegment');
-const knownPercent = document.getElementById('knownPercent');
-const unsurePercent = document.getElementById('unsurePercent');
-const unknownPercent = document.getElementById('unknownPercent');
+const learnedSegment = document.getElementById('learnedSegment');
+const reviewedSegment = document.getElementById('reviewedSegment');
+const learnedPercent = document.getElementById('learnedPercent');
+const reviewedPercent = document.getElementById('reviewedPercent');
 
-const knownCount = document.getElementById('knownCount');
-const unsureCount = document.getElementById('unsureCount');
-const unknownCount = document.getElementById('unknownCount');
+const learnedCount = document.getElementById('learnedCount');
+const reviewedCount = document.getElementById('reviewedCount');
 
 // Language selector
 const languageBtn = document.getElementById('languageBtn');
@@ -307,72 +303,39 @@ async function loadProgress() {
         console.log('Progress data:', data);
         const words = data.words || {};
 
-        let known = 0;
-        let unsure = 0;
-        let unknown = 0;
+        let learned = 0;
+        let reviewed = 0;
 
         Object.values(words).forEach(status => {
-            if (status === 'known') known++;
-            else if (status === 'unsure') unsure++;
-            else if (status === 'unknown') unknown++;
+            if (status === 'learned') learned++;
+            else if (status === 'reviewed') reviewed++;
         });
 
-        const total = known + unsure + unknown;
+        const total = learned + reviewed;
 
         // Update statistics
         totalWordsReviewed.textContent = total;
-        knownWords.textContent = known;
-        unsureWords.textContent = unsure;
-        unknownWords.textContent = unknown;
+        learnedWords.textContent = learned;
+        reviewedWords.textContent = reviewed;
 
         // Update quick access counts
-        knownCount.textContent = known;
-        unsureCount.textContent = unsure;
-        unknownCount.textContent = unknown;
-
-        // Enable quiz button if there are unsure or unknown words
-        const takeQuizCard = document.getElementById('takeQuizCard');
-        const quizSubtext = document.getElementById('quizSubtext');
-        const quizWordsCount = unsure + unknown;
-
-        if (quizWordsCount > 0) {
-            takeQuizCard.classList.remove('quiz-disabled');
-            quizSubtext.textContent = `${quizWordsCount} words available`;
-
-            // Set up quiz navigation
-            takeQuizCard.addEventListener('click', (e) => {
-                e.preventDefault();
-                // Store words to quiz in sessionStorage
-                const wordsToQuiz = Object.keys(words).filter(wordId =>
-                    words[wordId] === 'unsure' || words[wordId] === 'unknown'
-                );
-                sessionStorage.setItem('quizWords', JSON.stringify(wordsToQuiz));
-                sessionStorage.setItem('quizStatus', 'mixed');
-                window.location.href = '/quiz';
-            });
-        } else {
-            takeQuizCard.classList.add('quiz-disabled');
-            quizSubtext.textContent = 'No words available';
-        }
+        learnedCount.textContent = learned;
+        reviewedCount.textContent = reviewed;
 
         // Update progress bar
         if (total > 0) {
-            const knownPct = Math.round((known / total) * 100);
-            const unsurePct = Math.round((unsure / total) * 100);
-            const unknownPct = 100 - knownPct - unsurePct;
+            const learnedPct = Math.round((learned / total) * 100);
+            const reviewedPct = 100 - learnedPct;
 
-            knownSegment.style.width = `${knownPct}%`;
-            unsureSegment.style.width = `${unsurePct}%`;
-            unknownSegment.style.width = `${unknownPct}%`;
+            learnedSegment.style.width = `${learnedPct}%`;
+            reviewedSegment.style.width = `${reviewedPct}%`;
 
-            knownPercent.textContent = `${knownPct}%`;
-            unsurePercent.textContent = `${unsurePct}%`;
-            unknownPercent.textContent = `${unknownPct}%`;
+            learnedPercent.textContent = `${learnedPct}%`;
+            reviewedPercent.textContent = `${reviewedPct}%`;
 
             // Hide labels for segments that are too small
-            if (knownPct < 10) knownPercent.style.display = 'none';
-            if (unsurePct < 10) unsurePercent.style.display = 'none';
-            if (unknownPct < 10) unknownPercent.style.display = 'none';
+            if (learnedPct < 10) learnedPercent.style.display = 'none';
+            if (reviewedPct < 10) reviewedPercent.style.display = 'none';
         }
 
         // Update last updated
@@ -631,9 +594,8 @@ async function loadSessions() {
                             <span>${s.words_reviewed} words</span>
                         </div>
                         <div class="session-mini-stats">
-                            <span class="mini-known">✓${s.known_count}</span>
-                            <span class="mini-unsure">?${s.unsure_count}</span>
-                            <span class="mini-unknown">✗${s.unknown_count}</span>
+                            <span class="mini-learned">✓${s.learned_count || s.known_count || 0}</span>
+                            <span class="mini-reviewed">📖${s.reviewed_count || 0}</span>
                         </div>
                     </div>
                 </div>

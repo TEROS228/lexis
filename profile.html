@@ -157,22 +157,15 @@
                 <div class="stat-card known-stat">
                     <div class="stat-icon">✓</div>
                     <div class="stat-content">
-                        <div class="stat-value" id="knownWords">0</div>
-                        <div class="stat-label" data-i18n="profile.known">I Know</div>
+                        <div class="stat-value" id="learnedWords">0</div>
+                        <div class="stat-label" data-i18n="profile.learned">Learned</div>
                     </div>
                 </div>
-                <div class="stat-card unsure-stat">
-                    <div class="stat-icon">?</div>
+                <div class="stat-card reviewed-stat">
+                    <div class="stat-icon">📖</div>
                     <div class="stat-content">
-                        <div class="stat-value" id="unsureWords">0</div>
-                        <div class="stat-label" data-i18n="profile.unsure">Not Sure</div>
-                    </div>
-                </div>
-                <div class="stat-card unknown-stat">
-                    <div class="stat-icon">✗</div>
-                    <div class="stat-content">
-                        <div class="stat-value" id="unknownWords">0</div>
-                        <div class="stat-label" data-i18n="profile.unknown">Don't Know</div>
+                        <div class="stat-value" id="reviewedWords">0</div>
+                        <div class="stat-label" data-i18n="profile.reviewed">Reviewed</div>
                     </div>
                 </div>
             </div>
@@ -206,28 +199,21 @@
             <h2 data-i18n="profile.progressOverview">Progress Overview</h2>
             <div class="progress-chart">
                 <div class="progress-bar-container">
-                    <div class="progress-segment known-segment" id="knownSegment" style="width: 0%">
-                        <span class="progress-label" id="knownPercent">0%</span>
+                    <div class="progress-segment learned-segment" id="learnedSegment" style="width: 0%">
+                        <span class="progress-label" id="learnedPercent">0%</span>
                     </div>
-                    <div class="progress-segment unsure-segment" id="unsureSegment" style="width: 0%">
-                        <span class="progress-label" id="unsurePercent">0%</span>
-                    </div>
-                    <div class="progress-segment unknown-segment" id="unknownSegment" style="width: 0%">
-                        <span class="progress-label" id="unknownPercent">0%</span>
+                    <div class="progress-segment reviewed-segment" id="reviewedSegment" style="width: 0%">
+                        <span class="progress-label" id="reviewedPercent">0%</span>
                     </div>
                 </div>
                 <div class="progress-legend">
                     <div class="legend-item">
-                        <div class="legend-color known-color"></div>
-                        <span data-i18n="profile.known">I Know</span>
+                        <div class="legend-color learned-color"></div>
+                        <span data-i18n="profile.learned">Learned</span>
                     </div>
                     <div class="legend-item">
-                        <div class="legend-color unsure-color"></div>
-                        <span data-i18n="profile.unsure">Not Sure</span>
-                    </div>
-                    <div class="legend-item">
-                        <div class="legend-color unknown-color"></div>
-                        <span data-i18n="profile.unknown">Don't Know</span>
+                        <div class="legend-color reviewed-color"></div>
+                        <span data-i18n="profile.reviewed">Reviewed</span>
                     </div>
                 </div>
             </div>
@@ -237,27 +223,19 @@
         <div class="word-lists-section">
             <h2 data-i18n="profile.quickAccess">Quick Access to Word Lists</h2>
             <div class="word-list-cards">
-                <a href="word-list.html?status=known" class="word-list-card known-card">
+                <a href="word-list.html?status=learned" class="word-list-card learned-card">
                     <div class="card-icon">✓</div>
                     <div class="card-content">
-                        <h3 data-i18n="profile.knownWords">Words I Know</h3>
-                        <p class="card-count"><span id="knownCount">0</span> <span data-i18n="profile.words">words</span></p>
+                        <h3 data-i18n="profile.learnedWords">Learned Words</h3>
+                        <p class="card-count"><span id="learnedCount">0</span> <span data-i18n="profile.words">words</span></p>
                     </div>
                     <div class="card-arrow">→</div>
                 </a>
-                <a href="word-list.html?status=unsure" class="word-list-card unsure-card">
-                    <div class="card-icon">?</div>
+                <a href="word-list.html?status=reviewed" class="word-list-card reviewed-card">
+                    <div class="card-icon">📖</div>
                     <div class="card-content">
-                        <h3 data-i18n="profile.unsureWords">Words I'm Not Sure</h3>
-                        <p class="card-count"><span id="unsureCount">0</span> <span data-i18n="profile.words">words</span></p>
-                    </div>
-                    <div class="card-arrow">→</div>
-                </a>
-                <a href="word-list.html?status=unknown" class="word-list-card unknown-card">
-                    <div class="card-icon">✗</div>
-                    <div class="card-content">
-                        <h3 data-i18n="profile.unknownWords">Words I Don't Know</h3>
-                        <p class="card-count"><span id="unknownCount">0</span> <span data-i18n="profile.words">words</span></p>
+                        <h3 data-i18n="profile.reviewedWords">Reviewed Words</h3>
+                        <p class="card-count"><span id="reviewedCount">0</span> <span data-i18n="profile.words">words</span></p>
                     </div>
                     <div class="card-arrow">→</div>
                 </a>
@@ -281,22 +259,6 @@
                     <div class="card-content">
                         <h3 data-i18n="profile.browseTiers">Browse All Tiers</h3>
                         <p class="card-description">Explore word collections</p>
-                    </div>
-                    <div class="card-arrow">→</div>
-                </a>
-                <a href="learn.html" class="word-list-card practice-card learn-card">
-                    <div class="card-icon">📖</div>
-                    <div class="card-content">
-                        <h3 data-i18n="profile.startLearning">Start Learning</h3>
-                        <p class="card-description">Review new words</p>
-                    </div>
-                    <div class="card-arrow">→</div>
-                </a>
-                <a id="takeQuizCard" href="#" class="word-list-card practice-card quiz-card quiz-disabled">
-                    <div class="card-icon">🎯</div>
-                    <div class="card-content">
-                        <h3 data-i18n="profile.takeQuiz">Take a Quiz</h3>
-                        <p id="quizSubtext" class="card-description">No words available</p>
                     </div>
                     <div class="card-arrow">→</div>
                 </a>
