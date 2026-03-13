@@ -406,8 +406,117 @@ body {
 .toast-title { font-size: 14px; font-weight: 700; color: #fff; }
 .toast-message { font-size: 13px; color: rgba(255,255,255,0.5); margin-top: 2px; }
 
+/* Recurring options */
+.ca-recurring-options {
+    margin-top: 32px;
+    padding-top: 32px;
+    border-top: 1px solid rgba(255,255,255,0.1);
+}
+
+.ca-recurring-field {
+    margin-bottom: 24px;
+}
+
+.ca-recurring-interval {
+    display: flex;
+    gap: 12px;
+    align-items: center;
+}
+
+.ca-small-input {
+    flex: 0 0 80px;
+    background: rgba(255,255,255,0.05);
+    border: 1px solid rgba(255,255,255,0.15);
+    color: #fff;
+    border-radius: 12px;
+    padding: 14px 16px;
+    font-size: 16px;
+    font-weight: 500;
+    outline: none;
+    transition: all 0.2s;
+}
+
+.ca-small-input:focus {
+    border-color: #6c63ff;
+    background: rgba(108,99,255,0.08);
+}
+
+.ca-recurring-end {
+    grid-template-columns: repeat(3, 1fr);
+    gap: 12px;
+}
+
+.ca-small-card {
+    background: rgba(255,255,255,0.05);
+    border: 1px solid rgba(255,255,255,0.12);
+    border-radius: 12px;
+    padding: 16px;
+    cursor: pointer;
+    transition: all 0.2s;
+    text-align: left;
+    display: flex;
+    flex-direction: column;
+    gap: 6px;
+}
+
+.ca-small-card:hover {
+    background: rgba(255,255,255,0.08);
+    border-color: rgba(255,255,255,0.2);
+}
+
+.ca-small-card.active {
+    background: rgba(108,99,255,0.12);
+    border-color: #6c63ff;
+}
+
+.ca-small-label {
+    font-size: 15px;
+    font-weight: 600;
+    color: #fff;
+}
+
+.ca-small-desc {
+    font-size: 12px;
+    color: rgba(255,255,255,0.5);
+}
+
+.ca-recurring-preview {
+    margin-top: 24px;
+    padding: 16px 20px;
+    background: rgba(108,99,255,0.08);
+    border: 1px solid rgba(108,99,255,0.3);
+    border-radius: 12px;
+    display: flex;
+    align-items: flex-start;
+    gap: 12px;
+}
+
+.ca-preview-icon {
+    font-size: 20px;
+    flex-shrink: 0;
+}
+
+.ca-preview-text {
+    font-size: 14px;
+    color: rgba(255,255,255,0.8);
+    line-height: 1.5;
+}
+
+@media (max-width: 768px) {
+    .ca-recurring-end {
+        grid-template-columns: 1fr;
+    }
+}
+
 @media (max-width: 500px) {
     .ca-big-cards { grid-template-columns: 1fr; }
     .ca-step-title { font-size: 22px; }
     .ca-big-input { font-size: 24px; }
+    .ca-recurring-interval {
+        flex-direction: column;
+        align-items: stretch;
+    }
+    .ca-small-input {
+        flex: 1;
+    }
 }

@@ -28,7 +28,7 @@
         <!-- Step 1: Type -->
         <div class="ca-step active" data-step="1">
             <div class="ca-step-inner">
-                <div class="ca-step-num">1 / 5</div>
+                <div class="ca-step-num">1 / 6</div>
                 <h2 class="ca-step-title">What type of assignment?</h2>
                 <div class="ca-big-cards">
                     <button class="ca-big-card active" data-type="words">
@@ -49,7 +49,7 @@
         <!-- Step 2: Assign to -->
         <div class="ca-step" data-step="2">
             <div class="ca-step-inner">
-                <div class="ca-step-num">2 / 5</div>
+                <div class="ca-step-num">2 / 6</div>
                 <h2 class="ca-step-title">Who is this for?</h2>
                 <div class="ca-big-cards">
                     <button class="ca-big-card active" data-assign="class">
@@ -87,7 +87,7 @@
         <!-- Step 3: Target -->
         <div class="ca-step" data-step="3">
             <div class="ca-step-inner">
-                <div class="ca-step-num">3 / 5</div>
+                <div class="ca-step-num">3 / 6</div>
                 <h2 class="ca-step-title" id="targetStepTitle">How many words?</h2>
                 <p class="ca-step-sub" id="targetStepSub">Enter the number of words students must learn</p>
                 <div class="ca-big-input-wrap">
@@ -107,7 +107,7 @@
         <!-- Step 4: Due date -->
         <div class="ca-step" data-step="4">
             <div class="ca-step-inner">
-                <div class="ca-step-num">4 / 5</div>
+                <div class="ca-step-num">4 / 6</div>
                 <h2 class="ca-step-title">When is it due?</h2>
                 <p class="ca-step-sub">Pick a deadline for this assignment</p>
                 <input type="date" id="assignmentDueDate" class="ca-date-input">
@@ -121,10 +121,82 @@
             </div>
         </div>
 
-        <!-- Step 5: Title + description -->
+        <!-- Step 5: Recurring -->
         <div class="ca-step" data-step="5">
             <div class="ca-step-inner">
-                <div class="ca-step-num">5 / 5</div>
+                <div class="ca-step-num">5 / 6</div>
+                <h2 class="ca-step-title">Should this assignment repeat?</h2>
+                <p class="ca-step-sub">Make this a recurring assignment that creates automatically</p>
+
+                <div class="ca-big-cards">
+                    <button class="ca-big-card active" data-recurring="no">
+                        <span class="ca-big-icon">📝</span>
+                        <span class="ca-big-label">One-time only</span>
+                        <span class="ca-big-desc">Just create this assignment once</span>
+                    </button>
+                    <button class="ca-big-card" data-recurring="yes">
+                        <span class="ca-big-icon">🔄</span>
+                        <span class="ca-big-label">Recurring</span>
+                        <span class="ca-big-desc">Repeat this assignment automatically</span>
+                    </button>
+                </div>
+
+                <!-- Recurring options (hidden by default) -->
+                <div id="recurringOptions" class="ca-recurring-options" style="display:none;">
+                    <div class="ca-recurring-field">
+                        <label class="ca-select-label">Repeat every</label>
+                        <div class="ca-recurring-interval">
+                            <input type="number" id="recurringInterval" class="ca-small-input" value="1" min="1" max="52">
+                            <select id="recurringUnit" class="ca-select-input">
+                                <option value="days">Day(s)</option>
+                                <option value="weeks" selected>Week(s)</option>
+                                <option value="months">Month(s)</option>
+                            </select>
+                        </div>
+                    </div>
+
+                    <div class="ca-recurring-field">
+                        <label class="ca-select-label">End recurring</label>
+                        <div class="ca-big-cards ca-recurring-end">
+                            <button class="ca-small-card active" data-end="never">
+                                <span class="ca-small-label">Never</span>
+                                <span class="ca-small-desc">Continue until stopped manually</span>
+                            </button>
+                            <button class="ca-small-card" data-end="date">
+                                <span class="ca-small-label">On date</span>
+                                <span class="ca-small-desc">Stop on a specific date</span>
+                            </button>
+                            <button class="ca-small-card" data-end="count">
+                                <span class="ca-small-label">After count</span>
+                                <span class="ca-small-desc">Stop after X occurrences</span>
+                            </button>
+                        </div>
+                    </div>
+
+                    <div id="endDateGroup" class="ca-recurring-field" style="display:none;">
+                        <label class="ca-select-label">End date</label>
+                        <input type="date" id="recurringEndDate" class="ca-date-input">
+                    </div>
+
+                    <div id="endCountGroup" class="ca-recurring-field" style="display:none;">
+                        <label class="ca-select-label">Number of occurrences</label>
+                        <input type="number" id="recurringCount" class="ca-big-input" placeholder="10" min="1" max="100">
+                    </div>
+
+                    <div class="ca-recurring-preview" id="recurringPreview">
+                        <div class="ca-preview-icon">ℹ️</div>
+                        <div class="ca-preview-text" id="recurringPreviewText"></div>
+                    </div>
+                </div>
+
+                <button class="ca-next-btn" id="nextStep5">Continue <i class="fas fa-arrow-right"></i></button>
+            </div>
+        </div>
+
+        <!-- Step 6: Title + description -->
+        <div class="ca-step" data-step="6">
+            <div class="ca-step-inner">
+                <div class="ca-step-num">6 / 6</div>
                 <h2 class="ca-step-title">Give it a name</h2>
                 <div class="ca-final-fields">
                     <input type="text" id="assignmentTitle" class="ca-text-input" placeholder="e.g. Learn 20 words this week">

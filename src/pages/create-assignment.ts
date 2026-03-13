@@ -7,7 +7,15 @@ let assignmentType = 'words';
 let assignTo = 'class';
 let classes: any[] = [];
 let currentStep = 1;
-const totalSteps = 5;
+const totalSteps = 6;
+let isRecurring = false;
+let recurringData = {
+    interval: 1,
+    unit: 'weeks',
+    endType: 'never',
+    endDate: null,
+    endCount: null
+};
 
 // Toast
 const toast = document.getElementById('toast');
@@ -170,7 +178,101 @@ document.getElementById('nextStep4')?.addEventListener('click', () => {
     goToStep(5);
 });
 
-// Step 5: submit
+// Step 5: recurring
+document.querySelectorAll('[data-recurring]').forEach(btn => {
+    btn.addEventListener('click', () => {
+        document.querySelectorAll('[data-recurring]').forEach(b => b.classList.remove('active'));
+        btn.classList.add('active');
+        isRecurring = (btn as HTMLElement).dataset.recurring === 'yes';
+        const recurringOptions = document.getElementById('recurringOptions');
+        if (isRecurring) {
+            recurringOptions.style.display = 'block';
+            updateRecurringPreview();
+        } else {
+            recurringOptions.style.display = 'none';
+        }
+    });
+});
+
+// Recurring end type selection
+document.querySelectorAll('[data-end]').forEach(btn => {
+    btn.addEventListener('click', () => {
+        document.querySelectorAll('[data-end]').forEach(b => b.classList.remove('active'));
+        btn.classList.add('active');
+        recurringData.endType = (btn as HTMLElement).dataset.end;
+
+        document.getElementById('endDateGroup').style.display = recurringData.endType === 'date' ? 'block' : 'none';
+        document.getElementById('endCountGroup').style.display = recurringData.endType === 'count' ? 'block' : 'none';
+
+        updateRecurringPreview();
+    });
+});
+
+// Recurring interval/unit change
+document.getElementById('recurringInterval')?.addEventListener('input', () => {
+    recurringData.interval = parseInt((document.getElementById('recurringInterval') as HTMLInputElement).value);
+    updateRecurringPreview();
+});
+
+document.getElementById('recurringUnit')?.addEventListener('change', () => {
+    recurringData.unit = (document.getElementById('recurringUnit') as HTMLSelectElement).value;
+    updateRecurringPreview();
+});
+
+document.getElementById('recurringEndDate')?.addEventListener('change', () => {
+    recurringData.endDate = (document.getElementById('recurringEndDate') as HTMLInputElement).value;
+    updateRecurringPreview();
+});
+
+document.getElementById('recurringCount')?.addEventListener('input', () => {
+    recurringData.endCount = parseInt((document.getElementById('recurringCount') as HTMLInputElement).value);
+    updateRecurringPreview();
+});
+
+function updateRecurringPreview() {
+    const preview = document.getElementById('recurringPreviewText');
+    if (!preview) return;
+
+    const dueDate = (document.getElementById('assignmentDueDate') as HTMLInputElement).value;
+    if (!dueDate) {
+        preview.textContent = 'Please select a due date first';
+        return;
+    }
+
+    const unitName = recurringData.unit === 'days' ? 'day' : recurringData.unit === 'weeks' ? 'week' : 'month';
+    const plural = recurringData.interval > 1 ? 's' : '';
+
+    let text = `This assignment will be created every ${recurringData.interval} ${unitName}${plural}`;
+
+    if (recurringData.endType === 'never') {
+        text += ' until you manually stop it.';
+    } else if (recurringData.endType === 'date' && recurringData.endDate) {
+        const endDate = new Date(recurringData.endDate);
+        text += ` until ${endDate.toLocaleDateString('en-US', { month: 'short', day: 'numeric', year: 'numeric' })}.`;
+    } else if (recurringData.endType === 'count' && recurringData.endCount) {
+        text += ` for ${recurringData.endCount} occurrence${recurringData.endCount > 1 ? 's' : ''}.`;
+    } else {
+        text += '.';
+    }
+
+    preview.textContent = text;
+}
+
+document.getElementById('nextStep5')?.addEventListener('click', () => {
+    if (isRecurring) {
+        if (recurringData.endType === 'date' && !recurringData.endDate) {
+            showToast('Error', 'Please select an end date', 'error');
+            return;
+        }
+        if (recurringData.endType === 'count' && !recurringData.endCount) {
+            showToast('Error', 'Please enter number of occurrences', 'error');
+            return;
+        }
+    }
+    goToStep(6);
+});
+
+// Step 6: submit
 document.getElementById('submitBtn')?.addEventListener('click', async () => {
     const title = (document.getElementById('assignmentTitle') as HTMLInputElement).value.trim();
     if (!title) { showToast('Error', 'Please enter a title', 'error'); return; }
@@ -191,17 +293,33 @@ document.getElementById('submitBtn')?.addEventListener('click', async () => {
     submitBtn.innerHTML = '<i class="fas fa-spinner fa-spin"></i> Creating...';
 
     try {
+        const payload: any = {
+            classId, studentUid, teacherUid: currentUser.uid,
+            type: assignmentType, target, dueDate, title, description
+        };
+
+        // Add recurring data if enabled
+        if (isRecurring) {
+            payload.isRecurring = true;
+            payload.recurringInterval = recurringData.interval;
+            payload.recurringUnit = recurringData.unit;
+            payload.recurringEndType = recurringData.endType;
+            if (recurringData.endType === 'date') {
+                payload.recurringEndDate = recurringData.endDate;
+            } else if (recurringData.endType === 'count') {
+                payload.recurringEndCount = recurringData.endCount;
+            }
+        }
+
         const res = await fetch(`${API_URL}/assignments`, {
             method: 'POST',
             headers: { 'Content-Type': 'application/json' },
-            body: JSON.stringify({
-                classId, studentUid, teacherUid: currentUser.uid,
-                type: assignmentType, target, dueDate, title, description
-            })
+            body: JSON.stringify(payload)
         });
         if (!res.ok) throw new Error('Failed');
 
-        showToast('Done!', `Assignment "${title}" created`);
+        const successMsg = isRecurring ? `Recurring assignment "${title}" created` : `Assignment "${title}" created`;
+        showToast('Done!', successMsg);
         setTimeout(() => { window.location.href = '/teacher-dashboard.html'; }, 1200);
     } catch {
         showToast('Error', 'Failed to create assignment', 'error');
