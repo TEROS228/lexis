@@ -11,7 +11,7 @@ console.log('tier2Words loaded:', tier2Words?.length);
 
 let currentUser = null;
 let currentLang = getCurrentLanguage();
-let currentStatus = 'known'; // Default filter
+let currentStatus = 'learned'; // Default filter
 let allProgress = {};
 let learnedWordsData = [];
 
@@ -38,10 +38,8 @@ function updateTranslations() {
 
     // Update page title based on status
     const titles = {
-        known: t('wordList.pageTitles.known'),
         learned: t('wordList.pageTitles.learned'),
-        unsure: t('wordList.pageTitles.unsure'),
-        unknown: t('wordList.pageTitles.unknown')
+        reviewed: t('wordList.pageTitles.reviewed')
     };
     pageTitle.textContent = titles[currentStatus];
 }
@@ -74,7 +72,7 @@ const languages = {
 const urlParams = new URLSearchParams(window.location.search);
 const statusParam = urlParams.get('status');
 console.log('URL status param:', statusParam);
-if (statusParam && ['known', 'learned', 'unsure', 'unknown'].includes(statusParam)) {
+if (statusParam && ['learned', 'reviewed'].includes(statusParam)) {
     currentStatus = statusParam;
     console.log('currentStatus updated from URL to:', currentStatus);
 }
@@ -262,20 +260,10 @@ async function loadProgress() {
 
 // Update counts
 function updateCounts() {
-    let knownCount = 0;
-    let unsureCount = 0;
-    let unknownCount = 0;
+    const reviewedCount = Object.keys(allProgress).length;
 
-    Object.values(allProgress).forEach(status => {
-        if (status === 'known') knownCount++;
-        else if (status === 'unsure') unsureCount++;
-        else if (status === 'unknown') unknownCount++;
-    });
-
-    document.getElementById('knownCount').textContent = knownCount;
-    document.getElementById('unsureCount').textContent = unsureCount;
-    document.getElementById('unknownCount').textContent = unknownCount;
     document.getElementById('learnedCount').textContent = learnedWordsData.length;
+    document.getElementById('reviewedCount').textContent = reviewedCount;
 }
 
 // Mark word as known
@@ -335,6 +323,11 @@ function displayWords() {
         const learnedWordIds = learnedWordsData.map(w => w.word_id);
         filteredWords = tier2Words.filter(word => learnedWordIds.includes(word.id));
         console.log('Learned mode - learnedWordIds:', learnedWordIds.length);
+    } else if (currentStatus === 'reviewed') {
+        // Show all reviewed words (all words with any progress)
+        const reviewedWordIds = Object.keys(allProgress);
+        filteredWords = tier2Words.filter(word => reviewedWordIds.includes(word.id));
+        console.log('Reviewed mode - reviewedWordIds:', reviewedWordIds.length);
     } else {
         filteredWords = tier2Words.filter(word => allProgress[word.id] === currentStatus);
         console.log('Filter mode - looking for status:', currentStatus);
@@ -342,18 +335,8 @@ function displayWords() {
 
     console.log('filteredWords length:', filteredWords.length);
 
-    // Show/hide quiz button (only for unsure and unknown)
-    if ((currentStatus === 'unsure' || currentStatus === 'unknown') && filteredWords.length > 0) {
-        // Check if all words have quizzes
-        const wordsWithQuiz = filteredWords.filter(word => quizData[word.id]);
-        if (wordsWithQuiz.length > 0) {
-            startQuizBtn.style.display = 'block';
-        } else {
-            startQuizBtn.style.display = 'none';
-        }
-    } else {
-        startQuizBtn.style.display = 'none';
-    }
+    // Hide quiz button for learned and reviewed
+    startQuizBtn.style.display = 'none';
 
     if (filteredWords.length === 0) {
         console.log('No words found - showing empty state');
@@ -372,9 +355,6 @@ function displayWords() {
         const wordItem = document.createElement('div');
         wordItem.className = `word-item ${currentStatus}`;
 
-        // Show button only for unsure and unknown words
-        const showButton = currentStatus === 'unsure' || currentStatus === 'unknown';
-
         console.log('Creating word item for:', word.id, word.en);
 
         wordItem.innerHTML = `
@@ -382,47 +362,24 @@ function displayWords() {
                 <div class="word-item-en">${word.en}</div>
                 <div class="word-item-translation">${word[currentLang] || word.ru}</div>
             </div>
-            ${showButton ? `
-                <div class="word-item-actions">
-                    <button class="btn-mark-known" data-word-id="${word.id}">
-                        <span>✓</span>
-                        <span data-i18n="wordList.markAsKnown">Выучил</span>
-                    </button>
-                </div>
-            ` : ''}
         `;
 
         // Add click handler to open word details on the whole card
         wordItem.style.cursor = 'pointer';
         wordItem.addEventListener('click', (e) => {
-            // Don't navigate if clicking on the button
-            if (e.target.closest('.btn-mark-known')) {
-                return;
-            }
             console.log('Clicked on word:', word.id);
             const url = `/word-details?word=${word.id}`;
             console.log('Navigating to:', url);
             window.location.href = url;
         });
 
-        // Add click handler for the button
-        if (showButton) {
-            const markKnownBtn = wordItem.querySelector('.btn-mark-known');
-            markKnownBtn.addEventListener('click', async (e) => {
-                e.stopPropagation();
-                await markWordAsKnown(word.id);
-            });
-        }
-
         wordsGrid.appendChild(wordItem);
     });
 
     // Update page title
     const titles = {
-        known: t('wordList.pageTitles.known'),
         learned: t('wordList.pageTitles.learned'),
-        unsure: t('wordList.pageTitles.unsure'),
-        unknown: t('wordList.pageTitles.unknown')
+        reviewed: t('wordList.pageTitles.reviewed')
     };
     pageTitle.textContent = titles[currentStatus];
 }
