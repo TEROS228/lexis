@@ -115,6 +115,16 @@ function displayWordDetails() {
     displayQuiz(word);
 }
 
+// Shuffle array using Fisher-Yates algorithm
+function shuffleArray<T>(array: T[]): T[] {
+    const newArray = [...array];
+    for (let i = newArray.length - 1; i > 0; i--) {
+        const j = Math.floor(Math.random() * (i + 1));
+        [newArray[i], newArray[j]] = [newArray[j], newArray[i]];
+    }
+    return newArray;
+}
+
 // Display quiz for the word
 function displayQuiz(word: any) {
     const quiz = (quizData as any)[word.id];
@@ -140,13 +150,23 @@ function displayQuiz(word: any) {
     // Set question
     quizQuestion.textContent = quiz.question;
 
+    // Shuffle options with their original indices
+    const optionsWithIndices = quiz.options.map((option: string, index: number) => ({
+        option,
+        originalIndex: index
+    }));
+    const shuffledOptions = shuffleArray(optionsWithIndices);
+
+    // Find the new position of the correct answer after shuffling
+    const correctShuffledIndex = shuffledOptions.findIndex(item => item.originalIndex === quiz.correct);
+
     // Create options
     quizOptions.innerHTML = '';
-    quiz.options.forEach((option: string, index: number) => {
+    shuffledOptions.forEach((item: any, shuffledIndex: number) => {
         const button = document.createElement('button');
         button.className = 'quiz-option';
-        button.textContent = option;
-        button.onclick = () => handleQuizAnswer(index, quiz.correct, button, word);
+        button.textContent = item.option;
+        button.onclick = () => handleQuizAnswer(shuffledIndex, correctShuffledIndex, button, word);
         quizOptions.appendChild(button);
     });
 
