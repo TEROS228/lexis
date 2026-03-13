@@ -14,6 +14,7 @@ let currentLang = getCurrentLanguage();
 let currentStatus = 'learned'; // Default filter
 let allProgress = {};
 let learnedWordsData = [];
+let searchQuery = '';
 
 console.log('Initial currentStatus:', currentStatus);
 
@@ -56,6 +57,7 @@ const emptyState = document.getElementById('emptyState');
 const filterTabs = document.querySelectorAll('.filter-tab');
 const pageTitle = document.getElementById('pageTitle');
 const startQuizBtn = document.getElementById('startQuizBtn');
+const searchInput = document.getElementById('searchInput') as HTMLInputElement;
 
 // Language selector
 const languageBtn = document.getElementById('languageBtn');
@@ -128,6 +130,12 @@ languageOptions.forEach(option => {
 
 // Initialize translations on page load
 updateTranslations();
+
+// Search input handler
+searchInput?.addEventListener('input', (e) => {
+    searchQuery = (e.target as HTMLInputElement).value.toLowerCase().trim();
+    displayWords();
+});
 
 // Dropdown toggle
 userInfoTrigger?.addEventListener('click', (e) => {
@@ -334,6 +342,16 @@ function displayWords() {
     }
 
     console.log('filteredWords length:', filteredWords.length);
+
+    // Apply search filter if search query exists
+    if (searchQuery) {
+        filteredWords = filteredWords.filter(word => {
+            const enMatch = word.en.toLowerCase().includes(searchQuery);
+            const translationMatch = (word[currentLang] || word.ru).toLowerCase().includes(searchQuery);
+            return enMatch || translationMatch;
+        });
+        console.log('After search filter:', filteredWords.length, 'words');
+    }
 
     // Hide quiz button for learned and reviewed
     startQuizBtn.style.display = 'none';

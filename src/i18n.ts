@@ -25,6 +25,13 @@ export function updatePageTranslations() {
             element.textContent = translation;
         }
     });
+
+    // Update elements with data-i18n-placeholder attribute
+    document.querySelectorAll('[data-i18n-placeholder]').forEach(element => {
+        const key = element.getAttribute('data-i18n-placeholder');
+        const translation = t(key);
+        element.setAttribute('placeholder', translation);
+    });
 }
 
 // Set current language

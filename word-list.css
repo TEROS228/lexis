@@ -43,6 +43,45 @@
     display: flex;
     gap: 16px;
     flex-wrap: wrap;
+    margin-bottom: 24px;
+}
+
+.search-container {
+    position: relative;
+    max-width: 500px;
+    width: 100%;
+}
+
+.search-input {
+    width: 100%;
+    padding: 14px 48px 14px 20px;
+    font-size: 16px;
+    border: 2px solid var(--border);
+    border-radius: 12px;
+    background: white;
+    color: var(--text);
+    transition: all 0.3s;
+    box-sizing: border-box;
+}
+
+.search-input:focus {
+    outline: none;
+    border-color: var(--primary);
+    box-shadow: 0 0 0 3px rgba(99, 102, 241, 0.1);
+}
+
+.search-input::placeholder {
+    color: var(--text-secondary);
+}
+
+.search-icon {
+    position: absolute;
+    right: 16px;
+    top: 50%;
+    transform: translateY(-50%);
+    font-size: 20px;
+    pointer-events: none;
+    opacity: 0.5;
 }
 
 .filter-tab {
