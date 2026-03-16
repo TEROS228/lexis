@@ -617,17 +617,17 @@ document.addEventListener('click', initAudio, { once: true });
 document.addEventListener('touchstart', initAudio, { once: true });
 
 // ─── Quiz Timer Functions ─────────────────────────────────────────────
-function startQuizTimer(onTimeout: () => void) {
+function startQuizTimer(onTimeout: () => void, duration: number = 30) {
     stopQuizTimer();
-    quizTimeRemaining = 30;
+    quizTimeRemaining = duration;
     quizTimerPaused = false;
-    updateQuizTimerDisplay();
+    updateQuizTimerDisplay(duration);
 
     quizTimerInterval = setInterval(() => {
         if (quizTimerPaused) return;
 
         quizTimeRemaining--;
-        updateQuizTimerDisplay();
+        updateQuizTimerDisplay(duration);
 
         if (quizTimeRemaining <= 0) {
             stopQuizTimer();
@@ -644,7 +644,7 @@ function stopQuizTimer() {
     quizTimerPaused = true;
 }
 
-function updateQuizTimerDisplay() {
+function updateQuizTimerDisplay(maxDuration: number = 30) {
     const timerText = document.getElementById('quizTimerText');
     const timerFill = document.getElementById('quizTimerFill');
     const timerDisplay = document.querySelector('.quiz-timer-display');
@@ -654,11 +654,11 @@ function updateQuizTimerDisplay() {
     }
 
     if (timerFill) {
-        // Calculate percentage (30s = 100%, 0s = 0%)
-        const percentage = (quizTimeRemaining / 30) * 100;
+        // Calculate percentage based on max duration
+        const percentage = (quizTimeRemaining / maxDuration) * 100;
         timerFill.style.width = `${percentage}%`;
 
-        // Change to warning style when time is running out
+        // Change to warning style when time is running out (last 10 seconds)
         if (quizTimeRemaining <= 10) {
             timerFill.classList.add('warning');
             timerDisplay?.classList.add('warning');
@@ -880,7 +880,7 @@ function showIntroWord() {
         const disabledIndices = new Set<number>();
         const cacheKey = `${word.id}_intro_multiChoice`;
         const tryQuiz = () => {
-            // Start timer for this quiz
+            // Start timer for this quiz - 60 seconds for intro quiz with explanation
             startQuizTimer(() => {
                 // Timeout - mark as incorrect
                 playErrorSound();
@@ -891,7 +891,7 @@ function showIntroWord() {
                         tryQuiz();
                     }, 450);
                 }, 2000);
-            });
+            }, 60);
 
             renderQuizOptions(quiz, cacheKey, (correct, chosenIdx) => {
                 // Stop timer when answered
@@ -997,7 +997,7 @@ function showListeningQuiz(word: any, item: PoolItem) {
         setTimeout(() => speakBtnLarge.classList.remove('playing'), 1000);
     }, 300);
 
-    // Start timer for listening quiz
+    // Start timer for listening quiz - 60 seconds for intro phase
     startQuizTimer(() => {
         // Timeout - mark as incorrect
         stopQuizTimer();
@@ -1024,7 +1024,7 @@ function showListeningQuiz(word: any, item: PoolItem) {
                 }
             }, 450);
         }, 2000);
-    });
+    }, 60);
 
     speakBtnLarge.onclick = () => {
         speakBtnLarge.classList.add('playing');
