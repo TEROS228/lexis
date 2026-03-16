@@ -66,6 +66,11 @@ let listeningQuizAnswered = false;
 // Store shuffled options for each word+stage combination to prevent re-shuffling on retry
 let shuffledOptionsCache: Map<string, any[]> = new Map();
 
+// Quiz timer variables
+let quizTimerInterval: any = null;
+let quizTimeRemaining = 30;
+let quizTimerPaused = false;
+
 function loadPoolState(uid: string) {
     try {
         const stored = localStorage.getItem(`poolv6_${uid}`);
@@ -611,6 +616,49 @@ function initAudio() {
 document.addEventListener('click', initAudio, { once: true });
 document.addEventListener('touchstart', initAudio, { once: true });
 
+// ─── Quiz Timer Functions ─────────────────────────────────────────────
+function startQuizTimer(onTimeout: () => void) {
+    stopQuizTimer();
+    quizTimeRemaining = 30;
+    quizTimerPaused = false;
+    updateQuizTimerDisplay();
+
+    quizTimerInterval = setInterval(() => {
+        if (quizTimerPaused) return;
+
+        quizTimeRemaining--;
+        updateQuizTimerDisplay();
+
+        if (quizTimeRemaining <= 0) {
+            stopQuizTimer();
+            onTimeout();
+        }
+    }, 1000);
+}
+
+function stopQuizTimer() {
+    if (quizTimerInterval) {
+        clearInterval(quizTimerInterval);
+        quizTimerInterval = null;
+    }
+    quizTimerPaused = true;
+}
+
+function updateQuizTimerDisplay() {
+    const timerEl = document.getElementById('quizTimer');
+    if (timerEl) {
+        timerEl.textContent = `⏱ ${quizTimeRemaining}`;
+        // Change color when time is running out
+        if (quizTimeRemaining <= 10) {
+            timerEl.style.color = '#ef4444';
+            timerEl.style.fontWeight = '700';
+        } else {
+            timerEl.style.color = '#3b82f6';
+            timerEl.style.fontWeight = '600';
+        }
+    }
+}
+
 function playSuccessSound() {
     try {
         const ctx = getAudioContext();
@@ -822,7 +870,23 @@ function showIntroWord() {
         const disabledIndices = new Set<number>();
         const cacheKey = `${word.id}_intro_multiChoice`;
         const tryQuiz = () => {
+            // Start timer for this quiz
+            startQuizTimer(() => {
+                // Timeout - mark as incorrect
+                playErrorSound();
+                showFeedback(`⏱ Time's up! Correct answer: "${quiz.options[quiz.correct]}"`, false);
+                setTimeout(() => {
+                    hideFeedback();
+                    setTimeout(() => {
+                        tryQuiz();
+                    }, 450);
+                }, 2000);
+            });
+
             renderQuizOptions(quiz, cacheKey, (correct, chosenIdx) => {
+                // Stop timer when answered
+                stopQuizTimer();
+
                 // Track quiz activity for streak
                 trackQuizActivity(word.id);
 
@@ -923,6 +987,35 @@ function showListeningQuiz(word: any, item: PoolItem) {
         setTimeout(() => speakBtnLarge.classList.remove('playing'), 1000);
     }, 300);
 
+    // Start timer for listening quiz
+    startQuizTimer(() => {
+        // Timeout - mark as incorrect
+        stopQuizTimer();
+        playErrorSound();
+        speakBtnLarge.style.display = 'none';
+        submitBtn.style.display = 'none';
+        input.value = word.en;
+        input.disabled = true;
+        input.style.color = '#ef4444';
+        input.style.fontWeight = '700';
+        showFeedback(`⏱ Time's up! Correct word: "${word.en}".`, false);
+        setTimeout(() => {
+            hideFeedback();
+            setTimeout(() => {
+                const wordCard = document.querySelector('.word-card-large') as HTMLElement;
+                if (wordCard) {
+                    wordCard.style.animation = 'slideOutLeft 0.4s ease-in-out';
+                    setTimeout(() => {
+                        wordCard.style.opacity = '0';
+                        wordCard.style.animation = '';
+                        btnNext.disabled = false;
+                        btnNext.click();
+                    }, 400);
+                }
+            }, 450);
+        }, 2000);
+    });
+
     speakBtnLarge.onclick = () => {
         speakBtnLarge.classList.add('playing');
         speakWord(word.en);
@@ -930,6 +1023,9 @@ function showListeningQuiz(word: any, item: PoolItem) {
     };
 
     const checkAnswer = () => {
+        // Stop timer when checking answer
+        stopQuizTimer();
+
         const userAnswer = input.value.trim().toLowerCase();
         const correctAnswer = word.en.toLowerCase();
 
