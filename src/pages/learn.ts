@@ -645,16 +645,26 @@ function stopQuizTimer() {
 }
 
 function updateQuizTimerDisplay() {
-    const timerEl = document.getElementById('quizTimer');
-    if (timerEl) {
-        timerEl.textContent = `⏱ ${quizTimeRemaining}`;
-        // Change color when time is running out
+    const timerText = document.getElementById('quizTimerText');
+    const timerFill = document.getElementById('quizTimerFill');
+    const timerDisplay = document.querySelector('.quiz-timer-display');
+
+    if (timerText) {
+        timerText.textContent = `${quizTimeRemaining}s`;
+    }
+
+    if (timerFill) {
+        // Calculate percentage (30s = 100%, 0s = 0%)
+        const percentage = (quizTimeRemaining / 30) * 100;
+        timerFill.style.width = `${percentage}%`;
+
+        // Change to warning style when time is running out
         if (quizTimeRemaining <= 10) {
-            timerEl.style.color = '#ef4444';
-            timerEl.style.fontWeight = '700';
+            timerFill.classList.add('warning');
+            timerDisplay?.classList.add('warning');
         } else {
-            timerEl.style.color = '#3b82f6';
-            timerEl.style.fontWeight = '600';
+            timerFill.classList.remove('warning');
+            timerDisplay?.classList.remove('warning');
         }
     }
 }
