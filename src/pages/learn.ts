@@ -202,11 +202,13 @@ function shuffle<T>(arr: T[]): T[] {
 let studyStartTime = null;
 let timerInterval = null;
 let totalStudySeconds = 0;
+let sessionTimerPaused = false;
 
 function startTimer() {
     if (timerInterval) return;
     studyStartTime = Date.now();
     timerInterval = setInterval(() => {
+        if (sessionTimerPaused) return; // Pause if quiz timeout occurred
         const elapsed = Math.floor((Date.now() - studyStartTime) / 1000) + totalStudySeconds;
         const minutes = Math.floor(elapsed / 60);
         const secs = elapsed % 60;
@@ -883,6 +885,7 @@ function showIntroWord() {
             // Start timer for this quiz - 60 seconds for intro quiz with explanation
             startQuizTimer(() => {
                 // Timeout - mark as incorrect
+                sessionTimerPaused = true; // Pause session timer on timeout
                 playErrorSound();
                 showFeedback(`⏱ Time's up! Correct answer: "${quiz.options[quiz.correct]}"`, false);
                 setTimeout(() => {
@@ -896,6 +899,7 @@ function showIntroWord() {
             renderQuizOptions(quiz, cacheKey, (correct, chosenIdx) => {
                 // Stop timer when answered
                 stopQuizTimer();
+                sessionTimerPaused = false; // Resume session timer when user answers
 
                 // Track quiz activity for streak
                 trackQuizActivity(word.id);
@@ -1001,6 +1005,7 @@ function showListeningQuiz(word: any, item: PoolItem) {
     startQuizTimer(() => {
         // Timeout - mark as incorrect
         stopQuizTimer();
+        sessionTimerPaused = true; // Pause session timer on timeout
         playErrorSound();
         speakBtnLarge.style.display = 'none';
         submitBtn.style.display = 'none';
@@ -1035,6 +1040,7 @@ function showListeningQuiz(word: any, item: PoolItem) {
     const checkAnswer = () => {
         // Stop timer when checking answer
         stopQuizTimer();
+        sessionTimerPaused = false; // Resume session timer when user answers
 
         const userAnswer = input.value.trim().toLowerCase();
         const correctAnswer = word.en.toLowerCase();
@@ -1206,6 +1212,7 @@ function renderQuizTask(word: any, item: PoolItem, quiz: any, stageType: QuizSta
     startQuizTimer(() => {
         // Timeout - mark as incorrect
         stopQuizTimer();
+        sessionTimerPaused = true; // Pause session timer on timeout
         item.attempts++;
         const attemptsLeft = MAX_ATTEMPTS - item.attempts;
 
@@ -1257,6 +1264,7 @@ function renderQuizTask(word: any, item: PoolItem, quiz: any, stageType: QuizSta
     renderQuizOptions(quiz, cacheKey, (correct) => {
         // Stop timer when answered
         stopQuizTimer();
+        sessionTimerPaused = false; // Resume session timer when user answers
 
         // Track quiz activity for streak
         trackQuizActivity(word.id);
