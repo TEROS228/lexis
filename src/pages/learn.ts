@@ -1202,7 +1202,62 @@ function renderQuizTask(word: any, item: PoolItem, quiz: any, stageType: QuizSta
     // Create cache key for this word+stage combination
     const cacheKey = `${item.wordId}_${stageType}`;
 
+    // Start timer for quiz stage
+    startQuizTimer(() => {
+        // Timeout - mark as incorrect
+        stopQuizTimer();
+        item.attempts++;
+        const attemptsLeft = MAX_ATTEMPTS - item.attempts;
+
+        if (attemptsLeft <= 0) {
+            playErrorSound();
+            showFeedback(`⏱ Time's up! Correct answer: "${quiz.options[quiz.correct]}". Reviewing this word.`, false);
+            item.phase = 'intro';
+            item.completedStages = [];
+            item.attempts = 0;
+            item.isReview = true;
+            applyStatus(item.wordId, 'unknown');
+            introPhase = true;
+            const introItems = activePool.filter(i => i.phase === 'intro');
+            introCursor = introItems.findIndex(i => i.wordId === item.wordId);
+            if (introCursor === -1) introCursor = 0;
+            introQuizAnswered = false;
+            listeningQuizAnswered = false;
+            savePoolState(currentUser?.uid);
+            shuffledOptionsCache.delete(cacheKey);
+
+            setTimeout(() => {
+                hideFeedback();
+                setTimeout(() => {
+                    const wordCard = document.querySelector('.word-card-large') as HTMLElement;
+                    if (wordCard) {
+                        wordCard.style.animation = 'slideOutLeft 0.4s ease-in-out';
+                        setTimeout(() => {
+                            wordCard.style.opacity = '0';
+                            wordCard.style.animation = '';
+                            displayCurrentWord();
+                        }, 400);
+                    }
+                }, 450);
+            }, 2000);
+        } else {
+            playErrorSound();
+            showFeedback(`⏱ Time's up! Try again! (${attemptsLeft} attempt${attemptsLeft > 1 ? 's' : ''} left)`, false);
+            renderAttemptsUI(attemptsLeft, MAX_ATTEMPTS, stageType);
+            savePoolState(currentUser?.uid);
+            setTimeout(() => {
+                hideFeedback();
+                setTimeout(() => {
+                    renderQuizTask(word, item, quiz, stageType);
+                }, 450);
+            }, 2000);
+        }
+    });
+
     renderQuizOptions(quiz, cacheKey, (correct) => {
+        // Stop timer when answered
+        stopQuizTimer();
+
         // Track quiz activity for streak
         trackQuizActivity(word.id);
 
