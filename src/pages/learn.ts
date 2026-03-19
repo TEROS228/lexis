@@ -203,12 +203,27 @@ let studyStartTime = null;
 let timerInterval = null;
 let totalStudySeconds = 0;
 let sessionTimerPaused = false;
+let pauseStartTime = null;
 
 function startTimer() {
     if (timerInterval) return;
     studyStartTime = Date.now();
     timerInterval = setInterval(() => {
-        if (sessionTimerPaused) return; // Pause if quiz timeout occurred
+        if (sessionTimerPaused) {
+            // Track when pause started
+            if (!pauseStartTime) {
+                pauseStartTime = Date.now();
+            }
+            return;
+        }
+
+        // If we just resumed from pause, adjust start time to exclude paused duration
+        if (pauseStartTime) {
+            const pausedDuration = Date.now() - pauseStartTime;
+            studyStartTime += pausedDuration;
+            pauseStartTime = null;
+        }
+
         const elapsed = Math.floor((Date.now() - studyStartTime) / 1000) + totalStudySeconds;
         const minutes = Math.floor(elapsed / 60);
         const secs = elapsed % 60;
