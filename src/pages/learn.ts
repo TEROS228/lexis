@@ -896,30 +896,36 @@ function showIntroWord() {
 
         const disabledIndices = new Set<number>();
         const cacheKey = `${word.id}_intro_multiChoice`;
+        let quizTimerStarted = false; // Track if timer already started for this quiz
+
         const tryQuiz = () => {
-            // Start timer for this quiz - 60 seconds for intro quiz with explanation
-            startQuizTimer(() => {
-                // Timeout - mark as incorrect
-                sessionTimerPaused = true; // Pause session timer on timeout
-                playErrorSound();
-                showFeedback(`⏱ Time's up! Correct answer: "${quiz.options[quiz.correct]}"`, false);
-                setTimeout(() => {
-                    hideFeedback();
+            // Start timer only once for the entire quiz (not on retries)
+            if (!quizTimerStarted) {
+                quizTimerStarted = true;
+                startQuizTimer(() => {
+                    // Timeout - mark as incorrect
+                    sessionTimerPaused = true; // Pause session timer on timeout
+                    playErrorSound();
+                    showFeedback(`⏱ Time's up! Correct answer: "${quiz.options[quiz.correct]}"`, false);
                     setTimeout(() => {
-                        tryQuiz();
-                    }, 450);
-                }, 2000);
-            }, 60);
+                        hideFeedback();
+                        setTimeout(() => {
+                            tryQuiz();
+                        }, 450);
+                    }, 2000);
+                }, 60);
+            }
 
             renderQuizOptions(quiz, cacheKey, (correct, chosenIdx) => {
-                // Stop timer when answered
-                stopQuizTimer();
-                sessionTimerPaused = false; // Resume session timer when user answers
+                // Resume session timer when user answers (if it was paused)
+                sessionTimerPaused = false;
 
                 // Track quiz activity for streak
                 trackQuizActivity(word.id);
 
                 if (correct) {
+                    // Stop timer only when answer is correct
+                    stopQuizTimer();
                     playSuccessSound();
                     introQuizAnswered = true;
                     savePoolState(currentUser?.uid);
@@ -953,13 +959,14 @@ function showIntroWord() {
                         }
                     }, 1500);
                 } else {
+                    // Don't stop timer on incorrect answer - let it keep running
                     playErrorSound();
                     disabledIndices.add(chosenIdx);
                     showFeedback('✗ Not quite — try again!', false);
                     setTimeout(() => {
                         hideFeedback();
                         setTimeout(() => {
-                            tryQuiz();
+                            tryQuiz(); // Re-render options without restarting timer
                         }, 450);
                     }, 1500);
                 }
