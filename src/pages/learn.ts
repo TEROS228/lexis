@@ -907,6 +907,11 @@ function showIntroWord() {
                     sessionTimerPaused = true; // Pause session timer on timeout
                     playErrorSound();
                     showFeedback(`⏱ Time's up! Correct answer: "${quiz.options[quiz.correct]}"`, false);
+
+                    // Mark intro quiz as answered so we can proceed
+                    introQuizAnswered = true;
+                    savePoolState(currentUser?.uid);
+
                     setTimeout(() => {
                         hideFeedback();
                         setTimeout(() => {
@@ -1054,6 +1059,11 @@ function showListeningQuiz(word: any, item: PoolItem) {
         input.style.color = '#ef4444';
         input.style.fontWeight = '700';
         showFeedback(`⏱ Time's up! Correct word: "${word.en}".`, false);
+
+        // Mark listening quiz as answered so we don't get stuck
+        listeningQuizAnswered = true;
+        savePoolState(currentUser?.uid);
+
         setTimeout(() => {
             hideFeedback();
             setTimeout(() => {
