@@ -1038,7 +1038,7 @@ function showListeningQuiz(word: any, item: PoolItem) {
         setTimeout(() => speakBtnLarge.classList.remove('playing'), 1000);
     }, 300);
 
-    // Start timer for listening quiz - 60 seconds for intro phase
+    // Start timer for listening quiz - 30 seconds
     startQuizTimer(() => {
         // Timeout - mark as incorrect
         stopQuizTimer();
@@ -1071,7 +1071,7 @@ function showListeningQuiz(word: any, item: PoolItem) {
                 }
             }, 450);
         }, 2000);
-    }, 60);
+    }, 30);
 
     speakBtnLarge.onclick = () => {
         speakBtnLarge.classList.add('playing');
