@@ -1253,7 +1253,7 @@ function renderQuizTask(word: any, item: PoolItem, quiz: any, stageType: QuizSta
             introCursor = introItems.findIndex(i => i.wordId === item.wordId);
             if (introCursor === -1) introCursor = 0;
             introQuizAnswered = false;
-            listeningQuizAnswered = false;
+            listeningQuizAnswered = true; // Skip listening quiz on review (already done before)
             savePoolState(currentUser?.uid);
             shuffledOptionsCache.delete(cacheKey);
 
@@ -1342,7 +1342,7 @@ function renderQuizTask(word: any, item: PoolItem, quiz: any, stageType: QuizSta
                 introCursor = introItems.findIndex(i => i.wordId === item.wordId);
                 if (introCursor === -1) introCursor = 0;
                 introQuizAnswered = false;
-                listeningQuizAnswered = false;
+                listeningQuizAnswered = true; // Skip listening quiz on review (already done before)
                 savePoolState(currentUser?.uid);
                 // Clear cache for this question since we're resetting
                 shuffledOptionsCache.delete(cacheKey);
