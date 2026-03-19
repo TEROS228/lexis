@@ -906,12 +906,12 @@ function showIntroWord() {
                     // Timeout - pause session timer but keep quiz active
                     sessionTimerPaused = true; // Pause session timer on timeout
                     playErrorSound();
-                    showFeedback(`⏰ Время остановлено! Ответьте на вопрос чтобы продолжить.`, false);
+                    showFeedback(`⏰ Timer stopped! Answer the question to continue.`, false);
 
-                    // Update timer display to show "Время остановлено"
+                    // Update timer display to show "Timer stopped"
                     const timerText = document.getElementById('quizTimerText');
                     if (timerText) {
-                        timerText.textContent = 'Время остановлено';
+                        timerText.textContent = 'Timer stopped';
                         timerText.style.fontSize = '13px';
                     }
 
