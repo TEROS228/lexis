@@ -906,10 +906,18 @@ function showIntroWord() {
                     // Timeout - pause session timer but keep quiz active
                     sessionTimerPaused = true; // Pause session timer on timeout
                     playErrorSound();
-                    showFeedback(`⏱ Time's up! But you can still answer.`, false);
+                    showFeedback(`⏰ Время остановлено! Ответьте на вопрос чтобы продолжить.`, false);
+
+                    // Update timer display to show "Время остановлено"
+                    const timerText = document.getElementById('quizTimerText');
+                    if (timerText) {
+                        timerText.textContent = 'Время остановлено';
+                        timerText.style.fontSize = '13px';
+                    }
+
                     setTimeout(() => {
                         hideFeedback();
-                    }, 2000);
+                    }, 3000);
                 }, 60);
             }
 
