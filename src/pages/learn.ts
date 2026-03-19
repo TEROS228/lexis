@@ -903,14 +903,32 @@ function showIntroWord() {
             if (!quizTimerStarted) {
                 quizTimerStarted = true;
                 startQuizTimer(() => {
-                    // Timeout - mark as incorrect
+                    // Timeout - mark as incorrect and move to listening quiz
                     sessionTimerPaused = true; // Pause session timer on timeout
                     playErrorSound();
                     showFeedback(`⏱ Time's up! Correct answer: "${quiz.options[quiz.correct]}"`, false);
                     setTimeout(() => {
                         hideFeedback();
                         setTimeout(() => {
-                            tryQuiz();
+                            // Move to listening quiz after timeout
+                            const wordCard = document.querySelector('.word-card-large') as HTMLElement;
+                            if (wordCard) {
+                                wordCard.style.animation = 'slideOutLeft 0.4s ease-in-out';
+                                setTimeout(() => {
+                                    wordCard.style.opacity = '0';
+                                    wordCard.style.animation = '';
+                                    showListeningQuiz(word, item);
+                                    requestAnimationFrame(() => {
+                                        requestAnimationFrame(() => {
+                                            wordCard.style.opacity = '1';
+                                            wordCard.style.animation = 'slideInRight 0.4s ease-in-out';
+                                            setTimeout(() => {
+                                                wordCard.style.animation = '';
+                                            }, 400);
+                                        });
+                                    });
+                                }, 400);
+                            }
                         }, 450);
                     }, 2000);
                 }, 60);
