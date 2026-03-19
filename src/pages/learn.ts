@@ -903,38 +903,12 @@ function showIntroWord() {
             if (!quizTimerStarted) {
                 quizTimerStarted = true;
                 startQuizTimer(() => {
-                    // Timeout - mark as incorrect and move to listening quiz
+                    // Timeout - pause session timer but keep quiz active
                     sessionTimerPaused = true; // Pause session timer on timeout
                     playErrorSound();
-                    showFeedback(`⏱ Time's up! Correct answer: "${quiz.options[quiz.correct]}"`, false);
-
-                    // Mark intro quiz as answered so we can proceed
-                    introQuizAnswered = true;
-                    savePoolState(currentUser?.uid);
-
+                    showFeedback(`⏱ Time's up! But you can still answer.`, false);
                     setTimeout(() => {
                         hideFeedback();
-                        setTimeout(() => {
-                            // Move to listening quiz after timeout
-                            const wordCard = document.querySelector('.word-card-large') as HTMLElement;
-                            if (wordCard) {
-                                wordCard.style.animation = 'slideOutLeft 0.4s ease-in-out';
-                                setTimeout(() => {
-                                    wordCard.style.opacity = '0';
-                                    wordCard.style.animation = '';
-                                    showListeningQuiz(word, item);
-                                    requestAnimationFrame(() => {
-                                        requestAnimationFrame(() => {
-                                            wordCard.style.opacity = '1';
-                                            wordCard.style.animation = 'slideInRight 0.4s ease-in-out';
-                                            setTimeout(() => {
-                                                wordCard.style.animation = '';
-                                            }, 400);
-                                        });
-                                    });
-                                }, 400);
-                            }
-                        }, 450);
                     }, 2000);
                 }, 60);
             }
