@@ -930,31 +930,49 @@ function showIntroWord() {
                     // Clear cache for this question since it's completed
                     shuffledOptionsCache.delete(cacheKey);
 
-                    // Hide feedback and slide out to show listening quiz
-                    setTimeout(() => {
-                        hideFeedback();
-                        const wordCard = document.querySelector('.word-card-large') as HTMLElement;
-                        if (wordCard) {
-                            wordCard.style.animation = 'slideOutLeft 0.4s ease-in-out';
-                            setTimeout(() => {
-                                // Hide card while loading new content
-                                wordCard.style.opacity = '0';
-                                wordCard.style.animation = '';
-                                showListeningQuiz(word, item);
+                    // Check if this is a review word (listening already completed)
+                    if (listeningQuizAnswered) {
+                        // Skip listening quiz, move to next word
+                        setTimeout(() => {
+                            hideFeedback();
+                            const wordCard = document.querySelector('.word-card-large') as HTMLElement;
+                            if (wordCard) {
+                                wordCard.style.animation = 'slideOutLeft 0.4s ease-in-out';
+                                setTimeout(() => {
+                                    wordCard.style.opacity = '0';
+                                    wordCard.style.animation = '';
+                                    btnNext.disabled = false;
+                                    btnNext.click();
+                                }, 400);
+                            }
+                        }, 1500);
+                    } else {
+                        // Show listening quiz for first-time learning
+                        setTimeout(() => {
+                            hideFeedback();
+                            const wordCard = document.querySelector('.word-card-large') as HTMLElement;
+                            if (wordCard) {
+                                wordCard.style.animation = 'slideOutLeft 0.4s ease-in-out';
+                                setTimeout(() => {
+                                    // Hide card while loading new content
+                                    wordCard.style.opacity = '0';
+                                    wordCard.style.animation = '';
+                                    showListeningQuiz(word, item);
 
-                                // Show with slide-in animation
-                                requestAnimationFrame(() => {
+                                    // Show with slide-in animation
                                     requestAnimationFrame(() => {
-                                        wordCard.style.opacity = '1';
-                                        wordCard.style.animation = 'slideInRight 0.4s ease-in-out';
-                                        setTimeout(() => {
-                                            wordCard.style.animation = '';
-                                        }, 400);
+                                        requestAnimationFrame(() => {
+                                            wordCard.style.opacity = '1';
+                                            wordCard.style.animation = 'slideInRight 0.4s ease-in-out';
+                                            setTimeout(() => {
+                                                wordCard.style.animation = '';
+                                            }, 400);
+                                        });
                                     });
-                                });
-                            }, 400);
-                        }
-                    }, 1500);
+                                }, 400);
+                            }
+                        }, 1500);
+                    }
                 } else {
                     // Don't stop timer on incorrect answer - let it keep running
                     playErrorSound();
