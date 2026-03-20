@@ -1042,6 +1042,10 @@ function showListeningQuiz(word: any, item: PoolItem) {
     // Hide explanation when showing listening quiz
     wordExplanation.style.display = 'none';
 
+    // Hide skip word button for listening quiz
+    const btnSkipWord = document.getElementById('btnSkipWord');
+    if (btnSkipWord) btnSkipWord.style.display = 'none';
+
     // Hide word header to not give away the answer
     wordMain.textContent = '';
 
@@ -1237,6 +1241,10 @@ function showNextQuiz() {
 
     const word = tier2Words.find(w => w.id === task.wordId);
     if (!word) { showNextQuiz(); return; }
+
+    // Hide skip word button for quiz phase
+    const btnSkipWord = document.getElementById('btnSkipWord');
+    if (btnSkipWord) btnSkipWord.style.display = 'none';
 
     // Hide word for fillBlank and scenario quizzes
     wordMain.textContent = '';
