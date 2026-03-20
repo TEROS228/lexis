@@ -873,26 +873,67 @@ function showIntroWord() {
 
     // ── multiChoice quiz (same page, below explanation)
     const quiz = (quizData as any)[word.id];
+    const btnSkipWord = document.getElementById('btnSkipWord');
+
     if (!quiz) {
         // No quiz — just unlock Next immediately
         introQuizAnswered = true;
         listeningQuizAnswered = true;
         btnNext.disabled = false;
         wordQuiz.style.display = 'none';
+        if (btnSkipWord) btnSkipWord.style.display = 'none';
     } else if (introQuizAnswered && listeningQuizAnswered) {
         // Both quizzes completed — show as read-only, unlock Next
         wordQuiz.style.display = 'block';
         quizQuestion.textContent = quiz.question;
         btnNext.disabled = false;
+        if (btnSkipWord) btnSkipWord.style.display = 'none';
     } else if (introQuizAnswered && !listeningQuizAnswered) {
         // MultiChoice done, but listening not done — show listening quiz
         wordQuiz.style.display = 'block';
         showListeningQuiz(word, item);
+        if (btnSkipWord) btnSkipWord.style.display = 'none';
     } else {
         // Show fresh multiChoice quiz
         wordQuiz.style.display = 'block';
         quizQuestion.textContent = quiz.question;
         quizFeedback.style.display = 'none';
+
+        // Show "I know this word" button for intro quiz
+        const btnSkipWord = document.getElementById('btnSkipWord');
+        if (btnSkipWord) {
+            btnSkipWord.style.display = 'flex';
+            btnSkipWord.onclick = () => {
+                // Mark word as known and skip to next word
+                stopQuizTimer();
+                applyStatus(word.id, 'known');
+                introQuizAnswered = true;
+                listeningQuizAnswered = true;
+
+                // Move to quiz phase
+                item.phase = 'quiz';
+                item.completedStages = [];
+                savePoolState(currentUser?.uid);
+
+                // Show success feedback
+                playSuccessSound();
+                showFeedback('✓ Word marked as known!', true);
+
+                setTimeout(() => {
+                    hideFeedback();
+                    const wordCard = document.querySelector('.word-card-large') as HTMLElement;
+                    if (wordCard) {
+                        wordCard.style.animation = 'slideOutLeft 0.4s ease-in-out';
+                        setTimeout(() => {
+                            wordCard.style.opacity = '0';
+                            wordCard.style.animation = '';
+                            btnNext.disabled = false;
+                            btnNext.click();
+                        }, 400);
+                    }
+                }, 1000);
+            };
+        }
 
         const disabledIndices = new Set<number>();
         const cacheKey = `${word.id}_intro_multiChoice`;

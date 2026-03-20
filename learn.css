@@ -306,6 +306,35 @@
     transform: scale(0.95);
 }
 
+/* Skip Word Button (I know this word) */
+.btn-skip-word {
+    width: 100%;
+    padding: 16px 24px;
+    margin-bottom: 24px;
+    background: linear-gradient(135deg, #10b981, #059669);
+    color: white;
+    border: none;
+    border-radius: 12px;
+    font-size: 16px;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
+    box-shadow: 0 4px 12px rgba(16, 185, 129, 0.3);
+}
+
+.btn-skip-word:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 6px 16px rgba(16, 185, 129, 0.4);
+}
+
+.btn-skip-word span:first-child {
+    font-size: 20px;
+}
+
 .btn-know.selected {
     background: var(--success);
     color: white;
