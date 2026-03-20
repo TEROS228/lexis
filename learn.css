@@ -306,21 +306,27 @@
     transform: scale(0.95);
 }
 
+/* Word Header Actions (contains skip button and eye button) */
+.word-header-actions {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+}
+
 /* Skip Word Button (I know this word) */
 .btn-skip-word {
-    padding: 10px 20px;
-    margin-bottom: 20px;
+    padding: 8px 16px;
     background: linear-gradient(135deg, #10b981, #059669);
     color: white;
     border: none;
     border-radius: 8px;
-    font-size: 14px;
+    font-size: 13px;
     font-weight: 600;
     cursor: pointer;
     transition: all 0.3s ease;
     display: inline-flex;
     align-items: center;
-    gap: 6px;
+    gap: 5px;
     box-shadow: 0 2px 8px rgba(16, 185, 129, 0.3);
 }
 
@@ -330,7 +336,7 @@
 }
 
 .btn-skip-word span:first-child {
-    font-size: 16px;
+    font-size: 14px;
 }
 
 .btn-know.selected {

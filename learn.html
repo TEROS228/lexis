@@ -122,9 +122,14 @@
             <div class="word-card-large">
                 <div class="word-header">
                     <h1 class="word-main" id="wordMain">Loading...</h1>
-                    <button class="btn-eye" id="showMeaning" title="Показать перевод" data-i18n-title="learn.showMeaning">
-                        👁️
-                    </button>
+                    <div class="word-header-actions">
+                        <button class="btn-skip-word" id="btnSkipWord" style="display: none;">
+                            <span>✓</span> I know this word
+                        </button>
+                        <button class="btn-eye" id="showMeaning" title="Показать перевод" data-i18n-title="learn.showMeaning">
+                            👁️
+                        </button>
+                    </div>
                 </div>
                 <div class="word-meaning" id="wordMeaning" style="display: none;">
                     <p id="meaningText"></p>
@@ -152,9 +157,6 @@
                         <div class="quiz-question" id="quizQuestion"></div>
                         <div class="quiz-attempts" id="quizAttempts"></div>
                     </div>
-                    <button class="btn-skip-word" id="btnSkipWord" style="display: none;">
-                        <span>✓</span> I know this word
-                    </button>
                     <div class="quiz-options" id="quizOptions"></div>
                     <div class="quiz-feedback" id="quizFeedback" style="display: none;"></div>
                     <div class="quiz-timer-container" id="quizTimerContainer">
