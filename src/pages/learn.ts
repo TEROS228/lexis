@@ -340,7 +340,6 @@ const wordContainer = document.querySelector('.word-container') as HTMLElement;
 const wordMain = document.getElementById('wordMain');
 const wordMeaning = document.getElementById('wordMeaning');
 const meaningText = document.getElementById('meaningText');
-const showMeaningBtn = document.getElementById('showMeaning');
 const btnKnow = document.getElementById('btnKnow');
 const btnUnsure = document.getElementById('btnUnsure');
 const btnUnknown = document.getElementById('btnUnknown');
@@ -841,9 +840,6 @@ function showIntroWord() {
     wordMeaning.style.display = 'none';
     wordActions.style.display = 'none';
 
-    // Show eye button in intro phase (before quizzes)
-    showMeaningBtn.style.display = 'inline-block';
-
     btnPrev.disabled = introCursor === 0;
     btnNext.disabled = !introQuizAnswered;
     btnNext.onclick = null;
@@ -1049,9 +1045,6 @@ function showListeningQuiz(word: any, item: PoolItem) {
     // Hide word header to not give away the answer
     wordMain.textContent = '';
 
-    // Hide eye button during quiz
-    showMeaningBtn.style.display = 'none';
-
     quizQuestion.textContent = '';
 
     quizOptions.innerHTML = `
@@ -1249,9 +1242,6 @@ function showNextQuiz() {
     wordMain.textContent = '';
     meaningText.textContent = word[currentLang] || word.ru;
     wordMeaning.style.display = 'none';
-
-    // Hide eye button during quiz
-    showMeaningBtn.style.display = 'none';
 
     btnPrev.disabled = true;
     btnNext.disabled = true;
@@ -1712,10 +1702,6 @@ async function showCompletionScreen() {
 }
 
 // ─── Event listeners ──────────────────────────────────────────────────
-showMeaningBtn.addEventListener('click', () => {
-    wordMeaning.style.display = wordMeaning.style.display === 'none' ? 'block' : 'none';
-});
-
 btnNext.addEventListener('click', nextWord);
 btnPrev.addEventListener('click', prevWord);
 
