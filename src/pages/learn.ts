@@ -900,16 +900,13 @@ function showIntroWord() {
         if (btnSkipWord) {
             btnSkipWord.style.display = 'flex';
             btnSkipWord.onclick = () => {
-                // Mark word as known and skip to next word
+                // Mark word as known and replace with new word from pending
                 stopQuizTimer();
                 applyStatus(word.id, 'known');
-                introQuizAnswered = true;
-                listeningQuizAnswered = true;
 
-                // Mark word as mastered (removes from pool completely)
+                // Mark as mastered and add new word to maintain pool size
                 item.phase = 'mastered';
                 masteredIds.add(word.id);
-                savePoolState(currentUser?.uid);
 
                 // Show success feedback
                 playSuccessSound();
@@ -923,8 +920,9 @@ function showIntroWord() {
                         setTimeout(() => {
                             wordCard.style.opacity = '0';
                             wordCard.style.animation = '';
-                            btnNext.disabled = false;
-                            btnNext.click();
+
+                            // Replace mastered word with new one
+                            handleMastered(item);
                         }, 400);
                     }
                 }, 1000);
