@@ -1628,6 +1628,13 @@ async function finishSession(completed: boolean) {
 
 // ─── Streak Animation ─────────────────────────────────────────────────
 function showStreakAnimation(streakCount: number) {
+    // Stop all timers when showing streak animation
+    if (timerInterval) {
+        clearInterval(timerInterval);
+        timerInterval = null;
+    }
+    stopQuizTimer();
+
     const overlay = document.createElement('div');
     overlay.className = 'streak-overlay';
     overlay.innerHTML = `
