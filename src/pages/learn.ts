@@ -1478,8 +1478,8 @@ function handleMastered(item: PoolItem) {
     if (pendingWordIds.length > 0) {
         const wordId = pendingWordIds.shift()!;
         activePool.push({ wordId, phase: 'intro', quizStage: 'multiChoice', attempts: 0, completedStages: [] });
+        // Don't reset cursor - keep showing words sequentially
         introPhase = true;
-        introCursor = 0;
         introQuizAnswered = false;
         listeningQuizAnswered = false;
     }
