@@ -906,8 +906,9 @@ function showIntroWord() {
                 introQuizAnswered = true;
                 listeningQuizAnswered = true;
 
-                // Mark word as completed (don't send to quiz phase)
-                item.phase = 'completed';
+                // Mark word as mastered (removes from pool completely)
+                item.phase = 'mastered';
+                masteredIds.add(word.id);
                 savePoolState(currentUser?.uid);
 
                 // Show success feedback
