@@ -1,7 +1,13 @@
+/* Hide header on learn page */
+header {
+    display: none;
+}
+
 .learn-container {
     max-width: 900px;
     margin: 0 auto;
     padding: 40px 24px;
+    padding-top: 100px;
 }
 
 /* Hide word container initially until quiz is ready */
@@ -51,11 +57,19 @@
 
 /* Stats Row */
 .stats-row {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
     display: flex;
     justify-content: flex-end;
     align-items: center;
     gap: 12px;
-    margin-bottom: 20px;
+    padding: 20px 24px;
+    background: white;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+    z-index: 1000;
+    margin-bottom: 0;
 }
 
 .stat-box {

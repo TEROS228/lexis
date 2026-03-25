@@ -906,9 +906,8 @@ function showIntroWord() {
                 introQuizAnswered = true;
                 listeningQuizAnswered = true;
 
-                // Move to quiz phase
-                item.phase = 'quiz';
-                item.completedStages = [];
+                // Mark word as completed (don't send to quiz phase)
+                item.phase = 'completed';
                 savePoolState(currentUser?.uid);
 
                 // Show success feedback
