@@ -247,8 +247,6 @@ const selectTeacher = document.getElementById('selectTeacher');
 const selectStudent = document.getElementById('selectStudent');
 const roleModalWrapper = document.querySelector('.role-modal-wrapper') as HTMLElement;
 const roleStep = document.getElementById('roleStep');
-const languageStep = document.getElementById('languageStep');
-const languageCards = document.querySelectorAll('.language-card');
 
 let selectedRole = null;
 let pendingUser = null;
@@ -260,7 +258,6 @@ function showRoleModal() {
     // Reset to first step
     roleStep.classList.add('active');
     roleStep.classList.remove('slide-out');
-    languageStep.classList.remove('active');
 }
 
 // Hide role modal
@@ -271,20 +268,11 @@ function hideRoleModal() {
     pendingUser = null;
     selectTeacher.classList.remove('selected');
     selectStudent.classList.remove('selected');
-    languageCards.forEach(card => card.classList.remove('selected'));
     // Reset to first step
     setTimeout(() => {
         roleStep.classList.add('active');
         roleStep.classList.remove('slide-out');
-        languageStep.classList.remove('active');
     }, 300);
-}
-
-// Slide to language selection
-function slideToLanguageSelection() {
-    roleStep.classList.add('slide-out');
-    roleStep.classList.remove('active');
-    languageStep.classList.add('active');
 }
 
 // Teacher selection
@@ -352,47 +340,33 @@ confirmTeacherNameBtn.addEventListener('click', async () => {
 });
 
 // Student selection
-selectStudent.addEventListener('click', () => {
+selectStudent.addEventListener('click', async () => {
     selectedRole = 'student';
     selectStudent.classList.add('selected');
     selectTeacher.classList.remove('selected');
-    // Slide to language selection
-    setTimeout(() => {
-        slideToLanguageSelection();
-    }, 200);
-});
 
-// Language selection for students
-languageCards.forEach(card => {
-    card.addEventListener('click', async () => {
-        const nativeLang = card.dataset.nativeLang;
+    // Save student role immediately with English as default language
+    if (pendingUser) {
+        try {
+            await saveUserRoleAndLanguage(pendingUser.uid, 'student', 'en');
+            console.log('Student role saved with English as default');
 
-        languageCards.forEach(c => c.classList.remove('selected'));
-        card.classList.add('selected');
+            // Set English as default language
+            localStorage.setItem('preferred-language', 'en');
 
-        // Save role and language for student
-        if (pendingUser && selectedRole === 'student') {
-            try {
-                await saveUserRoleAndLanguage(pendingUser.uid, 'student', nativeLang);
-                console.log('Student role and language saved:', nativeLang);
+            // Update UI language
+            const flagSpan = languageBtn.querySelector('.flag');
+            const langText = languageBtn.querySelector('.lang-text');
+            flagSpan.textContent = languages['en'].flag;
+            langText.textContent = languages['en'].code;
+            updateContent('en');
 
-                // Set the user's preferred language in localStorage
-                localStorage.setItem('preferred-language', nativeLang);
-
-                // Update UI language
-                const flagSpan = languageBtn.querySelector('.flag');
-                const langText = languageBtn.querySelector('.lang-text');
-                flagSpan.textContent = languages[nativeLang].flag;
-                langText.textContent = languages[nativeLang].code;
-                updateContent(nativeLang);
-
-                hideRoleModal();
-            } catch (error) {
-                console.error('Error saving student role and language:', error);
-                alert('Error saving role and language. Please try again.');
-            }
+            hideRoleModal();
+        } catch (error) {
+            console.error('Error saving student role:', error);
+            alert('Error saving role. Please try again.');
         }
-    });
+    }
 });
 
 // Show auth modal
