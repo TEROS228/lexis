@@ -255,9 +255,15 @@ let pendingUser = null;
 function showRoleModal() {
     roleModal.style.display = 'flex';
     document.body.style.overflow = 'hidden';
+
     // Reset to first step
+    const teacherNameStep = document.getElementById('teacherNameStep');
     roleStep.classList.add('active');
     roleStep.classList.remove('slide-out');
+    if (teacherNameStep) {
+        teacherNameStep.classList.remove('active');
+        teacherNameStep.classList.remove('slide-out');
+    }
 }
 
 // Hide role modal
@@ -268,11 +274,23 @@ function hideRoleModal() {
     pendingUser = null;
     selectTeacher.classList.remove('selected');
     selectStudent.classList.remove('selected');
+
     // Reset to first step
+    const teacherNameStep = document.getElementById('teacherNameStep');
     setTimeout(() => {
         roleStep.classList.add('active');
         roleStep.classList.remove('slide-out');
+        if (teacherNameStep) {
+            teacherNameStep.classList.remove('active');
+            teacherNameStep.classList.remove('slide-out');
+        }
     }, 300);
+
+    // Clear teacher name input
+    const teacherNameInput = document.getElementById('teacherNameInput') as HTMLInputElement;
+    if (teacherNameInput) {
+        teacherNameInput.value = '';
+    }
 }
 
 // Teacher selection
