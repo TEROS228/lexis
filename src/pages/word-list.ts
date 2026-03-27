@@ -203,9 +203,22 @@ function updateCounts() {
     const learnedCount = Object.values(allProgress).filter(status => status === 'learned').length;
     const knownCount = Object.values(allProgress).filter(status => status === 'known').length;
 
-    document.getElementById('learnedCount').textContent = learnedCount;
-    document.getElementById('knownCount').textContent = knownCount;
-    document.getElementById('reviewedCount').textContent = reviewedCount;
+    const learnedCountEl = document.getElementById('learnedCount');
+    const knownCountEl = document.getElementById('knownCount');
+    const reviewedCountEl = document.getElementById('reviewedCount');
+
+    // Remove skeleton and add loaded class
+    learnedCountEl.classList.remove('skeleton-count');
+    learnedCountEl.classList.add('loaded');
+    learnedCountEl.textContent = learnedCount.toString();
+
+    knownCountEl.classList.remove('skeleton-count');
+    knownCountEl.classList.add('loaded');
+    knownCountEl.textContent = knownCount.toString();
+
+    reviewedCountEl.classList.remove('skeleton-count');
+    reviewedCountEl.classList.add('loaded');
+    reviewedCountEl.textContent = reviewedCount.toString();
 }
 
 // Mark word as known

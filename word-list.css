@@ -142,6 +142,28 @@
     justify-content: center;
     min-width: 32px;
     height: 32px;
+}
+
+.tab-count.skeleton-count {
+    background: linear-gradient(90deg, #f0f0f0 25%, #e0e0e0 50%, #f0f0f0 75%);
+    background-size: 200% 100%;
+    animation: skeleton-loading 1.5s infinite;
+    border-radius: 8px;
+    width: 32px;
+}
+
+@keyframes skeleton-loading {
+    0% {
+        background-position: 200% 0;
+    }
+    100% {
+        background-position: -200% 0;
+    }
+}
+
+.tab-count.loaded {
+    animation: none;
+    background: rgba(99, 102, 241, 0.1);
     padding: 0 10px;
     background: var(--bg-light);
     border-radius: 16px;
