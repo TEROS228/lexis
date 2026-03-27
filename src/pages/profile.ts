@@ -71,61 +71,10 @@ const reviewedPercent = document.getElementById('reviewedPercent');
 const learnedCount = document.getElementById('learnedCount');
 const reviewedCount = document.getElementById('reviewedCount');
 
-// Language selector
-const languageBtn = document.getElementById('languageBtn');
-const languageDropdown = document.getElementById('languageDropdown');
-const languageOptions = document.querySelectorAll('.language-option');
-
-const languages = {
-    ru: { flag: '🇷🇺', code: 'RU' },
-    en: { flag: '🇬🇧', code: 'EN' },
-    zh: { flag: '🇨🇳', code: 'ZH' }
-};
-
-// Initialize language
-const savedLang = localStorage.getItem('preferred-language');
-if (savedLang && languages[savedLang]) {
-    const flagSpan = languageBtn.querySelector('.flag');
-    const langText = languageBtn.querySelector('.lang-text');
-    flagSpan.textContent = languages[savedLang].flag;
-    langText.textContent = languages[savedLang].code;
-    currentLang = savedLang;
-}
-
-// Language selector events
-languageBtn.addEventListener('click', (e) => {
-    e.stopPropagation();
-    languageBtn.classList.toggle('active');
-    languageDropdown.classList.toggle('active');
-});
-
-document.addEventListener('click', () => {
-    languageBtn.classList.remove('active');
-    languageDropdown.classList.remove('active');
-});
-
-languageOptions.forEach(option => {
-    option.addEventListener('click', (e) => {
-        e.stopPropagation();
-        const lang = option.dataset.lang;
-        currentLang = lang;
-
-        const flagSpan = languageBtn.querySelector('.flag');
-        const langText = languageBtn.querySelector('.lang-text');
-        flagSpan.textContent = languages[lang].flag;
-        langText.textContent = languages[lang].code;
-
-        languageOptions.forEach(opt => opt.classList.remove('selected'));
-        option.classList.add('selected');
-
-        languageBtn.classList.remove('active');
-        languageDropdown.classList.remove('active');
-
-        setLanguage(lang);
-        updatePageTranslations();
-        updateRoleAndLanguageBadges();
-    });
-});
+// Language is always English
+currentLang = 'en';
+localStorage.setItem('preferred-language', 'en');
+setLanguage('en');
 
 // Initialize translations
 initI18n();
@@ -383,28 +332,10 @@ onAuthStateChanged(auth, async (user) => {
             console.error('Error initializing user profile:', error);
         }
 
-        // Get user's native language and set it automatically
-        const nativeLang = await getUserNativeLanguage(user.uid);
-        if (nativeLang) {
-            currentLang = nativeLang;
-            setLanguage(nativeLang);
-            updatePageTranslations();
-
-            // Update language selector UI
-            const flagSpan = languageBtn.querySelector('.flag');
-            const langText = languageBtn.querySelector('.lang-text');
-            flagSpan.textContent = languages[nativeLang].flag;
-            langText.textContent = languages[nativeLang].code;
-
-            // Update selected option
-            languageOptions.forEach(opt => {
-                if (opt.dataset.lang === nativeLang) {
-                    opt.classList.add('selected');
-                } else {
-                    opt.classList.remove('selected');
-                }
-            });
-        }
+        // Always use English
+        currentLang = 'en';
+        setLanguage('en');
+        updatePageTranslations();
 
         await loadUserProfile();
         hideLoading();
