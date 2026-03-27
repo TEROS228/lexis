@@ -2077,105 +2077,123 @@ footer {
 
 /* Student Classes Section */
 .my-classes-section {
-    margin-bottom: 48px;
-    background: rgba(255, 255, 255, 0.6);
-    backdrop-filter: blur(10px);
-    border: 1px solid rgba(99, 102, 241, 0.1);
-    border-radius: 24px;
-    padding: 32px;
-    box-shadow: 0 4px 12px rgba(99, 102, 241, 0.08);
+    margin-bottom: 32px;
 }
 
 .my-classes-section h2 {
-    font-size: 28px;
+    font-size: 24px;
     font-weight: 700;
-    margin-bottom: 24px;
+    margin-bottom: 16px;
     color: var(--text);
 }
 
 .join-class-form {
-    display: flex;
-    gap: 10px;
+    display: inline-flex;
+    gap: 8px;
     margin-bottom: 20px;
-    max-width: 450px;
-    background: rgba(99, 102, 241, 0.05);
-    padding: 12px;
+    background: white;
+    padding: 6px;
     border-radius: 12px;
-    border: 1px solid rgba(99, 102, 241, 0.1);
+    border: 2px solid rgba(99, 102, 241, 0.15);
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05);
 }
 
 .join-class-form input {
-    flex: 1;
-    padding: 10px 16px;
-    border: 2px solid rgba(99, 102, 241, 0.2);
+    width: 140px;
+    padding: 10px 14px;
+    border: none;
     border-radius: 8px;
-    font-size: 15px;
+    font-size: 14px;
     text-transform: uppercase;
     font-family: 'Monaco', 'Courier New', monospace;
     font-weight: 700;
     letter-spacing: 2px;
     transition: all 0.3s;
-    background: white;
+    background: rgba(99, 102, 241, 0.05);
     color: var(--primary);
     text-align: center;
 }
 
 .join-class-form input::placeholder {
     color: rgba(99, 102, 241, 0.4);
-    letter-spacing: 1px;
+    letter-spacing: 0.5px;
     text-transform: none;
-    font-size: 13px;
+    font-size: 12px;
 }
 
 .join-class-form input:focus {
     outline: none;
-    border-color: var(--primary);
-    box-shadow: 0 0 0 3px rgba(99, 102, 241, 0.1);
+    background: rgba(99, 102, 241, 0.1);
+}
+
+.join-class-form button {
+    padding: 10px 20px;
+    background: var(--primary);
+    color: white;
+    border: none;
+    border-radius: 8px;
+    font-weight: 600;
+    font-size: 14px;
+    cursor: pointer;
+    transition: all 0.2s;
+    white-space: nowrap;
+}
+
+.join-class-form button:hover {
+    background: var(--primary-dark);
+    transform: translateY(-1px);
 }
 
 .student-classes-list {
-    display: grid;
-    grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
-    gap: 20px;
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
 }
 
 .student-class-card {
-    background: rgba(255, 255, 255, 0.8);
-    backdrop-filter: blur(10px);
-    border: 1px solid rgba(99, 102, 241, 0.15);
-    border-radius: 16px;
-    padding: 24px;
-    transition: all 0.3s;
-    box-shadow: 0 2px 8px rgba(99, 102, 241, 0.06);
+    background: white;
+    border: 1px solid rgba(99, 102, 241, 0.1);
+    border-radius: 12px;
+    padding: 16px 20px;
+    transition: all 0.2s;
+    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.05);
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
 }
 
 .student-class-card:hover {
-    transform: translateY(-4px);
-    box-shadow: 0 8px 24px rgba(99, 102, 241, 0.2);
-    border-color: rgba(99, 102, 241, 0.3);
+    transform: translateX(4px);
+    box-shadow: 0 4px 12px rgba(99, 102, 241, 0.1);
+    border-color: rgba(99, 102, 241, 0.25);
+}
+
+.student-class-card .class-info {
+    flex: 1;
 }
 
 .student-class-card .class-info h3 {
-    font-size: 20px;
-    font-weight: 700;
-    margin-bottom: 8px;
+    font-size: 16px;
+    font-weight: 600;
+    margin-bottom: 4px;
+    color: var(--text);
 }
 
 .student-class-card .teacher-name {
     color: var(--text-secondary);
-    font-size: 14px;
-    margin-bottom: 12px;
+    font-size: 13px;
+    margin: 0;
 }
 
 .class-code-badge {
     display: inline-flex;
     align-items: center;
-    gap: 8px;
-    background: var(--primary);
-    color: white;
+    gap: 6px;
+    background: rgba(99, 102, 241, 0.1);
+    color: var(--primary);
     padding: 6px 12px;
     border-radius: 8px;
-    font-size: 13px;
+    font-size: 12px;
 }
 
 .class-code-badge code {
