@@ -279,51 +279,10 @@ function hideQuizLoader() {
     }, 400);
 }
 
-// ─── Language selector ───────────────────────────────────────────────
-const languageBtn = document.getElementById('languageBtn');
-const languageDropdown = document.getElementById('languageDropdown');
-const languageOptions = document.querySelectorAll('.language-option');
-
-const languages = {
-    ru: { flag: '🇷🇺', code: 'RU' },
-    en: { flag: '🇬🇧', code: 'EN' },
-    zh: { flag: '🇨🇳', code: 'ZH' }
-};
-
-const savedLang = localStorage.getItem('preferred-language');
-if (savedLang && languages[savedLang]) {
-    languageBtn.querySelector('.flag').textContent = languages[savedLang].flag;
-    languageBtn.querySelector('.lang-text').textContent = languages[savedLang].code;
-    currentLang = savedLang;
-}
-
-languageBtn.addEventListener('click', (e) => {
-    e.stopPropagation();
-    languageBtn.classList.toggle('active');
-    languageDropdown.classList.toggle('active');
-});
-
-document.addEventListener('click', () => {
-    languageBtn.classList.remove('active');
-    languageDropdown.classList.remove('active');
-});
-
-languageOptions.forEach(option => {
-    option.addEventListener('click', (e) => {
-        e.stopPropagation();
-        const lang = (option as HTMLElement).dataset.lang;
-        currentLang = lang;
-        languageBtn.querySelector('.flag').textContent = languages[lang].flag;
-        languageBtn.querySelector('.lang-text').textContent = languages[lang].code;
-        languageOptions.forEach(opt => opt.classList.remove('selected'));
-        option.classList.add('selected');
-        languageBtn.classList.remove('active');
-        languageDropdown.classList.remove('active');
-        setLanguage(lang);
-        updatePageTranslations();
-        displayCurrentWord();
-    });
-});
+// ─── Initialize language ───────────────────────────────────────────────
+currentLang = 'en';
+localStorage.setItem('preferred-language', 'en');
+setLanguage('en');
 
 initI18n();
 updatePageTranslations();
@@ -465,11 +424,6 @@ onAuthStateChanged(auth, async (user) => {
             currentLang = nativeLang;
             setLanguage(nativeLang);
             updatePageTranslations();
-            languageBtn.querySelector('.flag').textContent = languages[nativeLang]?.flag || '🌐';
-            languageBtn.querySelector('.lang-text').textContent = languages[nativeLang]?.code || nativeLang.toUpperCase();
-            languageOptions.forEach(opt => {
-                (opt as HTMLElement).classList.toggle('selected', (opt as HTMLElement).dataset.lang === nativeLang);
-            });
         }
 
         await loadProgress();

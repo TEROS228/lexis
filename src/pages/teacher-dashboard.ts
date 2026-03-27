@@ -57,49 +57,13 @@ let currentStudentLearnedWords: any[] = [];
 let currentStudentAllProgress: Record<string, string> = {};
 let currentStudentWordTab = 'known';
 
-// Initialize i18n
+// Initialize i18n and language
+currentLang = 'en';
+localStorage.setItem('preferred-language', 'en');
+setLanguage('en');
+
 initI18n();
 updatePageTranslations();
-
-// Language selector
-const languageBtn = document.getElementById('languageBtn');
-const languageDropdown = document.getElementById('languageDropdown');
-const languageOptions = document.querySelectorAll('.language-option');
-
-const languages = {
-    ru: { flag: '🇷🇺', code: 'RU' },
-    en: { flag: '🇬🇧', code: 'EN' },
-    zh: { flag: '🇨🇳', code: 'ZH' }
-};
-
-languageBtn.addEventListener('click', (e) => {
-    e.stopPropagation();
-    languageBtn.classList.toggle('active');
-    languageDropdown.classList.toggle('active');
-});
-
-languageOptions.forEach(option => {
-    option.addEventListener('click', (e) => {
-        e.stopPropagation();
-        const lang = option.dataset.lang;
-        currentLang = lang;
-
-        const flagSpan = languageBtn.querySelector('.flag');
-        const langText = languageBtn.querySelector('.lang-text');
-        flagSpan.textContent = languages[lang].flag;
-        langText.textContent = languages[lang].code;
-
-        languageOptions.forEach(opt => opt.classList.remove('selected'));
-        option.classList.add('selected');
-
-        languageBtn.classList.remove('active');
-        languageDropdown.classList.remove('active');
-
-        setLanguage(lang);
-        updatePageTranslations();
-        localStorage.setItem('preferred-language', lang);
-    });
-});
 
 // Show/hide loading
 function showLoading() {
@@ -135,13 +99,8 @@ userInfoTrigger?.addEventListener('click', (e) => {
     userDropdown.classList.toggle('active');
 });
 
-// Close dropdowns when clicking outside
+// Close dropdown when clicking outside
 document.addEventListener('click', (e) => {
-    // Close language dropdown
-    languageBtn.classList.remove('active');
-    languageDropdown.classList.remove('active');
-
-    // Close user dropdown
     if (!userProfile?.contains(e.target as Node)) {
         userInfoTrigger?.classList.remove('active');
         userDropdown?.classList.remove('active');

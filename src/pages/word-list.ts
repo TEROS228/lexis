@@ -59,16 +59,6 @@ const pageTitle = document.getElementById('pageTitle');
 const startQuizBtn = document.getElementById('startQuizBtn');
 const searchInput = document.getElementById('searchInput') as HTMLInputElement;
 
-// Language selector
-const languageBtn = document.getElementById('languageBtn');
-const languageDropdown = document.getElementById('languageDropdown');
-const languageOptions = document.querySelectorAll('.language-option');
-
-const languages = {
-    ru: { flag: '🇷🇺', code: 'RU' },
-    en: { flag: '🇬🇧', code: 'EN' },
-    zh: { flag: '🇨🇳', code: 'ZH' }
-};
 
 // Get status from URL
 const urlParams = new URLSearchParams(window.location.search);
@@ -80,53 +70,9 @@ if (statusParam && ['learned', 'known', 'reviewed'].includes(statusParam)) {
 }
 
 // Initialize language
-const savedLang = localStorage.getItem('preferred-language');
-if (savedLang && languages[savedLang]) {
-    const flagSpan = languageBtn.querySelector('.flag');
-    const langText = languageBtn.querySelector('.lang-text');
-    flagSpan.textContent = languages[savedLang].flag;
-    langText.textContent = languages[savedLang].code;
-    currentLang = savedLang;
-}
-
-// Language selector events
-languageBtn.addEventListener('click', (e) => {
-    e.stopPropagation();
-    languageBtn.classList.toggle('active');
-    languageDropdown.classList.toggle('active');
-});
-
-document.addEventListener('click', () => {
-    languageBtn.classList.remove('active');
-    languageDropdown.classList.remove('active');
-});
-
-languageOptions.forEach(option => {
-    option.addEventListener('click', (e) => {
-        e.stopPropagation();
-        const lang = option.dataset.lang;
-        currentLang = lang;
-
-        const flagSpan = languageBtn.querySelector('.flag');
-        const langText = languageBtn.querySelector('.lang-text');
-        flagSpan.textContent = languages[lang].flag;
-        langText.textContent = languages[lang].code;
-
-        languageOptions.forEach(opt => opt.classList.remove('selected'));
-        option.classList.add('selected');
-
-        languageBtn.classList.remove('active');
-        languageDropdown.classList.remove('active');
-
-        setLanguage(lang);
-
-        // Update translations
-        updateTranslations();
-
-        // Refresh words with new language
-        displayWords();
-    });
-});
+currentLang = 'en';
+localStorage.setItem('preferred-language', 'en');
+setLanguage('en');
 
 // Initialize translations on page load
 updateTranslations();
@@ -204,21 +150,6 @@ onAuthStateChanged(auth, async (user) => {
         if (nativeLang) {
             currentLang = nativeLang;
             setLanguage(nativeLang);
-
-            // Update language selector UI
-            const flagSpan = languageBtn.querySelector('.flag');
-            const langText = languageBtn.querySelector('.lang-text');
-            flagSpan.textContent = languages[nativeLang].flag;
-            langText.textContent = languages[nativeLang].code;
-
-            // Update selected option
-            languageOptions.forEach(opt => {
-                if (opt.dataset.lang === nativeLang) {
-                    opt.classList.add('selected');
-                } else {
-                    opt.classList.remove('selected');
-                }
-            });
 
             // Update translations with native language
             updateTranslations();

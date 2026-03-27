@@ -19,62 +19,6 @@ const userName = document.getElementById('userName');
 const userInfoTrigger = document.getElementById('userInfoTrigger');
 const userDropdown = document.getElementById('userDropdown');
 const signOutBtn = document.getElementById('signOutBtn');
-const languageBtn = document.getElementById('languageBtn');
-const languageDropdown = document.getElementById('languageDropdown');
-const languageOptions = document.querySelectorAll('.language-option');
-
-const languages = {
-    ru: { flag: '🇷🇺', code: 'RU' },
-    en: { flag: '🇬🇧', code: 'EN' },
-    zh: { flag: '🇨🇳', code: 'ZH' }
-};
-
-// Language selector events
-languageBtn.addEventListener('click', (e) => {
-    e.stopPropagation();
-    languageBtn.classList.toggle('active');
-    languageDropdown.classList.toggle('active');
-});
-
-document.addEventListener('click', () => {
-    languageBtn.classList.remove('active');
-    languageDropdown.classList.remove('active');
-});
-
-languageOptions.forEach(option => {
-    option.addEventListener('click', (e) => {
-        e.stopPropagation();
-        const lang = option.dataset.lang;
-
-        const flagSpan = languageBtn.querySelector('.flag');
-        const langText = languageBtn.querySelector('.lang-text');
-        flagSpan.textContent = languages[lang].flag;
-        langText.textContent = languages[lang].code;
-
-        languageOptions.forEach(opt => opt.classList.remove('selected'));
-        option.classList.add('selected');
-
-        languageBtn.classList.remove('active');
-        languageDropdown.classList.remove('active');
-
-        localStorage.setItem('preferred-language', lang);
-    });
-});
-
-// Initialize language from localStorage
-const savedLang = localStorage.getItem('preferred-language');
-if (savedLang && languages[savedLang]) {
-    const flagSpan = languageBtn.querySelector('.flag');
-    const langText = languageBtn.querySelector('.lang-text');
-    flagSpan.textContent = languages[savedLang].flag;
-    langText.textContent = languages[savedLang].code;
-
-    languageOptions.forEach(opt => {
-        if (opt.dataset.lang === savedLang) {
-            opt.classList.add('selected');
-        }
-    });
-}
 
 // Dropdown toggle
 userInfoTrigger?.addEventListener('click', (e) => {
