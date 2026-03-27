@@ -104,93 +104,10 @@ demoButtons.forEach(button => {
     });
 });
 
-// Language selector
-const languageBtn = document.getElementById('languageBtn');
-const languageDropdown = document.getElementById('languageDropdown');
-const languageOptions = document.querySelectorAll('.language-option');
-
-const languages = {
-    ru: { flag: '🇷🇺', code: 'RU' },
-    en: { flag: '🇬🇧', code: 'EN' },
-    zh: { flag: '🇨🇳', code: 'ZH' }
-};
-
-let currentLang = 'en';
-
-// Toggle dropdown
-languageBtn.addEventListener('click', (e) => {
-    e.stopPropagation();
-    languageBtn.classList.toggle('active');
-    languageDropdown.classList.toggle('active');
-});
-
-// Close dropdown when clicking outside
-document.addEventListener('click', () => {
-    languageBtn.classList.remove('active');
-    languageDropdown.classList.remove('active');
-});
-
-// Language selection
-languageOptions.forEach(option => {
-    option.addEventListener('click', (e) => {
-        e.stopPropagation();
-        const lang = option.dataset.lang;
-        currentLang = lang;
-
-        // Update button
-        const flagSpan = languageBtn.querySelector('.flag');
-        const langText = languageBtn.querySelector('.lang-text');
-        flagSpan.textContent = languages[lang].flag;
-        langText.textContent = languages[lang].code;
-
-        // Update selected state
-        languageOptions.forEach(opt => opt.classList.remove('selected'));
-        option.classList.add('selected');
-
-        // Close dropdown
-        languageBtn.classList.remove('active');
-        languageDropdown.classList.remove('active');
-
-        // Store preference
-        localStorage.setItem('preferred-language', lang);
-
-        // Update page content
-        updateContent(lang);
-
-        console.log('Language changed to:', lang);
-    });
-});
-
-// Load saved language preference
-const savedLang = localStorage.getItem('preferred-language');
-if (savedLang && languages[savedLang]) {
-    const flagSpan = languageBtn.querySelector('.flag');
-    const langText = languageBtn.querySelector('.lang-text');
-    flagSpan.textContent = languages[savedLang].flag;
-    langText.textContent = languages[savedLang].code;
-    currentLang = savedLang;
-
-    languageOptions.forEach(opt => {
-        if (opt.dataset.lang === savedLang) {
-            opt.classList.add('selected');
-        }
-    });
-
-    // Apply saved language
-    updateContent(savedLang);
-} else {
-    // Set English as default
-    const flagSpan = languageBtn.querySelector('.flag');
-    const langText = languageBtn.querySelector('.lang-text');
-    flagSpan.textContent = languages['en'].flag;
-    langText.textContent = languages['en'].code;
-    languageOptions.forEach(opt => {
-        if (opt.dataset.lang === 'en') {
-            opt.classList.add('selected');
-        }
-    });
-    updateContent('en');
-}
+// Language is always English
+const currentLang = 'en';
+localStorage.setItem('preferred-language', 'en');
+updateContent('en');
 
 // Authentication
 const showAuthModalBtn = document.getElementById('showAuthModalBtn');
@@ -347,10 +264,6 @@ confirmTeacherNameBtn.addEventListener('click', async () => {
 
             // Set English as UI language for teachers
             localStorage.setItem('preferred-language', 'en');
-            const flagSpan = languageBtn.querySelector('.flag');
-            const langText = languageBtn.querySelector('.lang-text');
-            flagSpan.textContent = languages['en'].flag;
-            langText.textContent = languages['en'].code;
             updateContent('en');
 
             hideRoleModal();
@@ -375,12 +288,6 @@ selectStudent.addEventListener('click', async () => {
 
             // Set English as default language
             localStorage.setItem('preferred-language', 'en');
-
-            // Update UI language
-            const flagSpan = languageBtn.querySelector('.flag');
-            const langText = languageBtn.querySelector('.lang-text');
-            flagSpan.textContent = languages['en'].flag;
-            langText.textContent = languages['en'].code;
             updateContent('en');
 
             hideRoleModal();
