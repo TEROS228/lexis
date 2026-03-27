@@ -328,13 +328,12 @@ function displayWords() {
     let filteredWords;
     if (currentStatus === 'learned') {
         // Show only learned words (that moved from unknown/unsure to known)
-        const learnedWordIds = learnedWordsData.map(w => w.word_id);
         console.log('Learned mode - learnedWordsData:', learnedWordsData);
+        console.log('First learned word object:', learnedWordsData[0]);
+
+        // Try different field names
+        const learnedWordIds = learnedWordsData.map(w => w.word_id || w.wordId || w.id || w.word);
         console.log('Learned mode - learnedWordIds:', learnedWordIds);
-        console.log('Sample tier2Words IDs:', tier2Words.slice(0, 5).map(w => w.id));
-        console.log('learnedWordIds sample:', learnedWordIds.slice(0, 5));
-        console.log('learnedWordIds type check:', typeof learnedWordIds[0], learnedWordIds[0]);
-        console.log('tier2Words ID type check:', typeof tier2Words[0].id, tier2Words[0].id);
         filteredWords = tier2Words.filter(word => learnedWordIds.includes(word.id));
         console.log('Learned mode - filteredWords count:', filteredWords.length);
     } else if (currentStatus === 'reviewed') {
