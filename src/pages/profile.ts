@@ -210,8 +210,8 @@ async function loadUserProfile() {
             updateRoleAndLanguageBadges();
 
             // Update dates
-            memberDate.textContent = formatDate(userData.created_at);
-            lastLogin.textContent = formatDateTime(userData.last_login);
+            memberDate.textContent = formatDate(userData.created_at || currentUser.metadata?.creationTime);
+            lastLogin.textContent = formatDateTime(userData.last_login || currentUser.metadata?.lastSignInTime);
 
             // Show dashboard link for teachers
             if (currentUser.role === 'teacher') {
