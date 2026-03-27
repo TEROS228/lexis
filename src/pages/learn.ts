@@ -850,11 +850,7 @@ function showIntroWord() {
     }
 
     // ── Badge
-    if (item.isReview) {
-        quizAttempts.innerHTML = `<span class="check-badge">🔄 Review</span>`;
-    } else {
-        quizAttempts.innerHTML = `<span class="check-badge">📖 ${introCursor + 1} / ${totalInPool}</span>`;
-    }
+    quizAttempts.innerHTML = `<span class="check-badge">📖 ${introCursor + 1} / ${totalInPool}</span>`;
 
     // ── Explanation card (now English only)
     const details = wordDetails[word.id];
