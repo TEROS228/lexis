@@ -74,7 +74,7 @@ const languages = {
 const urlParams = new URLSearchParams(window.location.search);
 const statusParam = urlParams.get('status');
 console.log('URL status param:', statusParam);
-if (statusParam && ['learned', 'reviewed'].includes(statusParam)) {
+if (statusParam && ['learned', 'known', 'reviewed'].includes(statusParam)) {
     currentStatus = statusParam;
     console.log('currentStatus updated from URL to:', currentStatus);
 }
@@ -270,8 +270,10 @@ async function loadProgress() {
 function updateCounts() {
     const reviewedCount = Object.keys(allProgress).length;
     const learnedCount = Object.values(allProgress).filter(status => status === 'learned').length;
+    const knownCount = Object.values(allProgress).filter(status => status === 'known').length;
 
     document.getElementById('learnedCount').textContent = learnedCount;
+    document.getElementById('knownCount').textContent = knownCount;
     document.getElementById('reviewedCount').textContent = reviewedCount;
 }
 
@@ -330,6 +332,9 @@ function displayWords() {
     if (currentStatus === 'learned') {
         // Show only words with status 'learned' (completed all quizzes)
         filteredWords = tier2Words.filter(word => allProgress[word.id] === 'learned');
+    } else if (currentStatus === 'known') {
+        // Show only words with status 'known' (skipped with "I know this word")
+        filteredWords = tier2Words.filter(word => allProgress[word.id] === 'known');
     } else if (currentStatus === 'reviewed') {
         // Show all reviewed words (all words with any progress)
         const reviewedWordIds = Object.keys(allProgress);
@@ -396,6 +401,7 @@ function displayWords() {
     // Update page title
     const titles = {
         learned: t('wordList.pageTitles.learned'),
+        known: 'Known Words',
         reviewed: t('wordList.pageTitles.reviewed')
     };
     pageTitle.textContent = titles[currentStatus];
