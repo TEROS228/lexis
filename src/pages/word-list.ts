@@ -269,8 +269,9 @@ async function loadProgress() {
 // Update counts
 function updateCounts() {
     const reviewedCount = Object.keys(allProgress).length;
+    const learnedCount = Object.values(allProgress).filter(status => status === 'learned').length;
 
-    document.getElementById('learnedCount').textContent = learnedWordsData.length;
+    document.getElementById('learnedCount').textContent = learnedCount;
     document.getElementById('reviewedCount').textContent = reviewedCount;
 }
 
@@ -327,8 +328,8 @@ function displayWords() {
 
     let filteredWords;
     if (currentStatus === 'learned') {
-        // Show only learned words - learnedWordsData is already an array of word IDs
-        filteredWords = tier2Words.filter(word => learnedWordsData.includes(word.id));
+        // Show only words with status 'learned' (completed all quizzes)
+        filteredWords = tier2Words.filter(word => allProgress[word.id] === 'learned');
     } else if (currentStatus === 'reviewed') {
         // Show all reviewed words (all words with any progress)
         const reviewedWordIds = Object.keys(allProgress);
