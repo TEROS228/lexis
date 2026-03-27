@@ -268,29 +268,33 @@ function showRoleModal() {
 
 // Hide role modal
 function hideRoleModal() {
-    roleModal.style.display = 'none';
-    document.body.style.overflow = '';
-    selectedRole = null;
-    pendingUser = null;
-    selectTeacher.classList.remove('selected');
-    selectStudent.classList.remove('selected');
+    // Add fade-out animation
+    roleModal.classList.add('fade-out');
 
-    // Reset to first step
-    const teacherNameStep = document.getElementById('teacherNameStep');
     setTimeout(() => {
+        roleModal.style.display = 'none';
+        roleModal.classList.remove('fade-out');
+        document.body.style.overflow = '';
+        selectedRole = null;
+        pendingUser = null;
+        selectTeacher.classList.remove('selected');
+        selectStudent.classList.remove('selected');
+
+        // Reset to first step
+        const teacherNameStep = document.getElementById('teacherNameStep');
         roleStep.classList.add('active');
         roleStep.classList.remove('slide-out');
         if (teacherNameStep) {
             teacherNameStep.classList.remove('active');
             teacherNameStep.classList.remove('slide-out');
         }
-    }, 300);
 
-    // Clear teacher name input
-    const teacherNameInput = document.getElementById('teacherNameInput') as HTMLInputElement;
-    if (teacherNameInput) {
-        teacherNameInput.value = '';
-    }
+        // Clear teacher name input
+        const teacherNameInput = document.getElementById('teacherNameInput') as HTMLInputElement;
+        if (teacherNameInput) {
+            teacherNameInput.value = '';
+        }
+    }, 300);
 }
 
 // Teacher selection
