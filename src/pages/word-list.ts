@@ -329,8 +329,10 @@ function displayWords() {
     if (currentStatus === 'learned') {
         // Show only learned words (that moved from unknown/unsure to known)
         const learnedWordIds = learnedWordsData.map(w => w.word_id);
+        console.log('Learned mode - learnedWordsData:', learnedWordsData);
+        console.log('Learned mode - learnedWordIds:', learnedWordIds);
         filteredWords = tier2Words.filter(word => learnedWordIds.includes(word.id));
-        console.log('Learned mode - learnedWordIds:', learnedWordIds.length);
+        console.log('Learned mode - filteredWords count:', filteredWords.length);
     } else if (currentStatus === 'reviewed') {
         // Show all reviewed words (all words with any progress)
         const reviewedWordIds = Object.keys(allProgress);
