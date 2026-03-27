@@ -2095,25 +2095,25 @@ footer {
 
 .join-class-form {
     display: flex;
-    gap: 12px;
-    margin-bottom: 32px;
-    max-width: 600px;
+    gap: 10px;
+    margin-bottom: 20px;
+    max-width: 450px;
     background: rgba(99, 102, 241, 0.05);
-    padding: 20px;
-    border-radius: 16px;
+    padding: 12px;
+    border-radius: 12px;
     border: 1px solid rgba(99, 102, 241, 0.1);
 }
 
 .join-class-form input {
     flex: 1;
-    padding: 14px 20px;
+    padding: 10px 16px;
     border: 2px solid rgba(99, 102, 241, 0.2);
-    border-radius: 12px;
-    font-size: 18px;
+    border-radius: 8px;
+    font-size: 15px;
     text-transform: uppercase;
     font-family: 'Monaco', 'Courier New', monospace;
     font-weight: 700;
-    letter-spacing: 3px;
+    letter-spacing: 2px;
     transition: all 0.3s;
     background: white;
     color: var(--primary);
@@ -2124,7 +2124,7 @@ footer {
     color: rgba(99, 102, 241, 0.4);
     letter-spacing: 1px;
     text-transform: none;
-    font-size: 14px;
+    font-size: 13px;
 }
 
 .join-class-form input:focus {
