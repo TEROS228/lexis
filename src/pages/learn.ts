@@ -1460,7 +1460,7 @@ function markStageCompleted(item: PoolItem, stage: QuizStage) {
     if (fillDone && fill2Done && fill3Done && scenDone && scen2Done && scen3Done) {
         item.phase = 'mastered';
         masteredIds.add(item.wordId);
-        applyStatus(item.wordId, 'known');
+        applyStatus(item.wordId, 'learned');
     } else {
         applyStatus(item.wordId, 'unsure');
     }
