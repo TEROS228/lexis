@@ -36,7 +36,6 @@ const profileAvatar = document.getElementById('profileAvatar');
 const profileName = document.getElementById('profileName');
 const profileEmail = document.getElementById('profileEmail');
 const roleBadge = document.getElementById('roleBadge');
-const nativeLanguageBadge = document.getElementById('nativeLanguageBadge');
 const memberDate = document.getElementById('memberDate');
 const lastLogin = document.getElementById('lastLogin');
 const lastUpdated = document.getElementById('lastUpdated');
@@ -144,37 +143,18 @@ function formatDateTime(dateString) {
     });
 }
 
-// Update role and language badges
+// Update role badge
 function updateRoleAndLanguageBadges() {
-    const roleText = roleBadge.querySelector('.badge-text');
-    const langText = nativeLanguageBadge.querySelector('.badge-text');
+    const roleText = roleBadge?.querySelector('.badge-text');
 
-    if (currentUser && currentUser.role) {
+    if (currentUser && currentUser.role && roleBadge) {
         if (currentUser.role === 'teacher') {
             roleBadge.querySelector('.badge-icon').textContent = '👨‍🏫';
-            roleText.setAttribute('data-i18n', 'profile.teacher');
+            roleText?.setAttribute('data-i18n', 'profile.teacher');
         } else {
             roleBadge.querySelector('.badge-icon').textContent = '👨‍🎓';
-            roleText.setAttribute('data-i18n', 'profile.student');
+            roleText?.setAttribute('data-i18n', 'profile.student');
         }
-    }
-
-    if (currentUser && currentUser.nativeLanguage) {
-        const nativeLangFlags = {
-            'ru': '🇷🇺',
-            'zh': '🇨🇳',
-            'en': '🇬🇧'
-        };
-        const nativeLangI18nKeys = {
-            'ru': 'profile.nativeRussian',
-            'zh': 'profile.nativeChinese',
-            'en': 'profile.nativeEnglish'
-        };
-        const nativeLangFlag = nativeLangFlags[currentUser.nativeLanguage] || '🇷🇺';
-        const nativeLangI18nKey = nativeLangI18nKeys[currentUser.nativeLanguage] || 'profile.nativeRussian';
-
-        nativeLanguageBadge.querySelector('.badge-icon').textContent = nativeLangFlag;
-        langText.setAttribute('data-i18n', nativeLangI18nKey);
     }
 
     // Update translations after changing data-i18n attributes
