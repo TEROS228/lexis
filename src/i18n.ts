@@ -1,6 +1,6 @@
 import translations from './translations.js';
 
-let currentLang = localStorage.getItem('preferred-language') || 'ru';
+let currentLang = 'en'; // Always use English
 
 // Translation function
 export function t(key) {
