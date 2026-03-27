@@ -215,6 +215,7 @@ async function loadUserProfile() {
             // Show classes section for students
             if (currentUser.role === 'student') {
                 myClassesSection.style.display = 'block';
+                openJoinClassModalBtn.style.display = 'inline-flex';
                 loadStudentClasses();
             }
         }
@@ -345,9 +346,35 @@ onAuthStateChanged(auth, async (user) => {
 // ============ STUDENT CLASS MANAGEMENT ============
 
 const myClassesSection = document.getElementById('myClassesSection');
-const classCodeInput = document.getElementById('classCodeInput') as HTMLInputElement;
-const joinClassBtn = document.getElementById('joinClassBtn');
 const studentClassesList = document.getElementById('studentClassesList');
+const openJoinClassModalBtn = document.getElementById('openJoinClassModal');
+const joinClassModal = document.getElementById('joinClassModal');
+const closeModalBtn = document.getElementById('closeModalBtn');
+const modalBackdrop = document.getElementById('modalBackdrop');
+const classCodeInputModal = document.getElementById('classCodeInputModal') as HTMLInputElement;
+const joinClassBtnModal = document.getElementById('joinClassBtnModal');
+
+// Modal controls
+openJoinClassModalBtn?.addEventListener('click', () => {
+    joinClassModal.style.display = 'flex';
+    classCodeInputModal.value = '';
+    setTimeout(() => classCodeInputModal.focus(), 100);
+});
+
+closeModalBtn?.addEventListener('click', () => {
+    joinClassModal.style.display = 'none';
+});
+
+modalBackdrop?.addEventListener('click', () => {
+    joinClassModal.style.display = 'none';
+});
+
+// Close modal on Escape
+document.addEventListener('keydown', (e) => {
+    if (e.key === 'Escape' && joinClassModal.style.display === 'flex') {
+        joinClassModal.style.display = 'none';
+    }
+});
 
 // Load student classes
 async function loadStudentClasses() {
@@ -361,18 +388,23 @@ async function loadStudentClasses() {
 
         const classes = await response.json();
 
+        // Update count
+        const classesCount = document.getElementById('classesCount');
+        if (classesCount) {
+            classesCount.textContent = `${classes.length} ${classes.length === 1 ? 'class' : 'classes'}`;
+        }
+
         if (classes.length === 0) {
-            studentClassesList.innerHTML = '<div class="empty-state-small">You haven\'t joined any classes yet. Enter a class code above to join!</div>';
+            studentClassesList.innerHTML = '<div class="empty-state-small">You haven\'t joined any classes yet. Click "Join Class" to get started!</div>';
         } else {
             studentClassesList.innerHTML = classes.map(cls => `
                 <div class="student-class-card">
                     <div class="class-info">
                         <h3>${cls.class_name}</h3>
                         <p class="teacher-name">Teacher: ${cls.teacher_name}</p>
-                        <div class="class-code-badge">
-                            <i class="fas fa-key"></i>
-                            <code>${cls.class_code}</code>
-                        </div>
+                    </div>
+                    <div class="class-code-badge">
+                        <code>${cls.class_code}</code>
                     </div>
                 </div>
             `).join('');
@@ -382,9 +414,9 @@ async function loadStudentClasses() {
     }
 }
 
-// Join class
-joinClassBtn?.addEventListener('click', async () => {
-    const classCode = classCodeInput.value.trim().toUpperCase();
+// Join class from modal
+joinClassBtnModal?.addEventListener('click', async () => {
+    const classCode = classCodeInputModal.value.trim().toUpperCase();
 
     if (!classCode || classCode.length !== 6) {
         alert('Please enter a valid 6-character class code');
@@ -392,8 +424,8 @@ joinClassBtn?.addEventListener('click', async () => {
     }
 
     try {
-        joinClassBtn.setAttribute('disabled', 'true');
-        joinClassBtn.innerHTML = '<i class="fas fa-spinner fa-spin"></i> Joining...';
+        joinClassBtnModal.setAttribute('disabled', 'true');
+        joinClassBtnModal.innerHTML = '<span>⏳</span> Joining...';
 
         const response = await fetch(`${API_URL}/classes/join`, {
             method: 'POST',
@@ -409,18 +441,45 @@ joinClassBtn?.addEventListener('click', async () => {
             throw new Error(error.error || 'Failed to join class');
         }
 
-        classCodeInput.value = '';
+        classCodeInputModal.value = '';
         await loadStudentClasses();
-        alert(`Successfully joined class!`);
+        joinClassModal.style.display = 'none';
 
-        joinClassBtn.removeAttribute('disabled');
-        joinClassBtn.innerHTML = '<i class="fas fa-plus"></i> <span data-i18n="profile.joinClass">Join Class</span>';
+        // Show success toast
+        const toast = document.createElement('div');
+        toast.className = 'success-toast';
+        toast.textContent = `✓ Successfully joined class ${classCode}!`;
+        toast.style.cssText = `
+            position: fixed;
+            bottom: 32px;
+            right: 32px;
+            background: linear-gradient(135deg, #22c55e 0%, #16a34a 100%);
+            color: white;
+            padding: 16px 24px;
+            border-radius: 12px;
+            font-weight: 600;
+            box-shadow: 0 8px 24px rgba(34, 197, 94, 0.4);
+            z-index: 10000;
+            animation: slideUp 0.3s ease;
+        `;
+        document.body.appendChild(toast);
+        setTimeout(() => toast.remove(), 3000);
+
+        joinClassBtnModal.removeAttribute('disabled');
+        joinClassBtnModal.innerHTML = '<span>+</span> Join Class';
     } catch (error) {
         console.error('Error joining class:', error);
         alert(error.message || 'Failed to join class. Please check the code and try again.');
 
-        joinClassBtn.removeAttribute('disabled');
-        joinClassBtn.innerHTML = '<i class="fas fa-plus"></i> <span data-i18n="profile.joinClass">Join Class</span>';
+        joinClassBtnModal.removeAttribute('disabled');
+        joinClassBtnModal.innerHTML = '<span>+</span> Join Class';
+    }
+});
+
+// Enter key to join
+classCodeInputModal?.addEventListener('keypress', (e) => {
+    if (e.key === 'Enter') {
+        joinClassBtnModal?.click();
     }
 });
 

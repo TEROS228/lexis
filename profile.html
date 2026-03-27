@@ -87,6 +87,10 @@
                         <span class="badge-icon">👨‍🎓</span>
                         <span class="badge-text" data-i18n="profile.student">Student</span>
                     </span>
+                    <button class="badge badge-action" id="openJoinClassModal" style="display: none;">
+                        <span class="badge-icon">+</span>
+                        <span class="badge-text" data-i18n="profile.joinClass">Join Class</span>
+                    </button>
                 </div>
                 <p class="profile-date" id="memberSince">
                     <span data-i18n="profile.memberSince">Member since:</span>
@@ -97,13 +101,9 @@
 
         <!-- My Classes Section (for students) -->
         <div class="my-classes-section" id="myClassesSection" style="display: none;">
-            <h2 data-i18n="profile.myClasses">My Classes</h2>
-            <div class="join-class-form">
-                <input type="text" id="classCodeInput" placeholder="Enter class code..." data-i18n-placeholder="profile.classCodePlaceholder" maxlength="6">
-                <button class="btn-primary" id="joinClassBtn">
-                    <i class="fas fa-plus"></i>
-                    <span data-i18n="profile.joinClass">Join Class</span>
-                </button>
+            <div class="classes-header-row">
+                <h2 data-i18n="profile.myClasses">My Classes</h2>
+                <span class="classes-count" id="classesCount">0 classes</span>
             </div>
             <div id="studentClassesList" class="student-classes-list">
                 <!-- Classes will be loaded here -->
@@ -285,6 +285,38 @@
             </div>
             <div class="sessions-list" id="sessionsList">
                 <div class="sessions-empty">No sessions yet. Start learning to track your progress!</div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Join Class Modal -->
+    <div class="join-class-modal" id="joinClassModal" style="display: none;">
+        <div class="modal-backdrop" id="modalBackdrop"></div>
+        <div class="modal-content-wrapper">
+            <div class="modal-card-modern">
+                <button class="modal-close-btn" id="closeModalBtn">×</button>
+                <div class="modal-header-modern">
+                    <div class="modal-icon-wrapper">
+                        <span class="modal-icon">🎓</span>
+                    </div>
+                    <h2>Join a Class</h2>
+                    <p>Enter the class code provided by your teacher</p>
+                </div>
+                <div class="modal-body-modern">
+                    <div class="input-group-modern">
+                        <input
+                            type="text"
+                            id="classCodeInputModal"
+                            class="class-code-input-modern"
+                            placeholder="ABC123"
+                            maxlength="6"
+                            autocomplete="off"
+                        >
+                        <button class="join-btn-modern" id="joinClassBtnModal">
+                            <span>+</span> Join Class
+                        </button>
+                    </div>
+                </div>
             </div>
         </div>
     </div>

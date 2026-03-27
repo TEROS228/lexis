@@ -2080,22 +2080,41 @@ footer {
     margin-bottom: 32px;
 }
 
+.classes-header-row {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 16px;
+}
+
 .my-classes-section h2 {
     font-size: 24px;
     font-weight: 700;
-    margin-bottom: 16px;
+    margin: 0;
     color: var(--text);
 }
 
-.join-class-form {
-    display: inline-flex;
-    gap: 8px;
-    margin-bottom: 20px;
-    background: white;
-    padding: 6px;
-    border-radius: 12px;
-    border: 2px solid rgba(99, 102, 241, 0.15);
-    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05);
+.classes-count {
+    background: rgba(99, 102, 241, 0.1);
+    color: var(--primary);
+    padding: 6px 14px;
+    border-radius: 20px;
+    font-size: 13px;
+    font-weight: 600;
+}
+
+.badge-action {
+    background: linear-gradient(135deg, #6366f1 0%, #8b5cf6 100%);
+    color: white;
+    border: none;
+    cursor: pointer;
+    transition: all 0.2s;
+    box-shadow: 0 2px 8px rgba(99, 102, 241, 0.3);
+}
+
+.badge-action:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 4px 12px rgba(99, 102, 241, 0.4);
 }
 
 .join-class-form input {
@@ -3145,5 +3164,185 @@ footer {
     to {
         opacity: 1;
         transform: translateY(0);
+    }
+}
+
+/* Modern Join Class Modal */
+.join-class-modal {
+    position: fixed;
+    inset: 0;
+    z-index: 9999;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    animation: fadeIn 0.2s ease;
+}
+
+.modal-backdrop {
+    position: absolute;
+    inset: 0;
+    background: rgba(0, 0, 0, 0.5);
+    backdrop-filter: blur(4px);
+}
+
+.modal-content-wrapper {
+    position: relative;
+    z-index: 10000;
+    animation: slideUpModal 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+@keyframes slideUpModal {
+    from {
+        opacity: 0;
+        transform: translateY(20px) scale(0.95);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0) scale(1);
+    }
+}
+
+.modal-card-modern {
+    background: white;
+    border-radius: 24px;
+    width: 90vw;
+    max-width: 500px;
+    padding: 40px;
+    box-shadow: 0 20px 60px rgba(0, 0, 0, 0.3);
+    position: relative;
+}
+
+.modal-close-btn {
+    position: absolute;
+    top: 16px;
+    right: 16px;
+    background: rgba(0, 0, 0, 0.05);
+    border: none;
+    width: 36px;
+    height: 36px;
+    border-radius: 50%;
+    font-size: 24px;
+    color: #64748b;
+    cursor: pointer;
+    transition: all 0.2s;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.modal-close-btn:hover {
+    background: rgba(0, 0, 0, 0.1);
+    transform: rotate(90deg);
+}
+
+.modal-header-modern {
+    text-align: center;
+    margin-bottom: 32px;
+}
+
+.modal-icon-wrapper {
+    width: 64px;
+    height: 64px;
+    background: linear-gradient(135deg, #6366f1 0%, #8b5cf6 100%);
+    border-radius: 20px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin: 0 auto 20px;
+    box-shadow: 0 8px 24px rgba(99, 102, 241, 0.4);
+}
+
+.modal-icon {
+    font-size: 32px;
+}
+
+.modal-header-modern h2 {
+    font-size: 28px;
+    font-weight: 700;
+    margin-bottom: 8px;
+    color: #0f172a;
+}
+
+.modal-header-modern p {
+    color: #64748b;
+    font-size: 15px;
+}
+
+.input-group-modern {
+    display: flex;
+    gap: 12px;
+    background: #f8fafc;
+    padding: 8px;
+    border-radius: 16px;
+    border: 2px solid #e2e8f0;
+    transition: all 0.2s;
+}
+
+.input-group-modern:focus-within {
+    border-color: #6366f1;
+    box-shadow: 0 0 0 4px rgba(99, 102, 241, 0.1);
+}
+
+.class-code-input-modern {
+    flex: 1;
+    padding: 14px 18px;
+    font-size: 16px;
+    border: none;
+    background: transparent;
+    font-family: 'Monaco', 'Courier New', monospace;
+    font-weight: 700;
+    letter-spacing: 2px;
+    text-transform: uppercase;
+    color: #6366f1;
+    text-align: center;
+}
+
+.class-code-input-modern:focus {
+    outline: none;
+}
+
+.class-code-input-modern::placeholder {
+    color: rgba(99, 102, 241, 0.3);
+    letter-spacing: 1px;
+    font-size: 14px;
+}
+
+.join-btn-modern {
+    padding: 14px 24px;
+    background: linear-gradient(135deg, #6366f1 0%, #8b5cf6 100%);
+    color: white;
+    border: none;
+    border-radius: 12px;
+    font-size: 15px;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 0.2s;
+    white-space: nowrap;
+    display: flex;
+    align-items: center;
+    gap: 6px;
+}
+
+.join-btn-modern:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 8px 20px rgba(99, 102, 241, 0.4);
+}
+
+.join-btn-modern:active {
+    transform: translateY(0);
+}
+
+@media (max-width: 640px) {
+    .modal-card-modern {
+        padding: 32px 24px;
+    }
+
+    .input-group-modern {
+        flex-direction: column;
+    }
+
+    .join-btn-modern {
+        width: 100%;
+        justify-content: center;
     }
 }
