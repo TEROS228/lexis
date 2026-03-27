@@ -327,15 +327,8 @@ function displayWords() {
 
     let filteredWords;
     if (currentStatus === 'learned') {
-        // Show only learned words (that moved from unknown/unsure to known)
-        console.log('Learned mode - learnedWordsData:', learnedWordsData);
-        console.log('First learned word object:', learnedWordsData[0]);
-
-        // Try different field names
-        const learnedWordIds = learnedWordsData.map(w => w.word_id || w.wordId || w.id || w.word);
-        console.log('Learned mode - learnedWordIds:', learnedWordIds);
-        filteredWords = tier2Words.filter(word => learnedWordIds.includes(word.id));
-        console.log('Learned mode - filteredWords count:', filteredWords.length);
+        // Show only learned words - learnedWordsData is already an array of word IDs
+        filteredWords = tier2Words.filter(word => learnedWordsData.includes(word.id));
     } else if (currentStatus === 'reviewed') {
         // Show all reviewed words (all words with any progress)
         const reviewedWordIds = Object.keys(allProgress);
