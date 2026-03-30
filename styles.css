@@ -3221,14 +3221,12 @@ footer {
     width: 40px;
     height: 40px;
     border-radius: 50%;
-    font-size: 28px;
-    line-height: 1;
+    font-size: 24px;
+    line-height: 40px;
     color: #64748b;
     cursor: pointer;
     transition: all 0.2s;
-    display: flex;
-    align-items: center;
-    justify-content: center;
+    text-align: center;
     padding: 0;
 }
 
@@ -3273,6 +3271,7 @@ footer {
 .input-group-modern {
     display: flex;
     gap: 12px;
+    align-items: stretch;
     background: #f8fafc;
     padding: 8px;
     border-radius: 16px;
@@ -3310,7 +3309,7 @@ footer {
 }
 
 .join-btn-modern {
-    padding: 16px 28px;
+    padding: 0 28px;
     background: linear-gradient(135deg, #6366f1 0%, #8b5cf6 100%);
     color: white;
     border: none;
@@ -3324,7 +3323,7 @@ footer {
     align-items: center;
     justify-content: center;
     gap: 6px;
-    line-height: 1;
+    min-height: 48px;
 }
 
 .join-btn-modern:hover {
