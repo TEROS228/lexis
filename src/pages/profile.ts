@@ -444,9 +444,16 @@ joinClassBtnModal?.addEventListener('click', async () => {
             })
         });
 
+        // Check if response is JSON
+        const contentType = response.headers.get('content-type');
+        if (!contentType || !contentType.includes('application/json')) {
+            throw new Error('Class feature is not available at the moment. Please try again later.');
+        }
+
+        const data = await response.json();
+
         if (!response.ok) {
-            const error = await response.json();
-            throw new Error(error.error || 'Failed to join class');
+            throw new Error(data.error || 'Failed to join class');
         }
 
         classCodeInputModal.value = '';
@@ -477,7 +484,10 @@ joinClassBtnModal?.addEventListener('click', async () => {
         joinClassBtnModal.innerHTML = '<span>+</span> Join Class';
     } catch (error) {
         console.error('Error joining class:', error);
-        alert(error.message || 'Failed to join class. Please check the code and try again.');
+
+        // Show error message
+        const errorMsg = error.message || 'Failed to join class. Please check the code and try again.';
+        alert(errorMsg);
 
         joinClassBtnModal.removeAttribute('disabled');
         joinClassBtnModal.innerHTML = '<span>+</span> Join Class';
