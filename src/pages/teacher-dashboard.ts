@@ -195,7 +195,7 @@ function renderClasses() {
             <div class="class-stats">
                 <div class="class-stat">
                     <i class="fas fa-users"></i>
-                    <span>${cls.student_count} students</span>
+                    <span>${cls.student_count || 0} students</span>
                 </div>
                 <div class="class-stat">
                     <i class="fas fa-calendar"></i>
@@ -213,7 +213,7 @@ function renderClasses() {
 // Update stats
 function updateStats() {
     const totalClasses = classes.length;
-    const totalStudents = classes.reduce((sum, cls) => sum + parseInt(cls.student_count), 0);
+    const totalStudents = classes.reduce((sum, cls) => sum + (parseInt(cls.student_count) || 0), 0);
 
     totalClassesEl.textContent = totalClasses.toString();
     totalStudentsEl.textContent = totalStudents.toString();

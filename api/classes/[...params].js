@@ -32,7 +32,9 @@ export default async function handler(req, res) {
         `INSERT INTO classes (class_code, class_name, teacher_uid) VALUES ($1, $2, $3) RETURNING *`,
         [classCode, className, teacherUid]
       );
-      return res.json(result.rows[0]);
+      const newClass = result.rows[0];
+      newClass.student_count = 0;
+      return res.json(newClass);
     } catch (error) {
       return res.status(500).json({ error: error.message });
     }
