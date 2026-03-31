@@ -1,12 +1,18 @@
 // PostgreSQL API Client
 const API_URL = import.meta.env.VITE_API_URL || 'https://api.wordlex.online/api';
 
+console.log('🔧 [DB INIT] API_URL configured as:', API_URL);
+console.log('🔧 [DB INIT] VITE_API_URL env:', import.meta.env.VITE_API_URL);
+console.log('🔧 [DB INIT] Mode:', import.meta.env.MODE);
+console.log('🔧 [DB INIT] Timestamp:', new Date().toISOString());
+
 // Helper function for fetch with error handling
 async function fetchAPI(url, options = {}) {
   try {
     console.log(`[DB] Fetching: ${url}`, options);
     const response = await fetch(url, options);
     console.log(`[DB] Response status: ${response.status}`);
+    console.log(`[DB] Response headers:`, [...response.headers.entries()]);
 
     if (!response.ok) {
       const errorText = await response.text();
@@ -26,6 +32,9 @@ async function fetchAPI(url, options = {}) {
 // ============ USERS API ============
 
 export const initUserProfile = async (user) => {
+  console.log('🚀 [INIT USER] Starting initUserProfile');
+  console.log('🚀 [INIT USER] User:', user);
+  console.log('🚀 [INIT USER] Full URL will be:', `${API_URL}/users`);
   try {
     const response = await fetch(`${API_URL}/users`, {
       method: 'POST',
@@ -47,6 +56,8 @@ export const initUserProfile = async (user) => {
 };
 
 export const getUserProfile = async (uid) => {
+  console.log('👤 [GET USER] Fetching profile for UID:', uid);
+  console.log('👤 [GET USER] Full URL:', `${API_URL}/users/${uid}`);
   try {
     const response = await fetch(`${API_URL}/users/${uid}`);
     if (!response.ok) throw new Error('User not found');
