@@ -4,7 +4,7 @@ import { initI18n, setLanguage, getCurrentLanguage, updatePageTranslations } fro
 import { setAvatar } from '../utils/avatar';
 import { showAuthRequiredModal } from '../utils/auth-modal';
 
-const API_URL = import.meta.env.VITE_API_URL || 'http://localhost:4000/api';
+const API_URL = import.meta.env.VITE_API_URL || '/api';
 
 let currentUser = null;
 let currentLang = getCurrentLanguage();
