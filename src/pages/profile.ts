@@ -385,9 +385,8 @@ async function loadStudentClasses() {
     try {
         const response = await fetch(`${API_URL}/classes/student/${currentUser.uid}`);
         if (!response.ok) {
-            // API not available, hide classes section
+            // API not available, just hide the classes list section
             if (myClassesSection) myClassesSection.style.display = 'none';
-            if (openJoinClassModalBtn) openJoinClassModalBtn.style.display = 'none';
             return;
         }
 
@@ -416,9 +415,8 @@ async function loadStudentClasses() {
         }
     } catch (error) {
         console.error('Error loading student classes:', error);
-        // Hide classes section on error
+        // Just hide the classes list section on error, keep the button
         if (myClassesSection) myClassesSection.style.display = 'none';
-        if (openJoinClassModalBtn) openJoinClassModalBtn.style.display = 'none';
     }
 }
 
