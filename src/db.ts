@@ -1,5 +1,5 @@
 // PostgreSQL API Client
-const API_URL = import.meta.env.VITE_API_URL || '/api';
+const API_URL = import.meta.env.VITE_API_URL || 'https://api.wordlex.online/api';
 
 // Helper function for fetch with error handling
 async function fetchAPI(url, options = {}) {
