@@ -1,6 +1,6 @@
 import { auth, onAuthStateChanged } from '../services/firebase';
 
-const API_URL = import.meta.env.VITE_API_URL || '/api';
+const API_URL = import.meta.env.VITE_API_URL || 'https://api.wordlex.online/api';
 
 let currentUser = null;
 let assignmentType = 'words';

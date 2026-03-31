@@ -4,7 +4,7 @@ import { initI18n, setLanguage, getCurrentLanguage, updatePageTranslations } fro
 import tier2Words from '../data/words-tier2-full';
 import { setAvatar, generateAvatarUrl } from '../utils/avatar';
 
-const API_URL = import.meta.env.VITE_API_URL || '/api';
+const API_URL = import.meta.env.VITE_API_URL || 'https://api.wordlex.online/api';
 
 let currentUser = null;
 let currentLang = getCurrentLanguage();
