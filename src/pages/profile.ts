@@ -384,7 +384,12 @@ async function loadStudentClasses() {
 
     try {
         const response = await fetch(`${API_URL}/classes/student/${currentUser.uid}`);
-        if (!response.ok) throw new Error('Failed to load classes');
+        if (!response.ok) {
+            // API not available, hide classes section
+            if (myClassesSection) myClassesSection.style.display = 'none';
+            if (openJoinClassModalBtn) openJoinClassModalBtn.style.display = 'none';
+            return;
+        }
 
         const classes = await response.json();
 
@@ -411,6 +416,9 @@ async function loadStudentClasses() {
         }
     } catch (error) {
         console.error('Error loading student classes:', error);
+        // Hide classes section on error
+        if (myClassesSection) myClassesSection.style.display = 'none';
+        if (openJoinClassModalBtn) openJoinClassModalBtn.style.display = 'none';
     }
 }
 
@@ -644,7 +652,10 @@ async function loadAssignments() {
 
     try {
         const [assignments, learnedData, stats] = await Promise.all([
-            fetch(`${API_URL}/assignments/student/${currentUser.uid}`).then(r => r.json()),
+            fetch(`${API_URL}/assignments/student/${currentUser.uid}`).then(r => {
+                if (!r.ok) return [];
+                return r.json();
+            }).catch(() => []),
             fetch(`${API_URL}/progress/${currentUser.uid}/tier2/learned`).then(r => r.json()).catch(() => ({ words: [] })),
             fetch(`${API_URL}/sessions/${currentUser.uid}/stats`).then(r => r.json()).catch(() => ({}))
         ]);
