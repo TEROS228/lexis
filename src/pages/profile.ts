@@ -451,7 +451,10 @@ joinClassBtnModal?.addEventListener('click', async () => {
         const data = await response.json();
 
         if (!response.ok) {
-            throw new Error(data.error || 'Failed to join class');
+            const errorMessage = data.error === 'Class not found'
+                ? 'Class not found. Please check the code and try again.'
+                : (data.error || 'Failed to join class');
+            throw new Error(errorMessage);
         }
 
         classCodeInputModal.value = '';

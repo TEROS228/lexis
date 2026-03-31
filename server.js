@@ -482,6 +482,56 @@ app.get('/api/classes/:id/students', async (req, res) => {
   }
 });
 
+// Join a class with code (for students)
+app.post('/api/classes/join', async (req, res) => {
+  try {
+    const { studentUid, classCode } = req.body;
+
+    // Find class by code
+    const classResult = await pool.query(
+      'SELECT id FROM classes WHERE class_code = $1',
+      [classCode.toUpperCase()]
+    );
+
+    if (classResult.rows.length === 0) {
+      return res.status(404).json({ error: 'Class not found' });
+    }
+
+    const classId = classResult.rows[0].id;
+
+    // Enroll student (ON CONFLICT DO NOTHING prevents duplicate enrollments)
+    await pool.query(
+      'INSERT INTO class_enrollments (class_id, student_uid) VALUES ($1, $2) ON CONFLICT DO NOTHING',
+      [classId, studentUid]
+    );
+
+    res.json({ success: true, classId });
+  } catch (error) {
+    console.error('Error joining class:', error);
+    res.status(500).json({ error: error.message });
+  }
+});
+
+// Get all classes for a student
+app.get('/api/classes/student/:uid', async (req, res) => {
+  try {
+    const { uid } = req.params;
+    const result = await pool.query(
+      `SELECT c.*, u.display_name as teacher_name
+       FROM class_enrollments ce
+       JOIN classes c ON ce.class_id = c.id
+       JOIN users u ON c.teacher_uid = u.uid
+       WHERE ce.student_uid = $1
+       ORDER BY ce.joined_at DESC`,
+      [uid]
+    );
+    res.json(result.rows);
+  } catch (error) {
+    console.error('Error loading student classes:', error);
+    res.status(500).json({ error: error.message });
+  }
+});
+
 // ============ ASSIGNMENTS API ============
 
 // Get all assignments for a teacher
@@ -529,6 +579,27 @@ app.delete('/api/assignments/:id', async (req, res) => {
     res.json({ success: true });
   } catch (error) {
     console.error('Error deleting assignment:', error);
+    res.status(500).json({ error: error.message });
+  }
+});
+
+// Get all assignments for a student (from their classes)
+app.get('/api/assignments/student/:uid', async (req, res) => {
+  try {
+    const { uid } = req.params;
+    const result = await pool.query(
+      `SELECT a.*, c.class_name, u.display_name as teacher_name
+       FROM assignments a
+       LEFT JOIN classes c ON a.class_id = c.id
+       LEFT JOIN users u ON a.teacher_uid = u.uid
+       LEFT JOIN class_enrollments ce ON ce.class_id = a.class_id
+       WHERE ce.student_uid = $1 OR a.class_id IS NULL
+       ORDER BY a.due_date ASC`,
+      [uid]
+    );
+    res.json(result.rows);
+  } catch (error) {
+    console.error('Error loading student assignments:', error);
     res.status(500).json({ error: error.message });
   }
 });
