@@ -17,7 +17,8 @@ tar -czf lexis-api.tar.gz \
   ecosystem.config.cjs \
   package.json \
   package-lock.json \
-  .env.vps
+  .env.vps \
+  nginx.conf
 
 echo "📤 Uploading to VPS..."
 scp lexis-api.tar.gz ${VPS_USER}@${VPS_IP}:/tmp/
@@ -42,6 +43,13 @@ ssh ${VPS_USER}@${VPS_IP} << 'ENDSSH'
 
   # Create logs directory
   mkdir -p logs
+
+  # Update nginx config if changed
+  if [ -f nginx.conf ]; then
+    cp nginx.conf /etc/nginx/sites-available/lexis-api
+    nginx -t && systemctl reload nginx
+    echo "✅ Nginx config updated"
+  fi
 
   # Restart with PM2
   pm2 delete lexis-api || true
