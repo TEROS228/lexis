@@ -324,3 +324,4 @@ export const resetStreak = async (uid: string) => {
 
 // Export for Firestore compatibility
 export const getFirestore = () => ({});
+// Force rebuild Tue Mar 31 11:15:02 +07 2026
