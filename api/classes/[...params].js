@@ -18,6 +18,12 @@ export default async function handler(req, res) {
   const pathSegments = urlPath.split('/').filter(Boolean);
   const params = pathSegments.slice(2); // Remove 'api' and 'classes'
 
+  console.log('[API /classes] Method:', req.method);
+  console.log('[API /classes] URL:', req.url);
+  console.log('[API /classes] Path segments:', pathSegments);
+  console.log('[API /classes] Params:', params);
+  console.log('[API /classes] Body:', req.body);
+
   // POST /api/classes (no params)
   if (req.method === 'POST' && params.length === 0) {
     const { teacherUid, className } = req.body;
@@ -42,17 +48,30 @@ export default async function handler(req, res) {
 
   // POST /api/classes/join
   if (req.method === 'POST' && params[0] === 'join') {
+    console.log('[API /classes/join] Starting join process');
     const { studentUid, classCode } = req.body;
+    console.log('[API /classes/join] Student UID:', studentUid);
+    console.log('[API /classes/join] Class code:', classCode);
     try {
-      const classResult = await pool.query('SELECT id FROM classes WHERE class_code = $1', [classCode.toUpperCase()]);
-      if (classResult.rows.length === 0) return res.status(404).json({ error: 'Class not found' });
+      const upperCode = classCode.toUpperCase();
+      console.log('[API /classes/join] Searching for class with code:', upperCode);
+      const classResult = await pool.query('SELECT id FROM classes WHERE class_code = $1', [upperCode]);
+      console.log('[API /classes/join] Found classes:', classResult.rows);
+      if (classResult.rows.length === 0) {
+        console.log('[API /classes/join] Class not found');
+        return res.status(404).json({ error: 'Class not found' });
+      }
       const classId = classResult.rows[0].id;
+      console.log('[API /classes/join] Class ID:', classId);
+      console.log('[API /classes/join] Inserting enrollment');
       await pool.query(
         `INSERT INTO class_enrollments (class_id, student_uid) VALUES ($1, $2) ON CONFLICT DO NOTHING`,
         [classId, studentUid]
       );
+      console.log('[API /classes/join] Enrollment successful');
       return res.json({ success: true, classId });
     } catch (error) {
+      console.error('[API /classes/join] Error:', error);
       return res.status(500).json({ error: error.message });
     }
   }

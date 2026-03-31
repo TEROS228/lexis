@@ -378,19 +378,32 @@ document.addEventListener('keydown', (e) => {
 
 // Load student classes
 async function loadStudentClasses() {
+    console.log('[LOAD CLASSES] Starting loadStudentClasses');
+    console.log('[LOAD CLASSES] Current user:', currentUser);
+    console.log('[LOAD CLASSES] User role:', currentUser?.role);
+
     if (!currentUser || !currentUser.role || currentUser.role !== 'student') {
+        console.log('[LOAD CLASSES] User is not a student, skipping');
         return;
     }
 
     try {
-        const response = await fetch(`${API_URL}/classes/student/${currentUser.uid}`);
+        const url = `${API_URL}/classes/student/${currentUser.uid}`;
+        console.log('[LOAD CLASSES] Fetching from:', url);
+
+        const response = await fetch(url);
+        console.log('[LOAD CLASSES] Response status:', response.status);
+        console.log('[LOAD CLASSES] Response ok:', response.ok);
+
         if (!response.ok) {
+            console.warn('[LOAD CLASSES] API returned error, hiding section');
             // API not available, just hide the classes list section
             if (myClassesSection) myClassesSection.style.display = 'none';
             return;
         }
 
         const classes = await response.json();
+        console.log('[LOAD CLASSES] Received classes:', classes);
 
         // Update count
         const classesCount = document.getElementById('classesCount');
@@ -399,8 +412,10 @@ async function loadStudentClasses() {
         }
 
         if (classes.length === 0) {
+            console.log('[LOAD CLASSES] No classes, showing empty state');
             studentClassesList.innerHTML = '<div class="empty-state-small">You haven\'t joined any classes yet. Click "Join Class" to get started!</div>';
         } else {
+            console.log('[LOAD CLASSES] Rendering', classes.length, 'classes');
             studentClassesList.innerHTML = classes.map(cls => `
                 <div class="student-class-card">
                     <div class="class-info">
@@ -414,7 +429,7 @@ async function loadStudentClasses() {
             `).join('');
         }
     } catch (error) {
-        console.error('Error loading student classes:', error);
+        console.error('[LOAD CLASSES] Error loading student classes:', error);
         // Just hide the classes list section on error, keep the button
         if (myClassesSection) myClassesSection.style.display = 'none';
     }
@@ -423,6 +438,11 @@ async function loadStudentClasses() {
 // Join class from modal
 joinClassBtnModal?.addEventListener('click', async () => {
     const classCode = classCodeInputModal.value.trim().toUpperCase();
+
+    console.log('[JOIN CLASS] Starting join process');
+    console.log('[JOIN CLASS] Class code:', classCode);
+    console.log('[JOIN CLASS] Current user:', currentUser);
+    console.log('[JOIN CLASS] API_URL:', API_URL);
 
     if (!classCode || classCode.length !== 6) {
         alert('Please enter a valid 6-character class code');
@@ -433,29 +453,47 @@ joinClassBtnModal?.addEventListener('click', async () => {
         joinClassBtnModal.setAttribute('disabled', 'true');
         joinClassBtnModal.innerHTML = '<span>⏳</span> Joining...';
 
-        const response = await fetch(`${API_URL}/classes/join`, {
+        const requestUrl = `${API_URL}/classes/join`;
+        const requestBody = {
+            studentUid: currentUser.uid,
+            classCode: classCode
+        };
+
+        console.log('[JOIN CLASS] Request URL:', requestUrl);
+        console.log('[JOIN CLASS] Request body:', requestBody);
+
+        const response = await fetch(requestUrl, {
             method: 'POST',
             headers: { 'Content-Type': 'application/json' },
-            body: JSON.stringify({
-                studentUid: currentUser.uid,
-                classCode: classCode
-            })
+            body: JSON.stringify(requestBody)
         });
+
+        console.log('[JOIN CLASS] Response status:', response.status);
+        console.log('[JOIN CLASS] Response headers:', [...response.headers.entries()]);
 
         // Check if response is JSON
         const contentType = response.headers.get('content-type');
+        console.log('[JOIN CLASS] Content-Type:', contentType);
+
         if (!contentType || !contentType.includes('application/json')) {
+            console.error('[JOIN CLASS] Non-JSON response received');
+            const text = await response.text();
+            console.error('[JOIN CLASS] Response text:', text);
             throw new Error('Class feature is not available at the moment. Please try again later.');
         }
 
         const data = await response.json();
+        console.log('[JOIN CLASS] Response data:', data);
 
         if (!response.ok) {
             const errorMessage = data.error === 'Class not found'
                 ? 'Class not found. Please check the code and try again.'
                 : (data.error || 'Failed to join class');
+            console.error('[JOIN CLASS] Request failed:', errorMessage);
             throw new Error(errorMessage);
         }
+
+        console.log('[JOIN CLASS] Join successful!');
 
         classCodeInputModal.value = '';
         await loadStudentClasses();
@@ -484,7 +522,7 @@ joinClassBtnModal?.addEventListener('click', async () => {
         joinClassBtnModal.removeAttribute('disabled');
         joinClassBtnModal.innerHTML = '<span>+</span> Join Class';
     } catch (error) {
-        console.error('Error joining class:', error);
+        console.error('[JOIN CLASS] Exception caught:', error);
 
         // Show error message
         const errorMsg = error.message || 'Failed to join class. Please check the code and try again.';
