@@ -216,7 +216,7 @@ async function loadUserProfile() {
             if (currentUser.role === 'student') {
                 myClassesSection.style.display = 'block';
                 openJoinClassModalBtn.style.display = 'inline-flex';
-                loadStudentClasses();
+                await loadStudentClasses();
             }
         }
     } catch (error) {

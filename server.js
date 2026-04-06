@@ -70,25 +70,8 @@ const pool = new pg.Pool({
   }
 })();
 
-// CORS configuration
-const allowedOrigins = [
-  'https://lexis-eight.vercel.app',
-  'https://wordlex.online',
-  'https://www.wordlex.online',
-  'http://localhost:3000',
-  'http://localhost:5173'
-];
-
-app.use(cors({
-  origin: (origin, callback) => {
-    if (!origin || allowedOrigins.includes(origin)) {
-      callback(null, true);
-    } else {
-      callback(new Error('Not allowed by CORS'));
-    }
-  },
-  credentials: true
-}));
+// CORS is handled by nginx, so we don't need CORS middleware in Express
+// This prevents duplicate CORS headers
 
 app.use(express.json());
 
