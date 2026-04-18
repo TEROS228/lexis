@@ -1,0 +1,128 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Sign Up - Lexis</title>
+    <link rel="preconnect" href="https://www.gstatic.com">
+    <link rel="dns-prefetch" href="https://www.gstatic.com">
+    <style>
+        /* Critical CSS */
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', sans-serif;
+            min-height: 100vh;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: #1f2937;
+            line-height: 1.6;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 20px;
+        }
+    </style>
+    <link rel="stylesheet" href="styles.css?v=16">
+    <script type="importmap">
+    {
+      "imports": {
+        "firebase/app": "https://www.gstatic.com/firebasejs/10.7.1/firebase-app.js",
+        "firebase/auth": "https://www.gstatic.com/firebasejs/10.7.1/firebase-auth.js",
+        "firebase/firestore": "https://www.gstatic.com/firebasejs/10.7.1/firebase-firestore.js"
+      }
+    }
+    </script>
+</head>
+<body>
+    <div class="auth-page-container">
+        <div class="auth-page-card">
+            <div class="auth-page-header">
+                <a href="/" class="auth-page-logo">
+                    <img src="/logo.png" alt="Lexis" class="logo-img">
+                </a>
+                <h1 class="auth-page-title">Sign Up</h1>
+                <p class="auth-page-subtitle">Create your account to start learning.</p>
+            </div>
+
+            <form id="emailAuthForm" class="auth-page-form">
+                <div class="input-group-glass">
+                    <input type="text" id="authDisplayName" placeholder=" " />
+                    <label>Name (optional)</label>
+                </div>
+
+                <div class="input-group-glass">
+                    <input type="email" id="authEmail" placeholder=" " required />
+                    <label>Email</label>
+                </div>
+
+                <div class="input-group-glass">
+                    <input type="password" id="authPassword" placeholder=" " required />
+                    <label>Password</label>
+                </div>
+
+                <button type="submit" class="auth-page-btn" id="emailAuthSubmit">
+                    <span>Sign Up</span>
+                </button>
+
+                <div class="divider-glass">
+                    <span>or</span>
+                </div>
+
+                <button type="button" class="google-btn-glass" id="googleSignInBtn">
+                    <img src="https://www.svgrepo.com/show/475656/google-color.svg" alt="Google">
+                    <span>Sign up with Google</span>
+                </button>
+            </form>
+
+            <div class="auth-page-footer">
+                <span>Already have an account?</span>
+                <a href="/login.html">Sign In</a>
+            </div>
+        </div>
+    </div>
+
+    <!-- Role Selection Modal -->
+    <div class="modal-overlay" id="roleModal" style="display: none;">
+        <div class="modal-content role-modal-slider">
+            <div class="role-modal-wrapper">
+                <!-- Step 1: Role Selection -->
+                <div class="role-step active" id="roleStep">
+                    <h2 class="modal-title">Welcome! Please select your role</h2>
+                    <div class="role-selection">
+                        <button class="role-card" id="selectTeacher">
+                            <div class="role-icon">👨‍🏫</div>
+                            <div class="role-name">Teacher</div>
+                            <div class="role-description">I teach English</div>
+                        </button>
+                        <button class="role-card" id="selectStudent">
+                            <div class="role-icon">👨‍🎓</div>
+                            <div class="role-name">Student</div>
+                            <div class="role-description">I'm learning English</div>
+                        </button>
+                    </div>
+                </div>
+
+                <!-- Step 2: Teacher Name Input -->
+                <div class="role-step" id="teacherNameStep">
+                    <h2 class="modal-title">Enter your name</h2>
+                    <p class="modal-subtitle">Your name will be shown to students when they join your class</p>
+                    <div class="name-input-container">
+                        <input type="text" id="teacherNameInput" placeholder="John Smith" maxlength="50">
+                        <button class="btn-continue" id="confirmTeacherName">Continue</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Success Toast -->
+    <div class="toast-notification" id="successToast">
+        <div class="toast-icon" id="toastIcon">✓</div>
+        <div class="toast-content">
+            <div class="toast-title" id="toastTitle">Success!</div>
+            <div class="toast-message" id="toastMessage">Welcome to Lexis!</div>
+        </div>
+    </div>
+
+    <script type="module" src="/src/pages/signup.ts"></script>
+</body>
+</html>

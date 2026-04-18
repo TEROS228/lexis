@@ -3363,3 +3363,142 @@ footer {
         justify-content: center;
     }
 }
+
+/* Auth Page Styles */
+.auth-page-container {
+    min-height: 100vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 20px;
+    width: 100%;
+}
+
+.auth-page-card {
+    background: rgba(255, 255, 255, 0.98);
+    backdrop-filter: blur(20px);
+    border-radius: 24px;
+    padding: 48px;
+    width: 100%;
+    max-width: 480px;
+    box-shadow: 0 20px 60px rgba(0, 0, 0, 0.2);
+    animation: fadeInUp 0.5s ease;
+}
+
+@keyframes fadeInUp {
+    from {
+        opacity: 0;
+        transform: translateY(30px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+.auth-page-header {
+    text-align: center;
+    margin-bottom: 32px;
+}
+
+.auth-page-logo {
+    display: inline-block;
+    margin-bottom: 24px;
+}
+
+.auth-page-logo .logo-img {
+    height: 48px;
+    width: auto;
+}
+
+.auth-page-title {
+    font-size: 32px;
+    font-weight: 700;
+    color: #1f2937;
+    margin-bottom: 8px;
+}
+
+.auth-page-subtitle {
+    font-size: 16px;
+    color: #6b7280;
+    font-weight: 400;
+}
+
+.auth-page-form {
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+}
+
+.auth-page-forgot {
+    text-align: right;
+    margin-top: -8px;
+}
+
+.auth-page-forgot a {
+    font-size: 14px;
+    color: #6366f1;
+    text-decoration: none;
+    font-weight: 500;
+    transition: color 0.2s;
+}
+
+.auth-page-forgot a:hover {
+    color: #4f46e5;
+}
+
+.auth-page-btn {
+    width: 100%;
+    padding: 14px 24px;
+    background: linear-gradient(135deg, #6366f1 0%, #8b5cf6 100%);
+    color: white;
+    border: none;
+    border-radius: 12px;
+    font-size: 16px;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 0.3s;
+    box-shadow: 0 4px 12px rgba(99, 102, 241, 0.3);
+}
+
+.auth-page-btn:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 8px 20px rgba(99, 102, 241, 0.4);
+}
+
+.auth-page-btn:active {
+    transform: translateY(0);
+}
+
+.auth-page-footer {
+    text-align: center;
+    margin-top: 24px;
+    font-size: 14px;
+    color: #6b7280;
+}
+
+.auth-page-footer a {
+    color: #6366f1;
+    text-decoration: none;
+    font-weight: 600;
+    margin-left: 4px;
+    transition: color 0.2s;
+}
+
+.auth-page-footer a:hover {
+    color: #4f46e5;
+}
+
+@media (max-width: 640px) {
+    .auth-page-card {
+        padding: 32px 24px;
+    }
+
+    .auth-page-title {
+        font-size: 28px;
+    }
+
+    .auth-page-subtitle {
+        font-size: 14px;
+    }
+}

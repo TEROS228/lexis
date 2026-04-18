@@ -298,10 +298,9 @@ selectStudent.addEventListener('click', async () => {
     }
 });
 
-// Show auth modal
+// Show auth modal - redirect to login page
 showAuthModalBtn.addEventListener('click', () => {
-    authModal.style.display = 'flex';
-    document.body.style.overflow = 'hidden';
+    window.location.href = '/login.html';
 });
 
 // Close auth modal
