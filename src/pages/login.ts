@@ -200,7 +200,16 @@ emailAuthForm.addEventListener('submit', async (e) => {
         }
     } catch (error) {
         console.error('Auth error:', error);
-        alert(error.message || 'Authentication error. Please try again.');
+
+        // Check if account doesn't exist
+        if (error.message && error.message.includes('не найден')) {
+            const goToSignup = confirm('Account not found. Would you like to sign up instead?');
+            if (goToSignup) {
+                window.location.href = '/signup.html';
+            }
+        } else {
+            alert(error.message || 'Authentication error. Please try again.');
+        }
     }
 });
 

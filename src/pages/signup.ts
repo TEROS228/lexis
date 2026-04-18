@@ -154,13 +154,32 @@ googleSignInBtn.addEventListener('click', async () => {
         const user = await signInWithGoogle();
         const result = await initUserProfile(user);
 
-        showToast('Account created!', `Welcome, ${user.displayName || user.email}! 🎉`);
+        if (result.isNewUser) {
+            showToast('Account created!', `Welcome, ${user.displayName || user.email}! 🎉`);
 
-        // Always show role modal for new users with Google
-        pendingUser = user;
-        setTimeout(() => {
-            showRoleModal();
-        }, 500);
+            // Show role modal for new users
+            pendingUser = user;
+            setTimeout(() => {
+                showRoleModal();
+            }, 500);
+        } else {
+            // Existing user - check if they have a role
+            showToast('Signed in!', `Welcome back, ${user.displayName || user.email}!`);
+
+            const userData = await getUserProfile(user.uid);
+            if (!userData || !userData.role) {
+                // User exists but no role set - show role modal
+                pendingUser = user;
+                setTimeout(() => {
+                    showRoleModal();
+                }, 500);
+            } else {
+                // User has role - redirect to tiers
+                setTimeout(() => {
+                    window.location.href = '/tiers.html';
+                }, 1000);
+            }
+        }
     } catch (error) {
         console.error('Google sign in error:', error);
         alert('Sign-up error. Please try again.');
@@ -188,7 +207,16 @@ emailAuthForm.addEventListener('submit', async (e) => {
         }, 500);
     } catch (error) {
         console.error('Auth error:', error);
-        alert(error.message || 'Authentication error. Please try again.');
+
+        // Check if email already exists
+        if (error.message && error.message.includes('уже зарегистрирован')) {
+            const goToLogin = confirm('This email is already registered. Would you like to sign in instead?');
+            if (goToLogin) {
+                window.location.href = '/login.html';
+            }
+        } else {
+            alert(error.message || 'Authentication error. Please try again.');
+        }
     }
 });
 
