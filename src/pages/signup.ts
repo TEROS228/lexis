@@ -140,7 +140,8 @@ confirmTeacherNameBtn.addEventListener('click', async () => {
             hideRoleModal();
         } catch (error) {
             console.error('Error saving teacher info:', error);
-            alert('Error saving information. Please try again.');
+            const errorMsg = error.message || 'Error saving information. Please try again.';
+            alert(`Failed to save teacher role: ${errorMsg}`);
         }
     }
 });
@@ -182,7 +183,8 @@ selectStudent.addEventListener('click', async () => {
             hideRoleModal();
         } catch (error) {
             console.error('Error saving student role:', error);
-            alert('Error saving role. Please try again.');
+            const errorMsg = error.message || 'Error saving role. Please try again.';
+            alert(`Failed to save student role: ${errorMsg}`);
         }
     }
 });

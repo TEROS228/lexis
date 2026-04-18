@@ -83,15 +83,33 @@ export const getUserProfile = async (uid) => {
 };
 
 export const saveUserRoleAndLanguage = async (uid, role, nativeLanguage = null) => {
+  console.log('💾 [SAVE ROLE] Starting saveUserRoleAndLanguage');
+  console.log('💾 [SAVE ROLE] UID:', uid);
+  console.log('💾 [SAVE ROLE] Role:', role);
+  console.log('💾 [SAVE ROLE] Native Language:', nativeLanguage);
+  console.log('💾 [SAVE ROLE] Full URL:', `${API_URL}/users/${uid}`);
+
+  const payload = { role, nativeLanguage };
+  console.log('💾 [SAVE ROLE] Payload:', JSON.stringify(payload, null, 2));
+
   try {
     const response = await fetch(`${API_URL}/users/${uid}`, {
       method: 'PATCH',
       headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify({ role, nativeLanguage })
+      body: JSON.stringify(payload)
     });
 
-    if (!response.ok) throw new Error('Failed to update user');
-    return await response.json();
+    console.log('💾 [SAVE ROLE] Response status:', response.status);
+
+    if (!response.ok) {
+      const errorText = await response.text();
+      console.error('💾 [SAVE ROLE] Error response:', errorText);
+      throw new Error(`Failed to update user: ${response.status} - ${errorText}`);
+    }
+
+    const data = await response.json();
+    console.log('💾 [SAVE ROLE] Success:', data);
+    return data;
   } catch (error) {
     console.error('Error saving user role and language:', error);
     throw error;
