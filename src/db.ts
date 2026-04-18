@@ -35,20 +35,34 @@ export const initUserProfile = async (user) => {
   console.log('🚀 [INIT USER] Starting initUserProfile');
   console.log('🚀 [INIT USER] User:', user);
   console.log('🚀 [INIT USER] Full URL will be:', `${API_URL}/users`);
+
+  const payload = {
+    uid: user.uid,
+    email: user.email,
+    displayName: user.displayName,
+    photoURL: user.photoURL
+  };
+
+  console.log('🚀 [INIT USER] Payload:', JSON.stringify(payload, null, 2));
+
   try {
     const response = await fetch(`${API_URL}/users`, {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify({
-        uid: user.uid,
-        email: user.email,
-        displayName: user.displayName,
-        photoURL: user.photoURL
-      })
+      body: JSON.stringify(payload)
     });
 
-    if (!response.ok) throw new Error('Failed to init user profile');
-    return await response.json();
+    console.log('🚀 [INIT USER] Response status:', response.status);
+
+    if (!response.ok) {
+      const errorText = await response.text();
+      console.error('🚀 [INIT USER] Error response:', errorText);
+      throw new Error(`Failed to init user profile: ${response.status} - ${errorText}`);
+    }
+
+    const data = await response.json();
+    console.log('🚀 [INIT USER] Success:', data);
+    return data;
   } catch (error) {
     console.error('Error initializing user profile:', error);
     throw error;

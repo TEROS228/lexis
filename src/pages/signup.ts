@@ -106,15 +106,32 @@ confirmTeacherNameBtn.addEventListener('click', async () => {
 
     if (pendingUser) {
         try {
+            // Update display name in Firebase
             await updateProfile(pendingUser, {
                 displayName: teacherName
             });
 
-            // Try to initialize profile first if it doesn't exist
+            // Ensure profile exists in database
+            let profileCreated = false;
             try {
                 await initUserProfile(pendingUser);
+                profileCreated = true;
+                console.log('Profile created successfully');
             } catch (initError) {
-                console.log('Profile already exists or error:', initError);
+                console.log('Failed to create profile, checking if exists:', initError);
+                // Check if profile already exists
+                try {
+                    await getUserProfile(pendingUser.uid);
+                    profileCreated = true;
+                    console.log('Profile already exists');
+                } catch (getError) {
+                    console.error('Profile does not exist and cannot be created:', getError);
+                }
+            }
+
+            if (!profileCreated) {
+                alert('Unable to connect to server. Please try again later.');
+                return;
             }
 
             await saveUserRoleAndLanguage(pendingUser.uid, 'teacher', 'en');
@@ -136,11 +153,27 @@ selectStudent.addEventListener('click', async () => {
 
     if (pendingUser) {
         try {
-            // Try to initialize profile first if it doesn't exist
+            // Ensure profile exists in database
+            let profileCreated = false;
             try {
                 await initUserProfile(pendingUser);
+                profileCreated = true;
+                console.log('Profile created successfully');
             } catch (initError) {
-                console.log('Profile already exists or error:', initError);
+                console.log('Failed to create profile, checking if exists:', initError);
+                // Check if profile already exists
+                try {
+                    await getUserProfile(pendingUser.uid);
+                    profileCreated = true;
+                    console.log('Profile already exists');
+                } catch (getError) {
+                    console.error('Profile does not exist and cannot be created:', getError);
+                }
+            }
+
+            if (!profileCreated) {
+                alert('Unable to connect to server. Please try again later.');
+                return;
             }
 
             await saveUserRoleAndLanguage(pendingUser.uid, 'student', 'en');
