@@ -111,6 +111,13 @@ confirmTeacherNameBtn.addEventListener('click', async () => {
                 displayName: teacherName
             });
 
+            // Try to initialize profile first if it doesn't exist
+            try {
+                await initUserProfile(pendingUser);
+            } catch (initError) {
+                console.log('Profile already exists or error:', initError);
+            }
+
             await saveUserRoleAndLanguage(pendingUser.uid, 'teacher', 'en');
             localStorage.setItem('preferred-language', 'en');
 
@@ -130,6 +137,13 @@ selectStudent.addEventListener('click', async () => {
 
     if (pendingUser) {
         try {
+            // Try to initialize profile first if it doesn't exist
+            try {
+                await initUserProfile(pendingUser);
+            } catch (initError) {
+                console.log('Profile already exists or error:', initError);
+            }
+
             await saveUserRoleAndLanguage(pendingUser.uid, 'student', 'en');
             localStorage.setItem('preferred-language', 'en');
 
@@ -153,7 +167,15 @@ const googleSignInBtn = document.getElementById('googleSignInBtn');
 googleSignInBtn.addEventListener('click', async () => {
     try {
         const user = await signInWithGoogle();
-        const result = await initUserProfile(user);
+
+        // Try to initialize user profile
+        let result = { isNewUser: false };
+        try {
+            result = await initUserProfile(user);
+        } catch (initError) {
+            console.error('Failed to initialize profile:', initError);
+            // Continue anyway - we'll check getUserProfile below
+        }
 
         if (result.isNewUser) {
             showToast('Account created!', `Welcome, ${user.displayName || user.email}! 🎉`);
@@ -163,9 +185,29 @@ googleSignInBtn.addEventListener('click', async () => {
             }, 500);
         } else {
             showToast('Signed in!', `Welcome back, ${user.displayName || user.email}!`);
-            setTimeout(() => {
-                window.location.href = '/tiers.html';
-            }, 1000);
+
+            try {
+                const userData = await getUserProfile(user.uid);
+                if (!userData || !userData.role) {
+                    // User exists but no role set - show role modal
+                    pendingUser = user;
+                    setTimeout(() => {
+                        showRoleModal();
+                    }, 500);
+                } else {
+                    // User has role - redirect to tiers
+                    setTimeout(() => {
+                        window.location.href = '/tiers.html';
+                    }, 1000);
+                }
+            } catch (getUserError) {
+                console.error('Failed to get user profile:', getUserError);
+                // User not in database - show role modal to initialize
+                pendingUser = user;
+                setTimeout(() => {
+                    showRoleModal();
+                }, 500);
+            }
         }
     } catch (error) {
         console.error('Google sign in error:', error);
@@ -182,21 +224,38 @@ emailAuthForm.addEventListener('submit', async (e) => {
 
     try {
         const user = await signInWithEmail(email, password);
-        const result = await initUserProfile(user);
+
+        // Try to initialize user profile
+        try {
+            const result = await initUserProfile(user);
+            console.log('User profile initialized:', result);
+        } catch (initError) {
+            console.error('Failed to initialize profile, but user is authenticated:', initError);
+            // Continue anyway - profile will be created when role is set
+        }
 
         showToast('Signed in!', `Welcome back, ${user.displayName || user.email}!`);
 
         // Check if user has role
-        const userData = await getUserProfile(user.uid);
-        if (!userData || !userData.role) {
+        try {
+            const userData = await getUserProfile(user.uid);
+            if (!userData || !userData.role) {
+                pendingUser = user;
+                setTimeout(() => {
+                    showRoleModal();
+                }, 500);
+            } else {
+                setTimeout(() => {
+                    window.location.href = '/tiers.html';
+                }, 1000);
+            }
+        } catch (getUserError) {
+            console.error('Failed to get user profile:', getUserError);
+            // User not in database - show role modal to initialize
             pendingUser = user;
             setTimeout(() => {
                 showRoleModal();
             }, 500);
-        } else {
-            setTimeout(() => {
-                window.location.href = '/tiers.html';
-            }, 1000);
         }
     } catch (error) {
         console.error('Auth error:', error);
@@ -235,10 +294,15 @@ forgotPasswordLink.addEventListener('click', async (e) => {
 // Check if already authenticated
 onAuthStateChanged(auth, async (user) => {
     if (user) {
-        // User is already signed in, redirect to tiers
-        const userData = await getUserProfile(user.uid);
-        if (userData && userData.role) {
-            window.location.href = '/tiers.html';
+        // User is already signed in, check their profile
+        try {
+            const userData = await getUserProfile(user.uid);
+            if (userData && userData.role) {
+                window.location.href = '/tiers.html';
+            }
+        } catch (error) {
+            // User exists in Firebase but not in database - this is handled by auth flow
+            console.log('User not found in database, will be created during authentication flow');
         }
     }
 });
