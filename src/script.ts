@@ -254,6 +254,31 @@ confirmTeacherNameBtn.addEventListener('click', async () => {
                 displayName: teacherName
             });
 
+            // Ensure profile exists in database
+            let profileCreated = false;
+            try {
+                const { initUserProfile } = await import('./db');
+                await initUserProfile(pendingUser);
+                profileCreated = true;
+                console.log('Profile created successfully');
+            } catch (initError) {
+                console.log('Failed to create profile, checking if exists:', initError);
+                // Check if profile already exists
+                try {
+                    const { getUserProfile } = await import('./db');
+                    await getUserProfile(pendingUser.uid);
+                    profileCreated = true;
+                    console.log('Profile already exists');
+                } catch (getError) {
+                    console.error('Profile does not exist and cannot be created:', getError);
+                }
+            }
+
+            if (!profileCreated) {
+                alert('Unable to connect to server. Please try again later.');
+                return;
+            }
+
             // Save role for teacher with English as default language
             await saveUserRoleAndLanguage(pendingUser.uid, 'teacher', 'en');
             console.log('Teacher role saved with English as default');
@@ -269,7 +294,8 @@ confirmTeacherNameBtn.addEventListener('click', async () => {
             hideRoleModal();
         } catch (error) {
             console.error('Error saving teacher info:', error);
-            alert('Error saving information. Please try again.');
+            const errorMsg = error.message || 'Error saving information. Please try again.';
+            alert(`Failed to save teacher role: ${errorMsg}`);
         }
     }
 });
@@ -283,6 +309,31 @@ selectStudent.addEventListener('click', async () => {
     // Save student role immediately with English as default language
     if (pendingUser) {
         try {
+            // Ensure profile exists in database
+            let profileCreated = false;
+            try {
+                const { initUserProfile } = await import('./db');
+                await initUserProfile(pendingUser);
+                profileCreated = true;
+                console.log('Profile created successfully');
+            } catch (initError) {
+                console.log('Failed to create profile, checking if exists:', initError);
+                // Check if profile already exists
+                try {
+                    const { getUserProfile } = await import('./db');
+                    await getUserProfile(pendingUser.uid);
+                    profileCreated = true;
+                    console.log('Profile already exists');
+                } catch (getError) {
+                    console.error('Profile does not exist and cannot be created:', getError);
+                }
+            }
+
+            if (!profileCreated) {
+                alert('Unable to connect to server. Please try again later.');
+                return;
+            }
+
             await saveUserRoleAndLanguage(pendingUser.uid, 'student', 'en');
             console.log('Student role saved with English as default');
 
@@ -293,7 +344,8 @@ selectStudent.addEventListener('click', async () => {
             hideRoleModal();
         } catch (error) {
             console.error('Error saving student role:', error);
-            alert('Error saving role. Please try again.');
+            const errorMsg = error.message || 'Error saving role. Please try again.';
+            alert(`Failed to save student role: ${errorMsg}`);
         }
     }
 });
